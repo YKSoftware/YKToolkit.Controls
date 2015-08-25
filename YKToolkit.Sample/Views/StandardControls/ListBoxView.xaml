@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="YKToolkit.Sample.Views.ListBoxView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d"
+             xmlns:vm="clr-namespace:YKToolkit.Sample.ViewModels"
+             d:DataContext="{d:DesignInstance vm:ListBoxViewModel}"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid Margin="20,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="140" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="40" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <ListBox Grid.Column="0" SelectedIndex="2">
+            <ListBoxItem>アイテム 1</ListBoxItem>
+            <ListBoxItem>アイテム 2</ListBoxItem>
+            <ListBoxItem>アイテム 3</ListBoxItem>
+            <ListBoxItem>アイテム 4</ListBoxItem>
+            <ListBoxItem>アイテム 5</ListBoxItem>
+            <ListBoxItem>アイテム 6</ListBoxItem>
+            <ListBoxItem>アイテム 7</ListBoxItem>
+            <ListBoxItem>アイテム 8</ListBoxItem>
+            <ListBoxItem>アイテム 9</ListBoxItem>
+            <ListBoxItem>アイテム 10</ListBoxItem>
+        </ListBox>
+
+        <ListBox Grid.Column="2" SelectedIndex="2" IsEnabled="False">
+            <ListBoxItem>アイテム 1</ListBoxItem>
+            <ListBoxItem>アイテム 2</ListBoxItem>
+            <ListBoxItem>アイテム 3</ListBoxItem>
+            <ListBoxItem>アイテム 4</ListBoxItem>
+            <ListBoxItem>アイテム 5</ListBoxItem>
+            <ListBoxItem>アイテム 6</ListBoxItem>
+            <ListBoxItem>アイテム 7</ListBoxItem>
+            <ListBoxItem>アイテム 8</ListBoxItem>
+            <ListBoxItem>アイテム 9</ListBoxItem>
+            <ListBoxItem>アイテム 10</ListBoxItem>
+        </ListBox>
+    </Grid>
+</UserControl>

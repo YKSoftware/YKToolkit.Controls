@@ -1,0 +1,113 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/YKToolkit.Controls;component/Themes/DefaultColors.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style x:Key="ExpanderButtonStyle" TargetType="ToggleButton">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Canvas Width="30" Height="30">
+                        <Path x:Name="path1" Canvas.Left="15" Canvas.Top="15">
+                            <Path.Style>
+                                <Style TargetType="{x:Type Path}">
+                                    <Setter Property="SnapsToDevicePixels" Value="True" />
+                                    <Setter Property="Fill" Value="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}" />
+                                    <Setter Property="Stroke" Value="{Binding Foreground, RelativeSource={RelativeSource TemplatedParent}}" />
+                                    <Setter Property="StrokeThickness" Value="1" />
+                                    <Setter Property="Data">
+                                        <Setter.Value>
+                                            <EllipseGeometry Center="0,0" RadiusX="9" RadiusY="9" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Path.Style>
+                        </Path>
+                        <Path x:Name="path2" Data="M13,11 19,15 13,19 Z" Width="30" Height="30" Fill="{Binding Foreground, RelativeSource={RelativeSource TemplatedParent}}" />
+                    </Canvas>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="path2" Property="Data" Value="M18,12 18,18 11,18 Z" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Expander">
+        <Setter Property="Foreground" Value="{StaticResource DefaultForegroundBrush}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Expander">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition x:Name="ContentRow" Height="0" />
+                        </Grid.RowDefinitions>
+
+                        <ToggleButton Content="{TemplateBinding Header}" IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}">
+                            <ToggleButton.Template>
+                                <ControlTemplate TargetType="ToggleButton">
+                                    <DockPanel Background="Transparent">
+                                        <ToggleButton x:Name="button"
+                                                      DockPanel.Dock="Left"
+                                                      IsChecked="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}}"
+                                                      Style="{StaticResource ExpanderButtonStyle}">
+                                            <ToggleButton.Foreground>
+                                                <SolidColorBrush Color="{DynamicResource ForegroundColor}" />
+                                            </ToggleButton.Foreground>
+                                            <ToggleButton.Background>
+                                                <SolidColorBrush Color="Transparent" />
+                                            </ToggleButton.Background>
+                                        </ToggleButton>
+                                        <Label Content="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}" Margin="8,0,0,0" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" />
+                                    </DockPanel>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="button" Property="BorderBrush">
+                                                <Setter.Value>
+                                                    <LinearGradientBrush>
+                                                        <GradientStop Color="{DynamicResource ButtonHoverBorderColor}" />
+                                                    </LinearGradientBrush>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Setter TargetName="button" Property="Background">
+                                                <Setter.Value>
+                                                    <SolidColorBrush Color="{DynamicResource ButtonHoverColor}" />
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter TargetName="button" Property="Foreground">
+                                                <Setter.Value>
+                                                    <SolidColorBrush Color="{DynamicResource PressedButtonForegroundColor}" />
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Setter TargetName="button" Property="Background">
+                                                <Setter.Value>
+                                                    <SolidColorBrush Color="{DynamicResource PressedButtonColor}" />
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </ToggleButton.Template>
+                        </ToggleButton>
+
+                        <Border x:Name="Content" Grid.Row="1" Padding="4">
+                            <ContentPresenter TextBlock.FontSize="12" />
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsExpanded" Value="True">
+                            <Setter TargetName="ContentRow" Property="Height" Value="{Binding DesiredHeight, ElementName=Content}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="YKToolkit.Sample.Views.ComboBoxView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d"
+             xmlns:vm="clr-namespace:YKToolkit.Sample.ViewModels"
+             d:DataContext="{d:DesignInstance vm:ComboBoxViewModel}"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid Margin="20,0">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="4" />
+                <RowDefinition />
+                <RowDefinition Height="4" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="40" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <ComboBox Grid.Row="0" Grid.Column="0">
+                <ComboBoxItem>アイテム 1</ComboBoxItem>
+                <ComboBoxItem>アイテム 2</ComboBoxItem>
+                <ComboBoxItem>アイテム 3</ComboBoxItem>
+                <ComboBoxItem>アイテム 4</ComboBoxItem>
+                <ComboBoxItem>アイテム 5</ComboBoxItem>
+                <ComboBoxItem>アイテム 6</ComboBoxItem>
+                <ComboBoxItem>アイテム 7</ComboBoxItem>
+                <ComboBoxItem>アイテム 8</ComboBoxItem>
+                <ComboBoxItem>アイテム 9</ComboBoxItem>
+                <ComboBoxItem>アイテム 10</ComboBoxItem>
+            </ComboBox>
+            <ComboBox Grid.Row="0" Grid.Column="2" SelectedIndex="4" IsEnabled="False">
+                <ComboBoxItem>アイテム 1</ComboBoxItem>
+                <ComboBoxItem>アイテム 2</ComboBoxItem>
+                <ComboBoxItem>アイテム 3</ComboBoxItem>
+                <ComboBoxItem>アイテム 4</ComboBoxItem>
+                <ComboBoxItem>アイテム 5</ComboBoxItem>
+                <ComboBoxItem>アイテム 6</ComboBoxItem>
+                <ComboBoxItem>アイテム 7</ComboBoxItem>
+                <ComboBoxItem>アイテム 8</ComboBoxItem>
+                <ComboBoxItem>アイテム 9</ComboBoxItem>
+                <ComboBoxItem>アイテム 10</ComboBoxItem>
+            </ComboBox>
+            <ComboBox Grid.Row="2" Grid.Column="0" IsEditable="True">
+                <ComboBoxItem>アイテム 1</ComboBoxItem>
+                <ComboBoxItem>アイテム 2</ComboBoxItem>
+                <ComboBoxItem>アイテム 3</ComboBoxItem>
+                <ComboBoxItem>アイテム 4</ComboBoxItem>
+                <ComboBoxItem>アイテム 5</ComboBoxItem>
+                <ComboBoxItem>アイテム 6</ComboBoxItem>
+                <ComboBoxItem>アイテム 7</ComboBoxItem>
+                <ComboBoxItem>アイテム 8</ComboBoxItem>
+                <ComboBoxItem>アイテム 9</ComboBoxItem>
+                <ComboBoxItem>アイテム 10</ComboBoxItem>
+            </ComboBox>
+            <ComboBox Grid.Row="2" Grid.Column="2" IsEditable="True" SelectedIndex="4" IsEnabled="False">
+                <ComboBoxItem>アイテム 1</ComboBoxItem>
+                <ComboBoxItem>アイテム 2</ComboBoxItem>
+                <ComboBoxItem>アイテム 3</ComboBoxItem>
+                <ComboBoxItem>アイテム 4</ComboBoxItem>
+                <ComboBoxItem>アイテム 5</ComboBoxItem>
+                <ComboBoxItem>アイテム 6</ComboBoxItem>
+                <ComboBoxItem>アイテム 7</ComboBoxItem>
+                <ComboBoxItem>アイテム 8</ComboBoxItem>
+                <ComboBoxItem>アイテム 9</ComboBoxItem>
+                <ComboBoxItem>アイテム 10</ComboBoxItem>
+            </ComboBox>
+            <ComboBox Grid.Row="4" Grid.Column="0" ItemsSource="{Binding People}" DisplayMemberPath="Name" SelectedIndex="0" />
+        </Grid>
+    </Grid>
+</UserControl>

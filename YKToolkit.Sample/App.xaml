@@ -1,0 +1,67 @@
+﻿<Application x:Class="YKToolkit.Sample.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:YKToolkit.Sample.ViewModels"
+             xmlns:vw="clr-namespace:YKToolkit.Sample.Views">
+    <Application.Resources>
+
+        <DataTemplate DataType="{x:Type vm:ButtonViewModel}">
+            <vw:ButtonView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:CheckBoxViewModel}">
+            <vw:CheckBoxView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ComboBoxViewModel}">
+            <vw:ComboBoxView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ContextMenuViewModel}">
+            <vw:ContextMenuView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DataGridViewModel}">
+            <vw:DataGridView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ExpanderViewModel}">
+            <vw:ExpanderView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:LabelViewModel}">
+            <vw:LabelView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ListBoxViewModel}">
+            <vw:ListBoxView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:MenuViewModel}">
+            <vw:MenuView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:PasswordBoxViewModel}">
+            <vw:PasswordBoxView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:RadioButtonViewModel}">
+            <vw:RadioButtonView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:RepeatButtonViewModel}">
+            <vw:RepeatButtonView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ScrollBarViewModel}">
+            <vw:ScrollBarView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:SliderViewModel}">
+            <vw:SliderView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:StatusBarViewModel}">
+            <vw:StatusBarView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:TabControlViewModel}">
+            <vw:TabControlView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:TextBoxViewModel}">
+            <vw:TextBoxView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ToggleButtonViewModel}">
+            <vw:ToggleButtonView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:TreeViewViewModel}">
+            <vw:TreeViewView />
+        </DataTemplate>
+
+    </Application.Resources>
+</Application>

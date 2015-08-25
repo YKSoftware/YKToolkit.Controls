@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="YKToolkit.Sample.Views.CheckBoxView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d"
+             xmlns:vm="clr-namespace:YKToolkit.Sample.ViewModels"
+             d:DataContext="{d:DesignInstance vm:CheckBoxViewModel}"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid Margin="20,0">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="4" />
+            <RowDefinition />
+            <RowDefinition Height="4" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="40" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <CheckBox Grid.Row="0" Grid.Column="0" Content="I have two states." />
+        <CheckBox Grid.Row="2" Grid.Column="0" Content="I have three states." IsThreeState="True" IsChecked="{x:Null}" />
+        <CheckBox Grid.Row="0" Grid.Column="2" Content="Unchecked disabled CheckBox" IsEnabled="False" />
+        <CheckBox Grid.Row="2" Grid.Column="2" Content="Checked disabled CheckBox" IsEnabled="False" IsChecked="True" />
+        <CheckBox Grid.Row="4" Grid.Column="2" Content="Checked disabled CheckBox" IsEnabled="False" IsChecked="{x:Null}" />
+    </Grid>
+</UserControl>

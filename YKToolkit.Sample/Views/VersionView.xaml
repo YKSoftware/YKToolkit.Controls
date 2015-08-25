@@ -1,0 +1,56 @@
+﻿<YK:Window x:Class="YKToolkit.Sample.Views.VersionView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+           xmlns:vm="clr-namespace:YKToolkit.Sample.ViewModels"
+           mc:Ignorable="d"
+           d:DataContext="{d:DesignInstance vm:VersionViewModel}"
+           xmlns:YK="clr-namespace:YKToolkit.Controls;assembly=YKToolkit.Controls"
+           Title="バージョン情報"
+           Width="500"
+           SizeToContent="Height"
+           ResizeMode="NoResize"
+           IsClosingConfirmationEnabled="False"
+           ShowInTaskbar="False"
+           >
+    <YK:Window.InputBindings>
+        <KeyBinding Command="{Binding CloseWindowCommand}" Key="Escape" />
+    </YK:Window.InputBindings>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal">
+            <Image Source="pack://application:,,,/Views/Resources/icon.ico" Width="64" />
+            <StackPanel Margin="6,0,0,0">
+                <TextBlock Text="{Binding ProductName}" FontSize="24" />
+                <TextBlock Text="{Binding Title}" />
+            </StackPanel>
+        </StackPanel>
+        <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                    <Run Text="Ver." />
+                    <Run Text="{Binding Version, Mode=OneWay}" />
+        </TextBlock>
+
+        <StackPanel Grid.Row="1">
+            <Separator />
+            <TextBlock Text="{Binding Description}" TextWrapping="WrapWithOverflow" />
+            <TextBlock Text="外部参照" Margin="0,10,0,0" />
+            <TextBlock Margin="10,0,0,0">
+                <Run Text="YKToolkit.Controls.dll :" />
+                <Run Text="{Binding YKToolkitControlsVersion, Mode=OneWay}" />
+            </TextBlock>
+            <Separator />
+            <TextBlock Text="{Binding Copyright}" TextAlignment="Center" />
+        </StackPanel>
+
+        <Border Grid.Row="2" Margin="0,10,0,0" FocusManager.FocusedElement="{Binding ElementName=closeButton}">
+            <Button x:Name="closeButton" Content="閉じる" Command="{Binding CloseWindowCommand}" HorizontalAlignment="Right" Width="80" Margin="0,5" />
+        </Border>
+    </Grid>
+</YK:Window>
