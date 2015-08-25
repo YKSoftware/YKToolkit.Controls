@@ -68,6 +68,27 @@
             get { return Assembly.GetExecutingAssembly().GetName().Version; }
         }
 
+        public static string VersionString
+        {
+            get
+            {
+                var version = Version;
+                return string.Format("{0}{1}{2}{3}", version.ToString(3), IsBeta ? " β" : "", version.Revision == 0 ? "" : " rev." + version.Revision, IsDebugMode ? " Debug Mode" : "");
+            }
+        }
+
+        /// <summary>
+        /// デバッグモードかどうかを取得します。
+        /// </summary>
+        public static bool IsDebugMode
+        {
+#if DEBUG
+            get { return true; }
+#else
+            get { return false; }
+#endif
+        }
+
         /// <summary>
         /// ベータ版かどうかを取得します。
         /// </summary>

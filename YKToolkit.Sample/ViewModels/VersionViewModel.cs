@@ -49,11 +49,7 @@
         /// </summary>
         public string YKToolkitControlsVersion
         {
-            get
-            {
-                var isBeta = YKToolkit.Controls.ThemeManager.IsBeta;
-                return "Ver." + YKToolkit.Controls.ThemeManager.Version.ToString() + (isBeta ? " β" : "");
-            }
+            get { return YKToolkit.Controls.ThemeManager.VersionString; }
         }
     }
 }
