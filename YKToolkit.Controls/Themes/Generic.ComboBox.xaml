@@ -64,7 +64,14 @@
                                  Margin="3,3,23,3">
                             <TextBox.Template>
                                 <ControlTemplate TargetType="TextBox">
-                                    <Border x:Name="PART_ContentHost" Background="{TemplateBinding Background}" />
+                                    <Border x:Name="border"
+                                            Background="{TemplateBinding Background}"
+                                            Padding="{TemplateBinding Padding}">
+                                        <ScrollViewer x:Name="PART_ContentHost"
+                                                      HorizontalContentAlignment="{TemplateBinding TextAlignment}"
+                                                      VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                      />
+                                    </Border>
                                 </ControlTemplate>
                             </TextBox.Template>
                         </TextBox>

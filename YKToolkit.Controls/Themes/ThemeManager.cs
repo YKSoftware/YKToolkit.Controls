@@ -140,10 +140,27 @@
                 {
                     Application.Current.Resources.MergedDictionaries.Add(this._themeDictionary[theme]);
                     this.CurrentTheme = theme;
+                    this.RaiseThemeChanged();
                 }
             }
         }
         #endregion 公開メソッド
+
+        #region イベント
+        /// <summary>
+        /// テーマ変更後に発生します。
+        /// </summary>
+        public event EventHandler<EventArgs> ThemeChanged;
+
+        /// <summary>
+        /// ThemeChanged イベントを発行します。
+        /// </summary>
+        private void RaiseThemeChanged()
+        {
+            var h = this.ThemeChanged;
+            if (h != null) h(this, EventArgs.Empty);
+        }
+        #endregion イベント
 
         #region ヘルパ
         /// <summary>

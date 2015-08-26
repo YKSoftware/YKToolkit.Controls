@@ -6,8 +6,53 @@
              mc:Ignorable="d"
              xmlns:vm="clr-namespace:YKToolkit.Sample.ViewModels"
              d:DataContext="{d:DesignInstance vm:DataGridViewModel}"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300"
+             xmlns:YKb="clr-namespace:YKToolkit.Controls.Behaviors;assembly=YKToolkit.Controls">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="4" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="40" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <DataGrid Grid.Row="0" Grid.Column="0" ItemsSource="{Binding People}" />
+
+        <DataGrid Grid.Row="0" Grid.Column="2" ItemsSource="{Binding People}" FrozenColumnCount="2" />
+
+        <DataGrid Grid.Row="2" Grid.Column="0"
+                  ItemsSource="{Binding People}"
+                  YKb:DataGridBehavior.DisplayRowNumber="1"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="No." Binding="{Binding ID}" />
+                <DataGridTextColumn Header="氏名" Binding="{Binding Name}" />
+                <DataGridCheckBoxColumn Header="適正" Binding="{Binding IsValid}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <DataGrid Grid.Row="2" Grid.Column="2" ItemsSource="{Binding People}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="氏名" Binding="{Binding Name}" />
+            </DataGrid.Columns>
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="20,4,0,4">
+                        <TextBlock x:Name="gender" Text="{Binding Gender}" />
+                    </StackPanel>
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding IsValid}" Value="True">
+                            <Setter TargetName="gender" Property="Text" Value="{Binding Gender, StringFormat='{}{0} (O.K.)'}" />
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+        </DataGrid>
     </Grid>
 </UserControl>

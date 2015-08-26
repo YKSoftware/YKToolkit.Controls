@@ -90,7 +90,7 @@
 
             <GridSplitter Grid.Column="1" ResizeDirection="Columns" Background="LightSteelBlue" Width="5" HorizontalAlignment="Center" VerticalAlignment="Stretch" />
 
-            <ContentControl Grid.Column="2" Content="{Binding SelectedItem.Instance, ElementName=tree}" />
+            <ContentControl Grid.Column="2" Content="{Binding SelectedItem.Instance, ElementName=tree}" Margin="20" />
         </Grid>
 
     </DockPanel>

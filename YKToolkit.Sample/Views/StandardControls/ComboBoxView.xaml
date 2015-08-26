@@ -8,13 +8,15 @@
              d:DataContext="{d:DesignInstance vm:ComboBoxViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <Grid Margin="20,0">
+        <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="4" />
-                <RowDefinition />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="4" />
-                <RowDefinition />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="4" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
@@ -70,6 +72,26 @@
                 <ComboBoxItem>アイテム 10</ComboBoxItem>
             </ComboBox>
             <ComboBox Grid.Row="4" Grid.Column="0" ItemsSource="{Binding People}" DisplayMemberPath="Name" SelectedIndex="0" />
+            <ComboBox Grid.Row="6" Grid.Column="0" ItemsSource="{Binding People}" SelectedIndex="0">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Name}" />
+                            <StackPanel Margin="20,0,0,0">
+                                <TextBlock x:Name="gender" />
+                            </StackPanel>
+                        </StackPanel>
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding Gender}" Value="Male">
+                                <Setter TargetName="gender" Property="Text" Value="{Binding Age, StringFormat='{}男性 ({0})'}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Gender}" Value="Female">
+                                <Setter TargetName="gender" Property="Text" Value="{Binding Age, StringFormat='{}女性 ({0})'}" />
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
         </Grid>
     </Grid>
 </UserControl>

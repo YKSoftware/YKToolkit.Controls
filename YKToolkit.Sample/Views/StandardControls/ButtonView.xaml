@@ -7,30 +7,9 @@
              xmlns:vm="clr-namespace:YKToolkit.Sample.ViewModels"
              d:DataContext="{d:DesignInstance vm:ButtonViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Margin="20,0">
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition Height="4" />
-            <RowDefinition />
-            <RowDefinition Height="4" />
-            <RowDefinition />
-            <RowDefinition Height="4" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition Width="40" />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-
-        <Button Grid.Row="0" Grid.Column="0" Content="Normal Button" />
-        <ToggleButton Grid.Row="0" Grid.Column="2" Content="ToggleButton" />
-        <ToggleButton Grid.Row="2" Grid.Column="2" Content="ToggleButton" IsChecked="True" />
-        <RepeatButton Grid.Row="2" Grid.Column="0" Content="RepeatButton" />
-
-        <Button Grid.Row="4" Grid.Column="0" Content="Normal Button" IsEnabled="False" />
-        <ToggleButton Grid.Row="4" Grid.Column="2" Content="ToggleButton" IsEnabled="False" />
-        <ToggleButton Grid.Row="6" Grid.Column="2" Content="ToggleButton" IsChecked="True" IsEnabled="False" />
-        <RepeatButton Grid.Row="6" Grid.Column="0" Content="RepeatButton" IsEnabled="False" />
-    </Grid>
+    <StackPanel>
+        <Button Content="Normal Button" Width="120" />
+        <Button Content="Change Theme" Width="120" Command="{Binding ChageThemeCommand}" Margin="0,20,0,0" />
+        <Button Content="Disabled Button" Width="120" IsEnabled="False" Margin="0,20,0,0" />
+    </StackPanel>
 </UserControl>

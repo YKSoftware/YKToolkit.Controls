@@ -22,6 +22,7 @@
                         {
                             Name = "田中 " + i + "太郎",
                             Age = 20 - i,
+                            Gender = i % 2 == 0 ? Gender.Male : Gender.Female,
                         }));
                 }
                 return _people;

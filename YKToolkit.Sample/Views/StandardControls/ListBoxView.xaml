@@ -7,7 +7,7 @@
              xmlns:vm="clr-namespace:YKToolkit.Sample.ViewModels"
              d:DataContext="{d:DesignInstance vm:ListBoxViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Margin="20,0">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="140" />
         </Grid.RowDefinitions>

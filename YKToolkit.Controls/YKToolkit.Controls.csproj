@@ -189,6 +189,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Behaviors\DataGridBehavior.cs" />
     <Compile Include="Core\Behaviors\SystemMenuBehavior.cs" />
     <Compile Include="Core\Behaviors\TextBoxAllSelectBehavior.cs" />
     <Compile Include="Core\User32.cs" />
@@ -208,7 +209,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Themes\ThemeManager.cs" />
-    <Compile Include="Themes\Window.cs">
+    <Compile Include="Themes\Generic.Window.xaml.cs">
       <DependentUpon>Generic.Window.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">

@@ -287,6 +287,11 @@
                         <SolidColorBrush Color="{DynamicResource DisabledForegroundColor}" />
                     </Setter.Value>
                 </Setter>
+                <Setter TargetName="CheckMark" Property="Stroke">
+                    <Setter.Value>
+                        <SolidColorBrush Color="{DynamicResource DisabledForegroundColor}" />
+                    </Setter.Value>
+                </Setter>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -353,6 +358,11 @@
             </Trigger>
             <Trigger Property="IsEnabled" Value="false">
                 <Setter Property="Foreground">
+                    <Setter.Value>
+                        <SolidColorBrush Color="{DynamicResource DisabledForegroundColor}" />
+                    </Setter.Value>
+                </Setter>
+                <Setter TargetName="Path" Property="Fill">
                     <Setter.Value>
                         <SolidColorBrush Color="{DynamicResource DisabledForegroundColor}" />
                     </Setter.Value>

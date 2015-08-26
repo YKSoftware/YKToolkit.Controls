@@ -7,7 +7,29 @@
              xmlns:vm="clr-namespace:YKToolkit.Sample.ViewModels"
              d:DataContext="{d:DesignInstance vm:ContextMenuViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-            
-    </Grid>
+    <Canvas>
+        <Border Canvas.Left="50" Canvas.Top="50" Background="LightSteelBlue" Padding="50">
+            <TextBlock Text="右クリックでコンテキストメニューを表示" />
+            <Border.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="メニュー 1">
+                        <MenuItem Header="サブメニュー 1-1">
+                            <MenuItem Header="サブメニュー 2-1" />
+                            <MenuItem Header="サブメニュー 2-2" />
+                            <MenuItem Header="サブメニュー 2-3" IsEnabled="False" />
+                        </MenuItem>
+                        <MenuItem Header="サブメニュー 1-2" IsEnabled="False">
+                            <MenuItem Header="サブメニュー 2-1" />
+                            <MenuItem Header="サブメニュー 2-2" />
+                            <MenuItem Header="サブメニュー 2-3" />
+                        </MenuItem>
+                    </MenuItem>
+                    <MenuItem Header="メニュー 2" IsCheckable="True" IsChecked="True" />
+                    <MenuItem Header="メニュー 3" IsCheckable="True" IsChecked="True" IsEnabled="False" />
+                    <Separator />
+                    <MenuItem Header="設定" />
+                </ContextMenu>
+            </Border.ContextMenu>
+        </Border>
+    </Canvas>
 </UserControl>

@@ -67,6 +67,7 @@
                 if (string.IsNullOrEmpty(_currentTheme))
                 {
                     _currentTheme = YKToolkit.Controls.ThemeManager.Instance.CurrentTheme;
+                    YKToolkit.Controls.ThemeManager.Instance.ThemeChanged += OnThemeChanged;
                 }
                 return _currentTheme;
             }
@@ -77,6 +78,16 @@
                     YKToolkit.Controls.ThemeManager.Instance.SetTheme(_currentTheme);
                 }
             }
+        }
+
+        /// <summary>
+        /// テーマ変更イベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private void OnThemeChanged(object sender, EventArgs e)
+        {
+            CurrentTheme = YKToolkit.Controls.ThemeManager.Instance.CurrentTheme;
         }
 
         private DelegateCommand _changeThemeCommand;

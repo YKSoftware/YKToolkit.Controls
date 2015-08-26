@@ -69,6 +69,16 @@
     <Color x:Key="DisabledScrollBarBackgroundColor">#FFC8C8C8</Color>
     <Color x:Key="DisabledScrollBarColor">#FFE0E0E0</Color>
 
+    <!-- DataGrid -->
+    <Color x:Key="DataGridHeaderColor">White</Color>
+    <Color x:Key="DataGridLightHeaderColor">#FFEEEEF2</Color>
+    <Color x:Key="DataGridDarkHeaderColor">#FFCCCCCC</Color>
+    <Color x:Key="DataGridEditingHeaderColor">Orange</Color>
+    <Color x:Key="DataGridBorderColor">White</Color>
+    <Color x:Key="DataGridNormalRowBackgroundColor">#FFEEEEF2</Color>
+    <Color x:Key="DataGridAlternationRowBackgroundColor">#FFCCCEDB</Color>
+    <Color x:Key="DataGridErrorColor">#FFF38B76</Color>
+
 
 
 
@@ -92,15 +102,6 @@
     <Color x:Key="InverseForegroundColor">#FFFFFFFF</Color>
 
     <Color x:Key="DisabledSymbolColor">#FFC3C3C6</Color>
-
-    <Color x:Key="DataGridHeaderColor">White</Color>
-    <Color x:Key="DataGridLightHeaderColor">#FFEEEEF2</Color>
-    <Color x:Key="DataGridDarkHeaderColor">#FFCCCCCC</Color>
-    <Color x:Key="DataGridEditingHeaderColor">Orange</Color>
-    <Color x:Key="DataGridBorderColor">White</Color>
-    <Color x:Key="DataGridNormalRowBackgroundColor">#FFEEEEF2</Color>
-    <Color x:Key="DataGridAlternationRowBackgroundColor">#FFCCCEDB</Color>
-    <Color x:Key="DataGridErrorColor">#FFF38B76</Color>
 
     <Color x:Key="IndicatorColor">#FF3399FF</Color>
 

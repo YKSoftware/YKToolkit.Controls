@@ -6,6 +6,7 @@
         <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.CheckBox.xaml" />
         <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.ComboBox.xaml" />
         <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.ContextMenu.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.DataGrid.xaml" />
         <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.Expander.xaml" />
         <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.Label.xaml" />
         <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.ListBox.xaml" />
