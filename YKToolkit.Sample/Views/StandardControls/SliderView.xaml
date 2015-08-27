@@ -7,7 +7,24 @@
              xmlns:vm="clr-namespace:YKToolkit.Sample.ViewModels"
              d:DataContext="{d:DesignInstance vm:SliderViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-            
-    </Grid>
+    <StackPanel>
+        <Slider />
+        <Slider Margin="0,20,0,0" TickPlacement="TopLeft" />
+        <Slider Margin="0,20,0,0" TickPlacement="BottomRight" />
+        <Slider Margin="0,20,0,0" TickPlacement="Both" />
+        <Slider Margin="0,20,0,0" IsEnabled="False" />
+        <Slider Margin="0,20,0,0" TickPlacement="TopLeft" IsEnabled="False" />
+        <Slider Margin="0,20,0,0" TickPlacement="BottomRight" IsEnabled="False" />
+        <Slider Margin="0,20,0,0" TickPlacement="Both" IsEnabled="False" />
+        <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+            <Slider Orientation="Vertical" Height="100" />
+            <Slider Orientation="Vertical" Height="100" Margin="20,0,0,0" TickPlacement="TopLeft" />
+            <Slider Orientation="Vertical" Height="100" Margin="20,0,0,0" TickPlacement="BottomRight" />
+            <Slider Orientation="Vertical" Height="100" Margin="20,0,0,0" TickPlacement="Both" />
+            <Slider Orientation="Vertical" Height="100" Margin="20,0,0,0" IsEnabled="False" />
+            <Slider Orientation="Vertical" Height="100" Margin="20,0,0,0" TickPlacement="TopLeft" IsEnabled="False" />
+            <Slider Orientation="Vertical" Height="100" Margin="20,0,0,0" TickPlacement="BottomRight" IsEnabled="False" />
+            <Slider Orientation="Vertical" Height="100" Margin="20,0,0,0" TickPlacement="Both" IsEnabled="False" />
+        </StackPanel>
+    </StackPanel>
 </UserControl>

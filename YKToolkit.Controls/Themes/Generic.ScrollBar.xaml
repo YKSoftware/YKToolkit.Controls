@@ -4,7 +4,8 @@
         <ResourceDictionary Source="pack://application:,,,/YKToolkit.Controls;component/Themes/DefaultColors.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <Style x:Key="RepeatButtonStyle" TargetType="RepeatButton">
+    <!-- ボタンの Style -->
+    <Style x:Key="ScrollBarRepeatButtonStyle" TargetType="RepeatButton">
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="Focusable" Value="False" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
@@ -48,6 +49,7 @@
         </Setter>
     </Style>
 
+    <!-- Track ボタンの Style -->
     <Style x:Key="TrackButtonStyle" TargetType="RepeatButton">
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="Focusable" Value="False" />
@@ -62,10 +64,11 @@
         </Setter>
     </Style>
 
+    <!-- 横向きの場合の Style -->
     <ControlTemplate x:Key="HorizontalScrollBarTemplate" TargetType="ScrollBar">
         <DockPanel Background="{TemplateBinding Background}">
-            <RepeatButton x:Name="PART_UpButton" DockPanel.Dock="Left" Content="M 5,0 L 5,10 0,5 Z" Command="ScrollBar.LineLeftCommand" Style="{StaticResource RepeatButtonStyle}" />
-            <RepeatButton x:Name="PART_DownButton" DockPanel.Dock="Right" Content="M 5,0 L 10,5 5,10 Z" Command="ScrollBar.LineRightCommand" Style="{StaticResource RepeatButtonStyle}" />
+            <RepeatButton x:Name="PART_UpButton" DockPanel.Dock="Left" Content="M 5,0 L 5,10 0,5 Z" Command="ScrollBar.LineLeftCommand" Style="{StaticResource ScrollBarRepeatButtonStyle}" />
+            <RepeatButton x:Name="PART_DownButton" DockPanel.Dock="Right" Content="M 5,0 L 10,5 5,10 Z" Command="ScrollBar.LineRightCommand" Style="{StaticResource ScrollBarRepeatButtonStyle}" />
 
             <Track x:Name="PART_Track" IsDirectionReversed="False">
                 <Track.DecreaseRepeatButton>
@@ -123,10 +126,11 @@
         </DockPanel>
     </ControlTemplate>
 
+    <!-- 縦向きの場合の Style -->
     <ControlTemplate x:Key="VerticalScrollBarTemplate" TargetType="ScrollBar">
         <DockPanel Background="{TemplateBinding Background}">
-            <RepeatButton x:Name="PART_UpButton" DockPanel.Dock="Top" Content="M 0,5 L 10,5 5,0 Z" Command="ScrollBar.LineUpCommand" Style="{StaticResource RepeatButtonStyle}" />
-            <RepeatButton x:Name="PART_DownButton" DockPanel.Dock="Bottom" Content="M 0,0 L 10,0 5,5 Z" Command="ScrollBar.LineDownCommand" Style="{StaticResource RepeatButtonStyle}" />
+            <RepeatButton x:Name="PART_UpButton" DockPanel.Dock="Top" Content="M 0,5 L 10,5 5,0 Z" Command="ScrollBar.LineUpCommand" Style="{StaticResource ScrollBarRepeatButtonStyle}" />
+            <RepeatButton x:Name="PART_DownButton" DockPanel.Dock="Bottom" Content="M 0,0 L 10,0 5,5 Z" Command="ScrollBar.LineDownCommand" Style="{StaticResource ScrollBarRepeatButtonStyle}" />
 
             <Track x:Name="PART_Track" IsDirectionReversed="True">
                 <Track.DecreaseRepeatButton>

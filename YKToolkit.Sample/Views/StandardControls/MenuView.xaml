@@ -8,6 +8,50 @@
              d:DataContext="{d:DesignInstance vm:MenuViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="4" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0">
+            <MenuItem Header="ファイル (_F)">
+                <MenuItem Header="開く (_O)" InputGestureText="Ctrl+O" />
+                <MenuItem Header="名前を付けて保存 (_A)" InputGestureText="Ctrl+S" />
+                <MenuItem Header="閉じる (_C)" InputGestureText="Ctrl+W" />
+                <Separator />
+                <MenuItem Header="終了 (_X)" InputGestureText="Alt+F4" />
+            </MenuItem>
+            <MenuItem Header="編集 (_E)">
+                <MenuItem Header="切り取り (_X)" InputGestureText="Ctrl+X" />
+                <MenuItem Header="コピー (_C)" InputGestureText="Ctrl+C" />
+                <MenuItem Header="貼り付け (_P)" InputGestureText="Ctrl+V" />
+                <Separator />
+                <MenuItem Header="検索 (_F)" InputGestureText="Ctrl+F" />
+                <MenuItem Header="置換 (_R)" InputGestureText="Ctrl+H" />
+                <Separator />
+                <MenuItem Header="書式設定 (_O)" InputGestureText="Ctrl+1" />
+            </MenuItem>
+            <MenuItem Header="サンプル (_S)">
+                <MenuItem Header="おそろしく長いメニュー">
+                    <MenuItem Header="ダミー 1" /><MenuItem Header="ダミー 2" /><MenuItem Header="ダミー 3" /><MenuItem Header="ダミー 4" /><MenuItem Header="ダミー 5" /><MenuItem Header="ダミー 6" /><MenuItem Header="ダミー 7" /><MenuItem Header="ダミー 8" /><MenuItem Header="ダミー 9" /><MenuItem Header="ダミー 10" />
+                    <MenuItem Header="ダミー 11" /><MenuItem Header="ダミー 12" /><MenuItem Header="ダミー 13" /><MenuItem Header="ダミー 14" /><MenuItem Header="ダミー 15" /><MenuItem Header="ダミー 16" /><MenuItem Header="ダミー 17" /><MenuItem Header="ダミー 18" /><MenuItem Header="ダミー 19" /><MenuItem Header="ダミー 20" />
+                    <MenuItem Header="ダミー 21" /><MenuItem Header="ダミー 22" /><MenuItem Header="ダミー 23" /><MenuItem Header="ダミー 24" /><MenuItem Header="ダミー 25" /><MenuItem Header="ダミー 26" /><MenuItem Header="ダミー 27" /><MenuItem Header="ダミー 28" /><MenuItem Header="ダミー 29" /><MenuItem Header="ダミー 30" />
+                    <MenuItem Header="ダミー 31" /><MenuItem Header="ダミー 32" /><MenuItem Header="ダミー 33" /><MenuItem Header="ダミー 34" /><MenuItem Header="ダミー 35" /><MenuItem Header="ダミー 36" /><MenuItem Header="ダミー 37" /><MenuItem Header="ダミー 38" /><MenuItem Header="ダミー 39" /><MenuItem Header="ダミー 40" />
+                    <MenuItem Header="ダミー 41" /><MenuItem Header="ダミー 42" /><MenuItem Header="ダミー 43" /><MenuItem Header="ダミー 44" /><MenuItem Header="ダミー 45" /><MenuItem Header="ダミー 46" /><MenuItem Header="ダミー 47" /><MenuItem Header="ダミー 48" /><MenuItem Header="ダミー 49" /><MenuItem Header="ダミー 50" />
+                    <MenuItem Header="ダミー 51" /><MenuItem Header="ダミー 52" /><MenuItem Header="ダミー 53" /><MenuItem Header="ダミー 54" /><MenuItem Header="ダミー 55" /><MenuItem Header="ダミー 56" /><MenuItem Header="ダミー 57" /><MenuItem Header="ダミー 58" /><MenuItem Header="ダミー 59" /><MenuItem Header="ダミー 60" />
+                    <MenuItem Header="ダミー 61" /><MenuItem Header="ダミー 62" /><MenuItem Header="ダミー 63" /><MenuItem Header="ダミー 64" /><MenuItem Header="ダミー 65" /><MenuItem Header="ダミー 66" /><MenuItem Header="ダミー 67" /><MenuItem Header="ダミー 68" /><MenuItem Header="ダミー 69" /><MenuItem Header="ダミー 70" />
+                    <MenuItem Header="ダミー 71" /><MenuItem Header="ダミー 72" /><MenuItem Header="ダミー 73" /><MenuItem Header="ダミー 74" /><MenuItem Header="ダミー 75" /><MenuItem Header="ダミー 76" /><MenuItem Header="ダミー 77" /><MenuItem Header="ダミー 78" /><MenuItem Header="ダミー 79" /><MenuItem Header="ダミー 80" />
+                    <MenuItem Header="ダミー 81" /><MenuItem Header="ダミー 82" /><MenuItem Header="ダミー 83" /><MenuItem Header="ダミー 84" /><MenuItem Header="ダミー 85" /><MenuItem Header="ダミー 86" /><MenuItem Header="ダミー 87" /><MenuItem Header="ダミー 88" /><MenuItem Header="ダミー 89" /><MenuItem Header="ダミー 90" />
+                    <MenuItem Header="ダミー 91" /><MenuItem Header="ダミー 92" /><MenuItem Header="ダミー 93" /><MenuItem Header="ダミー 94" /><MenuItem Header="ダミー 95" /><MenuItem Header="ダミー 96" /><MenuItem Header="ダミー 97" /><MenuItem Header="ダミー 98" /><MenuItem Header="ダミー 99" /><MenuItem Header="ダミー 100" />
+                </MenuItem>
+                <MenuItem Header="チェックできます" IsCheckable="True" />
+                <MenuItem Header="チェックできます" IsCheckable="True" IsChecked="True" />
+                <MenuItem Header="チェックしたまま無効状態" IsCheckable="True" IsChecked="True" IsEnabled="False" />
+            </MenuItem>
+            <MenuItem Header="無効なメニュー" IsEnabled="False" />
+            <MenuItem Header="ヘルプ (_H)">
+                <MenuItem Header="バージョン情報 (_V)" />
+            </MenuItem>
+        </Menu>
     </Grid>
 </UserControl>

@@ -43,7 +43,9 @@
                             </MultiTrigger.Conditions>
                             <Setter Property="BorderBrush">
                                 <Setter.Value>
-                                    <SolidColorBrush Color="{DynamicResource WindowBorderColor}" />
+                                    <LinearGradientBrush>
+                                        <GradientStop Color="{DynamicResource WindowBorderColor}" />
+                                    </LinearGradientBrush>
                                 </Setter.Value>
                             </Setter>
                         </MultiTrigger>

@@ -4,13 +4,245 @@
         <ResourceDictionary Source="pack://application:,,,/YKToolkit.Controls;component/Themes/DefaultColors.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <Style TargetType="Slider">
+    <!-- ボタンの Style -->
+    <Style x:Key="SliderRepeatButtonStyle" TargetType="RepeatButton">
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="Focusable" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="Slider">
+                <ControlTemplate TargetType="RepeatButton">
+                    <Border Background="Transparent" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <!-- Thumb の Style -->
+    <Style x:Key="SliderThumbStyle" TargetType="Thumb">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Thumb">
+                    <Border Background="Transparent">
+                        <Path x:Name="path" Data="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}">
+                            <Path.Fill>
+                                <SolidColorBrush Color="{DynamicResource SliderColor}" />
+                            </Path.Fill>
+                        </Path>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="path" Property="Fill">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{DynamicResource SliderHoverColor}" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsDragging" Value="True">
+                            <Setter TargetName="path" Property="Fill">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{DynamicResource PressedSliderColor}" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="path" Property="Fill">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{DynamicResource DisabledSliderColor}" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- 横向きのスライダー -->
+    <ControlTemplate x:Key="HorizontalSliderTemplate" TargetType="Slider">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TickBar x:Name="topTickBar" Grid.Row="0" Visibility="Collapsed" Placement="Top" Height="4">
+                <TickBar.Fill>
+                    <SolidColorBrush Color="{DynamicResource SliderColor}" />
+                </TickBar.Fill>
+            </TickBar>
+
+            <Grid Grid.Row="1">
+                <Rectangle>
+                    <Rectangle.Style>
+                        <Style TargetType="Rectangle">
+                            <Setter Property="Height" Value="1" />
+                            <Setter Property="Margin" Value="5,0" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                            <Setter Property="SnapsToDevicePixels" Value="True" />
+                            <Setter Property="Fill">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{DynamicResource SliderColor}" />
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Fill">
+                                        <Setter.Value>
+                                            <SolidColorBrush Color="{DynamicResource DisabledSliderColor}" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Rectangle.Style>
+                </Rectangle>
+
+                <Track x:Name="PART_Track" VerticalAlignment="Center">
+                    <Track.DecreaseRepeatButton>
+                        <RepeatButton Command="Slider.DecreaseLarge" Style="{StaticResource SliderRepeatButtonStyle}" />
+                    </Track.DecreaseRepeatButton>
+                    <Track.Thumb>
+                        <Thumb x:Name="thumb" Style="{StaticResource SliderThumbStyle}" Tag="M 0,0 L 10,0 5,10 Z M 0,24 10,24 5,14 Z" />
+                    </Track.Thumb>
+                    <Track.IncreaseRepeatButton>
+                        <RepeatButton Command="Slider.IncreaseLarge" Style="{StaticResource SliderRepeatButtonStyle}" />
+                    </Track.IncreaseRepeatButton>
+                </Track>
+            </Grid>
+
+            <TickBar x:Name="bottomTickBar" Grid.Row="2" Visibility="Collapsed" Placement="Bottom" Height="4">
+                <TickBar.Fill>
+                    <SolidColorBrush Color="{DynamicResource SliderColor}" />
+                </TickBar.Fill>
+            </TickBar>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="TickPlacement" Value="TopLeft">
+                <Setter TargetName="topTickBar" Property="Visibility" Value="Visible" />
+                <Setter TargetName="thumb" Property="Tag" Value="M 0,14 10,14 5,0 Z" />
+            </Trigger>
+            <Trigger Property="TickPlacement" Value="BottomRight">
+                <Setter TargetName="bottomTickBar" Property="Visibility" Value="Visible" />
+                <Setter TargetName="thumb" Property="Tag" Value="M 0,0 10,0 5,14 Z" />
+            </Trigger>
+            <Trigger Property="TickPlacement" Value="Both">
+                <Setter TargetName="topTickBar" Property="Visibility" Value="Visible" />
+                <Setter TargetName="bottomTickBar" Property="Visibility" Value="Visible" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="topTickBar" Property="Fill">
+                    <Setter.Value>
+                        <SolidColorBrush Color="{DynamicResource DisabledSliderColor}" />
+                    </Setter.Value>
+                </Setter>
+                <Setter TargetName="bottomTickBar" Property="Fill">
+                    <Setter.Value>
+                        <SolidColorBrush Color="{DynamicResource DisabledSliderColor}" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <!-- 縦向きのスライダー -->
+    <ControlTemplate x:Key="VerticalSliderTemplate" TargetType="Slider">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TickBar x:Name="leftTickBar" Grid.Column="0" Visibility="Collapsed" Placement="Left" Width="4">
+                <TickBar.Fill>
+                    <SolidColorBrush Color="{DynamicResource SliderColor}" />
+                </TickBar.Fill>
+            </TickBar>
+
+            <Grid Grid.Column="1">
+                <Rectangle>
+                    <Rectangle.Style>
+                        <Style TargetType="Rectangle">
+                            <Setter Property="Width" Value="1" />
+                            <Setter Property="Margin" Value="0,5" />
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="SnapsToDevicePixels" Value="True" />
+                            <Setter Property="Fill">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{DynamicResource SliderColor}" />
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Fill">
+                                        <Setter.Value>
+                                            <SolidColorBrush Color="{DynamicResource DisabledSliderColor}" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Rectangle.Style>
+                </Rectangle>
+
+                <Track x:Name="PART_Track" HorizontalAlignment="Center">
+                    <Track.DecreaseRepeatButton>
+                        <RepeatButton Command="Slider.DecreaseLarge" Style="{StaticResource SliderRepeatButtonStyle}" />
+                    </Track.DecreaseRepeatButton>
+                    <Track.Thumb>
+                        <Thumb x:Name="thumb" Style="{StaticResource SliderThumbStyle}" Tag="M 0,0 L 0,10 10,5 Z M 14,5 24,0 24,10 Z" />
+                    </Track.Thumb>
+                    <Track.IncreaseRepeatButton>
+                        <RepeatButton Command="Slider.IncreaseLarge" Style="{StaticResource SliderRepeatButtonStyle}" />
+                    </Track.IncreaseRepeatButton>
+                </Track>
+            </Grid>
+
+            <TickBar x:Name="rightTickBar" Grid.Column="2" Visibility="Collapsed" Placement="Right" Width="4">
+                <TickBar.Fill>
+                    <SolidColorBrush Color="{DynamicResource SliderColor}" />
+                </TickBar.Fill>
+            </TickBar>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="TickPlacement" Value="TopLeft">
+                <Setter TargetName="leftTickBar" Property="Visibility" Value="Visible" />
+                <Setter TargetName="thumb" Property="Tag" Value="M 0,5 12,0 12,10 Z" />
+            </Trigger>
+            <Trigger Property="TickPlacement" Value="BottomRight">
+                <Setter TargetName="rightTickBar" Property="Visibility" Value="Visible" />
+                <Setter TargetName="thumb" Property="Tag" Value="M 0,0 12,5 0,10 Z" />
+            </Trigger>
+            <Trigger Property="TickPlacement" Value="Both">
+                <Setter TargetName="leftTickBar" Property="Visibility" Value="Visible" />
+                <Setter TargetName="rightTickBar" Property="Visibility" Value="Visible" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="leftTickBar" Property="Fill">
+                    <Setter.Value>
+                        <SolidColorBrush Color="{DynamicResource DisabledSliderColor}" />
+                    </Setter.Value>
+                </Setter>
+                <Setter TargetName="rightTickBar" Property="Fill">
+                    <Setter.Value>
+                        <SolidColorBrush Color="{DynamicResource DisabledSliderColor}" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style TargetType="Slider">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Style.Triggers>
+            <Trigger Property="Orientation" Value="Horizontal">
+                <Setter Property="Template" Value="{StaticResource HorizontalSliderTemplate}" />
+            </Trigger>
+            <Trigger Property="Orientation" Value="Vertical">
+                <Setter Property="Template" Value="{StaticResource VerticalSliderTemplate}" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>

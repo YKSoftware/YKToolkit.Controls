@@ -262,7 +262,7 @@
                     </Path>
                 </Border>
                 <ContentPresenter x:Name="HeaderHost" Grid.Column="1" ContentSource="Header" RecognizesAccessKey="True" />
-                <TextBlock x:Name="InputGestureText" Grid.Column="2" Text="{TemplateBinding InputGestureText}" Margin="5,2,0,2" DockPanel.Dock="Right" />
+                <TextBlock x:Name="InputGestureText" Grid.Column="2" Text="{TemplateBinding InputGestureText}" Padding="20,2,0,2" />
             </Grid>
         </Border>
         <ControlTemplate.Triggers>

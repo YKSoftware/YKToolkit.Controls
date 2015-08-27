@@ -8,12 +8,39 @@
              d:DataContext="{d:DesignInstance vm:TabControlViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid Margin="20,0">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="4" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition Width="40" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <TabControl Grid.Column="0">
+
+        <TabControl Grid.Row="0" Grid.Column="0">
+            <TabItem Header="Tab1">
+                <StackPanel HorizontalAlignment="Center">
+                    <TextBlock Text="Tab1 Content" />
+                    <Rectangle Fill="Orange" Width="100" Height="30" />
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Tab2">
+                <StackPanel HorizontalAlignment="Center">
+                    <TextBlock Text="Tab2 Content" />
+                    <Rectangle Fill="Plum" Width="100" Height="30" />
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Tab3">
+                <StackPanel HorizontalAlignment="Center">
+                    <TextBlock Text="Tab3 Content" />
+                    <Rectangle Fill="LightSteelBlue" Width="100" Height="30" />
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+
+        <TabControl Grid.Row="2" Grid.Column="0" TabStripPlacement="Bottom">
             <TabItem Header="Tab1">
                 <StackPanel HorizontalAlignment="Center">
                     <TextBlock Text="Tab1 Content" />
@@ -35,7 +62,29 @@
             </TabItem>
         </TabControl>
 
-        <TabControl Grid.Column="2" IsEnabled="False" SelectedIndex="1">
+        <TabControl Grid.Row="0" Grid.Column="2" TabStripPlacement="Left">
+            <TabItem Header="Tab1">
+                <StackPanel HorizontalAlignment="Center">
+                    <TextBlock Text="Tab1 Content" />
+                    <Rectangle Fill="Orange" Width="100" Height="30" />
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Tab2">
+                <StackPanel HorizontalAlignment="Center">
+                    <TextBlock Text="Tab2 Content" />
+                    <Rectangle Fill="Plum" Width="100" Height="30" />
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Tab3" IsEnabled="False" />
+            <TabItem Header="Tab4">
+                <StackPanel HorizontalAlignment="Center">
+                    <TextBlock Text="Tab4 Content" />
+                    <Rectangle Fill="LightSteelBlue" Width="100" Height="30" />
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+
+        <TabControl Grid.Row="2" Grid.Column="2" IsEnabled="False" SelectedIndex="1">
             <TabItem Header="Tab1">
                 <StackPanel HorizontalAlignment="Center">
                     <TextBlock Text="Tab1 Content" />

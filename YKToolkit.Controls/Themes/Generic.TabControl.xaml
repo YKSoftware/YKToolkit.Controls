@@ -33,6 +33,15 @@
                                     <SolidColorBrush Color="{DynamicResource ForegroundColor}" />
                                 </Setter.Value>
                             </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Foreground">
+                                        <Setter.Value>
+                                            <SolidColorBrush Color="{DynamicResource DisabledForegroundColor}" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
                         </Style>
                     </ControlTemplate.Resources>
 

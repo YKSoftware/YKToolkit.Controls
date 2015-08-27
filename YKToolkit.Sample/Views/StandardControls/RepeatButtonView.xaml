@@ -7,7 +7,10 @@
              xmlns:vm="clr-namespace:YKToolkit.Sample.ViewModels"
              d:DataContext="{d:DesignInstance vm:RepeatButtonViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-            
-    </Grid>
+    <StackPanel>
+        <RepeatButton Content="Repeat Button" Width="120" Command="{Binding IncreaseCommand}" />
+        <RepeatButton Content="Disabled Button" Width="120" IsEnabled="False" Margin="0,20,0,0" />
+        <Button Content="Counter Reset" Width="120" Margin="0,20,0,0" Command="{Binding ResetCommand}" />
+        <TextBox Text="{Binding Count}" Width="120" Margin="0,40,0,0" />
+    </StackPanel>
 </UserControl>

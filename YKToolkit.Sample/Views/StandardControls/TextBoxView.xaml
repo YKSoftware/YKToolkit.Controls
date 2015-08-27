@@ -7,13 +7,13 @@
              xmlns:vm="clr-namespace:YKToolkit.Sample.ViewModels"
              d:DataContext="{d:DesignInstance vm:TextBoxViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Margin="20,0">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="4" />
-            <RowDefinition />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="4" />
-            <RowDefinition />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <TextBox Grid.Row="0" Text="Sample text." />
         <TextBox Grid.Row="2" Text="Read-Only text." IsReadOnly="True" />

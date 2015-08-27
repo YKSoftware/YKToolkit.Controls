@@ -41,6 +41,26 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Expander">
+                    <ControlTemplate.Resources>
+                        <!-- ContentPresenter の Foreground が動的に変わらない現象の対策 -->
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Foreground">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{DynamicResource ForegroundColor}" />
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Foreground">
+                                        <Setter.Value>
+                                            <SolidColorBrush Color="{DynamicResource DisabledForegroundColor}" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ControlTemplate.Resources>
+
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -54,10 +74,8 @@
                                         <ToggleButton x:Name="button"
                                                       DockPanel.Dock="Left"
                                                       IsChecked="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}}"
-                                                      Style="{StaticResource ExpanderButtonStyle}">
-                                            <ToggleButton.Foreground>
-                                                <SolidColorBrush Color="{DynamicResource ForegroundColor}" />
-                                            </ToggleButton.Foreground>
+                                                      Style="{StaticResource ExpanderButtonStyle}"
+                                                      Foreground="{TemplateBinding Foreground}">
                                             <ToggleButton.Background>
                                                 <SolidColorBrush Color="Transparent" />
                                             </ToggleButton.Background>
@@ -88,6 +106,13 @@
                                             <Setter TargetName="button" Property="Background">
                                                 <Setter.Value>
                                                     <SolidColorBrush Color="{DynamicResource PressedButtonColor}" />
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Trigger>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Foreground">
+                                                <Setter.Value>
+                                                    <SolidColorBrush Color="{DynamicResource DisabledForegroundColor}" />
                                                 </Setter.Value>
                                             </Setter>
                                         </Trigger>

@@ -79,6 +79,11 @@
     <Color x:Key="DataGridAlternationRowBackgroundColor">#FFCCCEDB</Color>
     <Color x:Key="DataGridErrorColor">#FFF38B76</Color>
 
+    <!-- Slider -->
+    <Color x:Key="SliderColor">#FF6A6A6A</Color>
+    <Color x:Key="SliderHoverColor">#FF888888</Color>
+    <Color x:Key="PressedSliderColor">#FF007ACC</Color>
+    <Color x:Key="DisabledSliderColor">#FFC3C3C6</Color>
 
 
 

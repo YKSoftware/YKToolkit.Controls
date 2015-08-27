@@ -12,7 +12,6 @@
            Height="600"
            Icon="pack://application:,,,/Views/Resources/icon.ico"
            WindowStartupLocation="CenterScreen"
-           ResizeMode="NoResize"
            >
     <YK:Window.InputBindings>
         <KeyBinding Command="{Binding CreateDialogCommand}" CommandParameter="Version" Key="F1" />
@@ -21,19 +20,7 @@
     </YK:Window.InputBindings>
     <YK:Window.SystemMenuContent>
         <ContextMenu>
-            <MenuItem Header="チェックテスト" IsCheckable="True" IsChecked="True" />
-            <MenuItem Header="階層あり">
-                <MenuItem Header="hogehoge">
-                    <MenuItem Header="hogehoge">
-                        <MenuItem Header="チェックテスト" IsCheckable="True" IsChecked="True" />
-                        <MenuItem Header="hoge" />
-                    </MenuItem>
-                    <MenuItem Header="hoge" />
-                    <MenuItem Header="hoge" />
-                </MenuItem>
-                <MenuItem Header="hoge" />
-                <MenuItem Header="hoge" />
-            </MenuItem>
+            <MenuItem Header="テーマ切替" Command="{Binding ChageThemeCommand}" InputGestureText="F11" />
             <Separator />
             <MenuItem Header="閉じる" Command="{Binding CloseWindowCommand}" InputGestureText="Alt+F4" />
         </ContextMenu>
@@ -45,14 +32,6 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="ファイル (_F)">
                 <MenuItem Header="終了 (_X)" Command="{Binding CloseWindowCommand}" />
-            </MenuItem>
-            <MenuItem Header="テスト (_S)">
-                <MenuItem Header="テスト">
-                    <MenuItem Header="テスト" />
-                    <MenuItem Header="テスト" />
-                </MenuItem>
-                <MenuItem Header="テスト" />
-                <MenuItem Header="テスト" IsCheckable="True" IsChecked="True" />
             </MenuItem>
             <MenuItem Header="オプション (_O)">
                 <MenuItem Header="テーマ切替" Command="{Binding ChageThemeCommand}" InputGestureText="F11" />

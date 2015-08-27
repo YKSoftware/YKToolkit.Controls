@@ -11,10 +11,12 @@
         <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.Label.xaml" />
         <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.ListBox.xaml" />
         <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.Menu.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.PasswordBox.xaml" />
         <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.RadioButton.xaml" />
         <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.RepeatButton.xaml" />
         <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.ScrollBar.xaml" />
         <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.ScrollViewer.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.Slider.xaml" />
         <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.StatusBar.xaml" />
         <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.TabControl.xaml" />
         <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.TextBox.xaml" />

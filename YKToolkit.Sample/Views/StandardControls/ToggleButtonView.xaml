@@ -7,7 +7,10 @@
              xmlns:vm="clr-namespace:YKToolkit.Sample.ViewModels"
              d:DataContext="{d:DesignInstance vm:ToggleButtonViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-            
-    </Grid>
+    <StackPanel>
+        <ToggleButton Content="Toggle Button" Width="120" />
+        <ToggleButton Content="Toggle Button" Width="120" Margin="0,20,0,0" IsChecked="True" />
+        <ToggleButton Content="Disabled Button" Width="120" IsEnabled="False" Margin="0,20,0,0" />
+        <ToggleButton Content="Disabled Button" Width="120" IsEnabled="False" Margin="0,20,0,0" IsChecked="True" />
+    </StackPanel>
 </UserControl>

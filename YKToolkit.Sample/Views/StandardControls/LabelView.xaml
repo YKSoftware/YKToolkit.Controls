@@ -7,7 +7,8 @@
              xmlns:vm="clr-namespace:YKToolkit.Sample.ViewModels"
              d:DataContext="{d:DesignInstance vm:LabelViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-            
-    </Grid>
+    <StackPanel>
+        <Label Content="Label sample" />
+        <Label Content="Label sample" Margin="0,10,0,0" IsEnabled="False" />
+    </StackPanel>
 </UserControl>

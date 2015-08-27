@@ -7,7 +7,22 @@
              xmlns:vm="clr-namespace:YKToolkit.Sample.ViewModels"
              d:DataContext="{d:DesignInstance vm:ExpanderViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-            
-    </Grid>
+    <UserControl.Resources>
+        <StackPanel x:Key="content" x:Shared="False" Margin="20,0,0,0">
+            <TextBlock Text="コンテンツです" />
+            <Button Content="Click me." Margin="0,10,0,0" />
+        </StackPanel>
+    </UserControl.Resources>
+
+    <StackPanel>
+        <Expander Header="コンテンツをたためます" Content="{StaticResource content}" />
+        <Expander Header="コンテンツを広げた状態からスタート" Content="{StaticResource content}" IsExpanded="True" />
+        <Expander Header="コンテンツをたたんだ状態で無効" IsEnabled="False" />
+        <Expander Header="コンテンツを広げた状態で無効" IsExpanded="True" IsEnabled="False">
+            <StackPanel Margin="20,0,0,0">
+                <TextBlock Text="コンテンツです" />
+                <Button Content="Click me." Margin="0,10,0,0" />
+            </StackPanel>
+        </Expander>
+    </StackPanel>
 </UserControl>
