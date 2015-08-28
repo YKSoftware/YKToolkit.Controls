@@ -7,6 +7,7 @@
            mc:Ignorable="d"
            d:DataContext="{d:DesignInstance vm:MainViewModel}"
            xmlns:YK="clr-namespace:YKToolkit.Controls;assembly=YKToolkit.Controls"
+           xmlns:YKb="clr-namespace:YKToolkit.Controls.Behaviors;assembly=YKToolkit.Controls"
            Title="{Binding Title}"
            Width="800"
            Height="600"

@@ -23,6 +23,8 @@
         <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.ToggleButton.xaml" />
         <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.TreeView.xaml" />
         <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.Window.xaml" />
+
+        <ResourceDictionary Source="/YKToolkit.Controls;component/ExtendedControls/DropDownButton/Generic.DropDownButton.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

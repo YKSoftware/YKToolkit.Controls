@@ -121,6 +121,8 @@
                 {
                     _viewModels = new ReadOnlyCollection<ViewModelInfo>(new List<ViewModelInfo>()
                     {
+                        new ViewModelInfo() { Name = "Debug", Instance = this._debugViewModel, },
+
                         new ViewModelInfo()
                         {
                             Name = "Standard Controls",
@@ -151,12 +153,18 @@
                         new ViewModelInfo()
                         {
                             Name = "Extended Controls",
+                            Children = new List<ViewModelInfo>()
+                            {
+                                new ViewModelInfo() { Name = "DropDownButton", Instance = this._dropDownButtonViewModel, },
+                            },
                         },
                     });
                 }
                 return _viewModels;
             }
         }
+
+        private DebugViewModel _debugViewModel = new DebugViewModel();
 
         private ButtonViewModel _buttonViewModel = new ButtonViewModel();
         private CheckBoxViewModel _checkBoxViewModel = new CheckBoxViewModel();
@@ -176,6 +184,8 @@
         private TabControlViewModel _tabControlViewModel = new TabControlViewModel();
         private TextBoxViewModel _textBoxViewModel = new TextBoxViewModel();
         private ToggleButtonViewModel _toggleButtonViewModel = new ToggleButtonViewModel();
+
+        private DropDownButtonViewModel _dropDownButtonViewModel = new DropDownButtonViewModel();
         #endregion ViewModel 選択
     }
 }

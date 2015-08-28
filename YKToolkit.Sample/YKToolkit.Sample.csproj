@@ -61,6 +61,8 @@
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\ProductInfo.cs" />
     <Compile Include="Models\ViewModelInfo.cs" />
+    <Compile Include="ViewModels\DebugViewModel.cs" />
+    <Compile Include="ViewModels\ExtendedControls\DropDownButtonViewModel.cs" />
     <Compile Include="ViewModels\StandardControls\TreeViewViewModel.cs" />
     <Compile Include="ViewModels\StandardControls\CheckBoxViewModel.cs" />
     <Compile Include="ViewModels\StandardControls\ComboBoxViewModel.cs" />
@@ -83,6 +85,12 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\VersionViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\Debug\DebugView.xaml.cs">
+      <DependentUpon>DebugView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExtendedControls\DropDownButtonView.xaml.cs">
+      <DependentUpon>DropDownButtonView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\StandardControls\ButtonView.xaml.cs">
       <DependentUpon>ButtonView.xaml</DependentUpon>
     </Compile>
@@ -150,6 +158,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\Debug\DebugView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ExtendedControls\DropDownButtonView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\StandardControls\ButtonView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

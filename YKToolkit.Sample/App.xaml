@@ -5,6 +5,10 @@
              xmlns:vw="clr-namespace:YKToolkit.Sample.Views">
     <Application.Resources>
 
+        <DataTemplate DataType="{x:Type vm:DebugViewModel}">
+            <vw:DebugView />
+        </DataTemplate>
+
         <DataTemplate DataType="{x:Type vm:ButtonViewModel}">
             <vw:ButtonView />
         </DataTemplate>
@@ -61,6 +65,10 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:TreeViewViewModel}">
             <vw:TreeViewView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:DropDownButtonViewModel}">
+            <vw:DropDownButtonView />
         </DataTemplate>
 
     </Application.Resources>

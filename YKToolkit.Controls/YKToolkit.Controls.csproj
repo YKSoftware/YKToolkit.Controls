@@ -66,6 +66,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="ExtendedControls\DropDownButton\Generic.DropDownButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Colors\BlackBaseColors.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -190,11 +194,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Behaviors\DataGridBehavior.cs" />
+    <Compile Include="Core\Behaviors\EventTriggerAction.cs" />
     <Compile Include="Core\Behaviors\SystemMenuBehavior.cs" />
     <Compile Include="Core\Behaviors\TextBoxAllSelectBehavior.cs" />
     <Compile Include="Core\User32.cs" />
     <Compile Include="Bindings\DelegateCommand.cs" />
     <Compile Include="Bindings\NotificationObject.cs" />
+    <Compile Include="ExtendedControls\DropDownButton\Generic.DropDownButton.xaml.cs">
+      <DependentUpon>Generic.DropDownButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -224,7 +232,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\Helpers\" />
-    <Folder Include="ExtendedControls\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
