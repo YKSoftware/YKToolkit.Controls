@@ -8,14 +8,52 @@
              d:DataContext="{d:DesignInstance vm:DropDownButtonViewModel}"
              d:DesignHeight="300" d:DesignWidth="300"
              xmlns:YK="clr-namespace:YKToolkit.Controls;assembly=YKToolkit.Controls">
-    <Grid>
-        <YK:DropDownButton Content="DropDown" Width="120" VerticalAlignment="Top">
+    <StackPanel>
+        <YK:DropDownButton Content="DropDown" Width="150">
             <YK:DropDownButton.DropDownContent>
-                <StackPanel>
+                <StackPanel Margin="4" Width="200">
                     <TextBlock Text="コンテンツです" />
                     <Button Content="Click me." Margin="0,10,0,0" />
+                    <Separator Margin="0,10" />
+                    <TextBlock Text="コンテンツです" />
+                    <Button Content="Click me." Margin="0,10,0,0" />
+                    <Separator Margin="0,10" />
+                    <TextBlock Text="コンテンツです" />
+                    <Button Content="Click me." Margin="0,10,0,0" />
+                    <Separator Margin="0,10" />
+                    <TextBlock Text="コンテンツです" />
+                    <Button Content="Click me." Margin="0,10,0,0" />
+                    <Separator Margin="0,10" />
+                    <TextBlock Text="コンテンツです" />
+                    <Button Content="Click me." Margin="0,10,0,0" />
+                    <Separator Margin="0,10" />
+                    <TextBlock Text="コンテンツです" />
+                    <Button Content="Click me." Margin="0,10,0,0" />
+                    <Separator Margin="0,10" />
+                    <TextBlock Text="コンテンツです" />
+                    <Button Content="Click me." Margin="0,10,0,0" />
+                    <Separator Margin="0,10" />
+                    <TextBlock Text="コンテンツです" />
+                    <Button Content="Click me." Margin="0,10,0,0" />
+                    <Separator Margin="0,10" />
+                    <TextBlock Text="コンテンツです" />
+                    <Button Content="Click me." Margin="0,10,0,0" />
+                    <Separator Margin="0,10" />
+                    <TextBlock Text="コンテンツです" />
+                    <Button Content="Click me." Margin="0,10,0,0" />
+                    <Separator Margin="0,10" />
+                    <TextBlock Text="コンテンツです" />
+                    <Button Content="Click me." Margin="0,10,0,0" />
+                    <Separator Margin="0,10" />
+                    <TextBlock Text="コンテンツです" />
+                    <Button Content="Click me." Margin="0,10,0,0" />
+                    <Separator Margin="0,10" />
+                    <TextBlock Text="コンテンツです" />
+                    <Button Content="Click me." Margin="0,10,0,0" />
+                    <Separator Margin="0,10" />
                 </StackPanel>
             </YK:DropDownButton.DropDownContent>
         </YK:DropDownButton>
-    </Grid>
+        <YK:DropDownButton Content="Disabled Button" Width="150" Margin="0,10,0,0" IsEnabled="False" />
+    </StackPanel>
 </UserControl>

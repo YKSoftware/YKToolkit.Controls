@@ -147,7 +147,6 @@
                                 new ViewModelInfo() { Name = "TextBox", Instance = this._textBoxViewModel, },
                                 new ViewModelInfo() { Name = "ToggleButton", Instance = this._toggleButtonViewModel, },
                             },
-                            IsExpanded = true,
                         },
 
                         new ViewModelInfo()
@@ -157,6 +156,7 @@
                             {
                                 new ViewModelInfo() { Name = "DropDownButton", Instance = this._dropDownButtonViewModel, },
                             },
+                            IsExpanded = true,
                         },
                     });
                 }

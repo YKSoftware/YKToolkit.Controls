@@ -8,16 +8,6 @@
     /// </summary>
     public class DropDownButton : ContentControl
     {
-        #region TemplatePart
-        /// <summary>
-        /// テンプレート適用処理オーバーライド
-        /// </summary>
-        public override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-        }
-        #endregion TemplatePart
-
         #region コンストラクタ
         /// <summary>
         /// 静的なコンストラクタです。
@@ -48,7 +38,7 @@
         /// <summary>
         /// MaxDropDownHeight 依存関係プロパティの定義
         /// </summary>
-        public static readonly DependencyProperty MaxDropDownHeightProperty = DependencyProperty.Register("MaxDropDownHeight", typeof(double), typeof(DropDownButton), new PropertyMetadata(double.NaN));
+        public static readonly DependencyProperty MaxDropDownHeightProperty = DependencyProperty.Register("MaxDropDownHeight", typeof(double), typeof(DropDownButton), new PropertyMetadata(500.0));
 
         /// <summary>
         /// ドロップダウンコンテンツの最大高さを取得または設定します。
