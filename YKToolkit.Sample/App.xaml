@@ -70,6 +70,9 @@
         <DataTemplate DataType="{x:Type vm:DropDownButtonViewModel}">
             <vw:DropDownButtonView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:SplitButtonViewModel}">
+            <vw:SplitButtonView />
+        </DataTemplate>
 
     </Application.Resources>
 </Application>

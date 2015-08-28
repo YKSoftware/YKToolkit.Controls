@@ -62,6 +62,7 @@
     <Compile Include="Models\ProductInfo.cs" />
     <Compile Include="Models\ViewModelInfo.cs" />
     <Compile Include="ViewModels\DebugViewModel.cs" />
+    <Compile Include="ViewModels\ExtendedControls\SplitButtonViewModel.cs" />
     <Compile Include="ViewModels\ExtendedControls\DropDownButtonViewModel.cs" />
     <Compile Include="ViewModels\StandardControls\TreeViewViewModel.cs" />
     <Compile Include="ViewModels\StandardControls\CheckBoxViewModel.cs" />
@@ -87,6 +88,9 @@
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\Debug\DebugView.xaml.cs">
       <DependentUpon>DebugView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExtendedControls\SplitButtonView.xaml.cs">
+      <DependentUpon>SplitButtonView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ExtendedControls\DropDownButtonView.xaml.cs">
       <DependentUpon>DropDownButtonView.xaml</DependentUpon>
@@ -161,6 +165,10 @@
     <Page Include="Views\Debug\DebugView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ExtendedControls\SplitButtonView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ExtendedControls\DropDownButtonView.xaml">
       <SubType>Designer</SubType>

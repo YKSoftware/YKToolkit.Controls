@@ -25,6 +25,7 @@
         <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.Window.xaml" />
 
         <ResourceDictionary Source="/YKToolkit.Controls;component/ExtendedControls/DropDownButton/Generic.DropDownButton.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/ExtendedControls/SplitButton/Generic.SplitButton.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

@@ -155,6 +155,7 @@
                             Children = new List<ViewModelInfo>()
                             {
                                 new ViewModelInfo() { Name = "DropDownButton", Instance = this._dropDownButtonViewModel, },
+                                new ViewModelInfo() { Name = "SplitButton", Instance = this._splitButtonViewModel, },
                             },
                             IsExpanded = true,
                         },
@@ -186,6 +187,7 @@
         private ToggleButtonViewModel _toggleButtonViewModel = new ToggleButtonViewModel();
 
         private DropDownButtonViewModel _dropDownButtonViewModel = new DropDownButtonViewModel();
+        private SplitButtonViewModel _splitButtonViewModel = new SplitButtonViewModel();
         #endregion ViewModel 選択
     }
 }
