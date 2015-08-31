@@ -1,8 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:c="clr-namespace:YKToolkit.Controls.Converters">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/YKToolkit.Controls;component/Themes/DefaultColors.xaml" />
     </ResourceDictionary.MergedDictionaries>
+
+    <c:TabControlBorderThicknessConverter x:Key="TabControlBorderThicknessConverter" />
 
     <Style TargetType="TabControl">
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
@@ -60,7 +63,6 @@
                         <Border x:Name="PART_ContentBorder"
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
                                 Padding="{TemplateBinding Padding}">
                             <ContentPresenter x:Name="PART_SelectedContentHost"
                                               ContentSource="SelectedContent"
@@ -94,25 +96,25 @@
                         <Trigger Property="TabStripPlacement" Value="Left">
                             <Setter TargetName="PART_Separator" Property="Height" Value="NaN" />
                             <Setter TargetName="PART_Separator" Property="Margin" Value="-1,0,0,0" />
-                            <Setter TargetName="PART_ContentBorder" Property="BorderThickness" Value="0,1,1,1" />
+                            <Setter TargetName="PART_ContentBorder" Property="BorderThickness" Value="{Binding BorderThickness, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource TabControlBorderThicknessConverter}, ConverterParameter='Left'}" />
                             <Setter TargetName="PART_ContentBorder" Property="CornerRadius" Value="0,2,2,0" />
                         </Trigger>
                         <Trigger Property="TabStripPlacement" Value="Top">
                             <Setter TargetName="PART_Separator" Property="Width" Value="NaN" />
                             <Setter TargetName="PART_Separator" Property="Margin" Value="0,-1,0,0" />
-                            <Setter TargetName="PART_ContentBorder" Property="BorderThickness" Value="1,0,1,1" />
+                            <Setter TargetName="PART_ContentBorder" Property="BorderThickness" Value="{Binding BorderThickness, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource TabControlBorderThicknessConverter}, ConverterParameter='Top'}" />
                             <Setter TargetName="PART_ContentBorder" Property="CornerRadius" Value="0,0,2,2" />
                         </Trigger>
                         <Trigger Property="TabStripPlacement" Value="Right">
                             <Setter TargetName="PART_Separator" Property="Height" Value="NaN" />
                             <Setter TargetName="PART_Separator" Property="Margin" Value="0,0,-1,0" />
-                            <Setter TargetName="PART_ContentBorder" Property="BorderThickness" Value="1,1,0,1" />
+                            <Setter TargetName="PART_ContentBorder" Property="BorderThickness" Value="{Binding BorderThickness, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource TabControlBorderThicknessConverter}, ConverterParameter='Right'}" />
                             <Setter TargetName="PART_ContentBorder" Property="CornerRadius" Value="2,0,0,2" />
                         </Trigger>
                         <Trigger Property="TabStripPlacement" Value="Bottom">
                             <Setter TargetName="PART_Separator" Property="Width" Value="NaN" />
                             <Setter TargetName="PART_Separator" Property="Margin" Value="0,0,0,-1" />
-                            <Setter TargetName="PART_ContentBorder" Property="BorderThickness" Value="1,1,1,0" />
+                            <Setter TargetName="PART_ContentBorder" Property="BorderThickness" Value="{Binding BorderThickness, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource TabControlBorderThicknessConverter}, ConverterParameter='Bottom'}" />
                             <Setter TargetName="PART_ContentBorder" Property="CornerRadius" Value="2,2,0,0" />
                         </Trigger>
                     </ControlTemplate.Triggers>
