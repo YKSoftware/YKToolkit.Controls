@@ -206,6 +206,7 @@
     <Compile Include="Core\Behaviors\SystemMenuBehavior.cs" />
     <Compile Include="Core\Behaviors\TextBoxAllSelectBehavior.cs" />
     <Compile Include="Core\Converters\BooleanInverseConverter.cs" />
+    <Compile Include="Core\Converters\TabControlBorderThicknessConverter.cs" />
     <Compile Include="Core\User32.cs" />
     <Compile Include="Bindings\DelegateCommand.cs" />
     <Compile Include="Bindings\NotificationObject.cs" />
