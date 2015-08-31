@@ -61,6 +61,7 @@
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\ProductInfo.cs" />
     <Compile Include="Models\ViewModelInfo.cs" />
+    <Compile Include="ViewModels\ExtendedControls\ColorPickerViewModel.cs" />
     <Compile Include="ViewModels\DebugViewModel.cs" />
     <Compile Include="ViewModels\ExtendedControls\SplitButtonViewModel.cs" />
     <Compile Include="ViewModels\ExtendedControls\DropDownButtonViewModel.cs" />
@@ -86,6 +87,9 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\VersionViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\ExtendedControls\ColorPickerView.xaml.cs">
+      <DependentUpon>ColorPickerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Debug\DebugView.xaml.cs">
       <DependentUpon>DebugView.xaml</DependentUpon>
     </Compile>
@@ -162,6 +166,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\ExtendedControls\ColorPickerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Debug\DebugView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

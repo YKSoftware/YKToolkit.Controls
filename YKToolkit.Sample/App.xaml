@@ -67,6 +67,9 @@
             <vw:TreeViewView />
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type vm:ColorPickerViewModel}">
+            <vw:ColorPickerView />
+        </DataTemplate>
         <DataTemplate DataType="{x:Type vm:DropDownButtonViewModel}">
             <vw:DropDownButtonView />
         </DataTemplate>

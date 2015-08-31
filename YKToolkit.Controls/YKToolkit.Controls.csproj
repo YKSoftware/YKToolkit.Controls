@@ -66,6 +66,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="ExtendedControls\ColorPicker\Generic.ColorPicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ExtendedControls\DropDownButton\Generic.DropDownButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -205,6 +209,9 @@
     <Compile Include="Core\User32.cs" />
     <Compile Include="Bindings\DelegateCommand.cs" />
     <Compile Include="Bindings\NotificationObject.cs" />
+    <Compile Include="ExtendedControls\ColorPicker\Generic.ColorPicker.xaml.cs">
+      <DependentUpon>Generic.ColorPicker.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ExtendedControls\DropDownButton\Generic.DropDownButton.xaml.cs">
       <DependentUpon>Generic.DropDownButton.xaml</DependentUpon>
     </Compile>
