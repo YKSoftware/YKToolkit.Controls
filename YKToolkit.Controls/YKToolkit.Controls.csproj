@@ -74,6 +74,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ExtendedControls\SpinInput\Generic.SpinInput.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ExtendedControls\SplitButton\Generic.SplitButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -218,6 +222,9 @@
     <Compile Include="ExtendedControls\ColorPicker\HsvColorHelper.cs" />
     <Compile Include="ExtendedControls\DropDownButton\Generic.DropDownButton.xaml.cs">
       <DependentUpon>Generic.DropDownButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExtendedControls\SpinInput\Generic.SpinInput.xaml.cs">
+      <DependentUpon>Generic.SpinInput.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExtendedControls\SplitButton\Generic.SplitButton.xaml.cs">
       <DependentUpon>Generic.SplitButton.xaml</DependentUpon>
