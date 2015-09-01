@@ -14,6 +14,10 @@
     <Color x:Key="ForegroundColor">White</Color>
     <Color x:Key="DisabledForegroundColor">#FF666666</Color>
     <Color x:Key="DisabledForegroundColor2">#FF3D3D40</Color>
+    <Color x:Key="SymbolColor">White</Color>
+    <Color x:Key="DisabledSymbolColor">#FF999999</Color>
+
+    <Color x:Key="ContentBaseColor">#FF252526</Color>
 
     <Color x:Key="BorderColor">#FF999999</Color>
     <Color x:Key="DisabledBorderColor">#FF434346</Color>
@@ -85,29 +89,15 @@
     <Color x:Key="PressedSliderColor">#FF007ACC</Color>
     <Color x:Key="DisabledSliderColor">#FF3D3D40</Color>
 
+    <!-- ColorPicker -->
+    <Color x:Key="ColorPickerBorderColor">#FF555555</Color>
+    <Color x:Key="ColorPickerHoverColor1">#FFE36C09</Color>
+    <Color x:Key="ColorPickerHoverColor2">White</Color>
 
 
     <Color x:Key="MentionColor">#FFFFCC00</Color>
-
-
-
-
-
-
-    <Color x:Key="ContentBaseColor">#FF252526</Color>
-    <Color x:Key="ContentLightBaseColor">#FF3E3E40</Color>
-    <Color x:Key="ContentDarkBaseColor">#FF1E1E1E</Color>
-
-    <Color x:Key="MouseOverBorderColor">#FF007ACC</Color>
-
     <!--<Color x:Key="SelectingColor">#FF007ACC</Color>-->
     <!--<Color x:Key="SelectedColor">#FF3399FF</Color>-->
-
-    <Color x:Key="SymbolColor">White</Color>
-    <Color x:Key="InverseForegroundColor">White</Color>
-
-    <Color x:Key="DisabledSymbolColor">#FF999999</Color>
-
     <Color x:Key="IndicatorColor">#FF3399FF</Color>
 
 </ResourceDictionary>

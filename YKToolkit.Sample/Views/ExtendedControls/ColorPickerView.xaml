@@ -8,7 +8,54 @@
              d:DataContext="{d:DesignInstance vm:ColorPickerViewModel}"
              d:DesignHeight="300" d:DesignWidth="300"
              xmlns:YK="clr-namespace:YKToolkit.Controls;assembly=YKToolkit.Controls">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
+        <DrawingBrush x:Key="AlphaBackgroundBrush" ViewportUnits="Absolute" Viewport="0,0,10,10" TileMode="Tile">
+            <DrawingBrush.Drawing>
+                <DrawingGroup>
+                    <GeometryDrawing Brush="White">
+                        <GeometryDrawing.Geometry>
+                            <RectangleGeometry Rect="0,0,100,100" />
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="LightGray">
+                        <GeometryDrawing.Geometry>
+                            <GeometryGroup>
+                                <RectangleGeometry Rect="0,0,50,50" />
+                                <RectangleGeometry Rect="50,50,50,50" />
+                            </GeometryGroup>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                </DrawingGroup>
+            </DrawingBrush.Drawing>
+        </DrawingBrush>
+    </UserControl.Resources>
+
     <Grid>
-        <YK:ColorPicker />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0">
+            <CheckBox x:Name="recentColorsVisibility" Content="RecentColors visible" IsChecked="True" />
+            <CheckBox x:Name="isAdvancedModeEnabled" Content="Advanced mode enable" IsChecked="True" />
+            <TextBlock Text="{Binding SelectedColor, ElementName=colorPicker}" Margin="0,10,0,0" />
+            <Border Background="{StaticResource AlphaBackgroundBrush}" Width="32" Height="32" Margin="0,10,0,0" SnapsToDevicePixels="True">
+                <Rectangle Width="32" Height="32" Stroke="Black">
+                    <Rectangle.Fill>
+                        <SolidColorBrush Color="{Binding SelectedColor, ElementName=colorPicker}" />
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Border>
+        </StackPanel>
+
+        <YK:ColorPicker Grid.Column="1"
+                        x:Name="colorPicker"
+                        SelectedColor="MediumSeaGreen"
+                        RecentColorsVisibility="{Binding IsChecked, ElementName=recentColorsVisibility, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        IsAdvancedModeEnabled="{Binding IsChecked, ElementName=isAdvancedModeEnabled}"
+                        />
     </Grid>
 </UserControl>

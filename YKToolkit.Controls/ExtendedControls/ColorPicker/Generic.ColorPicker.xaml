@@ -5,6 +5,26 @@
         <ResourceDictionary Source="pack://application:,,,/YKToolkit.Controls;component/Themes/DefaultColors.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
+    <DrawingBrush x:Key="AlphaBackgroundBrush" ViewportUnits="Absolute" Viewport="0,0,10,10" TileMode="Tile">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="0,0,100,100" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+                <GeometryDrawing Brush="LightGray">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="0,0,50,50" />
+                            <RectangleGeometry Rect="50,50,50,50" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+
     <Style TargetType="{x:Type local:ColorPicker}">
         <Setter Property="Background" Value="{StaticResource DefaultBackgroundBrush}" />
         <Setter Property="BorderBrush">
@@ -18,19 +38,363 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:ColorPicker}">
-                    <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
-                        <TabControl BorderThickness="0">
-                            <TabItem Header="Standard">
-                                
-                            </TabItem>
+                    <StackPanel MaxWidth="210">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <TabControl BorderThickness="0" Padding="0">
+                                <TabItem Header="Standard">
+                                    <StackPanel Margin="4">
+                                        <StackPanel.Background>
+                                            <SolidColorBrush Color="{DynamicResource BoxBaseColor}" />
+                                        </StackPanel.Background>
+                                        <TextBlock Text="Theme Colors" Padding="4,0" Background="{TemplateBinding Background}" />
+                                        <ListBox x:Name="PART_ThemeColors1ListBox" ItemsSource="{x:Static local:ColorPicker.ThemeColors1}" BorderThickness="0">
+                                            <ListBox.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel Orientation="Horizontal" MaxWidth="200" />
+                                                </ItemsPanelTemplate>
+                                            </ListBox.ItemsPanel>
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Rectangle Width="16" Height="16">
+                                                        <Rectangle.Stroke>
+                                                            <SolidColorBrush Color="{DynamicResource ColorPickerBorderColor}" />
+                                                        </Rectangle.Stroke>
+                                                        <Rectangle.Fill>
+                                                            <SolidColorBrush Color="{Binding Color}" />
+                                                        </Rectangle.Fill>
+                                                        <Rectangle.ToolTip>
+                                                            <TextBlock Text="{Binding Name}" />
+                                                        </Rectangle.ToolTip>
+                                                    </Rectangle>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                            <ListBox.ItemContainerStyle>
+                                                <Style TargetType="ListBoxItem">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="ListBoxItem">
+                                                                <Grid Margin="2,2,2,8">
+                                                                    <ContentPresenter />
+                                                                    <Rectangle x:Name="rect1" Margin="1" Visibility="Collapsed">
+                                                                        <Rectangle.Stroke>
+                                                                            <SolidColorBrush Color="{DynamicResource ColorPickerHoverColor1}" />
+                                                                        </Rectangle.Stroke>
+                                                                    </Rectangle>
+                                                                    <Rectangle x:Name="rect2" Margin="2" Visibility="Collapsed">
+                                                                        <Rectangle.Stroke>
+                                                                            <SolidColorBrush Color="{DynamicResource ColorPickerHoverColor2}" />
+                                                                        </Rectangle.Stroke>
+                                                                    </Rectangle>
+                                                                </Grid>
+                                                                <ControlTemplate.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter TargetName="rect1" Property="Visibility" Value="Visible" />
+                                                                        <Setter TargetName="rect2" Property="Visibility" Value="Visible" />
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsSelected" Value="True">
+                                                                        <Setter TargetName="rect1" Property="Visibility" Value="Visible" />
+                                                                        <Setter TargetName="rect2" Property="Visibility" Value="Visible" />
+                                                                    </Trigger>
+                                                                </ControlTemplate.Triggers>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </ListBox.ItemContainerStyle>
+                                        </ListBox>
+                                        <ListBox x:Name="PART_ThemeColors2ListBox" ItemsSource="{x:Static local:ColorPicker.ThemeColors2}" BorderThickness="0">
+                                            <ListBox.Template>
+                                                <ControlTemplate TargetType="ListBox">
+                                                    <ItemsPresenter />
+                                                </ControlTemplate>
+                                            </ListBox.Template>
+                                            <ListBox.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel Orientation="Horizontal" MaxWidth="200" />
+                                                </ItemsPanelTemplate>
+                                            </ListBox.ItemsPanel>
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Rectangle Width="16" Height="16">
+                                                        <Rectangle.Stroke>
+                                                            <SolidColorBrush Color="{DynamicResource ColorPickerBorderColor}" />
+                                                        </Rectangle.Stroke>
+                                                        <Rectangle.Fill>
+                                                            <SolidColorBrush Color="{Binding Color}" />
+                                                        </Rectangle.Fill>
+                                                        <Rectangle.ToolTip>
+                                                            <TextBlock Text="{Binding Name}" />
+                                                        </Rectangle.ToolTip>
+                                                    </Rectangle>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                            <ListBox.ItemContainerStyle>
+                                                <Style TargetType="ListBoxItem">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="ListBoxItem">
+                                                                <Grid Margin="2,-1,2,0">
+                                                                    <ContentPresenter />
+                                                                    <Rectangle x:Name="rect1" Margin="1" Visibility="Collapsed">
+                                                                        <Rectangle.Stroke>
+                                                                            <SolidColorBrush Color="{DynamicResource ColorPickerHoverColor1}" />
+                                                                        </Rectangle.Stroke>
+                                                                    </Rectangle>
+                                                                    <Rectangle x:Name="rect2" Margin="2" Visibility="Collapsed">
+                                                                        <Rectangle.Stroke>
+                                                                            <SolidColorBrush Color="{DynamicResource ColorPickerHoverColor2}" />
+                                                                        </Rectangle.Stroke>
+                                                                    </Rectangle>
+                                                                </Grid>
+                                                                <ControlTemplate.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter TargetName="rect1" Property="Visibility" Value="Visible" />
+                                                                        <Setter TargetName="rect2" Property="Visibility" Value="Visible" />
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsSelected" Value="True">
+                                                                        <Setter TargetName="rect1" Property="Visibility" Value="Visible" />
+                                                                        <Setter TargetName="rect2" Property="Visibility" Value="Visible" />
+                                                                    </Trigger>
+                                                                </ControlTemplate.Triggers>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </ListBox.ItemContainerStyle>
+                                        </ListBox>
+                                        <TextBlock Text="Standard Colors" Padding="4,0" Background="{TemplateBinding Background}" />
+                                        <ListBox x:Name="PART_StandardColorsListBox" ItemsSource="{x:Static local:ColorPicker.StandardColors}" BorderThickness="0">
+                                            <ListBox.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel Orientation="Horizontal" MaxWidth="200" />
+                                                </ItemsPanelTemplate>
+                                            </ListBox.ItemsPanel>
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Rectangle Width="16" Height="16">
+                                                        <Rectangle.Stroke>
+                                                            <SolidColorBrush Color="{DynamicResource ColorPickerBorderColor}" />
+                                                        </Rectangle.Stroke>
+                                                        <Rectangle.Fill>
+                                                            <SolidColorBrush Color="{Binding Color}" />
+                                                        </Rectangle.Fill>
+                                                        <Rectangle.ToolTip>
+                                                            <TextBlock Text="{Binding Name}" />
+                                                        </Rectangle.ToolTip>
+                                                    </Rectangle>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                            <ListBox.ItemContainerStyle>
+                                                <Style TargetType="ListBoxItem">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="ListBoxItem">
+                                                                <Grid Margin="2">
+                                                                    <ContentPresenter />
+                                                                    <Rectangle x:Name="rect1" Margin="1" Visibility="Collapsed">
+                                                                        <Rectangle.Stroke>
+                                                                            <SolidColorBrush Color="{DynamicResource ColorPickerHoverColor1}" />
+                                                                        </Rectangle.Stroke>
+                                                                    </Rectangle>
+                                                                    <Rectangle x:Name="rect2" Margin="2" Visibility="Collapsed">
+                                                                        <Rectangle.Stroke>
+                                                                            <SolidColorBrush Color="{DynamicResource ColorPickerHoverColor2}" />
+                                                                        </Rectangle.Stroke>
+                                                                    </Rectangle>
+                                                                </Grid>
+                                                                <ControlTemplate.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter TargetName="rect1" Property="Visibility" Value="Visible" />
+                                                                        <Setter TargetName="rect2" Property="Visibility" Value="Visible" />
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsSelected" Value="True">
+                                                                        <Setter TargetName="rect1" Property="Visibility" Value="Visible" />
+                                                                        <Setter TargetName="rect2" Property="Visibility" Value="Visible" />
+                                                                    </Trigger>
+                                                                </ControlTemplate.Triggers>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </ListBox.ItemContainerStyle>
+                                        </ListBox>
+                                        <TextBlock Text="Recent Colors" Padding="4,0" Background="{TemplateBinding Background}" Visibility="{TemplateBinding RecentColorsVisibility}" />
+                                        <ListBox x:Name="PART_RecentColorsListBox" ItemsSource="{x:Static local:ColorPicker.RecentColors}" BorderThickness="0" Visibility="{TemplateBinding RecentColorsVisibility}">
+                                            <ListBox.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel Orientation="Horizontal" MaxWidth="200" />
+                                                </ItemsPanelTemplate>
+                                            </ListBox.ItemsPanel>
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Border Background="{StaticResource AlphaBackgroundBrush}" Width="16" Height="16">
+                                                        <Rectangle Width="16" Height="16">
+                                                            <Rectangle.Stroke>
+                                                                <SolidColorBrush Color="{DynamicResource ColorPickerBorderColor}" />
+                                                            </Rectangle.Stroke>
+                                                            <Rectangle.Fill>
+                                                                <SolidColorBrush Color="{Binding Color}" />
+                                                            </Rectangle.Fill>
+                                                            <Rectangle.ToolTip>
+                                                                <TextBlock Text="{Binding Name}" />
+                                                            </Rectangle.ToolTip>
+                                                        </Rectangle>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                            <ListBox.ItemContainerStyle>
+                                                <Style TargetType="ListBoxItem">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="ListBoxItem">
+                                                                <Grid Margin="2">
+                                                                    <ContentPresenter />
+                                                                    <Rectangle x:Name="rect1" Margin="1" Visibility="Collapsed">
+                                                                        <Rectangle.Stroke>
+                                                                            <SolidColorBrush Color="{DynamicResource ColorPickerHoverColor1}" />
+                                                                        </Rectangle.Stroke>
+                                                                    </Rectangle>
+                                                                    <Rectangle x:Name="rect2" Margin="2" Visibility="Collapsed">
+                                                                        <Rectangle.Stroke>
+                                                                            <SolidColorBrush Color="{DynamicResource ColorPickerHoverColor2}" />
+                                                                        </Rectangle.Stroke>
+                                                                    </Rectangle>
+                                                                </Grid>
+                                                                <ControlTemplate.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter TargetName="rect1" Property="Visibility" Value="Visible" />
+                                                                        <Setter TargetName="rect2" Property="Visibility" Value="Visible" />
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsSelected" Value="True">
+                                                                        <Setter TargetName="rect1" Property="Visibility" Value="Visible" />
+                                                                        <Setter TargetName="rect2" Property="Visibility" Value="Visible" />
+                                                                    </Trigger>
+                                                                </ControlTemplate.Triggers>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </ListBox.ItemContainerStyle>
+                                        </ListBox>
+                                        <Button x:Name="PART_TransparentButton" Content="Transparent" MaxWidth="200" />
+                                    </StackPanel>
+                                </TabItem>
 
-                            <TabItem Header="Advanced">
-                                
-                            </TabItem>
-                        </TabControl>
-                    </Border>
+                                <TabItem Header="Advanced" IsEnabled="{TemplateBinding IsAdvancedModeEnabled}">
+                                    <Grid Margin="4">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Grid Margin="0,0,16,0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+
+                                                <Grid x:Name="PART_ColorShadingGrid" Grid.Row="0" Grid.ColumnSpan="2" Width="160" Height="120" Margin="0,0,0,8" SnapsToDevicePixels="True">
+                                                    <Grid.Background>
+                                                        <SolidColorBrush x:Name="PART_PalleteSolidColorBrush" />
+                                                    </Grid.Background>
+                                                    <Rectangle IsHitTestVisible="False">
+                                                        <Rectangle.Fill>
+                                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                                                <GradientStop Offset="0" Color="#ffffffff" />
+                                                                <GradientStop Offset="1" Color="#00ffffff" />
+                                                            </LinearGradientBrush>
+                                                        </Rectangle.Fill>
+                                                    </Rectangle>
+                                                    <Rectangle IsHitTestVisible="False">
+                                                        <Rectangle.Fill>
+                                                            <LinearGradientBrush StartPoint="0,1" EndPoint="0,0">
+                                                                <GradientStop Offset="0" Color="#ff000000" />
+                                                                <GradientStop Offset="1" Color="#00000000" />
+                                                            </LinearGradientBrush>
+                                                        </Rectangle.Fill>
+                                                    </Rectangle>
+                                                    <!-- 選択色の位置 -->
+                                                    <Path Stroke="White" StrokeThickness="1.0" SnapsToDevicePixels="True">
+                                                        <Path.Data>
+                                                            <EllipseGeometry x:Name="PART_SelectorPoint1" RadiusX="4" RadiusY="4" />
+                                                        </Path.Data>
+                                                    </Path>
+                                                    <Path Stroke="Black" StrokeThickness="0.5" SnapsToDevicePixels="True">
+                                                        <Path.Data>
+                                                            <EllipseGeometry x:Name="PART_SelectorPoint2" RadiusX="3" RadiusY="3" />
+                                                        </Path.Data>
+                                                    </Path>
+                                                </Grid>
+                                                <Border Grid.Row="1" Grid.Column="0" Background="{StaticResource AlphaBackgroundBrush}" Width="64" Height="24" SnapsToDevicePixels="True">
+                                                    <Rectangle Width="64" Height="24">
+                                                        <Rectangle.Fill>
+                                                            <SolidColorBrush x:Name="PART_SampleSolidColorBrush" />
+                                                        </Rectangle.Fill>
+                                                    </Rectangle>
+                                                </Border>
+                                                <TextBox x:Name="PART_PalleteColorTextBox" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="10,0,0,0" />
+                                            </Grid>
+                                            <Slider x:Name="PART_Slider_H"
+                                                    Grid.Column="1"
+                                                    Minimum="0" Maximum="360"
+                                                    TickFrequency="0.001"
+                                                    IsSnapToTickEnabled="True"
+                                                    IsMoveToPointEnabled="True"
+                                                    Orientation="Vertical"
+                                                    />
+                                        </Grid>
+
+                                        <Grid Grid.Row="1" Margin="0,6">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition />
+                                                <ColumnDefinition Width="40" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock Text="A :" Grid.Row="0" TextAlignment="Right" VerticalAlignment="Center" />
+                                            <TextBlock Text="R :" Grid.Row="1" TextAlignment="Right" VerticalAlignment="Center" />
+                                            <TextBlock Text="G :" Grid.Row="2" TextAlignment="Right" VerticalAlignment="Center" />
+                                            <TextBlock Text="B :" Grid.Row="3" TextAlignment="Right" VerticalAlignment="Center" />
+
+                                            <Slider x:Name="PART_Slider_A" Grid.Row="0" Grid.Column="1" Margin="6,4,0,4" Minimum="0" Maximum="255" TickFrequency="1" IsSnapToTickEnabled="True" />
+                                            <Slider x:Name="PART_Slider_R" Grid.Row="1" Grid.Column="1" Margin="6,4,0,4" Minimum="0" Maximum="255" TickFrequency="1" IsSnapToTickEnabled="True" />
+                                            <Slider x:Name="PART_Slider_G" Grid.Row="2" Grid.Column="1" Margin="6,4,0,4" Minimum="0" Maximum="255" TickFrequency="1" IsSnapToTickEnabled="True" />
+                                            <Slider x:Name="PART_Slider_B" Grid.Row="3" Grid.Column="1" Margin="6,4,0,4" Minimum="0" Maximum="255" TickFrequency="1" IsSnapToTickEnabled="True" />
+
+                                            <TextBox Grid.Row="0" Grid.Column="2" Margin="0,4" TextAlignment="Right" Text="{Binding Value, ElementName=PART_Slider_A, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox Grid.Row="1" Grid.Column="2" Margin="0,4" TextAlignment="Right" Text="{Binding Value, ElementName=PART_Slider_R, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox Grid.Row="2" Grid.Column="2" Margin="0,4" TextAlignment="Right" Text="{Binding Value, ElementName=PART_Slider_G, UpdateSourceTrigger=PropertyChanged}" />
+                                            <TextBox Grid.Row="3" Grid.Column="2" Margin="0,4" TextAlignment="Right" Text="{Binding Value, ElementName=PART_Slider_B, UpdateSourceTrigger=PropertyChanged}" />
+                                        </Grid>
+
+                                        <StackPanel Grid.Row="2">
+                                            <Button x:Name="PART_OkButton" Content="OK" />
+                                            <Button x:Name="PART_CancelButton" Content="Cancel" Margin="0,6,0,0" />
+                                        </StackPanel>
+                                    </Grid>
+                                </TabItem>
+                            </TabControl>
+                        </Border>
+                    </StackPanel>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

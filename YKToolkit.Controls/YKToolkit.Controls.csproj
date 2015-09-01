@@ -210,9 +210,12 @@
     <Compile Include="Core\User32.cs" />
     <Compile Include="Bindings\DelegateCommand.cs" />
     <Compile Include="Bindings\NotificationObject.cs" />
+    <Compile Include="ExtendedControls\ColorPicker\ColorPickerItem.cs" />
     <Compile Include="ExtendedControls\ColorPicker\Generic.ColorPicker.xaml.cs">
       <DependentUpon>Generic.ColorPicker.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ExtendedControls\ColorPicker\HsvColor.cs" />
+    <Compile Include="ExtendedControls\ColorPicker\HsvColorHelper.cs" />
     <Compile Include="ExtendedControls\DropDownButton\Generic.DropDownButton.xaml.cs">
       <DependentUpon>Generic.DropDownButton.xaml</DependentUpon>
     </Compile>

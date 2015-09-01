@@ -2,14 +2,11 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <SolidColorBrush x:Key="DefaultWindowBackgroundBrush" Color="{DynamicResource WindowColor}" />
-
     <SolidColorBrush x:Key="DefaultWindowBorderBrush" Color="{DynamicResource WindowBorderColor}" />
+
     <SolidColorBrush x:Key="DefaultBackgroundBrush" Color="{DynamicResource ContentBaseColor}" />
     <SolidColorBrush x:Key="DefaultForegroundBrush" Color="{DynamicResource ForegroundColor}" />
-    <SolidColorBrush x:Key="DefaultBorderBrush" Color="{DynamicResource BorderColor}" />
 
     <SolidColorBrush x:Key="DefaultBoxBaseBrush" Color="{DynamicResource BoxBaseColor}" />
-
-    <SolidColorBrush x:Key="DefaultTickBarBrush" Color="#FF999999" />
 
 </ResourceDictionary>
