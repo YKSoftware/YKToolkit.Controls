@@ -1,22 +1,65 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:YKToolkit.Controls">
+                    xmlns:local="clr-namespace:YKToolkit.Controls"
+                    xmlns:b="clr-namespace:YKToolkit.Controls.Behaviors">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/YKToolkit.Controls;component/Themes/DefaultColors.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <Style TargetType="{x:Type local:SpinInput}">
-        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-        <Setter Property="Foreground">
-            <Setter.Value>
-                <SolidColorBrush Color="{DynamicResource ForegroundColor}" />
-            </Setter.Value>
-        </Setter>
+    <Style x:Key="SpinButtonStyle" TargetType="RepeatButton">
+        <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Background">
             <Setter.Value>
-                <SolidColorBrush Color="{DynamicResource ContentBaseColor}" />
+                <SolidColorBrush Color="{DynamicResource ButtonColor}" />
             </Setter.Value>
         </Setter>
+        <Setter Property="Foreground">
+            <Setter.Value>
+                <SolidColorBrush Color="{DynamicResource ButtonForegroundColor}" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RepeatButton">
+                    <Border Background="{TemplateBinding Background}">
+                        <Path Data="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}" Fill="{TemplateBinding Foreground}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{DynamicResource HoverColor}" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{DynamicResource PressedButtonColor}" />
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Foreground">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{DynamicResource PressedButtonForegroundColor}" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{DynamicResource DisabledForegroundColor}" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type local:SpinInput}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="BorderBrush">
             <Setter.Value>
                 <LinearGradientBrush>
@@ -28,7 +71,72 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:SpinInput}">
-                    <TextBlock Text="SpinInput" />
+                    <Border BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="2">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="20" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox x:Name="PART_InputTextBox"
+                                     Grid.RowSpan="2"
+                                     b:TextBoxAllSelectBehavior.IsEnabled="True"
+                                     TextAlignment="Right"
+                                     BorderThickness="0"
+                                     IsReadOnly="{TemplateBinding IsReadOnly}"
+                                     Text="{TemplateBinding Text}"
+                                     />
+
+                            <Rectangle Grid.RowSpan="2" Width="1" HorizontalAlignment="Right" VerticalAlignment="Stretch" Fill="{TemplateBinding BorderBrush}" SnapsToDevicePixels="True" />
+
+                            <RepeatButton x:Name="PART_UpButton"
+                                          Grid.Row="0" Grid.Column="1"
+                                          Style="{StaticResource SpinButtonStyle}"
+                                          Content="M 0,3 L 3,0 6,3 Z"
+                                          Delay="{TemplateBinding Delay}"
+                                          Interval="{TemplateBinding Interval}"
+                                          />
+                            <RepeatButton x:Name="PART_DownButton"
+                                          Grid.Row="1" Grid.Column="1"
+                                          Style="{StaticResource SpinButtonStyle}"
+                                          Content="M 0,0 L 3,3 6,0 Z"
+                                          Delay="{TemplateBinding Delay}"
+                                          Interval="{TemplateBinding Interval}"
+                                          />
+
+                            <Rectangle Grid.Column="1" Height="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="0,0,0,-1" Fill="{TemplateBinding BorderBrush}" SnapsToDevicePixels="True" />
+
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition SourceName="PART_InputTextBox" Property="IsFocused" Value="True" />
+                                <Condition Property="IsReadOnly" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="PART_InputTextBox" Property="Text" Value="{Binding Value, RelativeSource={RelativeSource TemplatedParent}}" />
+                        </MultiTrigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="BorderBrush">
+                                <Setter.Value>
+                                    <LinearGradientBrush>
+                                        <GradientStop Color="{DynamicResource DisabledBorderColor}" />
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Foreground">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{DynamicResource DisabledForegroundColor}" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

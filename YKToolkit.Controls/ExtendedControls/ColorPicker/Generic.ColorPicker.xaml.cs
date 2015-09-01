@@ -341,25 +341,25 @@
         {
             base.OnApplyTemplate();
 
-            ThemeColors1ListBox = this.Template.FindName(PART_ThemeColors1ListBox, this) as ListBox;
-            ThemeColors2ListBox = this.Template.FindName(PART_ThemeColors2ListBox, this) as ListBox;
-            StandardColorsListBox = this.Template.FindName(PART_StandardColorsListBox, this) as ListBox;
-            RecentColorsListBox = this.Template.FindName(PART_RecentColorsListBox, this) as ListBox;
-            TransparentButton = this.Template.FindName(PART_TransparentButton, this) as Button;
+            this.ThemeColors1ListBox = this.Template.FindName(PART_ThemeColors1ListBox, this) as ListBox;
+            this.ThemeColors2ListBox = this.Template.FindName(PART_ThemeColors2ListBox, this) as ListBox;
+            this.StandardColorsListBox = this.Template.FindName(PART_StandardColorsListBox, this) as ListBox;
+            this.RecentColorsListBox = this.Template.FindName(PART_RecentColorsListBox, this) as ListBox;
+            this.TransparentButton = this.Template.FindName(PART_TransparentButton, this) as Button;
 
-            ColorShadingGrid = this.Template.FindName(PART_ColorShadingGrid, this) as Grid;
-            PalleteSolidColorBrush = this.Template.FindName(PART_PalleteSolidColorBrush, this) as SolidColorBrush;
-            SelectorPoint1 = this.Template.FindName(PART_SelectorPoint1, this) as EllipseGeometry;
-            SelectorPoint2 = this.Template.FindName(PART_SelectorPoint2, this) as EllipseGeometry;
-            Slider_H = this.Template.FindName(PART_Slider_H, this) as Slider;
-            Slider_A = this.Template.FindName(PART_Slider_A, this) as Slider;
-            Slider_R = this.Template.FindName(PART_Slider_R, this) as Slider;
-            Slider_G = this.Template.FindName(PART_Slider_G, this) as Slider;
-            Slider_B = this.Template.FindName(PART_Slider_B, this) as Slider;
-            SampleSolidColorBrush = this.Template.FindName(PART_SampleSolidColorBrush, this) as SolidColorBrush;
-            PalleteColorTextBox = this.Template.FindName(PART_PalleteColorTextBox, this) as TextBox;
-            OkButton = this.Template.FindName(PART_OkButton, this) as Button;
-            CancelButton = this.Template.FindName(PART_CancelButton, this) as Button;
+            this.ColorShadingGrid = this.Template.FindName(PART_ColorShadingGrid, this) as Grid;
+            this.PalleteSolidColorBrush = this.Template.FindName(PART_PalleteSolidColorBrush, this) as SolidColorBrush;
+            this.SelectorPoint1 = this.Template.FindName(PART_SelectorPoint1, this) as EllipseGeometry;
+            this.SelectorPoint2 = this.Template.FindName(PART_SelectorPoint2, this) as EllipseGeometry;
+            this.Slider_H = this.Template.FindName(PART_Slider_H, this) as Slider;
+            this.Slider_A = this.Template.FindName(PART_Slider_A, this) as Slider;
+            this.Slider_R = this.Template.FindName(PART_Slider_R, this) as Slider;
+            this.Slider_G = this.Template.FindName(PART_Slider_G, this) as Slider;
+            this.Slider_B = this.Template.FindName(PART_Slider_B, this) as Slider;
+            this.SampleSolidColorBrush = this.Template.FindName(PART_SampleSolidColorBrush, this) as SolidColorBrush;
+            this.PalleteColorTextBox = this.Template.FindName(PART_PalleteColorTextBox, this) as TextBox;
+            this.OkButton = this.Template.FindName(PART_OkButton, this) as Button;
+            this.CancelButton = this.Template.FindName(PART_CancelButton, this) as Button;
 
             this._isTemplateApplyed = true;
             this.Cancel();
