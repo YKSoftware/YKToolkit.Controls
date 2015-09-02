@@ -2,12 +2,32 @@
 {
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
 
     /// <summary>
     /// ドロップダウン形式でコンテンツを表示するためのボタンを表します。
     /// </summary>
+    [TemplatePart(Name = PART_DropDownPopup, Type = typeof(Popup))]
     public class DropDownButton : ContentControl
     {
+        #region TemplatePart
+        private const string PART_DropDownPopup = "PART_DropDownPopup";
+
+        private Popup _dropDownPopup;
+        private Popup DropDownPopup
+        {
+            get { return _dropDownPopup; }
+            set { _dropDownPopup = value; }
+        }
+
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+
+            this.DropDownPopup = this.Template.FindName(PART_DropDownPopup, this) as Popup;
+        }
+        #endregion TemplatePart
+
         #region コンストラクタ
         /// <summary>
         /// 静的なコンストラクタです。
@@ -22,7 +42,7 @@
         /// <summary>
         /// IsDropDownOpen 依存関係プロパティの定義
         /// </summary>
-        public static readonly DependencyProperty IsDropDownOpenProperty = DependencyProperty.Register("IsDropDownOpen", typeof(bool), typeof(DropDownButton), new PropertyMetadata(false));
+        public static readonly DependencyProperty IsDropDownOpenProperty = DependencyProperty.Register("IsDropDownOpen", typeof(bool), typeof(DropDownButton), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnIsDropDownOpenPropertyChanged));
 
         /// <summary>
         /// ドロップダウンコンテンツが表示されているかどうかを取得または設定します。
@@ -31,6 +51,23 @@
         {
             get { return (bool)GetValue(IsDropDownOpenProperty); }
             set { SetValue(IsDropDownOpenProperty, value); }
+        }
+
+        /// <summary>
+        /// IsDropDownOpen 依存関係プロパティ変更イベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private static void OnIsDropDownOpenPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            var control = sender as DropDownButton;
+            if (control == null)
+                return;
+
+            if (control.DropDownPopup == null)
+                return;
+
+            control.DropDownPopup.IsOpen = control.IsDropDownOpen;
         }
         #endregion IsDropDownOpen 依存関係プロパティ
 

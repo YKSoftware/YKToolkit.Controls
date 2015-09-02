@@ -94,11 +94,13 @@
     <Color x:Key="ColorPickerHoverColor1">#FFE36C09</Color>
     <Color x:Key="ColorPickerHoverColor2">White</Color>
 
+    <!-- BusyIndicator -->
+    <Color x:Key="IndicatorColor">#FF3399FF</Color>
+
 
 
     <Color x:Key="MentionColor">#FFFFCC00</Color>
     <!--<Color x:Key="SelectingColor">#FF1C97EA</Color>-->
     <!--<Color x:Key="SelectedColor">#FF3399FF</Color>-->
-    <Color x:Key="IndicatorColor">#FF3399FF</Color>
 
 </ResourceDictionary>

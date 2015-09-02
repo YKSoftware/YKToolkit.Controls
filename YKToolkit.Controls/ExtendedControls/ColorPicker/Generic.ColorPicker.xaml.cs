@@ -472,7 +472,7 @@
         /// <summary>
         /// SelectedColor 依存関係プロパティの定義
         /// </summary>
-        public static readonly DependencyProperty SelectedColorProperty = DependencyProperty.Register("SelectedColor", typeof(Color), typeof(ColorPicker), new FrameworkPropertyMetadata(default(Color), OnSelectedColorPropertyChanged));
+        public static readonly DependencyProperty SelectedColorProperty = DependencyProperty.Register("SelectedColor", typeof(Color), typeof(ColorPicker), new FrameworkPropertyMetadata(default(Color), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnSelectedColorPropertyChanged));
 
         /// <summary>
         /// 選択色を取得または設定します。
