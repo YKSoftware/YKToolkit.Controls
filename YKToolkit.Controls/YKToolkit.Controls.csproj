@@ -31,6 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\YKToolkit.Controls.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Beta Release|AnyCPU'">
     <OutputPath>bin\Beta Release\</OutputPath>
@@ -40,6 +41,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\Beta Release\YKToolkit.Controls.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Beta Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -53,6 +55,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -75,6 +78,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ExtendedControls\SpinInput\Generic.SpinInput.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExtendedControls\MessageBox\Generic.MessageBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -207,9 +214,11 @@
   <ItemGroup>
     <Compile Include="Core\Behaviors\DataGridBehavior.cs" />
     <Compile Include="Core\Behaviors\EventTriggerAction.cs" />
+    <Compile Include="Core\Behaviors\MessageDialogBehavior.cs" />
     <Compile Include="Core\Behaviors\SystemMenuBehavior.cs" />
     <Compile Include="Core\Behaviors\TextBoxAllSelectBehavior.cs" />
     <Compile Include="Core\Converters\BooleanInverseConverter.cs" />
+    <Compile Include="Core\Converters\DrawingIcontoImageConverter.cs" />
     <Compile Include="Core\Converters\TabControlBorderThicknessConverter.cs" />
     <Compile Include="Core\User32.cs" />
     <Compile Include="Bindings\DelegateCommand.cs" />
@@ -223,8 +232,12 @@
     <Compile Include="ExtendedControls\DropDownButton\Generic.DropDownButton.xaml.cs">
       <DependentUpon>Generic.DropDownButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ExtendedControls\MessageBox\IDialogInfo.cs" />
     <Compile Include="ExtendedControls\SpinInput\Generic.SpinInput.xaml.cs">
       <DependentUpon>Generic.SpinInput.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExtendedControls\MessageBox\Generic.MessageBox.xaml.cs">
+      <DependentUpon>Generic.MessageBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExtendedControls\SplitButton\Generic.SplitButton.xaml.cs">
       <DependentUpon>Generic.SplitButton.xaml</DependentUpon>

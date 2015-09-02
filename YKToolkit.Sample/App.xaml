@@ -73,6 +73,9 @@
         <DataTemplate DataType="{x:Type vm:DropDownButtonViewModel}">
             <vw:DropDownButtonView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:MessageBoxViewModel}">
+            <vw:MessageBoxView />
+        </DataTemplate>
         <DataTemplate DataType="{x:Type vm:SpinInputViewModel}">
             <vw:SpinInputView />
         </DataTemplate>

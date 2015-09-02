@@ -1,11 +1,9 @@
 ﻿namespace YKToolkit.Controls
 {
-    using System;
     using System.ComponentModel;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
-    using System.Windows.Interop;
 
     /// <summary>
     /// YKToolkit.Controls のテーマに則った Window コントロールを表します。
@@ -202,7 +200,7 @@
         /// <summary>
         /// ClosingConfirmationMessage 依存関係プロパティの定義
         /// </summary>
-        public static readonly DependencyProperty ClosingConfirmationMessageProperty = DependencyProperty.Register("ClosingConfirmationMessage", typeof(string), typeof(Window), new PropertyMetadata("Are you really want to exit this application?"));
+        public static readonly DependencyProperty ClosingConfirmationMessageProperty = DependencyProperty.Register("ClosingConfirmationMessage", typeof(string), typeof(Window), new PropertyMetadata("Do you really want to exit this application?"));
 
         /// <summary>
         /// ウィンドウを閉じることを確認するかどうかを取得または設定します。

@@ -4,6 +4,9 @@
     using System.Windows;
     using System.Windows.Input;
 
+    /// <summary>
+    /// 登録したイベントが発行されたときにアクションをおこなうためのビヘイビアを表します。
+    /// </summary>
     public class EventTriggerAction
     {
         #region Action 添付プロパティ

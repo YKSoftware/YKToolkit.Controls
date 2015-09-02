@@ -3,6 +3,9 @@
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
 
+    /// <summary>
+    /// <c>System.ComponentModel.INotifyPropertyChanged</c> インターフェースを実装した抽象クラスを表します。
+    /// </summary>
     public abstract class NotificationObject : INotifyPropertyChanged
     {
         #region INotifyPropertyChanged のメンバ

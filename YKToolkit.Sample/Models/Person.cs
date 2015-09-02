@@ -1,5 +1,8 @@
 ﻿namespace YKToolkit.Sample.Models
 {
+    /// <summary>
+    /// 人物データを表します。
+    /// </summary>
     public class Person
     {
         public int ID { get; set; }

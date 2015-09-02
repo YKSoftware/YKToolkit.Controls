@@ -4,6 +4,9 @@
     using System.Runtime.InteropServices;
     using System.Windows;
 
+    /// <summary>
+    /// user32.dll を使用するための変数またはメソッドを提供します。
+    /// </summary>
     public static class User32
     {
         /// <summary>

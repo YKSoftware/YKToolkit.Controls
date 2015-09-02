@@ -4,8 +4,12 @@
     using System.Windows;
     using System.Windows.Controls;
 
+    /// <summary>
+    /// フォーカス時にテキストを全選択するビヘイビアを表します。
+    /// </summary>
     public class TextBoxAllSelectBehavior
     {
+        #region IsEnabled 添付プロパティ
         /// <summary>
         /// IsEnabled 添付プロパティの定義
         /// </summary>
@@ -57,6 +61,7 @@
                 }
             }
         }
+        #endregion IsEnabled 添付プロパティ
 
         /// <summary>
         /// フォーカス取得イベントハンドラ

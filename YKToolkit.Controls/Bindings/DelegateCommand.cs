@@ -3,6 +3,9 @@
     using System;
     using System.Windows.Input;
 
+    /// <summary>
+    /// <c>System.Windows.Input.ICommand</c> インターフェースを実装したコマンドを表します。
+    /// </summary>
     public class DelegateCommand : ICommand
     {
         /// <summary>

@@ -343,6 +343,7 @@
                                     <SolidColorBrush Color="{DynamicResource InactiveWindowTitleColor}" />
                                 </Setter.Value>
                             </Setter>
+                            <Setter TargetName="PART_IconButton" Property="Opacity" Value="0.6" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

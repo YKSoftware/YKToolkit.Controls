@@ -156,6 +156,7 @@
                             {
                                 new ViewModelInfo() { Name = "ColorPicker", Instance = this._colorPickerViewModel, },
                                 new ViewModelInfo() { Name = "DropDownButton", Instance = this._dropDownButtonViewModel, },
+                                new ViewModelInfo() { Name = "MessageBox", Instance = this._messageBoxViewModel, },
                                 new ViewModelInfo() { Name = "SpinInput", Instance = this._spinInputViewModel, },
                                 new ViewModelInfo() { Name = "SplitButton", Instance = this._splitButtonViewModel, },
                             },
@@ -190,6 +191,7 @@
 
         private ColorPickerViewModel _colorPickerViewModel = new ColorPickerViewModel();
         private DropDownButtonViewModel _dropDownButtonViewModel = new DropDownButtonViewModel();
+        private MessageBoxViewModel _messageBoxViewModel = new MessageBoxViewModel();
         private SpinInputViewModel _spinInputViewModel = new SpinInputViewModel();
         private SplitButtonViewModel _splitButtonViewModel = new SplitButtonViewModel();
         #endregion ViewModel 選択

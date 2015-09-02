@@ -68,6 +68,9 @@
             get { return Assembly.GetExecutingAssembly().GetName().Version; }
         }
 
+        /// <summary>
+        /// バージョン番号の文字列を取得します。
+        /// </summary>
         public static string VersionString
         {
             get

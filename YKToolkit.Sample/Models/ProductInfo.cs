@@ -4,7 +4,7 @@
     using System.Reflection;
 
     /// <summary>
-    /// プロダクト情報を取得するためのクラス
+    /// プロダクト情報を表します。
     /// </summary>
     public class ProductInfo
     {
