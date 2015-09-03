@@ -69,6 +69,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="ExtendedControls\FileTreeView\Generic.FileTreeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ExtendedControls\BusyIndicator\Generic.BusyIndicator.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -219,14 +223,20 @@
     <Compile Include="Core\Behaviors\DataGridBehavior.cs" />
     <Compile Include="Core\Behaviors\EventTriggerAction.cs" />
     <Compile Include="Core\Behaviors\MessageDialogBehavior.cs" />
+    <Compile Include="Core\Behaviors\NotifyUsbDeviceChangedBehavior.cs" />
     <Compile Include="Core\Behaviors\SystemMenuBehavior.cs" />
     <Compile Include="Core\Behaviors\TextBoxAllSelectBehavior.cs" />
     <Compile Include="Core\Converters\BooleanInverseConverter.cs" />
     <Compile Include="Core\Converters\DrawingIcontoImageConverter.cs" />
     <Compile Include="Core\Converters\TabControlBorderThicknessConverter.cs" />
+    <Compile Include="Core\Shell32.cs" />
     <Compile Include="Core\User32.cs" />
     <Compile Include="Bindings\DelegateCommand.cs" />
     <Compile Include="Bindings\NotificationObject.cs" />
+    <Compile Include="ExtendedControls\FileTreeView\FileTreeViewItem.cs" />
+    <Compile Include="ExtendedControls\FileTreeView\Generic.FileTreeView.xaml.cs">
+      <DependentUpon>Generic.FileTreeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ExtendedControls\BusyIndicator\Generic.BusyIndicator.xaml.cs">
       <DependentUpon>Generic.BusyIndicator.xaml</DependentUpon>
     </Compile>

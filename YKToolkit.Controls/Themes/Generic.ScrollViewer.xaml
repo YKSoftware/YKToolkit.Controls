@@ -19,7 +19,7 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <ScrollContentPresenter />
+                        <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" />
                         <ScrollBar x:Name="PART_VerticalScrollBar"
                                    Grid.Row="0" Grid.Column="1"
                                    Value="{TemplateBinding VerticalOffset}"
