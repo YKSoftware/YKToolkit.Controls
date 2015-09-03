@@ -226,6 +226,7 @@
     <Compile Include="Core\Behaviors\NotifyUsbDeviceChangedBehavior.cs" />
     <Compile Include="Core\Behaviors\SystemMenuBehavior.cs" />
     <Compile Include="Core\Behaviors\TextBoxAllSelectBehavior.cs" />
+    <Compile Include="Core\Behaviors\TreeViewAutoHorizontalScrollBehavior.cs" />
     <Compile Include="Core\Converters\BooleanInverseConverter.cs" />
     <Compile Include="Core\Converters\DrawingIcontoImageConverter.cs" />
     <Compile Include="Core\Converters\TabControlBorderThicknessConverter.cs" />

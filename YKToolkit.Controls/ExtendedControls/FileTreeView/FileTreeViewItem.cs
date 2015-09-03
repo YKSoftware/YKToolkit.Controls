@@ -1,8 +1,10 @@
 ﻿namespace YKToolkit.Controls
 {
+    using System;
     using System.Collections;
     using System.Collections.ObjectModel;
     using System.IO;
+    using System.Linq;
     using YKToolkit.Bindings;
 
     /// <summary>
@@ -13,10 +15,14 @@
         /// <summary>
         /// 新しいインスタンスを生成します。
         /// </summary>
-        public FileTreeViewItem(string fullPath, bool isAutoGenerate = true)
+        public FileTreeViewItem(string fullPath, string searchPattern, bool isFileEnabled = false, bool isAutoGenerate = true)
         {
+            _searchPattern = searchPattern;
+            _isFileEnabled = isFileEnabled;
+
             var isDirectory = Directory.Exists(fullPath);
-            if (!isDirectory)
+            var isFile = File.Exists(fullPath);
+            if (!isDirectory && !isFile)
             {
                 this.Name = fullPath + " (存在しません)";
                 return;
@@ -35,6 +41,12 @@
                     if (subDirs.Length > 0)
                         Children = new object[] { null };   // ダミーデータを入れておく
                 }
+            }
+            else if (isFile && isFileEnabled)
+            {
+                var file = new FileInfo(fullPath);
+                this.Name = file.Name;
+                this.BitmapByteArray = Shell32.ShellInfo.GetSystemIconByByteArray(fullPath);
             }
         }
 
@@ -89,10 +101,40 @@
                                 try
                                 {
                                     dirInfo.GetAccessControl();
-                                    children.Add(new FileTreeViewItem(dirInfo.FullName));
+                                    children.Add(new FileTreeViewItem(dirInfo.FullName, _searchPattern, _isFileEnabled));
                                 }
-                                catch
+                                catch (Exception err)
                                 {
+                                    System.Diagnostics.Debug.WriteLine(err);
+                                }
+                            }
+                            if (_isFileEnabled)
+                            {
+                                // ここはもっと効率良くして速度を向上させるべき
+                                string[] patterns = null;
+                                if (string.IsNullOrWhiteSpace(_searchPattern))
+                                {
+                                    patterns = new string[] { "*.*" };
+                                }
+                                else
+                                {
+                                    patterns = _searchPattern.Split(';').Select(x => x.Trim().ToLower()).ToArray();
+                                }
+                                foreach (var pattern in patterns)
+                                {
+                                    var filesInfo = currentDir.GetFiles(pattern);
+                                    foreach (var fileInfo in filesInfo)
+                                    {
+                                        try
+                                        {
+                                            fileInfo.GetAccessControl();
+                                            children.Add(new FileTreeViewItem(fileInfo.FullName, _searchPattern, _isFileEnabled));
+                                        }
+                                        catch (Exception err)
+                                        {
+                                            System.Diagnostics.Debug.WriteLine(err);
+                                        }
+                                    }
                                 }
                             }
                             this.Children = children;
@@ -109,5 +151,15 @@
                 }
             }
         }
+
+        /// <summary>
+        /// ファイル検索のための検索パターン
+        /// </summary>
+        private static string _searchPattern;
+
+        /// <summary>
+        /// ファイルを表示するかどうか
+        /// </summary>
+        private static bool _isFileEnabled;
     }
 }
