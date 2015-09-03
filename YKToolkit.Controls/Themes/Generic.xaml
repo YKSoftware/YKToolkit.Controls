@@ -28,6 +28,7 @@
         <ResourceDictionary Source="/YKToolkit.Controls;component/ExtendedControls/ColorPicker/Generic.ColorPicker.xaml" />
         <ResourceDictionary Source="/YKToolkit.Controls;component/ExtendedControls/DropDownButton/Generic.DropDownButton.xaml" />
         <ResourceDictionary Source="/YKToolkit.Controls;component/ExtendedControls/FileTreeView/Generic.FileTreeView.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/ExtendedControls/LineGraph/Generic.LineGraph.xaml" />
         <ResourceDictionary Source="/YKToolkit.Controls;component/ExtendedControls/MessageBox/Generic.MessageBox.xaml" />
         <ResourceDictionary Source="/YKToolkit.Controls;component/ExtendedControls/SpinInput/Generic.SpinInput.xaml" />
         <ResourceDictionary Source="/YKToolkit.Controls;component/ExtendedControls/SplitButton/Generic.SplitButton.xaml" />

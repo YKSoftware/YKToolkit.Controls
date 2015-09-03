@@ -79,6 +79,9 @@
         <DataTemplate DataType="{x:Type vm:FileTreeViewViewModel}">
             <vw:FileTreeViewView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:LineGraphViewModel}">
+            <vw:LineGraphView />
+        </DataTemplate>
         <DataTemplate DataType="{x:Type vm:MessageBoxViewModel}">
             <vw:MessageBoxView />
         </DataTemplate>

@@ -69,6 +69,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="ExtendedControls\LineGraph\Generic.LineGraph.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ExtendedControls\FileTreeView\Generic.FileTreeView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -234,6 +238,9 @@
     <Compile Include="Core\User32.cs" />
     <Compile Include="Bindings\DelegateCommand.cs" />
     <Compile Include="Bindings\NotificationObject.cs" />
+    <Compile Include="ExtendedControls\LineGraph\Generic.LineGraph.xaml.cs">
+      <DependentUpon>Generic.LineGraph.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ExtendedControls\FileTreeView\FileTreeViewItem.cs" />
     <Compile Include="ExtendedControls\FileTreeView\Generic.FileTreeView.xaml.cs">
       <DependentUpon>Generic.FileTreeView.xaml</DependentUpon>
@@ -250,6 +257,9 @@
     <Compile Include="ExtendedControls\DropDownButton\Generic.DropDownButton.xaml.cs">
       <DependentUpon>Generic.DropDownButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ExtendedControls\LineGraph\LineGraphItem.cs" />
+    <Compile Include="ExtendedControls\LineGraph\LineGraphLegendPanel.cs" />
+    <Compile Include="ExtendedControls\LineGraph\LineGraphPanel.cs" />
     <Compile Include="ExtendedControls\MessageBox\IDialogInfo.cs" />
     <Compile Include="ExtendedControls\SpinInput\Generic.SpinInput.xaml.cs">
       <DependentUpon>Generic.SpinInput.xaml</DependentUpon>
