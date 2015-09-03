@@ -306,7 +306,7 @@
         /// </summary>
         private LineGraphItem[] LimeGraphItems
         {
-            get { return ItemsSource.OfType<LineGraphItem>().Where(x => x.IsDataEnabled && x.Legend != null).ToArray(); }
+            get { return this.ItemsSource != null ? this.ItemsSource.OfType<LineGraphItem>().Where(x => x.IsDataEnabled && x.Legend != null).ToArray() : new LineGraphItem[] { }; }
         }
         #endregion private プロパティ
 

@@ -53,9 +53,12 @@
             if (GraphPanel != null)
             {
                 ResetGraphItem();
-                foreach (LineGraphItem item in this.ItemsSource)
+                if (this.ItemsSource != null)
                 {
-                    AddGraphItem(item);
+                    foreach (LineGraphItem item in this.ItemsSource)
+                    {
+                        AddGraphItem(item);
+                    }
                 }
             }
         }
