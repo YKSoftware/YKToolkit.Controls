@@ -11,6 +11,16 @@
            Width="800" Height="600"
            WindowStartupLocation="CenterScreen">
     <Grid>
-        <YK:LineGraph />
+        <YK:LineGraph DataContext="{Binding LineGraphViewModel}"
+                      d:DataContext="{d:DesignInstance vm:LineGraphViewModel}"
+                      IsY2Enabled="True"
+                      Title="{Binding Title.Text}" TitleFontSize="{Binding Title.FontSize}"
+                      XLabel="{Binding XLabel.Text}" XLabelFontSize="{Binding XLabel.FontSize}"
+                      YLabel="{Binding YLabel.Text}" YLabelFontSize="{Binding YLabel.FontSize}"
+                      Y2Label="{Binding Y2Label.Text}" Y2LabelFontSize="{Binding Y2Label.FontSize}"
+                      XMin="{Binding XAxis.Minimum}" XMax="{Binding XAxis.Maximum}" XStep="{Binding XAxis.Step}" XGridPen="{Binding XAxis.GridPen}" XStringFormat="{Binding XAxis.StringFormat}"
+                      YMin="{Binding YAxis.Minimum}" YMax="{Binding YAxis.Maximum}" YStep="{Binding YAxis.Step}" YGridPen="{Binding YAxis.GridPen}" YStringFormat="{Binding YAxis.StringFormat}"
+                      Y2Min="{Binding YAxis.Minimum}" Y2Max="{Binding Y2Axis.Maximum}" Y2Step="{Binding Y2Axis.Step}" Y2GridPen="{Binding Y2Axis.GridPen}" Y2StringFormat="{Binding Y2Axis.StringFormat}"
+                      />
     </Grid>
 </YK:Window>

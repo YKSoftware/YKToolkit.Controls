@@ -791,7 +791,7 @@
             {
                 var text = new FormattedText(this.XLabel, CultureInfo.CurrentUICulture, this.FlowDirection, typeface, this.XLabelFontSize, this.Foreground);
                 this._xLabelSize = new Size(text.Width, text.Height);
-                dc.DrawText(text, new Point(this.GraphAreaMargin.Left + (this.ActualWidth - this.GraphAreaMargin.Left) / 2.0 - text.Width / 2.0, this.ActualHeight - this.XLabelFontSize));
+                dc.DrawText(text, new Point(this.GraphAreaMargin.Left + (this.ActualWidth - this.GraphAreaMargin.Left - this.GraphAreaMargin.Right) / 2.0 - text.Width / 2.0, this.ActualHeight - text.Height));
             }
             else
             {
