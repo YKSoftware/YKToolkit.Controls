@@ -8,7 +8,7 @@
     using System.Windows.Media;
 
     /// <summary>
-    /// <c>System.Windows.Controls.DataGrid</c> コントロールの行ヘッダにインデックスを付加する添付ビヘイビア
+    /// <c>System.Windows.Controls.DataGrid</c> コントロールの行ヘッダにインデックスを付加するビヘイビアを表します。
     /// </summary>
     public class DataGridBehavior
     {

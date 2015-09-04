@@ -22,7 +22,7 @@
         /// </summary>
         /// <param name="text">テキストを指定します。</param>
         public LineGraphTextItem(string text)
-            : this(text, 12.0)
+            : this(text, 14.0)
         {
         }
 
@@ -51,7 +51,7 @@
             set { SetProperty(ref this._text, value); }
         }
 
-        private double _fontSize = 12.0;
+        private double _fontSize;
         /// <summary>
         /// フォントサイズを取得または設定します。
         /// </summary>

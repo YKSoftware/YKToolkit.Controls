@@ -10,7 +10,7 @@
     using System.Windows.Interop;
 
     /// <summary>
-    /// 準備完了状態のドライブパスコレクションを取得するためのビヘイビアです。
+    /// 準備完了状態のドライブパスコレクションを取得するためのビヘイビアを表します。
     /// </summary>
     public class NotifyUsbDeviceChangedBehavior
     {

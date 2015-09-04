@@ -58,6 +58,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\DataFileInfo.cs" />
     <Compile Include="Models\LineGraphTextItem.cs" />
     <Compile Include="Models\LineGraphAxisItem.cs" />
     <Compile Include="ViewModels\LineGraphViewModel.cs" />

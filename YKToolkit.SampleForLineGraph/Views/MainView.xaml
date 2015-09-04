@@ -7,13 +7,25 @@
            mc:Ignorable="d"
            d:DataContext="{d:DesignInstance vm:MainViewModel}"
            xmlns:YK="clr-namespace:YKToolkit.Controls;assembly=YKToolkit.Controls"
+           xmlns:YKb="clr-namespace:YKToolkit.Controls.Behaviors;assembly=YKToolkit.Controls"
            Title="MainView"
            Width="800" Height="600"
-           WindowStartupLocation="CenterScreen">
+           WindowStartupLocation="CenterScreen"
+           YKb:FileDropBehavior.Callback="{Binding FileDropCallback}">
     <Grid>
-        <YK:LineGraph DataContext="{Binding LineGraphViewModel}"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="240" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <DataGrid ItemsSource="{Binding LineGraphItems}" Margin="10">
+            
+        </DataGrid>
+
+        <YK:LineGraph Grid.Column="1"
+                      DataContext="{Binding LineGraphViewModel}"
                       d:DataContext="{d:DesignInstance vm:LineGraphViewModel}"
-                      IsY2Enabled="True"
+                      IsY2Enabled="{Binding IsY2Enabled}"
                       Title="{Binding Title.Text}" TitleFontSize="{Binding Title.FontSize}"
                       XLabel="{Binding XLabel.Text}" XLabelFontSize="{Binding XLabel.FontSize}"
                       YLabel="{Binding YLabel.Text}" YLabelFontSize="{Binding YLabel.FontSize}"

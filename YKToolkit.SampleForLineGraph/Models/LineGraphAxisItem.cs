@@ -13,6 +13,13 @@
         /// <summary>
         /// 新しいインスタンスを生成します。
         /// </summary>
+        public LineGraphAxisItem()
+        {
+        }
+
+        /// <summary>
+        /// 新しいインスタンスを生成します。
+        /// </summary>
         /// <param name="minimum">最小値を指定します。</param>
         /// <param name="maximum">最大値を指定します。</param>
         public LineGraphAxisItem(double minimum, double maximum)

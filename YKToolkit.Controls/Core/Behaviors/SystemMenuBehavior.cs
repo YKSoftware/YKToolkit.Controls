@@ -5,7 +5,7 @@
     using System.Windows.Interop;
 
     /// <summary>
-    /// Window クラスのシステムメニューの有効/無効を設定するためのビヘイビアを提供します。
+    /// Window クラスのシステムメニューの有効/無効を設定するためのビヘイビアを表します。
     /// </summary>
     public class SystemMenuBehavior
     {

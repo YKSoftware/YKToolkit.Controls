@@ -1,5 +1,6 @@
 ﻿namespace YKToolkit.SampleForLineGraph.ViewModels
 {
+    using System.Collections.ObjectModel;
     using YKToolkit.SampleForLineGraph.Models;
 
     public class LineGraphViewModel : ViewModelBase
@@ -83,5 +84,29 @@
             set { SetProperty(ref this._y2Axis, value); }
         }
         #endregion 軸設定
+
+        #region IsY2Enabled プロパティ
+        private bool _isY2Enabled;
+        /// <summary>
+        /// 第 2 主軸の有効性を取得または設定します。
+        /// </summary>
+        public bool IsY2Enabled
+        {
+            get { return this._isY2Enabled; }
+            set { SetProperty(ref this._isY2Enabled, value); }
+        }
+        #endregion IsY2Enabled プロパティ
+
+        #region DataFileInfoCollection プロパティ
+        private ObservableCollection<DataFileInfo> _dataFileInfoCollection = new ObservableCollection<DataFileInfo>();
+        /// <summary>
+        /// データファイルコレクションを取得します。
+        /// </summary>
+        public ObservableCollection<DataFileInfo> DataFileInfoCollection
+        {
+            get { return _dataFileInfoCollection; }
+            private set { SetProperty(ref _dataFileInfoCollection, value); }
+        }
+        #endregion DataFileInfoCollection プロパティ
     }
 }

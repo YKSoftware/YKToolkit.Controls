@@ -3,6 +3,9 @@
     using System.Windows;
     using System.Windows.Controls;
 
+    /// <summary>
+    /// TreeView コントロールの自動水平スクロール機能を無効にするためのビヘイビアを表します。
+    /// </summary>
     public class TreeViewAutoHorizontalScrollBehavior
     {
         #region IsEnabled 添付プロパティ
@@ -55,6 +58,11 @@
         }
         #endregion IsEnabled 添付プロパティ
 
+        /// <summary>
+        /// RequestBringIntoView イベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
         private static void control_RequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
         {
             var control = sender as TreeViewItem;
