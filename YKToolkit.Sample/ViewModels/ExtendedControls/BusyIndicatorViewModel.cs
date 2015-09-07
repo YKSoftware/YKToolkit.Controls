@@ -11,7 +11,7 @@
             set { SetProperty(ref _isDropDownOpen, value); }
         }
 
-        private Color _selectedColor = Colors.Red;
+        private Color _selectedColor = Colors.Orange;
         public Color SelectedColor
         {
             get { return _selectedColor; }

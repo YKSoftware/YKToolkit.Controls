@@ -42,7 +42,7 @@
             <TextBlock Text="{Binding Description}" TextWrapping="WrapWithOverflow" />
             <TextBlock Text="外部参照" Margin="0,10,0,0" />
             <TextBlock Margin="10,0,0,0">
-                <Run Text="YKToolkit.Controls.dll :" />
+                <Run Text="YKToolkit.Controls.dll : Ver." />
                 <Run Text="{Binding YKToolkitControlsVersion, Mode=OneWay}" />
             </TextBlock>
             <Separator />

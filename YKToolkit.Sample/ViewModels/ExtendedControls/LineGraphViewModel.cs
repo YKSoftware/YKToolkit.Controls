@@ -19,7 +19,7 @@
         /// <summary>
         /// 設定ファイルのフルパス
         /// </summary>
-        private const string _configFileName = @"C:\Users\yu-katou.ISPNET\Desktop\test.xml";
+        private const string _configFileName = @"test.xml";
 
         #region グラフ状態の保存/読込
         private DelegateCommand _newCommand;

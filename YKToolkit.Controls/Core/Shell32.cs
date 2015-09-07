@@ -213,6 +213,7 @@
             public bool Recursively;
         }
 
+        #region DEV_BROADCAST_VOLUME 構造体
         /// <summary>
         /// Struct for parameters of the WM_DEVICECHANGE message
         /// </summary>
@@ -247,29 +248,7 @@
             /// </summary>
             public int dbcv_flags;
         }
-
-        /// <summary>
-        /// DEV_BROADCAST_VOLUME 構造体のマスク設定からドライブレターを算出します。
-        /// </summary>
-        /// <param name="mask">DEV_BROADCAST_VOLUME 構造体のマスク設定を指定します。</param>
-        /// <returns>ドライブレターを返します。</returns>
-        public static string GetDriveString(int mask)
-        {
-            var c = 'A';
-            if (mask <= 0x2000000)
-            {
-                while (0 != (mask /= 2))
-                {
-                    c++;
-                }
-            }
-            else
-            {
-                c = '?';
-            }
-
-            return c.ToString();
-        }
+        #endregion DEV_BROADCAST_VOLUME 構造体
 
         /// <summary>
         /// Win32 における SHFILEINFO 構造体を取得するためのヘルパ
@@ -277,56 +256,173 @@
         public static class ShellInfo
         {
             #region アイコン取得関連
+            /// <summary>
+            /// SHGetFileInfo 関数の導入
+            /// </summary>
+            /// <param name="pszPath">pszPath</param>
+            /// <param name="dwFileAttributes">dwFileAttributes</param>
+            /// <param name="psfi">psfi</param>
+            /// <param name="cbSizeFileInfo">cbSizeFileInfo</param>
+            /// <param name="uFlags">uFlags</param>
+            /// <returns>SHGetFileInfo 関数の戻り値</returns>
             [DllImport("shell32.dll")]
             public static extern int SHGetFileInfo(string pszPath, uint dwFileAttributes, ref SHFILEINFO psfi, int cbSizeFileInfo, uint uFlags);
 
+            /// <summary>
+            /// SHGetFileInfo 関数の導入
+            /// </summary>
+            /// <param name="pIDL">pIDL</param>
+            /// <param name="dwFileAttributes">dwFileAttributes</param>
+            /// <param name="psfi">psfi</param>
+            /// <param name="cbSizeFileInfo">cbSizeFileInfo</param>
+            /// <param name="uFlags">uFlags</param>
+            /// <returns>SHGetFileInfo 関数の戻り値</returns>
             [DllImport("shell32.dll")]
             public static extern IntPtr SHGetFileInfo(IntPtr pIDL, uint dwFileAttributes, ref SHFILEINFO psfi, uint cbSizeFileInfo, uint uFlags);
 
+            /// <summary>
+            /// SHGetSpecialFolderLocation 関数の導入
+            /// </summary>
+            /// <param name="hwndOwner">hwndOwner</param>
+            /// <param name="nFolder">nFolder</param>
+            /// <param name="ppidl">ppidl</param>
+            /// <returns>SHGetSpecialFolderLocation 関数の戻り値</returns>
             [DllImport("shell32.dll")]
             public static extern int SHGetSpecialFolderLocation(IntPtr hwndOwner, int nFolder, out IntPtr ppidl);
 
-            // pidlのfree用   
+            #region IMalloc
+            /// <summary>
+            /// pidl の free 用
+            /// </summary>
             [InterfaceType(ComInterfaceType.InterfaceIsIUnknown), Guid("00000002-0000-0000-C000-000000000046")]
             public interface IMalloc
             {
+                /// <summary>
+                /// Allocates a block of memory.
+                /// </summary>
+                /// <param name="cb"></param>
+                /// <returns>If the method succeeds, the return value is a pointer to the allocated block of memory. Otherwise, it is NULL.</returns>
                 [PreserveSig]
                 IntPtr Alloc([In] int cb);
+
+                /// <summary>
+                /// Changes the size of a previously allocated block of memory.
+                /// </summary>
+                /// <param name="pv"></param>
+                /// <param name="cb"></param>
+                /// <returns>If the method succeeds, the return value is a pointer to the reallocated block of memory. Otherwise, it is NULL.</returns>
                 [PreserveSig]
                 IntPtr Realloc([In] IntPtr pv, [In] int cb);
+
+                /// <summary>
+                /// Frees a previously allocated block of memory.
+                /// </summary>
+                /// <param name="pv"></param>
                 [PreserveSig]
                 void Free([In] IntPtr pv);
+
+                /// <summary>
+                /// Retrieves the size of a previously allocated block of memory.
+                /// </summary>
+                /// <param name="pv"></param>
+                /// <returns>The size of the allocated memory block in bytes or, if pv is a NULL pointer, -1. </returns>
                 [PreserveSig]
                 int GetSize([In] IntPtr pv);
+
+                /// <summary>
+                /// Determines whether this allocator was used to allocate the specified block of memory.
+                /// </summary>
+                /// <param name="pv"></param>
+                /// <returns>This method can return the following values.
+                /// 1: The block of memory was allocated by this allocator.
+                /// 0: The block of memory was not allocated by this allocator.
+                /// -1: This method cannot determine whether this allocator allocated the block of memory.</returns>
                 [PreserveSig]
                 int DidAlloc(IntPtr pv);
+
+                /// <summary>
+                /// Minimizes the heap as much as possible by releasing unused memory to the operating system, coalescing adjacent free blocks, and committing free pages.
+                /// </summary>
                 [PreserveSig]
                 void HeapMinimize();
             }
+            #endregion IMalloc
 
+            /// <summary>
+            /// SHGetMalloc 関数の導入
+            /// </summary>
+            /// <param name="ppMalloc">ppMalloc</param>
+            /// <returns>SHGetMalloc 関数の戻り値</returns>
             [DllImport("Shell32.DLL")]
             public static extern int SHGetMalloc(out IMalloc ppMalloc);
 
             //===================  
-            // SHGetSpecialFolderLocationに使用するFolderのIDの定義。  
-            // ここをかえるといろいろな特殊フォルダpidlが取得できる。  
+            // SHGetSpecialFolderLocation に使用する Folder の ID の定義。  
+            // ここをかえるといろいろな特殊フォルダ pidl が取得できる。  
             //===================
             /// <summary>
-            /// SHGetSpecialFolderLocation に使用する Folder ID の定義。
+            /// SHGetSpecialFolderLocation に使用する Folder ID を表します。
             /// </summary>
             public enum FolderID
             {
+                /// <summary>
+                /// デスクトップ
+                /// </summary>
                 Desktop = 0x0000,
+
+                /// <summary>
+                /// プリンタ
+                /// </summary>
                 Printers = 0x0004,
+
+                /// <summary>
+                /// マイドキュメント
+                /// </summary>
                 MyDocuments = 0x0005,
+
+                /// <summary>
+                /// お気に入り
+                /// </summary>
                 Favorites = 0x0006,
+
+                /// <summary>
+                /// 最近使用したファイル
+                /// </summary>
                 Recent = 0x0008,
+
+                /// <summary>
+                /// 送る
+                /// </summary>
                 SendTo = 0x0009,
+
+                /// <summary>
+                /// スタートメニュー
+                /// </summary>
                 StartMenu = 0x000b,
+
+                /// <summary>
+                /// マイコンピュータ
+                /// </summary>
                 MyComputer = 0x0011,
+
+                /// <summary>
+                /// ネットワーク
+                /// </summary>
                 NetworkNeighborhood = 0x0012,
+
+                /// <summary>
+                /// テンプレート
+                /// </summary>
                 Templates = 0x0015,
+
+                /// <summary>
+                /// マイピクチャ
+                /// </summary>
                 MyPictures = 0x0027,
+
+                /// <summary>
+                /// ダイアルアップ
+                /// </summary>
                 NetAndDialUpConnections = 0x0031,
             }
 
@@ -335,14 +431,36 @@
             private const uint SHGFI_SMALLICON = 0x1;
             private const uint SHGFI_PIDL = 0x8;
 
+            /// <summary>
+            /// SHFILEINFO 構造体を表します。
+            /// </summary>
             [StructLayout(LayoutKind.Sequential)]
             public struct SHFILEINFO
             {
+                /// <summary>
+                /// A handle to the icon that represents the file. You are responsible for destroying this handle with DestroyIcon when you no longer need it.
+                /// </summary>
                 public IntPtr hIcon;
+
+                /// <summary>
+                /// The index of the icon image within the system image list.
+                /// </summary>
                 public IntPtr iIcon;
+
+                /// <summary>
+                /// An array of values that indicates the attributes of the file object. For information about these values, see the IShellFolder::GetAttributesOf method.
+                /// </summary>
                 public uint dwAttributes;
+
+                /// <summary>
+                /// A string that contains the name of the file as it appears in the Windows Shell, or the path and file name of the file that contains the icon representing the file.
+                /// </summary>
                 [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
                 public string szDisplayName;
+
+                /// <summary>
+                /// A string that describes the type of file.
+                /// </summary>
                 [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 80)]
                 public string szTypeName;
             }
@@ -427,7 +545,31 @@
                 var icon = GetSystemIcon(path);
                 return BitmapSourceToByteArray(icon);
             }
-            #endregion  // アイコン取得関連
+            #endregion  アイコン取得関連
+        }
+
+        #region ヘルパ
+        /// <summary>
+        /// DEV_BROADCAST_VOLUME 構造体のマスク設定からドライブレターを算出します。
+        /// </summary>
+        /// <param name="mask">DEV_BROADCAST_VOLUME 構造体のマスク設定を指定します。</param>
+        /// <returns>ドライブレターを返します。</returns>
+        public static string GetDriveString(int mask)
+        {
+            var c = 'A';
+            if (mask <= 0x2000000)
+            {
+                while (0 != (mask /= 2))
+                {
+                    c++;
+                }
+            }
+            else
+            {
+                c = '?';
+            }
+
+            return c.ToString();
         }
 
         /// <summary>
@@ -447,5 +589,6 @@
             }
             return bytes;
         }
+        #endregion ヘルパ
     }
 }

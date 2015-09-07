@@ -20,6 +20,9 @@
             set { _dropDownPopup = value; }
         }
 
+        /// <summary>
+        /// テンプレート適用時の処理
+        /// </summary>
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();

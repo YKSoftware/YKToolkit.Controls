@@ -11,8 +11,8 @@
     <StackPanel>
         <TextBlock Text="Indicator size :" />
         <YK:SpinInput x:Name="spinInput" Value="4.0" Minimum="3" Maximum="6" Tick="1" StringFormat="#0.0" Width="120" HorizontalAlignment="Left" />
-        <TextBlock Text="Indicator color :" />
-        <YK:DropDownButton Width="50" Margin="0,10,0,0" IsDropDownOpen="{Binding IsDropDownOpen}">
+        <TextBlock Text="Indicator color :" Margin="0,10,0,0" />
+        <YK:DropDownButton Width="50" IsDropDownOpen="{Binding IsDropDownOpen}" HorizontalAlignment="Left">
             <YK:DropDownButton.DropDownContent>
                 <YK:ColorPicker x:Name="colorPicker" SelectedColor="{Binding SelectedColor}" BorderThickness="0" />
             </YK:DropDownButton.DropDownContent>

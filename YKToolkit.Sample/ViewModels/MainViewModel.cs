@@ -121,7 +121,9 @@
                 {
                     _viewModels = new ReadOnlyCollection<ViewModelInfo>(new List<ViewModelInfo>()
                     {
+#if DEBUG
                         new ViewModelInfo() { Name = "Debug", Instance = this._debugViewModel, },
+#endif
 
                         new ViewModelInfo()
                         {
@@ -147,6 +149,7 @@
                                 new ViewModelInfo() { Name = "TextBox", Instance = this._textBoxViewModel, },
                                 new ViewModelInfo() { Name = "ToggleButton", Instance = this._toggleButtonViewModel, },
                             },
+                            IsExpanded = false,
                         },
 
                         new ViewModelInfo()
@@ -163,7 +166,7 @@
                                 new ViewModelInfo() { Name = "SpinInput", Instance = this._spinInputViewModel, },
                                 new ViewModelInfo() { Name = "SplitButton", Instance = this._splitButtonViewModel, },
                             },
-                            IsExpanded = true,
+                            IsExpanded = false,
                         },
                     });
                 }
@@ -171,7 +174,9 @@
             }
         }
 
+#if DEBUG
         private DebugViewModel _debugViewModel = new DebugViewModel();
+#endif
 
         private ButtonViewModel _buttonViewModel = new ButtonViewModel();
         private CheckBoxViewModel _checkBoxViewModel = new CheckBoxViewModel();
