@@ -1,4 +1,4 @@
-﻿namespace YKToolkit.SampleForLineGraph.Models
+﻿namespace YKToolkit.Helpers
 {
     using System;
     using System.IO;
@@ -6,7 +6,10 @@
     using System.Windows.Markup;
     using System.Xml;
 
-    public static class SerializeHelper
+    /// <summary>
+    /// 拡張メソッドを提供します。
+    /// </summary>
+    public static class Extensions
     {
         #region シリアライズ
         /// <summary>
@@ -36,7 +39,7 @@
         /// </summary>
         /// <param name="obj">シリアライズするオブジェクトを指定します。</param>
         /// <returns>シリアライズ結果を返します。</returns>
-        private static string SerializeObject(object obj)
+        private static string SerializeObject(this object obj)
         {
             var settings = new XmlWriterSettings();
 
@@ -101,7 +104,7 @@
         /// </summary>
         /// <param name="xamlText">XML テキストを指定します。</param>
         /// <returns>デシリアライズの結果を返します。</returns>
-        public static object DeserializeObject(string xamlText)
+        public static object DeserializeObject(this string xamlText)
         {
             var doc = new XmlDocument();
 

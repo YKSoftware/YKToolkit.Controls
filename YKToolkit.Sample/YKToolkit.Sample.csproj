@@ -71,7 +71,6 @@
     <Compile Include="Models\forLineGraph\LineGraphAxisItem.cs" />
     <Compile Include="Models\forLineGraph\LineGraphItemCollection.cs" />
     <Compile Include="Models\forLineGraph\LineGraphTextItem.cs" />
-    <Compile Include="Models\forLineGraph\SerializeHelper.cs" />
     <Compile Include="Models\Gender.cs" />
     <Compile Include="Models\People.cs" />
     <Compile Include="Models\Person.cs" />

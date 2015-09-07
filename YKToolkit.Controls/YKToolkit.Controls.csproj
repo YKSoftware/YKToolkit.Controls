@@ -237,6 +237,7 @@
     <Compile Include="Core\Converters\BooleanInverseConverter.cs" />
     <Compile Include="Core\Converters\DrawingIcontoImageConverter.cs" />
     <Compile Include="Core\Converters\TabControlBorderThicknessConverter.cs" />
+    <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Core\Shell32.cs" />
     <Compile Include="Core\User32.cs" />
     <Compile Include="Bindings\DelegateCommand.cs" />
@@ -300,9 +301,7 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core\Helpers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
