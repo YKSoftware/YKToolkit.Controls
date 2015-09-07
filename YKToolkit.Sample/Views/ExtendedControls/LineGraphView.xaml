@@ -7,138 +7,120 @@
              xmlns:vm="clr-namespace:YKToolkit.Sample.ViewModels"
              d:DataContext="{d:DesignInstance vm:LineGraphViewModel}"
              d:DesignHeight="600" d:DesignWidth="300"
-             xmlns:YK="clr-namespace:YKToolkit.Controls;assembly=YKToolkit.Controls">
-    <UserControl.Resources>
-        <Storyboard x:Key="graphAnimation">
-            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Children[3].X"
-                             From="10" To="0"
-                             Duration="0:0:0.5"
-                             BeginTime="0:0:0"
-                             />
-            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Children[3].Y"
-                             From="10" To="0"
-                             Duration="0:0:0.5"
-                             BeginTime="0:0:0"
-                             />
-            <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                             From="0" To="1"
-                             Duration="0:0:0.5"
-                             BeginTime="0:0:0"
-                             />
-        </Storyboard>
-    </UserControl.Resources>
+             xmlns:YK="clr-namespace:YKToolkit.Controls;assembly=YKToolkit.Controls"
+             xmlns:YKb="clr-namespace:YKToolkit.Controls.Behaviors;assembly=YKToolkit.Controls">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="240" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
 
-        <StackPanel>
-            <Button Content="Create" Command="{Binding CreateDataCommand}" />
-            <RepeatButton Content="Add" Command="{Binding AddDataCommand}" />
-            <RepeatButton Content="Delete" Command="{Binding DeleteDataCommand}" />
-            <RepeatButton Content="Clear" Command="{Binding ClearDataCommand}" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
 
-            <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
-                <TextBlock Text="Title : " VerticalAlignment="Center" />
-                <TextBox Text="{Binding GraphTitle, UpdateSourceTrigger=PropertyChanged}" Width="100" />
-                <TextBlock Text="XLabel : " VerticalAlignment="Center" Margin="8,0,0,0" />
-                <TextBox Text="{Binding XLabel, UpdateSourceTrigger=PropertyChanged}" Width="100" />
-                <TextBlock Text="YLabel : " VerticalAlignment="Center" Margin="8,0,0,0" />
-                <TextBox Text="{Binding YLabel, UpdateSourceTrigger=PropertyChanged}" Width="100" />
-                <TextBlock Text="Y2Label : " VerticalAlignment="Center" Margin="8,0,0,0" />
-                <TextBox Text="{Binding Y2Label, UpdateSourceTrigger=PropertyChanged}" Width="100" />
+            <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,10">
+                <Button Content="New" Width="60" Command="{Binding NewCommand}" />
+                <Button Content="Save" Width="60" Command="{Binding SaveCommand}" Margin="10,0,0,0" />
+                <Button Content="Load" Width="60" Command="{Binding LoadCommand}" Margin="10,0,0,0" />
+                <Button Width="30"
+                        Command="{Binding SaveImageCommand}"
+                        Margin="10,0,0,0"
+                        YKb:CommonDialogBehavior.DialogType="SaveFile"
+                        YKb:CommonDialogBehavior.FileFilter="ビットマップ形式 (*.bmp)|*.bmp|ポータブルネットワークグラフィックス形式 (*.png)|*.png|すべてのファイル (*.*)|*.*"
+                        YKb:CommonDialogBehavior.Title="画像として保存"
+                        YKb:CommonDialogBehavior.Callback="{Binding SaveImageCommandCallback}"
+                        >
+                    <Path>
+                        <Path.Fill>
+                            <SolidColorBrush Color="{DynamicResource ForegroundColor}" />
+                        </Path.Fill>
+                        <Path.Data>
+                            <GeometryGroup FillRule="EvenOdd">
+                                <RectangleGeometry Rect="3,2,5,2" />
+                                <RectangleGeometry Rect="1,4,20,15" />
+                                <EllipseGeometry Center="11,12" RadiusX="4" RadiusY="4" />
+                                <EllipseGeometry Center="11,12" RadiusX="6" RadiusY="6" />
+                                <RectangleGeometry Rect="15,5,5,2" />
+                            </GeometryGroup>
+                        </Path.Data>
+                    </Path>
+                </Button>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
-                <TextBlock Text="XMin : " VerticalAlignment="Center" />
-                <YK:SpinInput Value="{Binding XMin}" />
-                <TextBlock Text="XMax : " VerticalAlignment="Center" Margin="8,0,0,0" />
-                <YK:SpinInput Value="{Binding XMax}" />
-                <TextBlock Text="XStep : " VerticalAlignment="Center" Margin="8,0,0,0" />
-                <YK:SpinInput Value="{Binding XStep}" />
-                <TextBlock Text="XStringFormat : " VerticalAlignment="Center" Margin="8,0,0,0" />
-                <TextBox Text="{Binding XStringFormat}" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
-                <TextBlock Text="YMin : " VerticalAlignment="Center" />
-                <YK:SpinInput Value="{Binding YMin}" />
-                <TextBlock Text="YMax : " VerticalAlignment="Center" Margin="8,0,0,0" />
-                <YK:SpinInput Value="{Binding YMax}" />
-                <TextBlock Text="YStep : " VerticalAlignment="Center" Margin="8,0,0,0" />
-                <YK:SpinInput Value="{Binding YStep}" />
-                <TextBlock Text="YStringFormat : " VerticalAlignment="Center" Margin="8,0,0,0" />
-                <TextBox Text="{Binding YStringFormat}" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
-                <TextBlock Text="Y2Min : " VerticalAlignment="Center" />
-                <YK:SpinInput Value="{Binding Y2Min}" />
-                <TextBlock Text="Y2Max : " VerticalAlignment="Center" Margin="8,0,0,0" />
-                <YK:SpinInput Value="{Binding Y2Max}" />
-                <TextBlock Text="Y2Step : " VerticalAlignment="Center" Margin="8,0,0,0" />
-                <YK:SpinInput Value="{Binding Y2Step}" />
-                <TextBlock Text="Y2StringFormat : " VerticalAlignment="Center" Margin="8,0,0,0" />
-                <TextBox Text="{Binding Y2StringFormat}" />
-                <CheckBox Content="IsY2Enabled" Margin="8,0,0,0" IsChecked="{Binding IsY2Enabled}" VerticalAlignment="Center" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
-                <TextBlock Text="GraphAreaMargin" VerticalAlignment="Center" />
-                <TextBlock Text="Left : " VerticalAlignment="Center" Margin="8,0,0,0" />
-                <YK:SpinInput Value="{Binding GraphAreaMarginLeft}" Minimum="0" />
-                <TextBlock Text="Top : " VerticalAlignment="Center" Margin="8,0,0,0" />
-                <YK:SpinInput Value="{Binding GraphAreaMarginTop}" Minimum="0" />
-                <TextBlock Text="Right : " VerticalAlignment="Center" Margin="8,0,0,0" />
-                <YK:SpinInput Value="{Binding GraphAreaMarginRight}" Minimum="0" />
-                <TextBlock Text="Bottom : " VerticalAlignment="Center" Margin="8,0,0,0" />
-                <YK:SpinInput Value="{Binding GraphAreaMarginBottom}" Minimum="0" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
-                <TextBlock Text="YAxisData1" VerticalAlignment="Center" />
-                <TextBlock Text="[0] : " VerticalAlignment="Center" Margin="8,0,0,0" />
-                <YK:SpinInput Value="{Binding YAxisData1[0]}" StringFormat="#0.00000" Tick="0.1" />
-                <TextBlock Text="[1] : " VerticalAlignment="Center" Margin="8,0,0,0" />
-                <YK:SpinInput Value="{Binding YAxisData1[1]}" StringFormat="#0.00000" Tick="0.1" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
-                <TextBlock Text="Legend1 : " VerticalAlignment="Center" />
-                <TextBox Text="{Binding Legend1, UpdateSourceTrigger=PropertyChanged}" Width="100" />
-                <TextBlock Text="Legend2 : " VerticalAlignment="Center" Margin="8,0,0,0" />
-                <TextBox Text="{Binding Legend2, UpdateSourceTrigger=PropertyChanged}" Width="100" />
-                <TextBlock Text="Legend Position" VerticalAlignment="Center" Margin="8,0,0,0" />
-                <TextBlock Text="Left : " VerticalAlignment="Center" Margin="8,0,0,0" />
-                <YK:SpinInput Value="{Binding LegendPositionLeft}" />
-                <TextBlock Text="Top : " VerticalAlignment="Center" Margin="8,0,0,0" />
-                <YK:SpinInput Value="{Binding LegendPositionTop}" />
-                <CheckBox Content="IsLegendEnabled" IsChecked="{Binding IsLegendEnabled}" VerticalAlignment="Center" Margin="8,0,0,0" />
-            </StackPanel>
-        </StackPanel>
 
-        <Border Grid.Row="1" Margin="10" CornerRadius="6">
+            <Grid Grid.Row="1" DataContext="{Binding LineGraphSubViewModel}" d:DataContext="{d:DesignInstance vm:LineGraphSubViewModel}">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="HorizontalAlignment" Value="Right" />
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                    </Style>
+                </Grid.Resources>
 
-            <YK:LineGraph Margin="20"
-                          Title="{Binding GraphTitle}" XLabel="{Binding XLabel}" YLabel="{Binding YLabel}" Y2Label="{Binding Y2Label}"
-                          XMin="{Binding XMin}" XMax="{Binding XMax}" XStep="{Binding XStep}" XStringFormat="{Binding XStringFormat}"
-                          YMin="{Binding YMin}" YMax="{Binding YMax}" YStep="{Binding YStep}" YStringFormat="{Binding YStringFormat}"
-                          Y2Min="{Binding Y2Min}" Y2Max="{Binding Y2Max}" Y2Step="{Binding Y2Step}" Y2StringFormat="{Binding Y2StringFormat}"
-                          IsY2Enabled="{Binding IsY2Enabled}"
-                          GraphAreaMargin="{Binding GraphAreaMargin}"
-                          IsLegendEnabled="{Binding IsLegendEnabled}"
-                          LegendPositionLeft="{Binding LegendPositionLeft}" LegendPositionTop="{Binding LegendPositionTop}">
-                <YK:LineGraph.ItemsSource>
-                    <x:Array Type="{x:Type YK:LineGraphItem}">
-                        <YK:LineGraphItem Legend="{Binding Legend1}" XAxisData="{Binding XAxisData1}" YAxisData="{Binding YAxisData1}" Stroke="Red" Fill="Red" AnimationType="FadeIn">
-                            <YK:LineGraphItem.MarkerPen>
-                                <Pen Brush="Red" Thickness="1" />
-                            </YK:LineGraphItem.MarkerPen>
-                        </YK:LineGraphItem>
-                        <YK:LineGraphItem Legend="{Binding Legend2}" XAxisData="{Binding XAxisData2}" YAxisData="{Binding YAxisData2}" IsSecond="True" Stroke="Green" Fill="Green" MarkerType="Rectangle" MarkerSize="8,8" AnimationType="Rotate">
-                            <YK:LineGraphItem.MarkerPen>
-                                <Pen Brush="Green" Thickness="1" />
-                            </YK:LineGraphItem.MarkerPen>
-                        </YK:LineGraphItem>
-                    </x:Array>
-                </YK:LineGraph.ItemsSource>
-            </YK:LineGraph>
+                <CheckBox Grid.Row="0" Grid.Column="1" Content="Legend enable" IsChecked="{Binding IsLegendEnabled}" />
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="XStringFormat :" />
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding XAxis.StringFormat}" />
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="YStringFormat :" Margin="0,10,0,0" />
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding YAxis.StringFormat}" Margin="0,10,0,0" />
+                <CheckBox Grid.Row="3" Grid.Column="1" Content="Y2-Axis enable" IsChecked="{Binding IsY2Enabled}" Margin="0,10,0,0" />
+                <TextBlock Grid.Row="4" Grid.Column="0" Text="Y2StringFormat :" Margin="0,10,0,0" />
+                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Y2Axis.StringFormat}" Margin="0,10,0,0" />
+                <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Margin="0,10,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Content="Add Data" Width="80" Command="{Binding AddDataCommand}" />
+                    <Button Content="Clear Data" Width="80" Margin="10,0,0,0" Command="{Binding ClearDataCommand}" />
+                </StackPanel>
+            </Grid>
+
+            <DataGrid Grid.Row="2" Margin="10"
+                      ItemsSource="{Binding LineGraphSubViewModel.LineGraphItemCollection}"
+                      YKb:DataGridBehavior.DisplayRowNumber="1"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
+                      CanUserSortColumns="False"
+                      AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridCheckBoxColumn Header="IsSecond" Binding="{Binding IsSecond}" />
+                    <DataGridTextColumn Header="Name" Binding="{Binding Legend}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Border Grid.Column="1">
+            <Border YKb:WriteBitmapBehavior.FilePath="{Binding BitmapFilePath}">
+                <Border.Background>
+                    <SolidColorBrush Color="{DynamicResource WindowColor}" />
+                </Border.Background>
+                <YK:LineGraph DataContext="{Binding LineGraphSubViewModel}"
+                              d:DataContext="{d:DesignInstance vm:LineGraphSubViewModel}"
+                              ItemsSource="{Binding LineGraphItemCollection}"
+                              IsY2Enabled="{Binding IsY2Enabled}"
+                              IsLegendEnabled="{Binding IsLegendEnabled}"
+                              GraphAreaMargin="80,40,80,60"
+                              Title="{Binding Title.Text}" TitleFontSize="{Binding Title.FontSize}"
+                              XLabel="{Binding XLabel.Text}" XLabelFontSize="{Binding XLabel.FontSize}"
+                              YLabel="{Binding YLabel.Text}" YLabelFontSize="{Binding YLabel.FontSize}"
+                              Y2Label="{Binding Y2Label.Text}" Y2LabelFontSize="{Binding Y2Label.FontSize}"
+                              XMin="{Binding XAxis.Minimum}" XMax="{Binding XAxis.Maximum}" XStep="{Binding XAxis.Step}" XGridPen="{Binding XAxis.GridPen}" XStringFormat="{Binding XAxis.StringFormat}"
+                              YMin="{Binding YAxis.Minimum}" YMax="{Binding YAxis.Maximum}" YStep="{Binding YAxis.Step}" YGridPen="{Binding YAxis.GridPen}" YStringFormat="{Binding YAxis.StringFormat}"
+                              Y2Min="{Binding Y2Axis.Minimum}" Y2Max="{Binding Y2Axis.Maximum}" Y2Step="{Binding Y2Axis.Step}" Y2GridPen="{Binding Y2Axis.GridPen}" Y2StringFormat="{Binding Y2Axis.StringFormat}"
+                              LegendPositionLeft="{Binding LegendPositionLeft}" LegendPositionTop="{Binding LegendPositionTop}"
+                              />
+            </Border>
         </Border>
     </Grid>
 </UserControl>

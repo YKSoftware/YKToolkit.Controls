@@ -410,7 +410,7 @@
                     break;
 
                 case AnimationTypes.SlideIn:
-                    _storyboardSlideIn.Begin();
+                    StoryboardSlideIn.Begin();
                     break;
 
                 case AnimationTypes.Rotate:

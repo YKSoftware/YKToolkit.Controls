@@ -54,13 +54,15 @@
                                                                   Foreground="{TemplateBinding Foreground}">
                                                         <ToggleButton.Template>
                                                             <ControlTemplate TargetType="ToggleButton">
-                                                                <Path x:Name="arrow"
-                                                                      HorizontalAlignment="Center"
-                                                                      VerticalAlignment="Center"
-                                                                      Margin="1,1,1,1"
-                                                                      Data="M 4,0 L 8,4 4,8 Z"
-                                                                      Fill="{TemplateBinding Foreground}"
-                                                                      />
+                                                                <Border Background="{TemplateBinding Background}">
+                                                                    <Path x:Name="arrow"
+                                                                          HorizontalAlignment="Center"
+                                                                          VerticalAlignment="Center"
+                                                                          Margin="1,1,1,1"
+                                                                          Data="M 4,0 L 8,4 4,8 Z"
+                                                                          Fill="{TemplateBinding Foreground}"
+                                                                          />
+                                                                </Border>
                                                                 <ControlTemplate.Triggers>
                                                                     <Trigger Property="IsChecked" Value="True">
                                                                         <Setter TargetName="arrow" Property="Data" Value="M 0,4 L 8,4 4,8 Z" />
@@ -95,6 +97,13 @@
                                                             </Setter.Value>
                                                         </Setter>
                                                     </Trigger>-->
+                                                    <Trigger SourceName="toggleButton" Property="IsMouseOver" Value="True">
+                                                        <Setter TargetName="toggleButton" Property="Foreground">
+                                                            <Setter.Value>
+                                                                <SolidColorBrush Color="{DynamicResource SelectedColor}" />
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Trigger>
                                                     <Trigger Property="IsSelected" Value="True">
                                                         <Setter Property="Foreground">
                                                             <Setter.Value>

@@ -1,11 +1,10 @@
-﻿namespace YKToolkit.SampleForLineGraph.ViewModels
+﻿namespace YKToolkit.Sample.ViewModels
 {
     using System;
-    using System.IO;
     using YKToolkit.Bindings;
     using YKToolkit.SampleForLineGraph.Models;
 
-    public class LineGraphViewModel : ViewModelBase
+    public class LineGraphSubViewModel : ViewModelBase
     {
         #region Title プロパティ
         private LineGraphTextItem _title = new LineGraphTextItem("グラフタイトル", 16.0);
@@ -110,6 +109,28 @@
             set { SetProperty(ref this._isLegendEnabled, value); }
         }
         #endregion IsLegendEnabled プロパティ
+
+        #region LegendPositionLeft プロパティ
+        private double _legendPositionLeft;
+        /// <summary>
+        /// 凡例の左端の位置を取得または設定します。
+        /// </summary>
+        public double LegendPositionLeft
+        {
+            get { return this._legendPositionLeft; }
+            set { SetProperty(ref this._legendPositionLeft, value); }
+        }
+
+        private double _legendPositionTop;
+        /// <summary>
+        /// 凡例の上端の位置を取得または設定します。
+        /// </summary>
+        public double LegendPositionTop
+        {
+            get { return this._legendPositionTop; }
+            set { SetProperty(ref this._legendPositionTop, value); }
+        }
+        #endregion LegendPositionLeft プロパティ
 
         #region LineGraphItemCollection プロパティ
         private LineGraphItemCollection _lineGraphItemCollection = new LineGraphItemCollection();

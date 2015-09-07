@@ -57,11 +57,17 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\DialogInfo.cs" />
+    <Compile Include="Models\forLineGraph\GraphDataParser.cs" />
+    <Compile Include="Models\forLineGraph\LineGraphAxisItem.cs" />
+    <Compile Include="Models\forLineGraph\LineGraphItemCollection.cs" />
+    <Compile Include="Models\forLineGraph\LineGraphTextItem.cs" />
+    <Compile Include="Models\forLineGraph\SerializeHelper.cs" />
     <Compile Include="Models\Gender.cs" />
     <Compile Include="Models\People.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\ProductInfo.cs" />
     <Compile Include="Models\ViewModelInfo.cs" />
+    <Compile Include="ViewModels\ExtendedControls\LineGraphSubViewModel.cs" />
     <Compile Include="ViewModels\ExtendedControls\LineGraphViewModel.cs" />
     <Compile Include="ViewModels\ExtendedControls\FileTreeViewViewModel.cs" />
     <Compile Include="ViewModels\ExtendedControls\BusyIndicatorViewModel.cs" />

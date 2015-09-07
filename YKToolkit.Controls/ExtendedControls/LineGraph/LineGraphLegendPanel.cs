@@ -104,6 +104,13 @@
                     break;
 
                 case NotifyCollectionChangedAction.Reset:
+                    foreach (LineGraphItem item in this.ItemsSource)
+                    {
+                        item.DataEnableChanged -= item_LegendChanged;
+                        item.LegendChanged -= item_LegendChanged;
+                    }
+                    this.InvalidateMeasure();
+                    this.InvalidateVisual();
                     break;
 
                 // あり得ない
