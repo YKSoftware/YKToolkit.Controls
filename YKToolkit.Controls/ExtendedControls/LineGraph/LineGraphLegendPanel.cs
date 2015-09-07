@@ -82,12 +82,22 @@
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
+                    foreach (LineGraphItem item in e.NewItems)
+                    {
+                        item.DataEnableChanged += item_LegendChanged;
+                        item.LegendChanged += item_LegendChanged;
+                    }
                     break;
 
                 case NotifyCollectionChangedAction.Move:
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
+                    foreach (LineGraphItem item in e.OldItems)
+                    {
+                        item.DataEnableChanged -= item_LegendChanged;
+                        item.LegendChanged -= item_LegendChanged;
+                    }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:

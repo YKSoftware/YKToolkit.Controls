@@ -65,7 +65,7 @@
         }
         #endregion コンストラクタ
 
-        private double _minimum = 0.0;
+        private double _minimum = double.MinValue;
         /// <summary>
         /// 軸の最小値を取得または設定します。
         /// </summary>
@@ -82,7 +82,7 @@
             }
         }
 
-        private double _maximum = 100.0;
+        private double _maximum = double.MaxValue;
         /// <summary>
         /// 軸の最大値を取得または設定します。
         /// </summary>

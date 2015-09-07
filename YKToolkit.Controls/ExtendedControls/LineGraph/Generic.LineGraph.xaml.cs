@@ -134,7 +134,7 @@
         /// <summary>
         /// XStep 依存関係プロパティの定義
         /// </summary>
-        public static readonly DependencyProperty XStepProperty = DependencyProperty.Register("XStep", typeof(double), typeof(LineGraph), new FrameworkPropertyMetadata(10.0));
+        public static readonly DependencyProperty XStepProperty = DependencyProperty.Register("XStep", typeof(double), typeof(LineGraph), new FrameworkPropertyMetadata(10.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         /// <summary>
         /// 横軸目盛の間隔を取得または設定します。
@@ -230,7 +230,7 @@
         /// <summary>
         /// YStep 依存関係プロパティの定義
         /// </summary>
-        public static readonly DependencyProperty YStepProperty = DependencyProperty.Register("YStep", typeof(double), typeof(LineGraph), new FrameworkPropertyMetadata(10.0));
+        public static readonly DependencyProperty YStepProperty = DependencyProperty.Register("YStep", typeof(double), typeof(LineGraph), new FrameworkPropertyMetadata(10.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         /// <summary>
         /// 縦軸目盛の間隔を取得または設定します。
@@ -342,7 +342,7 @@
         /// <summary>
         /// Y2Step 依存関係プロパティの定義
         /// </summary>
-        public static readonly DependencyProperty Y2StepProperty = DependencyProperty.Register("Y2Step", typeof(double), typeof(LineGraph), new FrameworkPropertyMetadata(10.0));
+        public static readonly DependencyProperty Y2StepProperty = DependencyProperty.Register("Y2Step", typeof(double), typeof(LineGraph), new FrameworkPropertyMetadata(10.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         /// <summary>
         /// 第 2 主軸目盛の間隔を取得または設定します。
@@ -991,6 +991,8 @@
                         this.XMin -= this.XStep;
                         this.XMax += this.XStep;
                     }
+
+                    this.XStep = (this.XMax - this.XMin) / 10.0;
                 }
                 else
                 {
@@ -1031,6 +1033,8 @@
                         this.YMin -= this.YStep;
                         this.YMax += this.YStep;
                     }
+
+                    this.YStep = (this.YMax - this.YMin) / 10.0;
                 }
                 else
                 {
@@ -1071,6 +1075,8 @@
                         this.Y2Min -= this.Y2Step;
                         this.Y2Max += this.Y2Step;
                     }
+
+                    this.Y2Step = (this.Y2Max - this.Y2Min) / 10.0;
                 }
                 else
                 {

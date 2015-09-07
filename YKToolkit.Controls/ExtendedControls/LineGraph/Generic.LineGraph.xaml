@@ -25,51 +25,51 @@
                     <ControlTemplate.Resources>
                         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
                     </ControlTemplate.Resources>
-                    <Grid Background="Transparent">
-                        <Border Margin="{TemplateBinding GraphAreaMargin}"
-                                Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="{TemplateBinding CornerRadius}">
-                            <local:LineGraphPanel x:Name="PART_GraphPanel"
-                                                  XMin="{Binding XMin, RelativeSource={RelativeSource TemplatedParent}}"
-                                                  XMax="{Binding XMax, RelativeSource={RelativeSource TemplatedParent}}"
-                                                  XStep="{Binding XStep, RelativeSource={RelativeSource TemplatedParent}}"
-                                                  XStringFormat="{Binding XStringFormat, RelativeSource={RelativeSource TemplatedParent}}"
-                                                  XFontSize="{Binding XFontSize, RelativeSource={RelativeSource TemplatedParent}}"
-                                                  XGridPen="{Binding XGridPen, RelativeSource={RelativeSource TemplatedParent}}"
-                                                  YMin="{Binding YMin, RelativeSource={RelativeSource TemplatedParent}}"
-                                                  YMax="{Binding YMax, RelativeSource={RelativeSource TemplatedParent}}"
-                                                  YStep="{Binding YStep, RelativeSource={RelativeSource TemplatedParent}}"
-                                                  YStringFormat="{Binding YStringFormat, RelativeSource={RelativeSource TemplatedParent}}"
-                                                  YFontSize="{Binding YFontSize, RelativeSource={RelativeSource TemplatedParent}}"
-                                                  YGridPen="{Binding YGridPen, RelativeSource={RelativeSource TemplatedParent}}"
-                                                  IsY2Enabled="{Binding IsY2Enabled, RelativeSource={RelativeSource TemplatedParent}}"
-                                                  Y2Min="{Binding Y2Min, RelativeSource={RelativeSource TemplatedParent}}"
-                                                  Y2Max="{Binding Y2Max, RelativeSource={RelativeSource TemplatedParent}}"
-                                                  Y2Step="{Binding Y2Step, RelativeSource={RelativeSource TemplatedParent}}"
-                                                  Y2StringFormat="{Binding Y2StringFormat, RelativeSource={RelativeSource TemplatedParent}}"
-                                                  Y2FontSize="{Binding Y2FontSize, RelativeSource={RelativeSource TemplatedParent}}"
-                                                  Y2GridPen="{Binding Y2GridPen, RelativeSource={RelativeSource TemplatedParent}}"
-                                                  Foreground="{Binding Foreground, RelativeSource={RelativeSource TemplatedParent}}"
-                                                  FontFamily="{Binding FontFamily, RelativeSource={RelativeSource TemplatedParent}}"
-                                                  />
-                        </Border>
-                        <Canvas>
-                            <local:LineGraphLegendPanel x:Name="PART_LegendPanel"
-                                                        Canvas.Left="0" Canvas.Top="0"
-                                                        Left="{Binding LegendPositionLeft, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                                        Top="{Binding LegendPositionTop, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                                        Visibility="{TemplateBinding IsLegendEnabled, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                                        ItemsSource="{TemplateBinding ItemsSource}"
-                                                        Foreground="{TemplateBinding Foreground}"
-                                                        Background="{TemplateBinding Background}"
-                                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                                        BorderThickness="{TemplateBinding BorderThickness}"
-                                                        FontSize="{TemplateBinding LegendFontSize}"
-                                                        />
-                        </Canvas>
-                    </Grid>
+                        <Grid Background="Transparent">
+                            <Border Margin="{TemplateBinding GraphAreaMargin}"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="{TemplateBinding CornerRadius}">
+                                <local:LineGraphPanel x:Name="PART_GraphPanel"
+                                                      XMin="{Binding XMin, RelativeSource={RelativeSource TemplatedParent}}"
+                                                      XMax="{Binding XMax, RelativeSource={RelativeSource TemplatedParent}}"
+                                                      XStep="{Binding XStep, RelativeSource={RelativeSource TemplatedParent}}"
+                                                      XStringFormat="{Binding XStringFormat, RelativeSource={RelativeSource TemplatedParent}}"
+                                                      XFontSize="{Binding XFontSize, RelativeSource={RelativeSource TemplatedParent}}"
+                                                      XGridPen="{Binding XGridPen, RelativeSource={RelativeSource TemplatedParent}}"
+                                                      YMin="{Binding YMin, RelativeSource={RelativeSource TemplatedParent}}"
+                                                      YMax="{Binding YMax, RelativeSource={RelativeSource TemplatedParent}}"
+                                                      YStep="{Binding YStep, RelativeSource={RelativeSource TemplatedParent}}"
+                                                      YStringFormat="{Binding YStringFormat, RelativeSource={RelativeSource TemplatedParent}}"
+                                                      YFontSize="{Binding YFontSize, RelativeSource={RelativeSource TemplatedParent}}"
+                                                      YGridPen="{Binding YGridPen, RelativeSource={RelativeSource TemplatedParent}}"
+                                                      IsY2Enabled="{Binding IsY2Enabled, RelativeSource={RelativeSource TemplatedParent}}"
+                                                      Y2Min="{Binding Y2Min, RelativeSource={RelativeSource TemplatedParent}}"
+                                                      Y2Max="{Binding Y2Max, RelativeSource={RelativeSource TemplatedParent}}"
+                                                      Y2Step="{Binding Y2Step, RelativeSource={RelativeSource TemplatedParent}}"
+                                                      Y2StringFormat="{Binding Y2StringFormat, RelativeSource={RelativeSource TemplatedParent}}"
+                                                      Y2FontSize="{Binding Y2FontSize, RelativeSource={RelativeSource TemplatedParent}}"
+                                                      Y2GridPen="{Binding Y2GridPen, RelativeSource={RelativeSource TemplatedParent}}"
+                                                      Foreground="{Binding Foreground, RelativeSource={RelativeSource TemplatedParent}}"
+                                                      FontFamily="{Binding FontFamily, RelativeSource={RelativeSource TemplatedParent}}"
+                                                      />
+                            </Border>
+                            <Canvas>
+                                <local:LineGraphLegendPanel x:Name="PART_LegendPanel"
+                                                            Canvas.Left="0" Canvas.Top="0"
+                                                            Left="{Binding LegendPositionLeft, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                                            Top="{Binding LegendPositionTop, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                                            Visibility="{TemplateBinding IsLegendEnabled, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                            ItemsSource="{TemplateBinding ItemsSource}"
+                                                            Foreground="{TemplateBinding Foreground}"
+                                                            Background="{TemplateBinding Background}"
+                                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                                            FontSize="{TemplateBinding LegendFontSize}"
+                                                            />
+                            </Canvas>
+                        </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

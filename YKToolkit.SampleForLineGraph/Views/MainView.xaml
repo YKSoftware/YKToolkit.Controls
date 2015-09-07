@@ -11,28 +11,108 @@
            Title="MainView"
            Width="800" Height="600"
            WindowStartupLocation="CenterScreen"
-           YKb:FileDropBehavior.Callback="{Binding FileDropCallback}">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="240" />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
+           YKb:FileDropBehavior.Callback="{Binding LineGraphViewModel.FileDropCallback}">
+    <YK:Window.InputBindings>
+        <KeyBinding Command="{Binding NewCommand}" Key="N" Modifiers="Control" />
+        <KeyBinding Command="{Binding LoadCommand}" Key="O" Modifiers="Control" />
+        <KeyBinding Command="{Binding SaveCommand}" Key="S" Modifiers="Control" />
+    </YK:Window.InputBindings>
 
-        <DataGrid ItemsSource="{Binding LineGraphItems}" Margin="10">
-            
-        </DataGrid>
+    <YK:Window.CaptionContent>
+        <Button Content="テーマ切替" Command="{Binding ChangeThemeCommand}" BorderThickness="0" />
+    </YK:Window.CaptionContent>
 
-        <YK:LineGraph Grid.Column="1"
-                      DataContext="{Binding LineGraphViewModel}"
-                      d:DataContext="{d:DesignInstance vm:LineGraphViewModel}"
-                      IsY2Enabled="{Binding IsY2Enabled}"
-                      Title="{Binding Title.Text}" TitleFontSize="{Binding Title.FontSize}"
-                      XLabel="{Binding XLabel.Text}" XLabelFontSize="{Binding XLabel.FontSize}"
-                      YLabel="{Binding YLabel.Text}" YLabelFontSize="{Binding YLabel.FontSize}"
-                      Y2Label="{Binding Y2Label.Text}" Y2LabelFontSize="{Binding Y2Label.FontSize}"
-                      XMin="{Binding XAxis.Minimum}" XMax="{Binding XAxis.Maximum}" XStep="{Binding XAxis.Step}" XGridPen="{Binding XAxis.GridPen}" XStringFormat="{Binding XAxis.StringFormat}"
-                      YMin="{Binding YAxis.Minimum}" YMax="{Binding YAxis.Maximum}" YStep="{Binding YAxis.Step}" YGridPen="{Binding YAxis.GridPen}" YStringFormat="{Binding YAxis.StringFormat}"
-                      Y2Min="{Binding YAxis.Minimum}" Y2Max="{Binding Y2Axis.Maximum}" Y2Step="{Binding Y2Axis.Step}" Y2GridPen="{Binding Y2Axis.GridPen}" Y2StringFormat="{Binding Y2Axis.StringFormat}"
-                      />
-    </Grid>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="ファイル (_F)">
+                <MenuItem Header="新規 (_N)" Command="{Binding NewCommand}" InputGestureText="Ctrl+N" />
+                <MenuItem Header="開く (_O)" Command="{Binding LoadCommand}" InputGestureText="Ctrl+O" />
+                <MenuItem Header="上書き保存 (_S)" Command="{Binding SaveCommand}" InputGestureText="Ctrl+S" />
+                <MenuItem Header="画像として保存" Command="{Binding SaveImageCommand}"
+                          YKb:CommonDialogBehavior.DialogType="SaveFile"
+                          YKb:CommonDialogBehavior.FileFilter="ビットマップ形式 (*.bmp)|*.bmp|ポータブルネットワークグラフィックス形式 (*.png)|*.png|すべてのファイル (*.*)|*.*"
+                          YKb:CommonDialogBehavior.Title="画像として保存"
+                          YKb:CommonDialogBehavior.Callback="{Binding SaveImageCommandCallback}"
+                          />
+            </MenuItem>
+        </Menu>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="240" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <Grid DataContext="{Binding LineGraphViewModel}" d:DataContext="{d:DesignInstance vm:LineGraphViewModel}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Right" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </Grid.Resources>
+
+                    <CheckBox Grid.Row="0" Grid.Column="1" Content="Legend enable" IsChecked="{Binding IsLegendEnabled}" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="XStringFormat :" />
+                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding XAxis.StringFormat}" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="YStringFormat :" Margin="0,10,0,0" />
+                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding YAxis.StringFormat}" Margin="0,10,0,0" />
+                    <CheckBox Grid.Row="3" Grid.Column="1" Content="Y2-Axis enable" IsChecked="{Binding IsY2Enabled}" Margin="0,10,0,0" />
+                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Y2StringFormat :" Margin="0,10,0,0" />
+                    <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Y2Axis.StringFormat}" Margin="0,10,0,0" />
+                </Grid>
+
+                <DataGrid Grid.Row="1" Margin="10"
+                          ItemsSource="{Binding LineGraphViewModel.LineGraphItemCollection}"
+                          YKb:DataGridBehavior.DisplayRowNumber="1"
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False"
+                          CanUserSortColumns="False"
+                          AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridCheckBoxColumn Header="IsSecond" Binding="{Binding IsSecond}" />
+                        <DataGridTextColumn Header="Name" Binding="{Binding Legend}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+
+            <Border Grid.Column="1">
+                <Border YKb:WriteBitmapBehavior.FilePath="{Binding BitmapFilePath}">
+                    <Border.Background>
+                        <SolidColorBrush Color="{DynamicResource WindowColor}" />
+                    </Border.Background>
+                    <YK:LineGraph DataContext="{Binding LineGraphViewModel}"
+                                  d:DataContext="{d:DesignInstance vm:LineGraphViewModel}"
+                                  ItemsSource="{Binding LineGraphItemCollection}"
+                                  IsY2Enabled="{Binding IsY2Enabled}"
+                                  IsLegendEnabled="{Binding IsLegendEnabled}"
+                                  GraphAreaMargin="80,40,80,60"
+                                  Title="{Binding Title.Text}" TitleFontSize="{Binding Title.FontSize}"
+                                  XLabel="{Binding XLabel.Text}" XLabelFontSize="{Binding XLabel.FontSize}"
+                                  YLabel="{Binding YLabel.Text}" YLabelFontSize="{Binding YLabel.FontSize}"
+                                  Y2Label="{Binding Y2Label.Text}" Y2LabelFontSize="{Binding Y2Label.FontSize}"
+                                  XMin="{Binding XAxis.Minimum}" XMax="{Binding XAxis.Maximum}" XStep="{Binding XAxis.Step}" XGridPen="{Binding XAxis.GridPen}" XStringFormat="{Binding XAxis.StringFormat}"
+                                  YMin="{Binding YAxis.Minimum}" YMax="{Binding YAxis.Maximum}" YStep="{Binding YAxis.Step}" YGridPen="{Binding YAxis.GridPen}" YStringFormat="{Binding YAxis.StringFormat}"
+                                  Y2Min="{Binding Y2Axis.Minimum}" Y2Max="{Binding Y2Axis.Maximum}" Y2Step="{Binding Y2Axis.Step}" Y2GridPen="{Binding Y2Axis.GridPen}" Y2StringFormat="{Binding Y2Axis.StringFormat}"
+                                  />
+                </Border>
+            </Border>
+        </Grid>
+    </DockPanel>
 </YK:Window>

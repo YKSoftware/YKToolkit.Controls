@@ -58,9 +58,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\DataFileInfo.cs" />
+    <Compile Include="Models\GraphDataParser.cs" />
+    <Compile Include="Models\LineGraphItemCollection.cs" />
     <Compile Include="Models\LineGraphTextItem.cs" />
     <Compile Include="Models\LineGraphAxisItem.cs" />
+    <Compile Include="Models\SerializeHelper.cs" />
     <Compile Include="ViewModels\LineGraphViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />

@@ -1,6 +1,7 @@
 ﻿namespace YKToolkit.SampleForLineGraph.ViewModels
 {
-    using System.Collections.ObjectModel;
+    using System;
+    using System.IO;
     using YKToolkit.SampleForLineGraph.Models;
 
     public class LineGraphViewModel : ViewModelBase
@@ -97,16 +98,58 @@
         }
         #endregion IsY2Enabled プロパティ
 
-        #region DataFileInfoCollection プロパティ
-        private ObservableCollection<DataFileInfo> _dataFileInfoCollection = new ObservableCollection<DataFileInfo>();
+        #region IsLegendEnabled プロパティ
+        private bool _isLegendEnabled;
         /// <summary>
-        /// データファイルコレクションを取得します。
+        /// 凡例の有効性を取得または設定します。
         /// </summary>
-        public ObservableCollection<DataFileInfo> DataFileInfoCollection
+        public bool IsLegendEnabled
         {
-            get { return _dataFileInfoCollection; }
-            private set { SetProperty(ref _dataFileInfoCollection, value); }
+            get { return this._isLegendEnabled; }
+            set { SetProperty(ref this._isLegendEnabled, value); }
         }
-        #endregion DataFileInfoCollection プロパティ
+        #endregion IsLegendEnabled プロパティ
+
+        #region LineGraphItemCollection プロパティ
+        private LineGraphItemCollection _lineGraphItemCollection = new LineGraphItemCollection();
+        /// <summary>
+        /// グラフデータコレクションを取得または設定します。
+        /// </summary>
+        public LineGraphItemCollection LineGraphItemCollection
+        {
+            get { return this._lineGraphItemCollection; }
+            set { SetProperty(ref this._lineGraphItemCollection, value); }
+        }
+        #endregion LineGraphItemCollection プロパティ
+
+        #region ファイルドロップ処理
+        /// <summary>
+        /// ファイルドロップ時のコールバックを取得します。
+        /// </summary>
+        public Action<string[]> FileDropCallback
+        {
+            get { return this.OnFileDrop; }
+        }
+
+        /// <summary>
+        /// ファイルドロップ時のコールバック処理
+        /// </summary>
+        /// <param name="pathArray">フルパスの配列</param>
+        private void OnFileDrop(string[] pathArray)
+        {
+            foreach (var path in pathArray)
+            {
+                var list = GraphDataParser.ReadFile(path, null);
+                var x = new double[list.Count];
+                var y = new double[list.Count];
+                for (var i = 0; i < list.Count; i++)
+                {
+                    x[i] = (double)i;
+                    y[i] = double.Parse(list[i][3]) / 1000.0;
+                }
+                this.LineGraphItemCollection.AddData(Path.GetFileName(path), x, y);
+            }
+        }
+        #endregion ファイルドロップ処理
     }
 }
