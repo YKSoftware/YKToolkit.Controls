@@ -144,6 +144,18 @@
         }
         #endregion LineGraphItemCollection プロパティ
 
+        #region IsMouseOverInformationEnabled プロパティ
+        private bool _isMouseOverInformationEnabled;
+        /// <summary>
+        /// マウスオーバー時の情報表示が有効かどうかを取得または設定します。
+        /// </summary>
+        public bool IsMouseOverInformationEnabled
+        {
+            get { return this._isMouseOverInformationEnabled; }
+            set { SetProperty(ref this._isMouseOverInformationEnabled, value); }
+        }
+        #endregion IsMouseOverInformationEnabled プロパティ
+
         #region データ追加
         private DelegateCommand _addDataCommand;
         /// <summary>

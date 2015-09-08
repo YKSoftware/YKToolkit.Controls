@@ -10,11 +10,27 @@
              xmlns:YK="clr-namespace:YKToolkit.Controls;assembly=YKToolkit.Controls">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="60" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
         <StackPanel>
+            <TextBlock Text="SpinInput :" />
+            <YK:SpinInput Width="120"
+                          IsEnabled="{Binding IsChecked, ElementName=isEnabled}"
+                          IsReadOnly="{Binding IsChecked, ElementName=isReadOnly}"
+                          Value="{Binding Value}"
+                          StringFormat="{Binding StringFormat}"
+                          Minimum="{Binding Minimum}"
+                          Maximum="{Binding Maximum}"
+                          Tick="{Binding Tick}"
+                          Delay="{Binding Delay}"
+                          Interval="{Binding Interval}"
+                          />
+        </StackPanel>
+
+        <StackPanel Grid.Column="2">
             <CheckBox x:Name="isEnabled" Content="IsEnabled" IsChecked="True" />
             <CheckBox x:Name="isReadOnly" Content="IsReadOnly" Margin="0,10,0,0" />
             <TextBlock Text="Value :" Margin="0,10,0,0" />
@@ -29,20 +45,6 @@
             <TextBox Text="{Binding Delay}" Width="120" />
             <TextBlock Text="Interval (>= 0) :" Margin="0,10,0,0" />
             <TextBox Text="{Binding Interval}" Width="120" />
-        </StackPanel>
-
-        <StackPanel Grid.Column="1">
-            <YK:SpinInput Width="120"
-                          IsEnabled="{Binding IsChecked, ElementName=isEnabled}"
-                          IsReadOnly="{Binding IsChecked, ElementName=isReadOnly}"
-                          Value="{Binding Value}"
-                          StringFormat="{Binding StringFormat}"
-                          Minimum="{Binding Minimum}"
-                          Maximum="{Binding Maximum}"
-                          Tick="{Binding Tick}"
-                          Delay="{Binding Delay}"
-                          Interval="{Binding Interval}"
-                          />
         </StackPanel>
     </Grid>
 </UserControl>

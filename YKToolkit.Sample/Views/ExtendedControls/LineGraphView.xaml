@@ -60,6 +60,7 @@
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -72,15 +73,16 @@
                     </Style>
                 </Grid.Resources>
 
-                <CheckBox Grid.Row="0" Grid.Column="1" Content="Legend enable" IsChecked="{Binding IsLegendEnabled}" />
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="XStringFormat :" />
-                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding XAxis.StringFormat}" />
-                <TextBlock Grid.Row="2" Grid.Column="0" Text="YStringFormat :" Margin="0,10,0,0" />
-                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding YAxis.StringFormat}" Margin="0,10,0,0" />
-                <CheckBox Grid.Row="3" Grid.Column="1" Content="Y2-Axis enable" IsChecked="{Binding IsY2Enabled}" Margin="0,10,0,0" />
-                <TextBlock Grid.Row="4" Grid.Column="0" Text="Y2StringFormat :" Margin="0,10,0,0" />
-                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Y2Axis.StringFormat}" Margin="0,10,0,0" />
-                <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Margin="0,10,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="XStringFormat : " />
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding XAxis.StringFormat}" />
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="YStringFormat : " Margin="0,10,0,0" />
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding YAxis.StringFormat}" Margin="0,10,0,0" />
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="Y2StringFormat : " Margin="0,10,0,0" />
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Y2Axis.StringFormat}" Margin="0,10,0,0" />
+                <CheckBox Grid.Row="3" Grid.ColumnSpan="2" Content="Legend enable" IsChecked="{Binding IsLegendEnabled}" Margin="0,5,0,0" />
+                <CheckBox Grid.Row="4" Grid.ColumnSpan="2" Content="Y2-Axis enable" IsChecked="{Binding IsY2Enabled}" Margin="0,5,0,0" />
+                <CheckBox Grid.Row="5" Grid.ColumnSpan="2" Content="MouseOver Information" IsChecked="{Binding IsMouseOverInformationEnabled}" Margin="0,5,0,0" />
+                <StackPanel Grid.Row="6" Grid.ColumnSpan="2" Margin="0,10,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
                     <Button Content="Add Data" Width="80" Command="{Binding AddDataCommand}" />
                     <Button Content="Clear Data" Width="80" Margin="10,0,0,0" Command="{Binding ClearDataCommand}" />
                 </StackPanel>
@@ -119,6 +121,7 @@
                               YMin="{Binding YAxis.Minimum}" YMax="{Binding YAxis.Maximum}" YStep="{Binding YAxis.Step}" YGridPen="{Binding YAxis.GridPen}" YStringFormat="{Binding YAxis.StringFormat}"
                               Y2Min="{Binding Y2Axis.Minimum}" Y2Max="{Binding Y2Axis.Maximum}" Y2Step="{Binding Y2Axis.Step}" Y2GridPen="{Binding Y2Axis.GridPen}" Y2StringFormat="{Binding Y2Axis.StringFormat}"
                               LegendPositionLeft="{Binding LegendPositionLeft}" LegendPositionTop="{Binding LegendPositionTop}"
+                              IsMouseOverInformationEnabled="{Binding IsMouseOverInformationEnabled}"
                               />
             </Border>
         </Border>

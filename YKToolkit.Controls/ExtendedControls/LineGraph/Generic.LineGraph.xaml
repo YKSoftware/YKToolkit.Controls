@@ -32,6 +32,7 @@
                                     BorderThickness="{TemplateBinding BorderThickness}"
                                     CornerRadius="{TemplateBinding CornerRadius}">
                                 <local:LineGraphPanel x:Name="PART_GraphPanel"
+                                                      Background="Transparent"
                                                       XMin="{Binding XMin, RelativeSource={RelativeSource TemplatedParent}}"
                                                       XMax="{Binding XMax, RelativeSource={RelativeSource TemplatedParent}}"
                                                       XStep="{Binding XStep, RelativeSource={RelativeSource TemplatedParent}}"
@@ -53,6 +54,7 @@
                                                       Y2GridPen="{Binding Y2GridPen, RelativeSource={RelativeSource TemplatedParent}}"
                                                       Foreground="{Binding Foreground, RelativeSource={RelativeSource TemplatedParent}}"
                                                       FontFamily="{Binding FontFamily, RelativeSource={RelativeSource TemplatedParent}}"
+                                                      IsMouseOverInformationEnabled="{Binding IsMouseOverInformationEnabled, RelativeSource={RelativeSource TemplatedParent}}"
                                                       />
                             </Border>
                             <Canvas>

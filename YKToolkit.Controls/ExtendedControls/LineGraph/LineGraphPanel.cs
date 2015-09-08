@@ -1,8 +1,10 @@
 ﻿namespace YKToolkit.Controls
 {
     using System.Globalization;
+    using System.Linq;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Input;
     using System.Windows.Media;
 
     /// <summary>
@@ -20,6 +22,8 @@
             {
                 this.InvalidateVisual();
             };
+            this.MouseMove += OnMouseMove;
+            this.MouseLeave += OnMouseLeave;
         }
         #endregion コンストラクタ
 
@@ -447,6 +451,54 @@
         }
         #endregion Foreground プロパティ
 
+        #region IsMouseOverInformationEnabled プロパティ
+        /// <summary>
+        /// IsMouseOverInformationEnabled 依存関係プロパティの定義
+        /// </summary>
+        public static readonly DependencyProperty IsMouseOverInformationEnabledProperty = DependencyProperty.Register("IsMouseOverInformationEnabled", typeof(bool), typeof(LineGraphPanel), new FrameworkPropertyMetadata(false));
+
+        /// <summary>
+        /// マウスオーバー時の情報表示の有効性を取得または設定します。
+        /// </summary>
+        public bool IsMouseOverInformationEnabled
+        {
+            get { return (bool)GetValue(IsMouseOverInformationEnabledProperty); }
+            set { SetValue(IsMouseOverInformationEnabledProperty, value); }
+        }
+        #endregion IsMouseOverInformationEnabled プロパティ
+
+        #region HighLightBrush プロパティ
+        /// <summary>
+        /// HighLightBrush 依存関係プロパティの定義
+        /// </summary>
+        public static readonly DependencyProperty HighLightBrushProperty = DependencyProperty.Register("HighLightBrush", typeof(Brush), typeof(LineGraphPanel), new PropertyMetadata(new SolidColorBrush(Color.FromArgb(128, 64, 64, 64))));
+
+        /// <summary>
+        /// ハイライト矩形の塗潰し色を取得または設定します。
+        /// </summary>
+        public Brush HighLightBrush
+        {
+            get { return (Brush)GetValue(HighLightBrushProperty); }
+            set { SetValue(HighLightBrushProperty, value); }
+        }
+        #endregion HighLightBrush プロパティ
+
+        #region HighLightStroke プロパティ
+        /// <summary>
+        /// HighLightStroke 依存関係プロパティの定義
+        /// </summary>
+        public static readonly DependencyProperty HighLightStrokeProperty = DependencyProperty.Register("HighLightStroke", typeof(Pen), typeof(LineGraphPanel), new PropertyMetadata(new Pen(Brushes.Orange, 1.0)));
+
+        /// <summary>
+        /// ハイライト矩形の境界線の線種を取得または設定します。
+        /// </summary>
+        public Pen HighLightStroke
+        {
+            get { return (Pen)GetValue(HighLightStrokeProperty); }
+            set { SetValue(HighLightStrokeProperty, value); }
+        }
+        #endregion HighLightStroke プロパティ
+
         #region 描画関連のオーバーライド
         /// <summary>
         /// 子要素の配置をおこないます。
@@ -612,8 +664,107 @@
                 }
             }
             #endregion 第 2 主軸目盛線の描画と目盛テキストの描画
+
+            #region ハイライト描画
+            if (this._highlightedRect != null)
+            {
+                dc.DrawRectangle(this.HighLightBrush, this.HighLightStroke, this._highlightedRect.Value);
+
+                // 横軸数値の表示
+                var controlPoint = new Point(this._highlightedRect.Value.Left + 5.0, this.ActualHeight + 3);
+                var pt = GetGraphPointFromControlPoint(controlPoint);
+                var stringFormat = string.IsNullOrWhiteSpace(this.XStringFormat) ? "" : this.XStringFormat;
+                var text = new FormattedText(
+                    pt.X.ToString(stringFormat),
+                    CultureInfo.CurrentUICulture,
+                    this.FlowDirection,
+                    this._typeface,
+                    this.XFontSize,
+                    this.Foreground);
+                // 目盛テキストの背景描画
+                controlPoint.Offset(-text.Width / 2.0 - 2.0, 0);
+                var bgColor = this.FindResource("BoxBaseColor");
+                var borderColor = this.FindResource("BorderColor");
+                var background = bgColor != null ? new SolidColorBrush((Color)bgColor) : null;
+                var borderBrush = borderColor != null ? new SolidColorBrush((Color)borderColor) : null;
+                dc.DrawRectangle(background, new Pen(borderBrush, 1.0), new Rect(controlPoint, new Size(text.Width + 4.0, text.Height + 2)));
+                // 目盛テキストの描画
+                controlPoint.Offset(2, 1);
+                dc.DrawText(text, controlPoint);
+            }
+            #endregion ハイライト描画
         }
         #endregion 描画関連のオーバーライド
+
+        #region イベントハンドラ
+        /// <summary>
+        /// マウス移動イベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        void OnMouseMove(object sender, MouseEventArgs e)
+        {
+            var pt = e.GetPosition(this);
+
+            #region マウスオーバー時の情報表示
+            var graphPoint1 = GetGraphPointFromControlPoint(pt);
+            var graphPoint2 = GetGraphPointFromControlPoint(pt, true);
+
+            if (this.IsMouseOverInformationEnabled)
+            {
+                foreach (LineGraphItem item in this.InternalChildren)
+                {
+                    if ((item.XAxisData != null) && (item.YAxisData != null))
+                    {
+                        var graphPoint = !item.IsSecond ? graphPoint1 : graphPoint2;
+                        var xArray = item.XAxisData.OfType<double>().ToArray();
+                        var yArray = item.YAxisData.OfType<double>().ToArray();
+                        var mins = xArray.Select(x => System.Math.Abs(graphPoint.X - x)).ToList();
+                        var index = mins.IndexOf(mins.Min());
+                        item.HighlightPoint = new Point(xArray[index], yArray[index]);
+                    }
+                }
+
+                if ((0 <= pt.X) && (pt.X < this.ActualWidth) && (pt.Y < this.ActualHeight))
+                {
+                    this._highlightedRect = new Rect(new Point(pt.X - 5.0, 0), new Size(10, this.ActualHeight));
+                }
+                else
+                {
+                    this._highlightedRect = null;
+                }
+            }
+            #endregion マウスオーバー時の情報表示
+
+            this.InvalidateVisual();
+        }
+
+        /// <summary>
+        /// マウスが離れたイベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        void OnMouseLeave(object sender, MouseEventArgs e)
+        {
+            #region マウスオーバー時の情報表示
+            foreach (LineGraphItem item in this.InternalChildren)
+            {
+                item.HighlightPoint = null;
+            }
+
+            this._highlightedRect = null;
+            #endregion マウスオーバー時の情報表示
+
+            this.InvalidateVisual();
+        }
+        #endregion イベントハンドラ
+
+        #region private フィールド
+        /// <summary>
+        /// ハイライト矩形
+        /// </summary>
+        private Rect? _highlightedRect;
+        #endregion private フィールド
 
         #region 座標変換ヘルパ
         /// <summary>
@@ -640,6 +791,33 @@
             var ymax = isSecond ? this.Y2Max : this.YMax;
             var xx = this.ActualWidth * (x - this.XMin) / (this.XMax - this.XMin);
             var yy = this.ActualHeight - this.ActualHeight * (y - ymin) / (ymax - ymin);
+            return new Point(xx, yy);
+        }
+
+        /// <summary>
+        /// コントロール座標をグラフ座標に変換します。
+        /// </summary>
+        /// <param name="pt">コントロール座標を指定します。</param>
+        /// <param name="isSecond">第 2 主軸を使用する場合は true を指定します。</param>
+        /// <returns>グラフ座標</returns>
+        private Point GetGraphPointFromControlPoint(Point pt, bool isSecond = false)
+        {
+            return GetGraphPointFromControlPoint(pt.X, pt.Y, IsSealed);
+        }
+
+        /// <summary>
+        /// コントロール座標をグラフ座標に変換します。
+        /// </summary>
+        /// <param name="x">コントロールの横軸座標を指定します。</param>
+        /// <param name="y">コントロールの縦軸座標を指定します。</param>
+        /// <param name="isSecond">第 2 主軸を使用する場合は true を指定します。</param>
+        /// <returns>グラフ座標</returns>
+        private Point GetGraphPointFromControlPoint(double x, double y, bool isSecond = false)
+        {
+            var ymin = isSecond ? this.Y2Min : this.YMin;
+            var ymax = isSecond ? this.Y2Max : this.YMax;
+            var xx = x * (this.XMax - this.XMin) / this.ActualWidth + this.XMin;
+            var yy = (this.ActualHeight - y) * (ymax - ymin) / this.ActualHeight + ymin;
             return new Point(xx, yy);
         }
         #endregion 座標変換ヘルパ

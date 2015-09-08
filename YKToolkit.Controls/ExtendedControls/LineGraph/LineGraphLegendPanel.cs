@@ -44,6 +44,7 @@
                 {
                     item.DataEnableChanged -= item_LegendChanged;
                     item.LegendChanged -= item_LegendChanged;
+                    item.HighlightPointChanged -= item_HighlightPointChanged;
                 }
             }
             if (newValue != null)
@@ -54,6 +55,7 @@
                 {
                     item.DataEnableChanged += item_LegendChanged;
                     item.LegendChanged += item_LegendChanged;
+                    item.HighlightPointChanged += item_HighlightPointChanged;
                 }
             }
 
@@ -73,6 +75,17 @@
         }
 
         /// <summary>
+        /// 子要素の HighlightPoint プロパティ変更イベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        void item_HighlightPointChanged(object sender, EventArgs e)
+        {
+            this.InvalidateMeasure();
+            this.InvalidateVisual();
+        }
+
+        /// <summary>
         /// ItemsSource コレクション子要素変更イベントハンドラ
         /// </summary>
         /// <param name="sender">イベント発行元</param>
@@ -86,6 +99,7 @@
                     {
                         item.DataEnableChanged += item_LegendChanged;
                         item.LegendChanged += item_LegendChanged;
+                        item.HighlightPointChanged += item_HighlightPointChanged;
                     }
                     break;
 
@@ -97,6 +111,7 @@
                     {
                         item.DataEnableChanged -= item_LegendChanged;
                         item.LegendChanged -= item_LegendChanged;
+                        item.HighlightPointChanged -= item_HighlightPointChanged;
                     }
                     break;
 
@@ -108,6 +123,7 @@
                     {
                         item.DataEnableChanged -= item_LegendChanged;
                         item.LegendChanged -= item_LegendChanged;
+                        item.HighlightPointChanged -= item_HighlightPointChanged;
                     }
                     this.InvalidateMeasure();
                     this.InvalidateVisual();
@@ -194,7 +210,13 @@
             this._textDic.Clear();
             foreach (var item in this.LimeGraphItems)
             {
-                var text = new FormattedText(item.Legend, CultureInfo.CurrentUICulture, this.FlowDirection, typeface, this.FontSize, this.Foreground);
+                var str = item.Legend;
+                if (item.HighlightPoint != null)
+                {
+                    var format = !string.IsNullOrWhiteSpace(item.YStringFormat) ? item.YStringFormat : "#0";
+                    str += " : " + item.HighlightPoint.Value.Y.ToString(format);
+                }
+                var text = new FormattedText(str, CultureInfo.CurrentUICulture, this.FlowDirection, typeface, this.FontSize, this.Foreground);
                 this._textDic.Add(text, item);
             }
             double width = 0.0;

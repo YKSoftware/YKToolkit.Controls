@@ -23,7 +23,7 @@
         <ContextMenu>
             <MenuItem Header="テーマ切替" Command="{Binding ChageThemeCommand}" InputGestureText="F11" />
             <Separator />
-            <MenuItem Header="閉じる" Command="{Binding CloseWindowCommand}" InputGestureText="Alt+F4" />
+            <MenuItem Header="終了" Command="{Binding CloseWindowCommand}" InputGestureText="Alt+F4" />
         </ContextMenu>
     </YK:Window.SystemMenuContent>
     <YK:Window.CaptionContent>
@@ -32,7 +32,7 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="ファイル (_F)">
-                <MenuItem Header="終了 (_X)" Command="{Binding CloseWindowCommand}" />
+                <MenuItem Header="終了 (_X)" Command="{Binding CloseWindowCommand}" InputGestureText="Alt+F4" />
             </MenuItem>
             <MenuItem Header="オプション (_O)">
                 <MenuItem Header="テーマ切替" Command="{Binding ChageThemeCommand}" InputGestureText="F11" />

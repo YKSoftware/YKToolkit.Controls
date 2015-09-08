@@ -236,6 +236,22 @@
         }
         #endregion XMax プロパティ
 
+        #region XStringFormat プロパティ
+        /// <summary>
+        /// XStringFormat 依存関係プロパティの定義
+        /// </summary>
+        public static readonly DependencyProperty XStringFormatProperty = DependencyProperty.Register("XStringFormat", typeof(string), typeof(LineGraphItem), new FrameworkPropertyMetadata("#0"));
+
+        /// <summary>
+        /// 横軸目盛の表示形式を取得または設定します。
+        /// </summary>
+        public string XStringFormat
+        {
+            get { return (string)GetValue(XStringFormatProperty); }
+            set { SetValue(XStringFormatProperty, value); }
+        }
+        #endregion XStringFormat プロパティ
+
         #region YMin プロパティ
         /// <summary>
         /// XMin 依存関係プロパティの定義
@@ -268,11 +284,27 @@
         }
         #endregion XMax プロパティ
 
+        #region YStringFormat プロパティ
+        /// <summary>
+        /// YStringFormat 依存関係プロパティの定義
+        /// </summary>
+        public static readonly DependencyProperty YStringFormatProperty = DependencyProperty.Register("YStringFormat", typeof(string), typeof(LineGraphItem), new FrameworkPropertyMetadata("#0"));
+
+        /// <summary>
+        /// 縦軸目盛の表示形式を取得または設定します。
+        /// </summary>
+        public string YStringFormat
+        {
+            get { return (string)GetValue(YStringFormatProperty); }
+            set { SetValue(YStringFormatProperty, value); }
+        }
+        #endregion YStringFormat プロパティ
+
         #region IsSecond プロパティ
         /// <summary>
         /// IsSecond 依存関係プロパティの定義
         /// </summary>
-        public static readonly DependencyProperty IsSecondProperty = DependencyProperty.Register("IsSecond", typeof(bool), typeof(LineGraphItem), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsRender));
+        public static readonly DependencyProperty IsSecondProperty = DependencyProperty.Register("IsSecond", typeof(bool), typeof(LineGraphItem), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsRender, OnIsSecondPropertyChanged));
 
         /// <summary>
         /// 第 2 主軸を使用するかどうかを取得または設定します。
@@ -281,6 +313,20 @@
         {
             get { return (bool)GetValue(IsSecondProperty); }
             set { SetValue(IsSecondProperty, value); }
+        }
+
+        /// <summary>
+        /// IsSecond プロパティ変更イベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private static void OnIsSecondPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            var element = sender as LineGraphItem;
+            if (element != null)
+            {
+                element.RaiseIsSecondChanged();
+            }
         }
         #endregion IsSecond プロパティ
 
@@ -533,15 +579,87 @@
         /// <param name="newValue">変更後の値</param>
         private void OnLegendChanged(string oldValue, string newValue)
         {
-            var h = LegendChanged;
-            if (h != null) h(this, EventArgs.Empty);
+            RaiseLegendChanged();
+        }
+        #endregion Legend プロパティ
+
+        #region HighlightPoint プロパティ
+        /// <summary>
+        /// HighlightPoint 依存関係プロパティの定義
+        /// </summary>
+        public static readonly DependencyProperty HighlightPointProperty = DependencyProperty.Register("HighlightPoint", typeof(Point?), typeof(LineGraphItem), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender, OnHighlightPointPropertyChanged));
+
+        /// <summary>
+        /// 強調する点の横軸座標を取得または設定します。
+        /// </summary>
+        public Point? HighlightPoint
+        {
+            get { return (Point?)GetValue(HighlightPointProperty); }
+            set { SetValue(HighlightPointProperty, value); }
         }
 
+        /// <summary>
+        /// HighlightPoint プロパティ変更イベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private static void OnHighlightPointPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            var element = sender as LineGraphItem;
+            if (element != null)
+            {
+                element.RaiseHighlightPointChanged();
+            }
+        }
+        #endregion HighlightPoint プロパティ
+
+        #region IsSecondChanged イベント
+        /// <summary>
+        /// IsSecond プロパティが変更されたときに発生します。
+        /// </summary>
+        public event EventHandler<EventArgs> IsSecondChanged;
+
+        /// <summary>
+        /// IsSecondChanged イベントを発行します。
+        /// </summary>
+        private void RaiseIsSecondChanged()
+        {
+            var h = this.IsSecondChanged;
+            if (h != null) h(this, EventArgs.Empty);
+        }
+        #endregion IsSecondChanged イベント
+
+        #region LegendChanged イベント
         /// <summary>
         /// Legend プロパティ変更時に発生します。
         /// </summary>
         public event EventHandler<EventArgs> LegendChanged;
-        #endregion Legend プロパティ
+
+        /// <summary>
+        /// LegendChanged イベントを発行します。
+        /// </summary>
+        private void RaiseLegendChanged()
+        {
+            var h = this.LegendChanged;
+            if (h != null) h(this, EventArgs.Empty);
+        }
+        #endregion LegendChanged イベント
+
+        #region HighlightPointChanged イベント
+        /// <summary>
+        /// 強調する点が変更されたときに発生します。
+        /// </summary>
+        public event EventHandler<EventArgs> HighlightPointChanged;
+
+        /// <summary>
+        /// HighlightPointChanged イベントを発行します。
+        /// </summary>
+        private void RaiseHighlightPointChanged()
+        {
+            var h = this.HighlightPointChanged;
+            if (h != null) h(this, EventArgs.Empty);
+        }
+        #endregion HighlightPointChanged イベント
 
         #region DataEnableChanged イベント
         /// <summary>
@@ -730,30 +848,24 @@
                 {
                     // 線の上にデータ点を描画するために
                     // ひとつ前のデータ点を描画する
-                    if ((this.XMin <= pt0.Value.X) && (pt0.Value.X <= this.XMax) && (this.YMin <= pt0.Value.Y) && (pt0.Value.Y <= this.YMax))
-                    {
-                        var ptData = GetControlPointFromGraphPoint(pt0.Value);
-                        if (ptData != null)
-                            DrawingDataPoint(dc, ptData.Value);
-                    }
+                    DrawingDataPoint(dc, pt0.Value);
                 }
                 if (i == length - 1)
                 {
                     // ひとつ前のデータ点を描画していたので
                     // 最後のデータ点をここで描画する
-                    if ((this.XMin <= xArray[i]) && (xArray[i] <= this.XMax) && (this.YMin <= yArray[i]) && (yArray[i] <= this.YMax))
-                    {
-                        var ptData = GetControlPointFromGraphPoint(xArray[i], yArray[i]);
-                        if (ptData != null)
-                        {
-                            DrawingDataPoint(dc, ptData.Value);
-                        }
-                    }
+                    DrawingDataPoint(dc, new Point(xArray[i], yArray[i]));
                 }
                 #endregion データ点の描画
 
                 // 以前の点として保持
                 pt0 = new Point(xArray[i], yArray[i]);
+            }
+
+            // 強調表示するデータ点
+            if (this.HighlightPoint != null)
+            {
+                DrawingDataPoint(dc, this.HighlightPoint.Value, true);
             }
 
             // データ表示確認
@@ -766,17 +878,27 @@
         /// </summary>
         /// <param name="dc">描画するコンテキスト</param>
         /// <param name="pt">コントロール座標</param>
-        private void DrawingDataPoint(DrawingContext dc, Point pt)
+        /// <param name="isHighLighted">強調表示する場合に true を指定します。</param>
+        private void DrawingDataPoint(DrawingContext dc, Point pt, bool isHighLighted = false)
         {
-            switch (this.MarkerType)
+            if ((this.XMin <= pt.X) && (pt.X <= this.XMax) && (this.YMin <= pt.Y) && (pt.Y <= this.YMax))
             {
-                case MarkerTypes.Ellipse:
-                    dc.DrawEllipse(this.Fill, this.MarkerPen, pt, this.MarkerSize.Width, this.MarkerSize.Height);
-                    break;
+                var ptData = GetControlPointFromGraphPoint(pt);
+                if (ptData != null)
+                {
+                    var width = isHighLighted ? 2.0 * this.MarkerSize.Width : this.MarkerSize.Width;
+                    var height = isHighLighted ? 2.0 * this.MarkerSize.Height : this.MarkerSize.Height;
+                    switch (this.MarkerType)
+                    {
+                        case MarkerTypes.Ellipse:
+                            dc.DrawEllipse(this.Fill, this.MarkerPen, ptData.Value, width, height);
+                            break;
 
-                case MarkerTypes.Rectangle:
-                    dc.DrawRectangle(this.Fill, this.MarkerPen, new Rect(new Point(pt.X - this.MarkerSize.Width / 2.0, pt.Y - this.MarkerSize.Height / 2.0), this.MarkerSize));
-                    break;
+                        case MarkerTypes.Rectangle:
+                            dc.DrawRectangle(this.Fill, this.MarkerPen, new Rect(new Point(ptData.Value.X - width / 2.0, ptData.Value.Y - height / 2.0), new Size(width, height)));
+                            break;
+                    }
+                }
             }
         }
         #endregion データ点描画ヘルパ

@@ -150,7 +150,7 @@
         /// <summary>
         /// XStringFormat 依存関係プロパティの定義
         /// </summary>
-        public static readonly DependencyProperty XStringFormatProperty = DependencyProperty.Register("XStringFormat", typeof(string), typeof(LineGraph), new FrameworkPropertyMetadata("#0"));
+        public static readonly DependencyProperty XStringFormatProperty = DependencyProperty.Register("XStringFormat", typeof(string), typeof(LineGraph), new FrameworkPropertyMetadata("#0", OnXStringFormatPropertyChanged));
 
         /// <summary>
         /// 横軸目盛の表示形式を取得または設定します。
@@ -159,6 +159,29 @@
         {
             get { return (string)GetValue(XStringFormatProperty); }
             set { SetValue(XStringFormatProperty, value); }
+        }
+
+        /// <summary>
+        /// XStringFormat プロパティ変更イベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private static void OnXStringFormatPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            var control = sender as LineGraph;
+            if (control != null)
+            {
+                if (control.ItemsSource != null)
+                {
+                    foreach (var obj in control.ItemsSource)
+                    {
+                        if (obj is LineGraphItem)
+                        {
+                            (obj as LineGraphItem).XStringFormat = control.XStringFormat;
+                        }
+                    }
+                }
+            }
         }
         #endregion XStringFormat プロパティ
 
@@ -246,7 +269,7 @@
         /// <summary>
         /// YStringFormat 依存関係プロパティの定義
         /// </summary>
-        public static readonly DependencyProperty YStringFormatProperty = DependencyProperty.Register("YStringFormat", typeof(string), typeof(LineGraph), new FrameworkPropertyMetadata("#0"));
+        public static readonly DependencyProperty YStringFormatProperty = DependencyProperty.Register("YStringFormat", typeof(string), typeof(LineGraph), new FrameworkPropertyMetadata("#0", OnYStringFormatPropertyChanged));
 
         /// <summary>
         /// 縦軸目盛の表示形式を取得または設定します。
@@ -255,6 +278,31 @@
         {
             get { return (string)GetValue(YStringFormatProperty); }
             set { SetValue(YStringFormatProperty, value); }
+        }
+
+        /// <summary>
+        /// YStringFormat プロパティ変更イベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private static void OnYStringFormatPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            var control = sender as LineGraph;
+            if (control != null)
+            {
+                if (control.ItemsSource != null)
+                {
+                    foreach (var obj in control.ItemsSource)
+                    {
+                        if (obj is LineGraphItem)
+                        {
+                            var item = obj as LineGraphItem;
+                            if (!item.IsSecond)
+                                item.YStringFormat = control.YStringFormat;
+                        }
+                    }
+                }
+            }
         }
         #endregion YStringFormat プロパティ
 
@@ -358,7 +406,7 @@
         /// <summary>
         /// Y2StringFormat 依存関係プロパティの定義
         /// </summary>
-        public static readonly DependencyProperty Y2StringFormatProperty = DependencyProperty.Register("Y2StringFormat", typeof(string), typeof(LineGraph), new FrameworkPropertyMetadata("#0"));
+        public static readonly DependencyProperty Y2StringFormatProperty = DependencyProperty.Register("Y2StringFormat", typeof(string), typeof(LineGraph), new FrameworkPropertyMetadata("#0", OnY2StringFormatPropertyChanged));
 
         /// <summary>
         /// 第 2 主軸目盛の表示形式を取得または設定します。
@@ -367,6 +415,31 @@
         {
             get { return (string)GetValue(Y2StringFormatProperty); }
             set { SetValue(Y2StringFormatProperty, value); }
+        }
+
+        /// <summary>
+        /// Y2StringFormat プロパティ変更イベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private static void OnY2StringFormatPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            var control = sender as LineGraph;
+            if (control != null)
+            {
+                if (control.ItemsSource != null)
+                {
+                    foreach (var obj in control.ItemsSource)
+                    {
+                        if (obj is LineGraphItem)
+                        {
+                            var item = obj as LineGraphItem;
+                            if (item.IsSecond)
+                                item.YStringFormat = control.Y2StringFormat;
+                        }
+                    }
+                }
+            }
         }
         #endregion Y2StringFormat プロパティ
 
@@ -487,7 +560,27 @@
                 item.XMax = this.XMax;
                 item.YMin = item.IsSecond ? this.Y2Min : this.YMin;
                 item.YMax = item.IsSecond ? this.Y2Max : this.YMax;
+                item.XStringFormat = this.XStringFormat;
+                item.YStringFormat = item.IsSecond ? this.Y2StringFormat : this.YStringFormat;
+                item.IsSecondChanged += item_IsSecondChanged;
                 GraphPanel.Children.Add(item);
+            }
+        }
+
+        /// <summary>
+        /// 子要素の IsSecond プロパティ変更イベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private void item_IsSecondChanged(object sender, System.EventArgs e)
+        {
+            var item = sender as LineGraphItem;
+            if (item != null)
+            {
+                item.YMax = double.MaxValue;
+                item.YMin = item.IsSecond ? this.Y2Min : this.YMin;
+                item.YMax = item.IsSecond ? this.Y2Max : this.YMax;
+                item.YStringFormat = item.IsSecond ? this.Y2StringFormat : this.YStringFormat;
             }
         }
 
@@ -497,6 +590,7 @@
         /// <param name="item">削除するグラフデータ</param>
         private void RemoveGraphItem(LineGraphItem item)
         {
+            item.IsSecondChanged -= item_IsSecondChanged;
             if (GraphPanel != null)
             {
                 GraphPanel.Children.Remove(item);
@@ -747,6 +841,22 @@
         }
         #endregion LegendPositionTop プロパティ
 
+        #region IsMouseOverInformationEnabled プロパティ
+        /// <summary>
+        /// IsMouseOverInformationEnabled 依存関係プロパティの定義
+        /// </summary>
+        public static readonly DependencyProperty IsMouseOverInformationEnabledProperty = DependencyProperty.Register("IsMouseOverInformationEnabled", typeof(bool), typeof(LineGraph), new FrameworkPropertyMetadata(false));
+
+        /// <summary>
+        /// マウスオーバー時の情報表示の有効性を取得または設定します。
+        /// </summary>
+        public bool IsMouseOverInformationEnabled
+        {
+            get { return (bool)GetValue(IsMouseOverInformationEnabledProperty); }
+            set { SetValue(IsMouseOverInformationEnabledProperty, value); }
+        }
+        #endregion IsMouseOverInformationEnabled プロパティ
+
         #region 描画関連オーバーライド
         /// <summary>
         /// 描画処理をおこないます。
@@ -859,30 +969,6 @@
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             UpdateMoveArea();
-        }
-
-        private void UpdateMoveArea()
-        {
-            this._xMoveArea = this.ActualWidth - this.GraphAreaMargin.Left - this.GraphAreaMargin.Right <= 0.0 ? null as Rect? :
-                new Rect(
-                    this.GraphAreaMargin.Left,
-                    this.ActualHeight - this.GraphAreaMargin.Bottom + 4.0,
-                    this.ActualWidth - this.GraphAreaMargin.Left - this.GraphAreaMargin.Right,
-                    this.GraphAreaMargin.Bottom - this._xLabelSize.Height > 0.0 ? this.GraphAreaMargin.Bottom - this._xLabelSize.Height : this.GraphAreaMargin.Bottom);
-
-            this._yMoveArea = this.ActualHeight - this.GraphAreaMargin.Top - this.GraphAreaMargin.Bottom <= 0.0 ? null as Rect? :
-                new Rect(
-                    this._yLabelSize.Height,
-                    this.GraphAreaMargin.Top,
-                    this.GraphAreaMargin.Left - this._yLabelSize.Height - 4.0 > 0.0 ? this.GraphAreaMargin.Left - this._yLabelSize.Height - 4.0 : this.GraphAreaMargin.Left,
-                    this.ActualHeight - this.GraphAreaMargin.Top - this.GraphAreaMargin.Bottom);
-
-            this._y2MoveArea = this.ActualHeight - this.GraphAreaMargin.Top - this.GraphAreaMargin.Bottom <= 0.0 ? null as Rect? :
-                new Rect(
-                    this.ActualWidth - this.GraphAreaMargin.Right + 4.0,
-                    this.GraphAreaMargin.Top,
-                    this.GraphAreaMargin.Right - this._y2LabelSize.Height - 4.0 > 0.0 ? this.GraphAreaMargin.Right - this._y2LabelSize.Height - 4.0 : this.GraphAreaMargin.Right,
-                    this.ActualHeight - this.GraphAreaMargin.Top - this.GraphAreaMargin.Bottom);
         }
         #endregion イベントハンドラ
 
@@ -1144,9 +1230,11 @@
         /// <param name="e">イベント引数</param>
         protected override void OnMouseMove(MouseEventArgs e)
         {
+            var pt = e.GetPosition(this);
+
             if (this.IsMouseCaptured)
             {
-                var pt = e.GetPosition(this);
+                #region 移動処理
                 var dx = pt.X - _moveTempPoint.X;
                 var dy = pt.Y - _moveTempPoint.Y;
 
@@ -1197,13 +1285,14 @@
                         this.Y2Max += d.Y;
                     }
                 }
-
                 _moveTempPoint = pt;
+                #endregion 移動処理
+
                 e.Handled = true;
             }
             else
             {
-                var pt = e.GetPosition(this);
+                #region 移動/拡大可能判別
                 var graphPanelArea = new Rect(this.GraphAreaMargin.Left, this.GraphAreaMargin.Top, this.GraphPanel.ActualWidth, this.GraphPanel.ActualHeight);
                 var legendPos = new Rect(this.LegendPositionLeft, this.LegendPositionTop, this.LegendPanel.ActualWidth, this.LegendPanel.ActualHeight);
                 var isLegendArea = legendPos.Contains(pt);
@@ -1223,6 +1312,7 @@
                     this.IsYMoveEnabled = !isLegendArea && this._yMoveArea != null ? this._yMoveArea.Value.Contains(pt) : false;
                     this.IsY2MoveEnabled = !isLegendArea && this._y2MoveArea != null && this.IsY2Enabled ? this._y2MoveArea.Value.Contains(pt) : false;
                 }
+                #endregion 移動/拡大可能判別
             }
 
             if (!e.Handled)
@@ -1258,5 +1348,34 @@
             return new Point(xx, yy);
         }
         #endregion 座標変換ヘルパ
+
+        #region ヘルパ
+        /// <summary>
+        /// 軸移動/拡大可能を示す矩形領域の更新
+        /// </summary>
+        private void UpdateMoveArea()
+        {
+            this._xMoveArea = this.ActualWidth - this.GraphAreaMargin.Left - this.GraphAreaMargin.Right <= 0.0 ? null as Rect? :
+                new Rect(
+                    this.GraphAreaMargin.Left,
+                    this.ActualHeight - this.GraphAreaMargin.Bottom + 4.0,
+                    this.ActualWidth - this.GraphAreaMargin.Left - this.GraphAreaMargin.Right,
+                    this.GraphAreaMargin.Bottom - this._xLabelSize.Height > 0.0 ? this.GraphAreaMargin.Bottom - this._xLabelSize.Height : this.GraphAreaMargin.Bottom);
+
+            this._yMoveArea = this.ActualHeight - this.GraphAreaMargin.Top - this.GraphAreaMargin.Bottom <= 0.0 ? null as Rect? :
+                new Rect(
+                    this._yLabelSize.Height,
+                    this.GraphAreaMargin.Top,
+                    this.GraphAreaMargin.Left - this._yLabelSize.Height - 4.0 > 0.0 ? this.GraphAreaMargin.Left - this._yLabelSize.Height - 4.0 : this.GraphAreaMargin.Left,
+                    this.ActualHeight - this.GraphAreaMargin.Top - this.GraphAreaMargin.Bottom);
+
+            this._y2MoveArea = this.ActualHeight - this.GraphAreaMargin.Top - this.GraphAreaMargin.Bottom <= 0.0 ? null as Rect? :
+                new Rect(
+                    this.ActualWidth - this.GraphAreaMargin.Right + 4.0,
+                    this.GraphAreaMargin.Top,
+                    this.GraphAreaMargin.Right - this._y2LabelSize.Height - 4.0 > 0.0 ? this.GraphAreaMargin.Right - this._y2LabelSize.Height - 4.0 : this.GraphAreaMargin.Right,
+                    this.ActualHeight - this.GraphAreaMargin.Top - this.GraphAreaMargin.Bottom);
+        }
+        #endregion ヘルパ
     }
 }
