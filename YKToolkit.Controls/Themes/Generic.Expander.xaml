@@ -96,6 +96,11 @@
                                                     <SolidColorBrush Color="{DynamicResource ButtonHoverColor}" />
                                                 </Setter.Value>
                                             </Setter>
+                                            <Setter TargetName="button" Property="Foreground">
+                                                <Setter.Value>
+                                                    <SolidColorBrush Color="{DynamicResource PressedButtonColor}" />
+                                                </Setter.Value>
+                                            </Setter>
                                         </Trigger>
                                         <Trigger Property="IsPressed" Value="True">
                                             <Setter TargetName="button" Property="Foreground">
