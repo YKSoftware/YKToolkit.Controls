@@ -603,7 +603,15 @@
         private void ResetGraphItem()
         {
             if (GraphPanel != null)
+            {
+                foreach (var obj in GraphPanel.Children)
+                {
+                    var item = obj as LineGraphItem;
+                    if (item != null)
+                        item.IsSecondChanged -= item_IsSecondChanged;
+                }
                 GraphPanel.Children.Clear();
+            }
         }
         #endregion ItemsSource プロパティ
 

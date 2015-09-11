@@ -113,6 +113,8 @@
                         item.LegendChanged -= item_LegendChanged;
                         item.HighlightPointChanged -= item_HighlightPointChanged;
                     }
+                    this.InvalidateMeasure();
+                    this.InvalidateVisual();
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
