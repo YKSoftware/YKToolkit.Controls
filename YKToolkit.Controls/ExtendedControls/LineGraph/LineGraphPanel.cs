@@ -548,13 +548,14 @@
             #region 横軸目盛線の描画と目盛テキストの描画
             if ((this.XMin < this.XMax) && (this.XStep > 0.0))
             {
+                var isEnabled = (this.XMax - this.XMin) / this.XStep <= 100.0;
                 var value = this.XMin;
                 var ptTextOrg = new Point(this.XMin, this.YMin);
                 var stringFormat = string.IsNullOrWhiteSpace(this.XStringFormat) ? "" : this.XStringFormat;
                 while (value <= this.XMax)
                 {
                     // 目盛線の描画
-                    if ((this.XMin < value) && (value < this.XMax))
+                    if (isEnabled && (this.XMin < value) && (value < this.XMax))
                     {
                         var pt0 = GetControlPointFromGraphPoint(value, this.YMin);
                         var pt1 = GetControlPointFromGraphPoint(value, this.YMax);
@@ -562,16 +563,19 @@
                     }
 
                     // 目盛テキストの描画
-                    var text = new FormattedText(
-                        value.ToString(stringFormat),
-                        CultureInfo.CurrentUICulture,
-                        this.FlowDirection,
-                        this._typeface,
-                        this.XFontSize,
-                        this.Foreground);
-                    var ptText = GetControlPointFromGraphPoint(ptTextOrg);
-                    ptText.Offset(-text.Width / 2.0, 4.0);
-                    dc.DrawText(text, ptText);
+                    if (isEnabled || (value == this.XMin) || (value == this.XMax))
+                    {
+                        var text = new FormattedText(
+                            value.ToString(stringFormat),
+                            CultureInfo.CurrentUICulture,
+                            this.FlowDirection,
+                            this._typeface,
+                            this.XFontSize,
+                            this.Foreground);
+                        var ptText = GetControlPointFromGraphPoint(ptTextOrg);
+                        ptText.Offset(-text.Width / 2.0, 4.0);
+                        dc.DrawText(text, ptText);
+                    }
 
                     // 次の値に更新する
                     if (value >= this.XMax)
@@ -587,13 +591,14 @@
             #region 縦軸目盛線の描画と目盛テキストの描画
             if ((this.YMin < this.YMax) && (this.YStep > 0.0))
             {
+                var isEnabled = (this.YMax - this.YMin) / this.YStep <= 100.0;
                 var value = this.YMin;
                 var ptTextOrg = new Point(this.XMin, this.YMin);
                 var stringFormat = string.IsNullOrWhiteSpace(this.YStringFormat) ? "" : this.YStringFormat;
                 while (value <= this.YMax)
                 {
                     // 目盛線の描画
-                    if ((this.YMin < value) && (value < this.YMax))
+                    if (isEnabled && (this.YMin < value) && (value < this.YMax))
                     {
                         var pt0 = GetControlPointFromGraphPoint(this.XMin, value);
                         var pt1 = GetControlPointFromGraphPoint(this.XMax, value);
@@ -601,16 +606,19 @@
                     }
 
                     // 目盛テキストの描画
-                    var text = new FormattedText(
-                        value.ToString(stringFormat),
-                        CultureInfo.CurrentUICulture,
-                        this.FlowDirection,
-                        this._typeface,
-                        this.YFontSize,
-                        this.Foreground);
-                    var ptText = GetControlPointFromGraphPoint(ptTextOrg);
-                    ptText.Offset(-text.Width - 4.0, -text.Height / 2.0);
-                    dc.DrawText(text, ptText);
+                    if (isEnabled || (value == this.YMin) || (value == this.YMax))
+                    {
+                        var text = new FormattedText(
+                            value.ToString(stringFormat),
+                            CultureInfo.CurrentUICulture,
+                            this.FlowDirection,
+                            this._typeface,
+                            this.YFontSize,
+                            this.Foreground);
+                        var ptText = GetControlPointFromGraphPoint(ptTextOrg);
+                        ptText.Offset(-text.Width - 4.0, -text.Height / 2.0);
+                        dc.DrawText(text, ptText);
+                    }
 
                     // 次の値に更新する
                     if (value >= this.YMax)
@@ -628,13 +636,14 @@
             {
                 if ((this.Y2Min < this.Y2Max) && (this.Y2Step > 0.0))
                 {
+                    var isEnabled = (this.Y2Max - this.Y2Min) / this.Y2Step <= 100.0;
                     var value = this.Y2Min;
                     var ptTextOrg = new Point(this.XMax, this.Y2Min);
                     var stringFormat = string.IsNullOrWhiteSpace(this.Y2StringFormat) ? "" : this.Y2StringFormat;
                     while (value <= this.Y2Max)
                     {
                         // 目盛線の描画
-                        if ((this.Y2Min < value) && (value < this.Y2Max))
+                        if (isEnabled && (this.Y2Min < value) && (value < this.Y2Max))
                         {
                             var pt0 = GetControlPointFromGraphPoint(this.XMin, value, true);
                             var pt1 = GetControlPointFromGraphPoint(this.XMax, value, true);
@@ -642,16 +651,19 @@
                         }
 
                         // 目盛テキストの描画
-                        var text = new FormattedText(
-                            value.ToString(stringFormat),
-                            CultureInfo.CurrentUICulture,
-                            this.FlowDirection,
-                            this._typeface,
-                            this.Y2FontSize,
-                            this.Foreground);
-                        var ptText = GetControlPointFromGraphPoint(ptTextOrg, true);
-                        ptText.Offset(4.0, -text.Height / 2.0);
-                        dc.DrawText(text, ptText);
+                        if (isEnabled || (value == this.Y2Min) || (value == this.Y2Max))
+                        {
+                            var text = new FormattedText(
+                                value.ToString(stringFormat),
+                                CultureInfo.CurrentUICulture,
+                                this.FlowDirection,
+                                this._typeface,
+                                this.Y2FontSize,
+                                this.Foreground);
+                            var ptText = GetControlPointFromGraphPoint(ptTextOrg, true);
+                            ptText.Offset(4.0, -text.Height / 2.0);
+                            dc.DrawText(text, ptText);
+                        }
 
                         // 次の値に更新する
                         if (value >= this.Y2Max)

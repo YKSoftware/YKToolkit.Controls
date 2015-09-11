@@ -19,34 +19,33 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="CheckBox">
-                    <BulletDecorator Background="Transparent">
-                        <BulletDecorator.Bullet>
-                            <Border Background="{TemplateBinding Background}"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}"
-                                    CornerRadius="2"
-                                    Width="13" Height="13">
-                                <Grid>
-                                    <Path x:Name="PART_Check1"
-                                          Visibility="Collapsed"
-                                          Stroke="{TemplateBinding Foreground}"
-                                          StrokeThickness="2"
-                                          Width="8" Height="8"
-                                          Data="M 0,3 L 3,6 7,0" />
-                                    <Path x:Name="PART_Check2"
-                                          Visibility="Collapsed"
-                                          Stroke="{TemplateBinding Foreground}"
-                                          StrokeThickness="2"
-                                          Width="8" Height="8"
-                                          Data="M 1,4 L 7,4" />
-                                </Grid>
-                            </Border>
-                        </BulletDecorator.Bullet>
-                        <ContentPresenter Margin="{TemplateBinding Padding}"
-                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                          />
-                    </BulletDecorator>
+                    <Border Background="Transparent">
+                        <BulletDecorator Background="Transparent" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                            <BulletDecorator.Bullet>
+                                <Border Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        CornerRadius="2"
+                                        Width="13" Height="13">
+                                    <Grid>
+                                        <Path x:Name="PART_Check1"
+                                              Visibility="Collapsed"
+                                              Stroke="{TemplateBinding Foreground}"
+                                              StrokeThickness="2"
+                                              Width="8" Height="8"
+                                              Data="M 0,3 L 3,6 7,0" />
+                                        <Path x:Name="PART_Check2"
+                                              Visibility="Collapsed"
+                                              Stroke="{TemplateBinding Foreground}"
+                                              StrokeThickness="2"
+                                              Width="8" Height="8"
+                                              Data="M 1,4 L 7,4" />
+                                    </Grid>
+                                </Border>
+                            </BulletDecorator.Bullet>
+                            <ContentPresenter Margin="{TemplateBinding Padding}" />
+                        </BulletDecorator>
+                    </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
                             <Setter TargetName="PART_Check1" Property="Visibility" Value="Visible" />
