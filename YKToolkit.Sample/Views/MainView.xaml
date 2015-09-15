@@ -27,7 +27,7 @@
         </ContextMenu>
     </YK:Window.SystemMenuContent>
     <YK:Window.CaptionContent>
-        <ComboBox ItemsSource="{Binding Themes}" SelectedItem="{Binding CurrentTheme}" />
+        <ComboBox ItemsSource="{Binding Themes}" SelectedItem="{Binding CurrentTheme}" Width="110" />
     </YK:Window.CaptionContent>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
@@ -60,7 +60,7 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <TreeView x:Name="tree" Grid.Column="0" ItemsSource="{Binding ViewModels}">
+            <TreeView x:Name="tree" Grid.Column="0" ItemsSource="{Binding ViewModels}" BorderThickness="0">
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding Children}">
                         <TextBlock Text="{Binding Name}" />
@@ -68,7 +68,16 @@
                 </TreeView.ItemTemplate>
             </TreeView>
 
-            <GridSplitter Grid.Column="1" ResizeDirection="Columns" Background="LightSteelBlue" Width="5" HorizontalAlignment="Center" VerticalAlignment="Stretch" />
+            <GridSplitter Grid.Column="1" ResizeDirection="Columns" Width="5" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="0,5">
+                <GridSplitter.Background>
+                    <SolidColorBrush Color="{DynamicResource CheckedButtonColor}" />
+                </GridSplitter.Background>
+            </GridSplitter>
+            <Rectangle Grid.Column="1" Width="1" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" SnapsToDevicePixels="True" IsHitTestVisible="False">
+                <Rectangle.Fill>
+                    <SolidColorBrush Color="{DynamicResource CheckedButtonForegroundColor}" />
+                </Rectangle.Fill>
+            </Rectangle>
 
             <ContentControl Grid.Column="2" Content="{Binding SelectedItem.Instance, ElementName=tree}" Margin="20" />
         </Grid>

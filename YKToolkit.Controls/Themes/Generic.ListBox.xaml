@@ -18,19 +18,24 @@
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background">
                     <Setter.Value>
-                        <SolidColorBrush Color="{DynamicResource ItemHoverColor}" />
+                        <SolidColorBrush Color="{DynamicResource TabItemHoverBackgroundColor}" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Foreground">
+                    <Setter.Value>
+                        <SolidColorBrush Color="{DynamicResource TabItemHoverForegroundColor}" />
                     </Setter.Value>
                 </Setter>
             </Trigger>
             <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Foreground">
-                    <Setter.Value>
-                        <SolidColorBrush Color="{DynamicResource SelectedItemForegroundColor}" />
-                    </Setter.Value>
-                </Setter>
                 <Setter Property="Background">
                     <Setter.Value>
-                        <SolidColorBrush Color="{DynamicResource SelectedColor}" />
+                        <SolidColorBrush Color="{DynamicResource SelectedTabItemBackgroundColor}" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Foreground">
+                    <Setter.Value>
+                        <SolidColorBrush Color="{DynamicResource SelectedTabItemForegroundColor}" />
                     </Setter.Value>
                 </Setter>
             </Trigger>
@@ -39,6 +44,11 @@
                     <Condition Property="IsEnabled" Value="False" />
                     <Condition Property="IsSelected" Value="False" />
                 </MultiTrigger.Conditions>
+                <!--<Setter Property="Background">
+                    <Setter.Value>
+                        <SolidColorBrush Color="{DynamicResource DisabledTabItemBackgroundColor}" />
+                    </Setter.Value>
+                </Setter>-->
                 <Setter Property="Foreground">
                     <Setter.Value>
                         <SolidColorBrush Color="{DynamicResource DisabledForegroundColor}" />
@@ -52,7 +62,12 @@
                 </MultiTrigger.Conditions>
                 <Setter Property="Background">
                     <Setter.Value>
-                        <SolidColorBrush Color="{DynamicResource BorderColor}" />
+                        <SolidColorBrush Color="{DynamicResource SelectedDisabledTabItemBackgroundColor}" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Foreground">
+                    <Setter.Value>
+                        <SolidColorBrush Color="{DynamicResource DisabledForegroundColor}" />
                     </Setter.Value>
                 </Setter>
             </MultiTrigger>

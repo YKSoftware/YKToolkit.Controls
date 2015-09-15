@@ -45,11 +45,8 @@
                             <TabControl BorderThickness="0" Padding="0">
                                 <TabItem Header="Standard">
                                     <StackPanel Margin="4">
-                                        <StackPanel.Background>
-                                            <SolidColorBrush Color="{DynamicResource BoxBaseColor}" />
-                                        </StackPanel.Background>
                                         <TextBlock Text="Theme Colors" Padding="4,0" Background="{TemplateBinding Background}" />
-                                        <ListBox x:Name="PART_ThemeColors1ListBox" ItemsSource="{x:Static local:ColorPicker.ThemeColors1}" BorderThickness="0">
+                                        <ListBox x:Name="PART_ThemeColors1ListBox" ItemsSource="{x:Static local:ColorPicker.ThemeColors1}" BorderThickness="0" Background="{TemplateBinding Background}">
                                             <ListBox.ItemsPanel>
                                                 <ItemsPanelTemplate>
                                                     <WrapPanel Orientation="Horizontal" MaxWidth="200" />
@@ -104,10 +101,12 @@
                                                 </Style>
                                             </ListBox.ItemContainerStyle>
                                         </ListBox>
-                                        <ListBox x:Name="PART_ThemeColors2ListBox" ItemsSource="{x:Static local:ColorPicker.ThemeColors2}" BorderThickness="0">
+                                        <ListBox x:Name="PART_ThemeColors2ListBox" ItemsSource="{x:Static local:ColorPicker.ThemeColors2}" BorderThickness="0" Background="{TemplateBinding Background}">
                                             <ListBox.Template>
                                                 <ControlTemplate TargetType="ListBox">
-                                                    <ItemsPresenter />
+                                                    <Border Background="{TemplateBinding Background}">
+                                                        <ItemsPresenter />
+                                                    </Border>
                                                 </ControlTemplate>
                                             </ListBox.Template>
                                             <ListBox.ItemsPanel>
@@ -165,7 +164,7 @@
                                             </ListBox.ItemContainerStyle>
                                         </ListBox>
                                         <TextBlock Text="Standard Colors" Padding="4,0" Background="{TemplateBinding Background}" />
-                                        <ListBox x:Name="PART_StandardColorsListBox" ItemsSource="{x:Static local:ColorPicker.StandardColors}" BorderThickness="0">
+                                        <ListBox x:Name="PART_StandardColorsListBox" ItemsSource="{x:Static local:ColorPicker.StandardColors}" BorderThickness="0" Background="{TemplateBinding Background}">
                                             <ListBox.ItemsPanel>
                                                 <ItemsPanelTemplate>
                                                     <WrapPanel Orientation="Horizontal" MaxWidth="200" />
@@ -221,7 +220,7 @@
                                             </ListBox.ItemContainerStyle>
                                         </ListBox>
                                         <TextBlock Text="Recent Colors" Padding="4,0" Background="{TemplateBinding Background}" Visibility="{TemplateBinding RecentColorsVisibility}" />
-                                        <ListBox x:Name="PART_RecentColorsListBox" ItemsSource="{x:Static local:ColorPicker.RecentColors}" BorderThickness="0" Visibility="{TemplateBinding RecentColorsVisibility}">
+                                        <ListBox x:Name="PART_RecentColorsListBox" ItemsSource="{x:Static local:ColorPicker.RecentColors}" BorderThickness="0" Background="{TemplateBinding Background}" Visibility="{TemplateBinding RecentColorsVisibility}">
                                             <ListBox.ItemsPanel>
                                                 <ItemsPanelTemplate>
                                                     <WrapPanel Orientation="Horizontal" MaxWidth="200" />
@@ -278,7 +277,7 @@
                                                 </Style>
                                             </ListBox.ItemContainerStyle>
                                         </ListBox>
-                                        <Button x:Name="PART_TransparentButton" Content="Transparent" MaxWidth="200" />
+                                        <Button x:Name="PART_TransparentButton" Content="Transparent" MaxWidth="200" Margin="0,6,0,0" />
                                     </StackPanel>
                                 </TabItem>
 

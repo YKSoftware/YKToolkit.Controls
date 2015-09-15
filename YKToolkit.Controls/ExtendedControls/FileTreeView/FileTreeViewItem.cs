@@ -15,7 +15,10 @@
         /// <summary>
         /// 新しいインスタンスを生成します。
         /// </summary>
-        public FileTreeViewItem(string fullPath, string searchPattern, bool isFileEnabled = false, bool isAutoGenerate = true)
+        /// <param name="fullPath">フルパスを指定します。</param>
+        /// <param name="searchPattern">ファイルの検索条件を指定します。</param>
+        /// <param name="isFileEnabled">ファイルの読込を有効にする場合に true を指定します。</param>
+        public FileTreeViewItem(string fullPath, string searchPattern, bool isFileEnabled = false)
         {
             _searchPattern = searchPattern;
             _isFileEnabled = isFileEnabled;
@@ -29,18 +32,16 @@
             }
 
             this.FullPath = fullPath;
+            var dir = new DirectoryInfo(fullPath);
             if (isDirectory)
             {
-                var dir = new DirectoryInfo(fullPath);
                 this.Name = dir.Name;
                 this.BitmapByteArray = Shell32.ShellInfo.GetSystemIconByByteArray(fullPath);
 
-                if (isAutoGenerate)
-                {
-                    var subDirs = dir.GetDirectories();
-                    if (subDirs.Length > 0)
-                        Children = new object[] { null };   // ダミーデータを入れておく
-                }
+                var subDirs = dir.GetDirectories();
+                var subFiles = dir.GetFiles(searchPattern != null ? searchPattern : string.Empty);
+                if ((subDirs.Length > 0) || (isFileEnabled && (subFiles.Length > 0)))
+                    this.Children = new object[] { null };   // ダミーデータを入れておく
             }
             else if (isFile && isFileEnabled)
             {

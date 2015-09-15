@@ -19,15 +19,12 @@
                                 <HierarchicalDataTemplate ItemsSource="{Binding Children}">
                                     <StackPanel Orientation="Horizontal">
                                         <Image Source="{Binding BitmapByteArray}" />
-                                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="4,0,0,0">
-                                            <TextBlock.Foreground>
-                                                <SolidColorBrush Color="{DynamicResource ForegroundColor}" />
-                                            </TextBlock.Foreground>
-                                        </TextBlock>
+                                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="4,0,0,0" />
                                     </StackPanel>
                                 </HierarchicalDataTemplate>
                             </TreeView.ItemTemplate>
                             <TreeView.ItemContainerStyle>
+                                <!-- Generic.TreeView.xaml からそのままコピー (IsExpanded に Mode=TwoWay 指定のみ変更) -->
                                 <Style TargetType="TreeViewItem">
                                     <Setter Property="b:TreeViewAutoHorizontalScrollBehavior.IsEnabled" Value="False" />
                                     <Setter Property="Foreground" Value="{StaticResource DefaultForegroundBrush}" />
@@ -89,30 +86,34 @@
                                                     <Trigger Property="HasItems" Value="True">
                                                         <Setter TargetName="toggleButton" Property="Visibility" Value="Visible" />
                                                     </Trigger>
-                                                    <!-- 効かない？ -->
-                                                    <!--<Trigger Property="IsMouseOver" Value="True">
+                                                    <Trigger Property="IsMouseOver" Value="True">
                                                         <Setter Property="Background">
                                                             <Setter.Value>
-                                                                <SolidColorBrush Color="{DynamicResource ItemHoverColor}" />
+                                                                <SolidColorBrush Color="{DynamicResource ButtonHoverColor}" />
                                                             </Setter.Value>
                                                         </Setter>
-                                                    </Trigger>-->
+                                                    </Trigger>
                                                     <Trigger SourceName="toggleButton" Property="IsMouseOver" Value="True">
                                                         <Setter TargetName="toggleButton" Property="Foreground">
                                                             <Setter.Value>
-                                                                <SolidColorBrush Color="{DynamicResource SelectedColor}" />
+                                                                <SolidColorBrush Color="{DynamicResource SelectedTabItemForegroundColor}" />
                                                             </Setter.Value>
                                                         </Setter>
                                                     </Trigger>
                                                     <Trigger Property="IsSelected" Value="True">
                                                         <Setter Property="Foreground">
                                                             <Setter.Value>
-                                                                <SolidColorBrush Color="{DynamicResource SelectedItemForegroundColor}" />
+                                                                <SolidColorBrush Color="{DynamicResource SelectedTabItemForegroundColor}" />
                                                             </Setter.Value>
                                                         </Setter>
                                                         <Setter Property="Background">
                                                             <Setter.Value>
-                                                                <SolidColorBrush Color="{DynamicResource SelectedColor}" />
+                                                                <SolidColorBrush Color="{DynamicResource SelectedTabItemBackgroundColor}" />
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                        <Setter TargetName="toggleButton" Property="Foreground">
+                                                            <Setter.Value>
+                                                                <SolidColorBrush Color="{DynamicResource SelectedTabItemBackgroundColor}" />
                                                             </Setter.Value>
                                                         </Setter>
                                                     </Trigger>
