@@ -3,6 +3,7 @@
     using System;
     using System.Collections;
     using System.Collections.Specialized;
+    using System.ComponentModel;
     using System.Linq;
     using System.Windows;
     using System.Windows.Media;
@@ -77,6 +78,7 @@
         /// <summary>
         /// 横軸データを取得または設定します。
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IEnumerable XAxisData
         {
             get { return (IEnumerable)GetValue(XAxisDataProperty); }
@@ -145,6 +147,7 @@
         /// <summary>
         /// 縦軸データを取得または設定します。
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IEnumerable YAxisData
         {
             get { return (IEnumerable)GetValue(YAxisDataProperty); }

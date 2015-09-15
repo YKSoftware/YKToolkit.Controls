@@ -5,6 +5,7 @@
     using System.Text;
     using System.Windows.Markup;
     using System.Xml;
+    using System.Xml.Serialization;
 
     /// <summary>
     /// 拡張メソッドを提供します。
@@ -13,13 +14,38 @@
     {
         #region シリアライズ
         /// <summary>
-        /// オブジェクトをシリアライズしてファイルに保存します。
+        /// XmlSerializer を使用してオブジェクトをシリアライズしてファイルに保存します。
+        /// シリアライズしたくないプロパティには <c>[XmlIgnore]</c> などの
+        /// 属性を付加することでシリアライズを回避することができます。
+        /// </summary>
+        /// <param name="obj">シリアライズするオブジェクトを指定します。</param>
+        /// <param name="type">対象とするオブジェクトの型情報を指定します。</param>
+        /// <param name="fileName">ファイル名を指定します。</param>
+        public static void Serialize(this object obj, Type type, string fileName)
+        {
+            var serializer = new XmlSerializer(type);
+
+            // 書き込む書式の設定
+            var settings = new XmlWriterSettings();
+            settings.OmitXmlDeclaration = false;
+            settings.Encoding = Encoding.UTF8;
+
+            using (var writer = XmlWriter.Create(fileName, settings))
+            {
+                serializer.Serialize(writer, obj);
+            }
+        }
+
+        /// <summary>
+        /// XamlWriter を使用してオブジェクトをシリアライズしてファイルに保存します。
+        /// シリアライズしたくないプロパティには <c>[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]</c> などの
+        /// 属性を付加することでシリアライズを回避することができます。
         /// </summary>
         /// <param name="obj">シリアライズするオブジェクトを指定します。</param>
         /// <param name="fileName">ファイル名を指定します。</param>
-        public static void Serialize(this object obj, string fileName)
+        public static void SerializeByXamlWriter(this object obj, string fileName)
         {
-            string text = SerializeObject(obj);
+            string text = obj.SerializeByXamlWriter();
 
             try
             {
@@ -39,7 +65,7 @@
         /// </summary>
         /// <param name="obj">シリアライズするオブジェクトを指定します。</param>
         /// <returns>シリアライズ結果を返します。</returns>
-        private static string SerializeObject(this object obj)
+        public static string SerializeByXamlWriter(this object obj)
         {
             var settings = new XmlWriterSettings();
 

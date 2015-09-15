@@ -48,7 +48,7 @@
             {
                 return this._saveCommand ?? (this._saveCommand = new DelegateCommand(_ =>
                 {
-                    this.LineGraphSubViewModel.Serialize(_configFileName);
+                    this.LineGraphSubViewModel.SerializeByXamlWriter(_configFileName);
                 }));
             }
         }
