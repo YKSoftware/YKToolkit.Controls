@@ -36,7 +36,7 @@
     <Color x:Key="ButtonHoverForegroundColor">Black</Color>
     <Color x:Key="CheckedButtonColor">#FF41AE76</Color>
     <Color x:Key="CheckedButtonForegroundColor">White</Color>
-    <Color x:Key="PressedButtonColor">#FF008ADD</Color>
+    <Color x:Key="PressedButtonColor">#FF00A68E</Color>
     <Color x:Key="PressedButtonForegroundColor">White</Color>
     <Color x:Key="DisabledButtonColor">White</Color>
     <Color x:Key="DisabledCheckedButtonColor">#FFC3C3C6</Color>
