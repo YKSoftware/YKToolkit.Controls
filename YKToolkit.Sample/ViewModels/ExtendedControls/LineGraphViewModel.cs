@@ -63,7 +63,7 @@
             {
                 return this._loadCommand ?? (this._loadCommand = new DelegateCommand(_ =>
                 {
-                    this.LineGraphSubViewModel = _configFileName.Deserialize() as LineGraphSubViewModel;
+                    this.LineGraphSubViewModel = _configFileName.DeserializeByXamlReaderFromFile() as LineGraphSubViewModel;
                 }));
             }
         }

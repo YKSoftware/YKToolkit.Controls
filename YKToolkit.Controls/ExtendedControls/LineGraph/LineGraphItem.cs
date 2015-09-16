@@ -78,7 +78,7 @@
         /// <summary>
         /// 横軸データを取得または設定します。
         /// </summary>
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        //[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IEnumerable XAxisData
         {
             get { return (IEnumerable)GetValue(XAxisDataProperty); }
@@ -147,7 +147,7 @@
         /// <summary>
         /// 縦軸データを取得または設定します。
         /// </summary>
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        //[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IEnumerable YAxisData
         {
             get { return (IEnumerable)GetValue(YAxisDataProperty); }

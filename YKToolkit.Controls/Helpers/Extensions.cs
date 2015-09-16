@@ -47,16 +47,9 @@
         {
             string text = obj.SerializeByXamlWriter();
 
-            try
+            using (var writer = new StreamWriter(fileName, false, Encoding.UTF8))
             {
-                using (var writer = new StreamWriter(fileName, false, Encoding.UTF8))
-                {
-                    writer.WriteLine(text);
-                }
-            }
-            catch (Exception err)
-            {
-                System.Diagnostics.Debug.WriteLine(err);
+                writer.WriteLine(text);
             }
         }
 
@@ -79,19 +72,12 @@
             var sb = new StringBuilder();
             XamlDesignerSerializationManager manager = null;
 
-            try
+            using (var writer = XmlWriter.Create(sb, settings))
             {
-                using (var writer = XmlWriter.Create(sb, settings))
-                {
-                    manager = new XamlDesignerSerializationManager(writer);
-                    manager.XamlWriterMode = XamlWriterMode.Expression;
+                manager = new XamlDesignerSerializationManager(writer);
+                manager.XamlWriterMode = XamlWriterMode.Expression;
 
-                    System.Windows.Markup.XamlWriter.Save(obj, manager);
-                }
-            }
-            catch (Exception err)
-            {
-                System.Diagnostics.Debug.WriteLine(err);
+                System.Windows.Markup.XamlWriter.Save(obj, manager);
             }
 
             return sb.ToString();
@@ -104,22 +90,15 @@
         /// </summary>
         /// <param name="fileName">ファイル名を指定します。</param>
         /// <returns>デシリアライズの結果を返します。</returns>
-        public static object Deserialize(this string fileName)
+        public static object DeserializeByXamlReaderFromFile(this string fileName)
         {
             object obj = null;
             string text = String.Empty;
 
-            try
+            using (var reader = new StreamReader(fileName, Encoding.UTF8))
             {
-                using (var reader = new StreamReader(fileName, Encoding.UTF8))
-                {
-                    text = reader.ReadToEnd();
-                    obj = DeserializeObject(text);
-                }
-            }
-            catch (Exception err)
-            {
-                System.Diagnostics.Debug.WriteLine(err);
+                text = reader.ReadToEnd();
+                obj = DeserializeByXamlReader(text);
             }
 
             return obj;
@@ -130,31 +109,12 @@
         /// </summary>
         /// <param name="xamlText">XML テキストを指定します。</param>
         /// <returns>デシリアライズの結果を返します。</returns>
-        public static object DeserializeObject(this string xamlText)
+        public static object DeserializeByXamlReader(this string xamlText)
         {
             var doc = new XmlDocument();
+            doc.LoadXml(xamlText);
 
-            try
-            {
-                doc.LoadXml(xamlText);
-            }
-            catch (Exception err)
-            {
-                System.Diagnostics.Debug.WriteLine(err);
-            }
-
-            object obj = null;
-
-            try
-            {
-                obj = XamlReader.Load(new XmlNodeReader(doc));
-            }
-            catch (Exception err)
-            {
-                System.Diagnostics.Debug.WriteLine(err);
-            }
-
-            return obj;
+            return XamlReader.Load(new XmlNodeReader(doc));
         }
         #endregion デシリアライズ
     }
