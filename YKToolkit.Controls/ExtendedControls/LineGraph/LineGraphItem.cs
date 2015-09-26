@@ -367,7 +367,7 @@
 
         #region Thickness プロパティ
         /// <summary>
-        /// Stroke 依存関係プロパティの定義
+        /// Thickness 依存関係プロパティの定義
         /// </summary>
         public static readonly DependencyProperty ThicknessProperty = DependencyProperty.Register("Thickness", typeof(double), typeof(LineGraphItem), new FrameworkPropertyMetadata(1.0, FrameworkPropertyMetadataOptions.AffectsRender));
 

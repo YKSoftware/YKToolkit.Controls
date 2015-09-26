@@ -92,5 +92,9 @@
             <vw:SplitButtonView />
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type vm:FourierViewModel}">
+            <vw:FourierView />
+        </DataTemplate>
+
     </Application.Resources>
 </Application>

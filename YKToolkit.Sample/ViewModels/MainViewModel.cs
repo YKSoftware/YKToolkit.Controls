@@ -170,6 +170,16 @@
                             },
                             IsExpanded = false,
                         },
+
+                        new ViewModelInfo()
+                        {
+                            Name = "Helpers",
+                            Children = new List<ViewModelInfo>()
+                            {
+                                new ViewModelInfo() { Name = "Fourier", Instance = this._fourierViewModel, },
+                            },
+                            IsExpanded = false,
+                        },
                     });
                 }
                 return _viewModels;
@@ -207,6 +217,8 @@
         private MessageBoxViewModel _messageBoxViewModel = new MessageBoxViewModel();
         private SpinInputViewModel _spinInputViewModel = new SpinInputViewModel();
         private SplitButtonViewModel _splitButtonViewModel = new SplitButtonViewModel();
+
+        private FourierViewModel _fourierViewModel = new FourierViewModel();
         #endregion ViewModel 選択
     }
 }

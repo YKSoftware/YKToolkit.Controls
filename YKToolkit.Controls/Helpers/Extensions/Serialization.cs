@@ -10,7 +10,7 @@
     /// <summary>
     /// 拡張メソッドを提供します。
     /// </summary>
-    public static class Extensions
+    public static partial class Extensions
     {
         #region シリアライズ
         /// <summary>

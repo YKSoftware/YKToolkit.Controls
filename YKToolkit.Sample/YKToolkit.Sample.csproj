@@ -76,6 +76,7 @@
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\ProductInfo.cs" />
     <Compile Include="Models\ViewModelInfo.cs" />
+    <Compile Include="ViewModels\Helpers\FourierViewModel.cs" />
     <Compile Include="ViewModels\ExtendedControls\LineGraphSubViewModel.cs" />
     <Compile Include="ViewModels\ExtendedControls\LineGraphViewModel.cs" />
     <Compile Include="ViewModels\ExtendedControls\FileTreeViewViewModel.cs" />
@@ -134,6 +135,9 @@
     </Compile>
     <Compile Include="Views\ExtendedControls\MessageBoxView.xaml.cs">
       <DependentUpon>MessageBoxView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Helpers\FourierView.xaml.cs">
+      <DependentUpon>FourierView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StandardControls\ButtonView.xaml.cs">
       <DependentUpon>ButtonView.xaml</DependentUpon>
@@ -237,6 +241,10 @@
     <Page Include="Views\ExtendedControls\MessageBoxView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Helpers\FourierView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\StandardControls\ButtonView.xaml">
       <SubType>Designer</SubType>

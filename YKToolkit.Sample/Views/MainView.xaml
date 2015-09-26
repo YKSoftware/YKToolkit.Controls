@@ -60,7 +60,7 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <TreeView x:Name="tree" Grid.Column="0" ItemsSource="{Binding ViewModels}" BorderThickness="0">
+            <TreeView x:Name="tree" Grid.Column="0" ItemsSource="{Binding ViewModels}" BorderThickness="0" Margin="0,0,4,0">
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding Children}">
                         <TextBlock Text="{Binding Name}" />

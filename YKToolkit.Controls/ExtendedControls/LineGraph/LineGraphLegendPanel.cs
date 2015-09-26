@@ -215,8 +215,9 @@
                 var str = item.Legend;
                 if (item.HighlightPoint != null)
                 {
-                    var format = !string.IsNullOrWhiteSpace(item.YStringFormat) ? item.YStringFormat : "#0";
-                    str += " : " + item.HighlightPoint.Value.Y.ToString(format);
+                    var xData = item.HighlightPoint.Value.X.ToString(!string.IsNullOrWhiteSpace(item.XStringFormat) ? item.XStringFormat : "#0");
+                    var yData = item.HighlightPoint.Value.Y.ToString(!string.IsNullOrWhiteSpace(item.YStringFormat) ? item.YStringFormat : "#0");
+                    str += " (" + xData + ", " + yData + ")";
                 }
                 var text = new FormattedText(str, CultureInfo.CurrentUICulture, this.FlowDirection, typeface, this.FontSize, this.Foreground);
                 this._textDic.Add(text, item);
