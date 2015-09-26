@@ -6,6 +6,16 @@
 
     public class FourierViewModel : ViewModelBase
     {
+        private int _dataNum = 512;
+        /// <summary>
+        /// フーリエ変換対象のデータ点数を取得または設定します。
+        /// </summary>
+        public int DataNum
+        {
+            get { return this._dataNum; }
+            set { SetProperty(ref this._dataNum, value); }
+        }
+
         private string _source;
         /// <summary>
         /// 元データを取得または設定します。
@@ -47,6 +57,9 @@
         }
 
         private DelegateCommand _fftCommand;
+        /// <summary>
+        /// フーリエ変換コマンドを取得します。
+        /// </summary>
         public DelegateCommand FFTCommand
         {
             get
@@ -55,9 +68,14 @@
             }
         }
 
+        /// <summary>
+        /// フーリエ変換をおこないます。
+        /// </summary>
+        /// <param name="_">ダミー</param>
         private void FftProc(object _)
         {
             var data = this.Source.Split(new string[] { "\r\n" }, System.StringSplitOptions.RemoveEmptyEntries)
+                                  .Take(this.DataNum)
                                   .Select(x => double.Parse(x));
             var data_minus_ave = data.Select(x => x - data.Average())
                                      .ToArray()
@@ -65,7 +83,6 @@
             this.Length = data.ToArray().Length;
             this.Result = string.Join("\r\n", data_minus_ave);
             this.Amplitude = string.Join("\r\n", data_minus_ave.Select(x => x.Abs));
-
         }
     }
 }
