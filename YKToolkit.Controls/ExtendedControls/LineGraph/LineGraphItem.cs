@@ -616,6 +616,22 @@
         }
         #endregion HighlightPoint プロパティ
 
+        #region IsMarkerEnabled プロパティ
+        /// <summary>
+        /// IsMarkerEnabled 依存関係プロパティの定義
+        /// </summary>
+        public static readonly DependencyProperty IsMarkerEnabledProperty = DependencyProperty.Register("IsMarkerEnabled", typeof(bool), typeof(LineGraphItem), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.AffectsRender));
+
+        /// <summary>
+        /// マーカーを表示するかどうかを取得または設定します。
+        /// </summary>
+        public bool IsMarkerEnabled
+        {
+            get { return (bool)GetValue(IsMarkerEnabledProperty); }
+            set { SetValue(IsMarkerEnabledProperty, value); }
+        }
+        #endregion IsMarkerEnabled プロパティ
+
         #region IsSecondChanged イベント
         /// <summary>
         /// IsSecond プロパティが変更されたときに発生します。
@@ -847,17 +863,20 @@
                 #endregion 線の描画
 
                 #region データ点の描画
-                if (pt0 != null)
+                if (this.IsMarkerEnabled)
                 {
-                    // 線の上にデータ点を描画するために
-                    // ひとつ前のデータ点を描画する
-                    DrawingDataPoint(dc, pt0.Value);
-                }
-                if (i == length - 1)
-                {
-                    // ひとつ前のデータ点を描画していたので
-                    // 最後のデータ点をここで描画する
-                    DrawingDataPoint(dc, new Point(xArray[i], yArray[i]));
+                    if (pt0 != null)
+                    {
+                        // 線の上にデータ点を描画するために
+                        // ひとつ前のデータ点を描画する
+                        DrawingDataPoint(dc, pt0.Value);
+                    }
+                    if (i == length - 1)
+                    {
+                        // ひとつ前のデータ点を描画していたので
+                        // 最後のデータ点をここで描画する
+                        DrawingDataPoint(dc, new Point(xArray[i], yArray[i]));
+                    }
                 }
                 #endregion データ点の描画
 
