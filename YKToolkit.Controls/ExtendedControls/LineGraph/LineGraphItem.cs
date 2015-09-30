@@ -632,6 +632,22 @@
         }
         #endregion IsMarkerEnabled プロパティ
 
+        #region IsStrokeEnabled プロパティ
+        /// <summary>
+        /// IsStrokeEnabled 依存関係プロパティの定義
+        /// </summary>
+        public static readonly DependencyProperty IsStrokeEnabledProperty = DependencyProperty.Register("IsStrokeEnabled", typeof(bool), typeof(LineGraphItem), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.AffectsRender));
+
+        /// <summary>
+        /// 線を表示するかどうかを取得または設定します。
+        /// </summary>
+        public bool IsStrokeEnabled
+        {
+            get { return (bool)GetValue(IsStrokeEnabledProperty); }
+            set { SetValue(IsStrokeEnabledProperty, value); }
+        }
+        #endregion IsMarkerEnabled プロパティ
+
         #region IsSecondChanged イベント
         /// <summary>
         /// IsSecond プロパティが変更されたときに発生します。
@@ -731,140 +747,143 @@
             Point? pt0 = null;
             for (var i = 0; i < length; i++)
             {
-                #region 線の描画
-                var pen = new Pen(this.Stroke, this.Thickness);
-                pen.Freeze();
-                if (pt0 != null)
+                if (IsStrokeEnabled)
                 {
+                    #region 線の描画
+                    var pen = new Pen(this.Stroke, this.Thickness);
+                    pen.Freeze();
+                    if (pt0 != null)
+                    {
 
-                    if ((pt0.Value.Y >= this.YMax) && (yArray[i] >= this.YMax))
-                    {
-                        // 絶対に線の描画があり得ないパターン
-                    }
-                    else if ((pt0.Value.Y <= this.YMin) && (yArray[i] <= this.YMin))
-                    {
-                        // 絶対に線の描画があり得ないパターン
-                    }
-                    else
-                    {
-                        Point? ptLine0 = null;
-                        Point? ptLine1 = null;
-
-                        // 以前の点が右端より左側にあって
-                        // 今回の点が左端より右側にある場合のみ
-                        // 線を描画する可能性がある
-                        if ((pt0.Value.X < this.XMax) && (xArray[i] > this.XMin))
+                        if ((pt0.Value.Y >= this.YMax) && (yArray[i] >= this.YMax))
                         {
-                            // 以前の点が範囲内ならこれを左端の点とする
-                            if ((this.XMin <= pt0.Value.X) && (pt0.Value.X <= this.XMax) && (this.YMin <= pt0.Value.Y) && (pt0.Value.Y <= this.YMax))
-                            {
-                                ptLine0 = GetControlPointFromGraphPoint(pt0.Value);
-                            }
-                            // 今回の点が範囲内ならこれを右端の点とする
-                            if ((this.XMin <= xArray[i]) && (xArray[i] <= this.XMax) && (this.YMin <= yArray[i]) && (yArray[i] <= this.YMax))
-                            {
-                                ptLine1 = GetControlPointFromGraphPoint(xArray[i], yArray[i]);
-                            }
+                            // 絶対に線の描画があり得ないパターン
+                        }
+                        else if ((pt0.Value.Y <= this.YMin) && (yArray[i] <= this.YMin))
+                        {
+                            // 絶対に線の描画があり得ないパターン
+                        }
+                        else
+                        {
+                            Point? ptLine0 = null;
+                            Point? ptLine1 = null;
 
-                            // 左端または右端の点が確定していない場合はグラフ表示範囲の境界線との交点を調べる
-                            if ((ptLine0 == null) || (ptLine1 == null))
+                            // 以前の点が右端より左側にあって
+                            // 今回の点が左端より右側にある場合のみ
+                            // 線を描画する可能性がある
+                            if ((pt0.Value.X < this.XMax) && (xArray[i] > this.XMin))
                             {
-                                // y = ax + b
-                                // 傾き
-                                double? a = xArray[i] != pt0.Value.X ? (yArray[i] - pt0.Value.Y) / (xArray[i] - pt0.Value.X) : (double?)null;
-                                if (a != null)
+                                // 以前の点が範囲内ならこれを左端の点とする
+                                if ((this.XMin <= pt0.Value.X) && (pt0.Value.X <= this.XMax) && (this.YMin <= pt0.Value.Y) && (pt0.Value.Y <= this.YMax))
                                 {
-                                    // 切片
-                                    double b = pt0.Value.Y - a.Value * pt0.Value.X;
-
-                                    // 左端縦軸との交点
-                                    var yLeft = a.Value * this.XMin + b;
-                                    // 右端縦軸との交点
-                                    var yRight = a.Value * this.XMax + b;
-                                    // 上端横軸との交点
-                                    var xTop = (this.YMax - b) / a.Value;
-                                    // 下端横軸との交点
-                                    var xBottom = (this.YMin - b) / a.Value;
-
-                                    #region 左端の点を確定する
-                                    if (ptLine0 == null)
-                                    {
-                                        // 左端縦軸交点の確認
-                                        if ((this.YMin <= yLeft) && (yLeft <= this.YMax))
-                                        {
-                                            ptLine0 = GetControlPointFromGraphPoint(this.XMin, yLeft);
-                                        }
-                                        else
-                                        {
-                                            // 下から上への線の場合
-                                            if (pt0.Value.Y < yArray[i])
-                                            {
-                                                // 交わり得るのは下端横軸交点
-                                                if ((this.XMin <= xBottom) && (xBottom <= this.XMax))
-                                                {
-                                                    ptLine0 = GetControlPointFromGraphPoint(xBottom, this.YMin);
-                                                }
-                                            }
-                                            else
-                                            {
-                                                // 上から下への線の場合は
-                                                // 交わり得るのは上端横軸交点
-                                                if ((this.XMin <= xTop) && (xTop <= this.XMax))
-                                                {
-                                                    ptLine0 = GetControlPointFromGraphPoint(xTop, this.YMax);
-                                                }
-                                            }
-                                        }
-                                    }
-                                    #endregion 左端の点を確定する
-
-                                    #region 右端の点を確定する
-                                    if (ptLine1 == null)
-                                    {
-                                        // 右端縦軸交点の確認
-                                        if ((this.YMin <= yRight) && (yRight <= this.YMax))
-                                        {
-                                            ptLine1 = GetControlPointFromGraphPoint(this.XMax, yRight);
-                                        }
-                                        else
-                                        {
-                                            // 下から上への線の場合
-                                            if (pt0.Value.Y < yArray[i])
-                                            {
-                                                // 交わり得るのは上端横軸交点
-                                                if ((this.XMin <= xTop) && (xTop <= this.XMax))
-                                                {
-                                                    ptLine1 = GetControlPointFromGraphPoint(xTop, this.YMax);
-                                                }
-                                            }
-                                            else
-                                            {
-                                                // 上から下への線の場合は
-                                                // 交わり得るのは下端横軸交点
-                                                if ((this.XMin <= xBottom) && (xBottom <= this.XMax))
-                                                {
-                                                    ptLine1 = GetControlPointFromGraphPoint(xBottom, this.YMin);
-                                                }
-                                            }
-                                        }
-                                    }
-                                    #endregion 右端の点を確定する
+                                    ptLine0 = GetControlPointFromGraphPoint(pt0.Value);
                                 }
-                            }
+                                // 今回の点が範囲内ならこれを右端の点とする
+                                if ((this.XMin <= xArray[i]) && (xArray[i] <= this.XMax) && (this.YMin <= yArray[i]) && (yArray[i] <= this.YMax))
+                                {
+                                    ptLine1 = GetControlPointFromGraphPoint(xArray[i], yArray[i]);
+                                }
 
-                            // 線の両端点が確定したら線を描画する
-                            if ((ptLine0 != null) && (ptLine1 != null))
-                            {
-                                dc.DrawLine(pen, ptLine0.Value, ptLine1.Value);
+                                // 左端または右端の点が確定していない場合はグラフ表示範囲の境界線との交点を調べる
+                                if ((ptLine0 == null) || (ptLine1 == null))
+                                {
+                                    // y = ax + b
+                                    // 傾き
+                                    double? a = xArray[i] != pt0.Value.X ? (yArray[i] - pt0.Value.Y) / (xArray[i] - pt0.Value.X) : (double?)null;
+                                    if (a != null)
+                                    {
+                                        // 切片
+                                        double b = pt0.Value.Y - a.Value * pt0.Value.X;
+
+                                        // 左端縦軸との交点
+                                        var yLeft = a.Value * this.XMin + b;
+                                        // 右端縦軸との交点
+                                        var yRight = a.Value * this.XMax + b;
+                                        // 上端横軸との交点
+                                        var xTop = (this.YMax - b) / a.Value;
+                                        // 下端横軸との交点
+                                        var xBottom = (this.YMin - b) / a.Value;
+
+                                        #region 左端の点を確定する
+                                        if (ptLine0 == null)
+                                        {
+                                            // 左端縦軸交点の確認
+                                            if ((this.YMin <= yLeft) && (yLeft <= this.YMax))
+                                            {
+                                                ptLine0 = GetControlPointFromGraphPoint(this.XMin, yLeft);
+                                            }
+                                            else
+                                            {
+                                                // 下から上への線の場合
+                                                if (pt0.Value.Y < yArray[i])
+                                                {
+                                                    // 交わり得るのは下端横軸交点
+                                                    if ((this.XMin <= xBottom) && (xBottom <= this.XMax))
+                                                    {
+                                                        ptLine0 = GetControlPointFromGraphPoint(xBottom, this.YMin);
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    // 上から下への線の場合は
+                                                    // 交わり得るのは上端横軸交点
+                                                    if ((this.XMin <= xTop) && (xTop <= this.XMax))
+                                                    {
+                                                        ptLine0 = GetControlPointFromGraphPoint(xTop, this.YMax);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        #endregion 左端の点を確定する
+
+                                        #region 右端の点を確定する
+                                        if (ptLine1 == null)
+                                        {
+                                            // 右端縦軸交点の確認
+                                            if ((this.YMin <= yRight) && (yRight <= this.YMax))
+                                            {
+                                                ptLine1 = GetControlPointFromGraphPoint(this.XMax, yRight);
+                                            }
+                                            else
+                                            {
+                                                // 下から上への線の場合
+                                                if (pt0.Value.Y < yArray[i])
+                                                {
+                                                    // 交わり得るのは上端横軸交点
+                                                    if ((this.XMin <= xTop) && (xTop <= this.XMax))
+                                                    {
+                                                        ptLine1 = GetControlPointFromGraphPoint(xTop, this.YMax);
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    // 上から下への線の場合は
+                                                    // 交わり得るのは下端横軸交点
+                                                    if ((this.XMin <= xBottom) && (xBottom <= this.XMax))
+                                                    {
+                                                        ptLine1 = GetControlPointFromGraphPoint(xBottom, this.YMin);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        #endregion 右端の点を確定する
+                                    }
+                                }
+
+                                // 線の両端点が確定したら線を描画する
+                                if ((ptLine0 != null) && (ptLine1 != null))
+                                {
+                                    dc.DrawLine(pen, ptLine0.Value, ptLine1.Value);
+                                }
                             }
                         }
                     }
+                    #endregion 線の描画
                 }
-                #endregion 線の描画
 
-                #region データ点の描画
                 if (this.IsMarkerEnabled)
                 {
+                    #region データ点の描画
                     if (pt0 != null)
                     {
                         // 線の上にデータ点を描画するために
@@ -877,8 +896,8 @@
                         // 最後のデータ点をここで描画する
                         DrawingDataPoint(dc, new Point(xArray[i], yArray[i]));
                     }
+                    #endregion データ点の描画
                 }
-                #endregion データ点の描画
 
                 // 以前の点として保持
                 pt0 = new Point(xArray[i], yArray[i]);
