@@ -2,7 +2,7 @@
 {
     using System;
     using YKToolkit.Bindings;
-    using YKToolkit.SampleForLineGraph.Models;
+    using YKToolkit.Models.SampleForLineGraph;
 
     public class LineGraphSubViewModel : ViewModelBase
     {

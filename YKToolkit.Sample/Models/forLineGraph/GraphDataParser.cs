@@ -1,4 +1,4 @@
-﻿namespace YKToolkit.SampleForLineGraph.Models
+﻿namespace YKToolkit.Models.SampleForLineGraph
 {
     using System;
     using System.Collections.Generic;
