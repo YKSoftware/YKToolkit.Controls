@@ -64,7 +64,8 @@
                 return this._loadCommand ?? (this._loadCommand = new DelegateCommand(_ =>
                 {
                     this.LineGraphSubViewModel = _configFileName.DeserializeByXamlReaderFromFile() as LineGraphSubViewModel;
-                }));
+                },
+                _ => System.IO.File.Exists(_configFileName)));
             }
         }
         #endregion グラフ状態の保存/読込

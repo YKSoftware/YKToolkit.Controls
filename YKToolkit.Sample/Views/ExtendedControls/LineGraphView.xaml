@@ -95,12 +95,65 @@
                       CanUserDeleteRows="False"
                       CanUserSortColumns="False"
                       AutoGenerateColumns="False">
+                <DataGrid.Resources>
+                    <DrawingBrush x:Key="AlphaBackgroundBrush" ViewportUnits="Absolute" Viewport="0,0,10,10" TileMode="Tile">
+                        <DrawingBrush.Drawing>
+                            <DrawingGroup>
+                                <GeometryDrawing Brush="White">
+                                    <GeometryDrawing.Geometry>
+                                        <RectangleGeometry Rect="0,0,100,100" />
+                                    </GeometryDrawing.Geometry>
+                                </GeometryDrawing>
+                                <GeometryDrawing Brush="LightGray">
+                                    <GeometryDrawing.Geometry>
+                                        <GeometryGroup>
+                                            <RectangleGeometry Rect="0,0,50,50" />
+                                            <RectangleGeometry Rect="50,50,50,50" />
+                                        </GeometryGroup>
+                                    </GeometryDrawing.Geometry>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingBrush.Drawing>
+                    </DrawingBrush>
+                </DataGrid.Resources>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Legend}" />
                     <DataGridTemplateColumn Header="Axis-Y2" IsReadOnly="True">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <CheckBox IsChecked="{Binding IsSecond, UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Color" IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <YK:DropDownButton CloseTriggerObject="{Binding Color}">
+                                    <Border Background="{StaticResource AlphaBackgroundBrush}">
+                                        <Rectangle Width="16" Height="16">
+                                            <Rectangle.Fill>
+                                                <SolidColorBrush Color="{Binding Color}" />
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                    </Border>
+                                    <YK:DropDownButton.DropDownContent>
+                                        <YK:ColorPicker SelectedColor="{Binding Color, UpdateSourceTrigger=PropertyChanged}" />
+                                    </YK:DropDownButton.DropDownContent>
+                                </YK:DropDownButton>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Stroke" IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding IsStrokeEnabled, UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Thickness" IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <YK:SpinInput Value="{Binding Thickness, UpdateSourceTrigger=PropertyChanged}" Minimum="0" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -111,10 +164,17 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Stroke" IsReadOnly="True">
+                    <DataGridTemplateColumn Header="Width" IsReadOnly="True">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox IsChecked="{Binding IsStrokeEnabled, UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                                <YK:SpinInput Value="{Binding MarkerWidth, UpdateSourceTrigger=PropertyChanged}" Minimum="0" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Height" IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <YK:SpinInput Value="{Binding MarkerHeight, UpdateSourceTrigger=PropertyChanged}" Minimum="0" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

@@ -3,7 +3,6 @@
     using System;
     using System.Collections;
     using System.Collections.Specialized;
-    using System.ComponentModel;
     using System.Linq;
     using System.Windows;
     using System.Windows.Media;
@@ -333,6 +332,22 @@
         }
         #endregion IsSecond プロパティ
 
+        #region Color プロパティ
+        /// <summary>
+        /// Color 依存関係プロパティの定義
+        /// </summary>
+        public static readonly DependencyProperty ColorProperty = DependencyProperty.Register("Color", typeof(Color?), typeof(LineGraphItem), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender));
+
+        /// <summary>
+        /// 折れ線グラフの色を取得または設定します。
+        /// </summary>
+        public Color? Color
+        {
+            get { return (Color?)GetValue(ColorProperty); }
+            set { SetValue(ColorProperty, value); }
+        }
+        #endregion Color プロパティ
+
         #region Fill プロパティ
         /// <summary>
         /// Fill 依存関係プロパティの定義
@@ -401,17 +416,111 @@
         /// <summary>
         /// MarkerSize 依存関係プロパティの定義
         /// </summary>
-        public static readonly DependencyProperty MarkerSizeProperty = DependencyProperty.Register("MarkerSize", typeof(Size), typeof(LineGraphItem), new FrameworkPropertyMetadata(new Size(3.0, 3.0), FrameworkPropertyMetadataOptions.AffectsRender));
+        public static readonly DependencyProperty MarkerSizeProperty = DependencyProperty.Register("MarkerSize", typeof(Size), typeof(LineGraphItem), new FrameworkPropertyMetadata(new Size(3.0, 3.0), FrameworkPropertyMetadataOptions.AffectsRender, OnMarkerSizePropertyChanged));
 
         /// <summary>
-        /// データ点境界線ペンを取得または設定します。
+        /// マーカーサイズを取得または設定します。
         /// </summary>
         public Size MarkerSize
         {
             get { return (Size)GetValue(MarkerSizeProperty); }
             set { SetValue(MarkerSizeProperty, value); }
         }
-        #endregion Fill プロパティ
+
+        /// <summary>
+        /// MarkerSize プロパティ変更イベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private static void OnMarkerSizePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            var control = sender as LineGraphItem;
+            if (control != null)
+            {
+                if (control._isMarkerSizeChangedFromUI)
+                {
+                    control._isMarkerSizeChangedFromUI = false;
+                    control.MarkerWidth = control.MarkerSize.Width;
+                    control._isMarkerSizeChangedFromUI = true;
+                }
+            }
+        }
+
+        /// <summary>
+        /// MarkerSize プロパティが UI から変更されたかどうか
+        /// </summary>
+        private bool _isMarkerSizeChangedFromUI = true;
+        #endregion MarkerSize プロパティ
+
+        #region MarkerWidth プロパティ
+        /// <summary>
+        /// MarkerWidth 依存関係プロパティの定義
+        /// </summary>
+        public static readonly DependencyProperty MarkerWidthProperty = DependencyProperty.Register("MarkerWidth", typeof(double), typeof(LineGraphItem), new FrameworkPropertyMetadata(3.0, OnMarkerWidthPropertyChanged));
+
+        /// <summary>
+        /// マーカーの幅を取得または設定します。
+        /// </summary>
+        public double MarkerWidth
+        {
+            get { return (double)GetValue(MarkerWidthProperty); }
+            set { SetValue(MarkerWidthProperty, value); }
+        }
+
+        /// <summary>
+        /// MarkerWidth プロパティ変更イベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private static void OnMarkerWidthPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            var control = sender as LineGraphItem;
+            if (control != null)
+            {
+                if (control._isMarkerSizeChangedFromUI)
+                {
+                    control._isMarkerSizeChangedFromUI = false;
+                    control.MarkerSize = new Size(control.MarkerWidth, control.MarkerHeight);
+                    control._isMarkerSizeChangedFromUI = true;
+                }
+            }
+        }
+        #endregion MarkerWidth プロパティ
+
+        #region MarkerHeight プロパティ
+        /// <summary>
+        /// MarkerHeight 依存関係プロパティの定義
+        /// </summary>
+        public static readonly DependencyProperty MarkerHeightProperty = DependencyProperty.Register("MarkerHeight", typeof(double), typeof(LineGraphItem), new FrameworkPropertyMetadata(3.0, OnMarkerHeightPropertyChanged));
+
+        /// <summary>
+        /// マーカーの高さを取得または設定します。
+        /// </summary>
+        public double MarkerHeight
+        {
+            get { return (double)GetValue(MarkerHeightProperty); }
+            set { SetValue(MarkerHeightProperty, value); }
+        }
+
+        /// <summary>
+        /// MarkerHeight プロパティ変更イベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private static void OnMarkerHeightPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            var control = sender as LineGraphItem;
+            if (control != null)
+            {
+                if (control._isMarkerSizeChangedFromUI)
+                {
+                    control._isMarkerSizeChangedFromUI = false;
+                    control.MarkerSize = new Size(control.MarkerWidth, control.MarkerHeight);
+                    control._isMarkerSizeChangedFromUI = true;
+                }
+            }
+        }
+        #endregion MarkerHeight プロパティ
 
         #region MarkerType プロパティ
         /// <summary>
@@ -745,13 +854,24 @@
             var yArray = YAxisData.OfType<double>().ToArray();
             var length = xArray.Length < yArray.Length ? xArray.Length : yArray.Length;
             Point? pt0 = null;
+            var isLineFirst = true;
+            var pathfigure = new PathFigure();
+            var pen = new Pen(this.Color != null ? new SolidColorBrush(this.Color.Value) : this.Stroke, this.Thickness);
+            pen.Freeze();
+            Pen markerPen = null;
+            if (this.MarkerPen != null)
+            {
+                markerPen = this.Color != null ? new Pen(new SolidColorBrush(this.Color.Value), this.MarkerPen.Thickness) : this.MarkerPen;
+                markerPen.Freeze();
+            }
+            var markerFill = this.Color != null ? new SolidColorBrush(this.Color.Value) : this.Fill;
+            if (markerFill != null)
+                markerFill.Freeze();
             for (var i = 0; i < length; i++)
             {
                 if (IsStrokeEnabled)
                 {
                     #region 線の描画
-                    var pen = new Pen(this.Stroke, this.Thickness);
-                    pen.Freeze();
                     if (pt0 != null)
                     {
 
@@ -833,6 +953,11 @@
                                                     }
                                                 }
                                             }
+
+                                            if (ptLine0 != null)
+                                            {
+                                                pathfigure.Segments.Add(new LineSegment(ptLine0.Value, false));
+                                            }
                                         }
                                         #endregion 左端の点を確定する
 
@@ -870,10 +995,17 @@
                                     }
                                 }
 
-                                // 線の両端点が確定したら線を描画する
+                                // 線の開始点を確定する
+                                if (isLineFirst && ptLine0 != null)
+                                {
+                                    pathfigure.StartPoint = ptLine0.Value;
+                                    isLineFirst = false;
+                                }
+
+                                // 右端の点が確定したら線を結ぶ
                                 if ((ptLine0 != null) && (ptLine1 != null))
                                 {
-                                    dc.DrawLine(pen, ptLine0.Value, ptLine1.Value);
+                                    pathfigure.Segments.Add(new LineSegment(ptLine1.Value, true));
                                 }
                             }
                         }
@@ -888,13 +1020,13 @@
                     {
                         // 線の上にデータ点を描画するために
                         // ひとつ前のデータ点を描画する
-                        DrawingDataPoint(dc, pt0.Value);
+                        DrawingDataPoint(dc, markerFill, MarkerPen, pt0.Value);
                     }
                     if (i == length - 1)
                     {
                         // ひとつ前のデータ点を描画していたので
                         // 最後のデータ点をここで描画する
-                        DrawingDataPoint(dc, new Point(xArray[i], yArray[i]));
+                        DrawingDataPoint(dc, markerFill, MarkerPen, new Point(xArray[i], yArray[i]));
                     }
                     #endregion データ点の描画
                 }
@@ -903,10 +1035,17 @@
                 pt0 = new Point(xArray[i], yArray[i]);
             }
 
+            if (!pathfigure.IsFrozen)
+                pathfigure.Freeze();
+            var geometry = new PathGeometry();
+            geometry.Figures.Add(pathfigure);
+            geometry.Freeze();
+            dc.DrawGeometry(null, pen, geometry);
+
             // 強調表示するデータ点
             if (this.HighlightPoint != null)
             {
-                DrawingDataPoint(dc, this.HighlightPoint.Value, true);
+                DrawingDataPoint(dc, markerFill, MarkerPen, this.HighlightPoint.Value, true);
             }
 
             // データ表示確認
@@ -917,10 +1056,12 @@
         /// <summary>
         /// 現在の状態でデータ点を描画します。
         /// </summary>
-        /// <param name="dc">描画するコンテキスト</param>
-        /// <param name="pt">コントロール座標</param>
+        /// <param name="dc">描画するコンテキストを指定します。</param>
+        /// <param name="fill">データ点塗潰しブラシを指定します。</param>
+        /// <param name="pen">データ点境界線ペンを指定します。</param>
+        /// <param name="pt">コントロール座標を指定します。</param>
         /// <param name="isHighLighted">強調表示する場合に true を指定します。</param>
-        private void DrawingDataPoint(DrawingContext dc, Point pt, bool isHighLighted = false)
+        private void DrawingDataPoint(DrawingContext dc, Brush fill, Pen pen, Point pt, bool isHighLighted = false)
         {
             if ((this.XMin <= pt.X) && (pt.X <= this.XMax) && (this.YMin <= pt.Y) && (pt.Y <= this.YMax))
             {
@@ -932,11 +1073,11 @@
                     switch (this.MarkerType)
                     {
                         case MarkerTypes.Ellipse:
-                            dc.DrawEllipse(this.Fill, this.MarkerPen, ptData.Value, width, height);
+                            dc.DrawEllipse(fill, pen, ptData.Value, width, height);
                             break;
 
                         case MarkerTypes.Rectangle:
-                            dc.DrawRectangle(this.Fill, this.MarkerPen, new Rect(new Point(ptData.Value.X - width / 2.0, ptData.Value.Y - height / 2.0), new Size(width, height)));
+                            dc.DrawRectangle(fill, pen, new Rect(new Point(ptData.Value.X - width / 2.0, ptData.Value.Y - height / 2.0), new Size(width, height)));
                             break;
                     }
                 }
