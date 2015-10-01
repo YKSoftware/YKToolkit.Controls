@@ -250,18 +250,28 @@
                 var text = pair.Key;
                 var item = pair.Value;
 
+                var stroke = item.Color != null ? new SolidColorBrush(item.Color.Value) : item.Stroke;
+                if (!stroke.IsFrozen)
+                    stroke.Freeze();
+                var fill = item.Color != null ? stroke : item.Fill;
+                Pen pen = null;
+                if (item.MarkerPen != null)
+                {
+                    pen = item.Color != null ? new Pen(stroke, item.MarkerPen.Thickness) : item.MarkerPen;
+                }
+
                 // 凡例データ線描画
                 ptLine0.Offset(0, text.Height / 2.0);
                 ptLine1.Offset(0, text.Height / 2.0);
-                dc.DrawLine(new Pen(item.Stroke, item.Thickness), ptLine0, ptLine1);
+                dc.DrawLine(new Pen(stroke, item.Thickness), ptLine0, ptLine1);
                 switch (item.MarkerType)
                 {
                     case LineGraphItem.MarkerTypes.Ellipse:
-                        dc.DrawEllipse(item.Fill, item.MarkerPen, new Point(ptLine0.X + _lineLength / 2.0, ptLine0.Y), item.MarkerSize.Width, item.MarkerSize.Height);
+                        dc.DrawEllipse(fill, pen, new Point(ptLine0.X + _lineLength / 2.0, ptLine0.Y), item.MarkerSize.Width, item.MarkerSize.Height);
                         break;
 
                     case LineGraphItem.MarkerTypes.Rectangle:
-                        dc.DrawRectangle(item.Fill, item.MarkerPen, new Rect(new Point(ptLine0.X + _lineLength / 2.0 - item.MarkerSize.Width / 2.0, ptLine0.Y - item.MarkerSize.Height / 2.0), item.MarkerSize));
+                        dc.DrawRectangle(fill, pen, new Rect(new Point(ptLine0.X + _lineLength / 2.0 - item.MarkerSize.Width / 2.0, ptLine0.Y - item.MarkerSize.Height / 2.0), item.MarkerSize));
                         break;
                 }
                 ptLine0.Offset(0, text.Height / 2.0 + _dataMargin);
