@@ -22,7 +22,7 @@
 
         <DataGrid Grid.Row="0" Grid.Column="0" ItemsSource="{Binding People}" />
 
-        <DataGrid Grid.Row="0" Grid.Column="2" ItemsSource="{Binding People}" FrozenColumnCount="2" />
+        <DataGrid Grid.Row="0" Grid.Column="2" ItemsSource="{Binding People}" FrozenColumnCount="2" SelectionUnit="Cell" />
 
         <DataGrid Grid.Row="2" Grid.Column="0"
                   ItemsSource="{Binding People}"
