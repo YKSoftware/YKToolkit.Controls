@@ -59,23 +59,24 @@
         #endregion コンストラクタ
 
         #region SelectedPath 依存関係プロパティ
-        /// <summary>
-        /// SelectedPath 依存関係プロパティキーの定義
-        /// </summary>
-        public static readonly DependencyPropertyKey SelectedPathPropertyKey = DependencyProperty.RegisterReadOnly("SelectedPath", typeof(string), typeof(FileTreeView), new PropertyMetadata(null));
+        ///// <summary>
+        ///// SelectedPath 依存関係プロパティキーの定義
+        ///// </summary>
+        //private static readonly DependencyPropertyKey SelectedPathPropertyKey = DependencyProperty.RegisterReadOnly("SelectedPath", typeof(string), typeof(FileTreeView), new PropertyMetadata(null));
 
         /// <summary>
         /// SelectedPath 依存関係プロパティの定義
         /// </summary>
-        public static readonly DependencyProperty SelectedPathProperty = SelectedPathPropertyKey.DependencyProperty;
+        public static readonly DependencyProperty SelectedPathProperty = DependencyProperty.Register("SelectedPath", typeof(string), typeof(FileTreeView), new PropertyMetadata(null));
+        //public static readonly DependencyProperty SelectedPathProperty = SelectedPathPropertyKey.DependencyProperty;
 
         /// <summary>
-        /// 選択されているパスを取得します。
+        /// 選択されているパスを取得または設定します。
         /// </summary>
         public string SelectedPath
         {
             get { return (string)GetValue(SelectedPathProperty); }
-            private set { SetValue(SelectedPathPropertyKey, value); }
+            set { SetValue(SelectedPathProperty, value); }
         }
         #endregion SelectedPath 依存関係プロパティ
 
