@@ -212,6 +212,11 @@
         {
             _storyboard.Stop();
 
+            if (this.Ellipse1 == null)
+                return;
+            if (double.IsNaN(this.ActualWidth))
+                return;
+
             _initialKeyFrame = new DiscreteDoubleKeyFrame(-this.Ellipse1.ActualWidth, KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(0)));
             var splineDoubleKeyFrame = new SplineDoubleKeyFrame(this.ActualWidth, KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(3000)), new KeySpline(0.3, 0.85, 0.7, 0.15));
 
