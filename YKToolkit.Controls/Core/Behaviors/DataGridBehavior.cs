@@ -12,7 +12,7 @@
     /// </summary>
     public class DataGridBehavior
     {
-        #region DisplayRowNumber
+        #region DisplayRowNumber 添付プロパティ
         /// <summary>
         /// DisplayRowNumber 添付プロパティの定義
         /// </summary>
@@ -20,8 +20,8 @@
         /// <summary>
         /// DisplayRowNumber 添付プロパティを取得します。
         /// </summary>
-        /// <param name="target">添付プロパティの取得先</param>
-        /// <returns>取得結果</returns>
+        /// <param name="target">対象とする DependencyObject を指定します。</param>
+        /// <returns>取得した値を返します。</returns>
         public static int? GetDisplayRowNumber(DependencyObject target)
         {
             return (int?)target.GetValue(DisplayRowNumberProperty);
@@ -29,22 +29,30 @@
         /// <summary>
         /// DisplayRowNumber 添付プロパティを設定します。
         /// </summary>
-        /// <param name="target">添付プロパティの設定対象</param>
+        /// <param name="target">対象とする DependencyObject を指定します。</param>
         /// <param name="value">設定値を指定します。</param>
         public static void SetDisplayRowNumber(DependencyObject target, int? value)
         {
             target.SetValue(DisplayRowNumberProperty, value);
         }
 
-        private static void OnDisplayRowNumberChanged(DependencyObject target, DependencyPropertyChangedEventArgs e)
+        /// <summary>
+        /// DisplayRowNumber 添付プロパティ変更イベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private static void OnDisplayRowNumberChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            var dataGrid = target as DataGrid;
+            var dataGrid = sender as DataGrid;
+            if (dataGrid == null)
+                return;
+
             if (e.NewValue != null)
             {
                 var displayNumber = GetDisplayRowNumber(dataGrid);
 
                 EventHandler<DataGridRowEventArgs> loadedRowHandler = null;
-                loadedRowHandler = (object sender, DataGridRowEventArgs ea) =>
+                loadedRowHandler = (object _, DataGridRowEventArgs ea) =>
                 {
                     if (displayNumber == null)
                     {
@@ -56,24 +64,28 @@
                 dataGrid.LoadingRow += loadedRowHandler;
 
                 ItemsChangedEventHandler itemsChangedHandler = null;
-                itemsChangedHandler = (object sender, ItemsChangedEventArgs ea) =>
+                itemsChangedHandler = (object _, ItemsChangedEventArgs ea) =>
                 {
                     if (displayNumber == null)
                     {
                         dataGrid.ItemContainerGenerator.ItemsChanged -= itemsChangedHandler;
                         return;
                     }
+                    // 子要素の DataGridRow クラスに対してのみヘッダ情報を書き換える
                     GetVisualChildCollection<DataGridRow>(dataGrid).
                         ForEach(d => d.Header = d.GetIndex() + displayNumber);
                 };
                 dataGrid.ItemContainerGenerator.ItemsChanged += itemsChangedHandler;
             }
         }
+        #endregion DisplayRowNumber 添付プロパティ
 
-        #endregion  // DisplayRowNumber
-
-        #region Get Visuals
-
+        /// <summary>
+        /// 指定された型の子要素をリストとして取得します。
+        /// </summary>
+        /// <typeparam name="T">リストアップする型を指定します。</typeparam>
+        /// <param name="parent">子要素を持つ親を指定します。</param>
+        /// <returns>指定された型の子要素のみを集めたリストを返します。</returns>
         private static List<T> GetVisualChildCollection<T>(object parent)
             where T : Visual
         {
@@ -82,6 +94,12 @@
             return visualCollection;
         }
 
+        /// <summary>
+        /// 指定された型の子要素を与えられたリストに追加します。
+        /// </summary>
+        /// <typeparam name="T">リストアップする型を指定します。</typeparam>
+        /// <param name="parent">子要素を持つ親を指定します。</param>
+        /// <param name="visualCollection">リストアップするためのリストを指定します。</param>
         private static void GetVisualChildCollection<T>(DependencyObject parent, List<T> visualCollection)
             where T : Visual
         {
@@ -99,7 +117,5 @@
                 }
             }
         }
-
-        #endregion  // Get Visuals
     }
 }

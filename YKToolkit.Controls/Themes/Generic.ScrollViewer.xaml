@@ -6,6 +6,7 @@
 
     <Style TargetType="ScrollViewer">
         <Setter Property="Foreground" Value="{DynamicResource DefaultForegroundBrush}" />
+        <Setter Property="Padding" Value="2" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ScrollViewer">
@@ -19,7 +20,7 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" />
+                        <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" Margin="{TemplateBinding Padding}" />
                         <ScrollBar x:Name="PART_VerticalScrollBar"
                                    Grid.Row="0" Grid.Column="1"
                                    Value="{TemplateBinding VerticalOffset}"
