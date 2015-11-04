@@ -28,6 +28,7 @@
             </Setter.Value>
         </Setter>
         <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="4,2,4,2" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
@@ -63,7 +64,7 @@
                             <ContentPresenter IsHitTestVisible="False"
                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                              Margin="4,2,4,2"
+                                              Margin="{TemplateBinding Padding}"
                                               />
                             <Popup x:Name="PART_DropDownPopup"
                                    Placement="Bottom"
@@ -79,7 +80,7 @@
                                             <GradientStop Color="{DynamicResource BorderColor}" />
                                         </LinearGradientBrush>
                                     </Border.BorderBrush>
-                                    <ScrollViewer>
+                                    <ScrollViewer Padding="0">
                                         <ContentPresenter ContentSource="DropDownContent" />
                                     </ScrollViewer>
                                 </Border>
