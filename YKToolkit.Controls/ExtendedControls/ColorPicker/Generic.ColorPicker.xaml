@@ -44,7 +44,7 @@
                                 BorderThickness="{TemplateBinding BorderThickness}">
                             <TabControl BorderThickness="0" Padding="0">
                                 <TabItem Header="Standard">
-                                    <StackPanel Margin="4">
+                                    <StackPanel Margin="0,0,0,4">
                                         <TextBlock Text="Theme Colors" Padding="4,0" Background="{TemplateBinding Background}" />
                                         <ListBox x:Name="PART_ThemeColors1ListBox" ItemsSource="{x:Static local:ColorPicker.ThemeColors1}" BorderThickness="0" Background="{TemplateBinding Background}">
                                             <ListBox.ItemsPanel>
