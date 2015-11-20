@@ -27,7 +27,7 @@
         </ContextMenu>
     </YK:Window.SystemMenuContent>
     <YK:Window.CaptionContent>
-        <ComboBox ItemsSource="{Binding Themes}" SelectedItem="{Binding CurrentTheme}" Width="110" />
+        <ComboBox ItemsSource="{Binding Themes}" SelectedItem="{Binding CurrentTheme}" Width="110" Margin="0,1" />
     </YK:Window.CaptionContent>
     <DockPanel>
         <Menu DockPanel.Dock="Top">

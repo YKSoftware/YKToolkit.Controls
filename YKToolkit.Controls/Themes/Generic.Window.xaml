@@ -12,7 +12,7 @@
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Width" Value="30" />
-        <Setter Property="Height" Value="26" />
+        <!--<Setter Property="Height" Value="26" />-->
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -141,7 +141,7 @@
                                             WindowChrome.IsHitTestVisibleInChrome="True">
                                     <ContentControl Content="{TemplateBinding CaptionContent}"
                                                     WindowChrome.IsHitTestVisibleInChrome="True"
-                                                    Margin="0,1,1,0"
+                                                    Margin="0"
                                                     />
                                     <!-- 常に手前に表示ボタン -->
                                     <Button x:Name="PART_TopmostButton" Style="{StaticResource CaptionButtonStyle}" IsEnabled="{TemplateBinding IsTopmostButtonEnabled}" Visibility="{TemplateBinding TopmostButtonVisibility}">
