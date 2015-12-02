@@ -24,6 +24,7 @@
         <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.TreeView.xaml" />
         <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.Window.xaml" />
 
+        <ResourceDictionary Source="/YKToolkit.Controls;component/ExtendedControls/BinaryEditor/Generic.BinaryEditor.xaml" />
         <ResourceDictionary Source="/YKToolkit.Controls;component/ExtendedControls/BusyIndicator/Generic.BusyIndicator.xaml" />
         <ResourceDictionary Source="/YKToolkit.Controls;component/ExtendedControls/ColorPicker/Generic.ColorPicker.xaml" />
         <ResourceDictionary Source="/YKToolkit.Controls;component/ExtendedControls/DropDownButton/Generic.DropDownButton.xaml" />

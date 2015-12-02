@@ -69,6 +69,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="ExtendedControls\BinaryEditor\Generic.BinaryEditor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ExtendedControls\LineGraph\Generic.LineGraph.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -245,6 +249,12 @@
     <Compile Include="Core\Converters\BooleanInverseConverter.cs" />
     <Compile Include="Core\Converters\DrawingIcontoImageConverter.cs" />
     <Compile Include="Core\Converters\TabControlBorderThicknessConverter.cs" />
+    <Compile Include="ExtendedControls\BinaryEditor\BinaryEditorTable.cs" />
+    <Compile Include="ExtendedControls\BinaryEditor\DataStyles.cs" />
+    <Compile Include="ExtendedControls\BinaryEditor\Generic.BinaryEditor.xaml.cs">
+      <DependentUpon>Generic.BinaryEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExtendedControls\BinaryEditor\NumStyles.cs" />
     <Compile Include="Helpers\Extensions\Fourier.cs" />
     <Compile Include="Helpers\Extensions\Serialization.cs" />
     <Compile Include="Core\Shell32.cs" />

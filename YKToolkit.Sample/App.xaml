@@ -67,6 +67,9 @@
             <vw:TreeViewView />
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type vm:BinaryEditorViewModel}">
+            <vw:BinaryEditorView />
+        </DataTemplate>
         <DataTemplate DataType="{x:Type vm:BusyIndicatorViewModel}">
             <vw:BusyIndicatorView />
         </DataTemplate>

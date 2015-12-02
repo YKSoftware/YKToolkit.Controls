@@ -159,6 +159,7 @@
                             Name = "Extended Controls",
                             Children = new List<ViewModelInfo>()
                             {
+                                new ViewModelInfo() { Name = "BinaryEditor", Instance = this._binaryEditorViewModel, },
                                 new ViewModelInfo() { Name = "BusyIndicator", Instance = this._busyIndicatorViewModel, },
                                 new ViewModelInfo() { Name = "ColorPicker", Instance = this._colorPickerViewModel, },
                                 new ViewModelInfo() { Name = "DropDownButton", Instance = this._dropDownButtonViewModel, },
@@ -209,6 +210,7 @@
         private TextBoxViewModel _textBoxViewModel = new TextBoxViewModel();
         private ToggleButtonViewModel _toggleButtonViewModel = new ToggleButtonViewModel();
 
+        private BinaryEditorViewModel _binaryEditorViewModel = new BinaryEditorViewModel();
         private BusyIndicatorViewModel _busyIndicatorViewModel = new BusyIndicatorViewModel();
         private ColorPickerViewModel _colorPickerViewModel = new ColorPickerViewModel();
         private DropDownButtonViewModel _dropDownButtonViewModel = new DropDownButtonViewModel();

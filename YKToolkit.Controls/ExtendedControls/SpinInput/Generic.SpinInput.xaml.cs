@@ -124,7 +124,21 @@
             control.CoerceValue();
 
             if (control._newText == null)
-                control.Text = control.Value.ToString(control.StringFormat);
+            {
+                var c = string.IsNullOrWhiteSpace(control.StringFormat) ? "" : control.StringFormat.Substring(0, 1).ToLower();
+                if (c == "d")
+                {
+                    control.Text = ((int)control.Value).ToString(control.StringFormat);
+                }
+                else if (c == "x")
+                {
+                    control.Text = "0x" + ((int)control.Value).ToString(control.StringFormat);
+                }
+                else
+                {
+                    control.Text = control.Value.ToString(control.StringFormat);
+                }
+            }
             control._newText = null;
         }
         #endregion Value 依存関係プロパティ
@@ -186,7 +200,19 @@
             if (control == null)
                 return;
 
-            control.Text = control.Value.ToString(control.StringFormat);
+            var c = string.IsNullOrWhiteSpace(control.StringFormat) ? "" : control.StringFormat.Substring(0, 1).ToLower();
+            if (c == "d")
+            {
+                control.Text = ((int)control.Value).ToString(control.StringFormat);
+            }
+            else if (c == "x")
+            {
+                control.Text = "0x" + ((int)control.Value).ToString(control.StringFormat);
+            }
+            else
+            {
+                control.Text = control.Value.ToString(control.StringFormat);
+            }
         }
         #endregion StringFormat 依存関係プロパティ
 
