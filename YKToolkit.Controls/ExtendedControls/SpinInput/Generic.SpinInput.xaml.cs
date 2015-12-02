@@ -414,10 +414,21 @@
         /// <param name="style">パースするための読取形式を指定します。</param>
         private void UpdateValueFromText(string text, NumberStyles style)
         {
-            double value = 0.0;
-            if (double.TryParse(text, style, CultureInfo.CurrentUICulture, out value))
+            if (style.HasFlag(NumberStyles.AllowHexSpecifier))
             {
-                this.Value = value;
+                long temp = 0;
+                if (long.TryParse(text, style, CultureInfo.CurrentUICulture, out temp))
+                {
+                    this.Value = temp;
+                }
+            }
+            else
+            {
+                double value = 0.0;
+                if (double.TryParse(text, style, CultureInfo.CurrentUICulture, out value))
+                {
+                    this.Value = value;
+                }
             }
         }
 

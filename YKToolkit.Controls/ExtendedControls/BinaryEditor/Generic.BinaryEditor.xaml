@@ -23,7 +23,7 @@
                                                  IsHitTestVisible="False"
                                                  Focusable="False"
                                                  Data="{TemplateBinding Data}"
-                                                 TopAddress="{TemplateBinding TopAddress}"
+                                                 TopAddress="{Binding TopAddress, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
                                                  AddressOffset="{TemplateBinding AddressOffset}"
                                                  VisibleLines="{TemplateBinding VisibleLines}"
                                                  DataStyle="{TemplateBinding DataStyle}"

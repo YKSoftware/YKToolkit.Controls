@@ -122,6 +122,7 @@
 
             this._updateTimer = new DispatcherTimer(TimeSpan.FromMilliseconds(10), DispatcherPriority.Normal, OnStartLazyUpdateCallback, this.Dispatcher);
 
+            this.PreviewMouseLeftButtonDown += OnPreviewMouseLeftButtonDown;
             this.MouseLeftButtonUp += OnMouseLeftButtonUp;
             this.GotFocus += OnGotFocus;
             this.LostFocus += OnLostFocus;
@@ -204,6 +205,7 @@
         /// <param name="newValue">変更後の値</param>
         private void OnTopAddressPropertyChanged(int oldValue, int newValue)
         {
+            this.VerticalScrollBar.Value = this.TopAddress;
             ClearInputTextBox();
         }
         #endregion TopAddress 依存関係プロパティ
@@ -373,7 +375,7 @@
         /// <summary>
         /// SelectedAddress 依存関係プロパティの定義
         /// </summary>
-        public static readonly DependencyProperty SelectedAddressProperty = DependencyProperty.Register("SelectedAddress", typeof(int), typeof(BinaryEditor), new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.None, OnSelectedAddressPropertyChanged, OnSelectedAddressPropertyCoerceCallback));
+        public static readonly DependencyProperty SelectedAddressProperty = DependencyProperty.Register("SelectedAddress", typeof(int), typeof(BinaryEditor), new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnSelectedAddressPropertyChanged, OnSelectedAddressPropertyCoerceCallback));
 
         /// <summary>
         /// 選択しているアドレスを取得または設定します。
@@ -446,6 +448,15 @@
         private void OnVerticalScrollBarValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             this.TopAddress = (int)(this.VerticalScrollBar.Value / 16) * 16;
+            if (ContainAddress(this.SelectedAddress))
+            {
+                JumpCursor(this.SelectedAddress);
+            }
+            else
+            {
+                ClearCursorColor();
+                this._timer.Stop();
+            }
         }
 
         /// <summary>
@@ -464,16 +475,16 @@
             {
                 if ((this.CursorRectangle.Fill as SolidColorBrush).Color != Colors.Transparent)
                 {
-                    ClearCusorColor();
+                    ClearCursorColor();
                 }
                 else
                 {
-                    SetCusorColor();
+                    SetCursorColor();
                 }
             }
             else
             {
-                ClearCusorColor();
+                ClearCursorColor();
             }
         }
 
@@ -505,6 +516,51 @@
         }
 
         /// <summary>
+        /// PreviewMouseLeftButtonDown イベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private void OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (this.BinaryTable == null)
+                return;
+
+            var size = this.BinaryTable.DataUnitSize;
+            var origin = this.BinaryTable.DataOrigin;
+            var pt = e.GetPosition(this.BinaryTable);
+
+            var x_max = 16 / (int)this.DataStyle;
+            var y_max = (this.TopAddress + 16 * this.VisibleLines) <= this.Data.Count ? this.VisibleLines : (this.Data.Count - this.TopAddress) / 16 + 1;
+
+            var x = -1;
+            int temp = (int)(pt.X - origin.X);
+            while (temp > 0)
+            {
+                x++;
+                temp = (int)(temp - size.Width);
+            }
+            var y = -1;
+            temp = (int)(pt.Y - origin.Y);
+            while (temp > 0)
+            {
+                y++;
+                temp = (int)(temp - size.Height);
+            }
+
+            if ((x < 0) || (y < 0))
+            {
+                return;
+            }
+            if ((x <= x_max) && (y<= y_max))
+            {
+                this.SelectedAddress = this.TopAddress + 16 * y + x * (int)this.DataStyle;
+                this._timer.Stop();
+                SetCursorColor();
+                this._timer.Start();
+            }
+        }
+
+        /// <summary>
         /// MouseLeftButtonUp イベントハンドラ
         /// </summary>
         /// <param name="sender">イベント発行元</param>
@@ -531,8 +587,17 @@
         /// <param name="e">イベント引数</param>
         private void OnLostFocus(object sender, RoutedEventArgs e)
         {
-            ClearCusorColor();
+            ClearCursorColor();
             this._updateTimer.Stop();
+        }
+
+        /// <summary>
+        /// MouseWheel イベントハンドラのオーバーライド
+        /// </summary>
+        /// <param name="e">イベント引数</param>
+        protected override void OnMouseWheel(MouseWheelEventArgs e)
+        {
+            this.VerticalScrollBar.Value += e.Delta < 0 ? 48 : -48;
         }
 
         /// <summary>
@@ -712,6 +777,14 @@
                     this.InputTextBox.Text = "";
                     this.InputTextBox.Visibility = Visibility.Collapsed;
                     this.BinaryTable.Focus();
+                    if (Keyboard.Modifiers == ModifierKeys.Shift)
+                    {
+                        this.SelectedAddress -= (int)this.DataStyle;
+                    }
+                    else
+                    {
+                        this.SelectedAddress += (int)this.DataStyle;
+                    }
                     e.Handled = true;
                     return;
 
@@ -834,7 +907,7 @@
         /// <summary>
         /// カーソルの色を選択色にします。
         /// </summary>
-        private void SetCusorColor()
+        private void SetCursorColor()
         {
             if (this.CursorRectangle == null)
                 return;
@@ -854,7 +927,7 @@
         /// <summary>
         /// カーソルの色を透明色にします。
         /// </summary>
-        private void ClearCusorColor()
+        private void ClearCursorColor()
         {
             if (this.CursorRectangle == null)
                 return;
@@ -883,7 +956,7 @@
             this.SelectedAddress = address;
             this._timer.Stop();
             this._updateTimer.Start();
-            SetCusorColor();
+            SetCursorColor();
             this._timer.Start();
         }
 
@@ -919,7 +992,7 @@
             this.SelectedAddress += offset;
             this._timer.Stop();
             this._updateTimer.Start();
-            SetCusorColor();
+            SetCursorColor();
             this._timer.Start();
         }
 
