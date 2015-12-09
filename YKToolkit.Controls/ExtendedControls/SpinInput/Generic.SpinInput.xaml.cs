@@ -121,9 +121,7 @@
             if (control == null)
                 return;
 
-            control.CoerceValue();
-
-            if (control._newText == null)
+            if (control.CoerceValue())
             {
                 var c = string.IsNullOrWhiteSpace(control.StringFormat) ? "" : control.StringFormat.Substring(0, 1).ToLower();
                 if (c == "d")
@@ -139,7 +137,6 @@
                     control.Text = control.Value.ToString(control.StringFormat);
                 }
             }
-            control._newText = null;
         }
         #endregion Value 依存関係プロパティ
 
@@ -168,9 +165,6 @@
             var control = sender as SpinInput;
             if (control == null)
                 return;
-
-            if (control._newText != null)
-                control.UpdateValueFromText(control.Text, control.NumberStyle);
         }
         #endregion Text 依存関係プロパティ
 
@@ -356,6 +350,22 @@
         }
         #endregion IsReadOnly 依存関係プロパティ
 
+        #region IsEditable 依存関係プロパティ
+        /// <summary>
+        /// IsEditable 依存関係プロパティの定義
+        /// </summary>
+        public static readonly DependencyProperty IsEditableProperty = DependencyProperty.Register("IsEditable", typeof(bool), typeof(SpinInput), new PropertyMetadata(true));
+
+        /// <summary>
+        /// TextBox が編集可能かどうかを取得または設定します。
+        /// </summary>
+        public bool IsEditable
+        {
+            get { return (bool)GetValue(IsEditableProperty); }
+            set { SetValue(IsEditableProperty, value); }
+        }
+        #endregion IsEditable 依存関係プロパティ
+
         #region イベントハンドラ
         /// <summary>
         /// InputTextBox キー押下イベントハンドラ
@@ -370,16 +380,8 @@
 
             if (e.Key == Key.Enter)
             {
-                _newText = textbox.Text;
                 UpdateValueFromText(textbox.Text, this.NumberStyle);
-
-                //var targetProperty = TextBox.TextProperty;
-                //var bindingExpression = BindingOperations.GetBindingExpression(textbox, targetProperty);
-                //if (bindingExpression != null)
-                //{
-                //    // データバインディングのソースを更新する
-                //    bindingExpression.UpdateSource();
-                //}
+                textbox.SetCurrentValue(TextBox.TextProperty, textbox.Text);
             }
         }
 
@@ -435,23 +437,24 @@
         /// <summary>
         /// Value プロパティに制限を加えます。
         /// </summary>
-        private void CoerceValue()
+        private bool CoerceValue()
         {
             if (this.Minimum > this.Maximum)
-                return;
+                return false;
 
             if (this.Value > this.Maximum)
+            {
                 this.Value = this.Maximum;
+                return false;
+            }
             else if (this.Value < this.Minimum)
+            {
                 this.Value = this.Minimum;
+                return false;
+            }
+
+            return true;
         }
         #endregion ヘルパ
-
-        #region private フィールド
-        /// <summary>
-        /// UI から変更されたテキスト
-        /// </summary>
-        private string _newText;
-        #endregion private フィールド
     }
 }
