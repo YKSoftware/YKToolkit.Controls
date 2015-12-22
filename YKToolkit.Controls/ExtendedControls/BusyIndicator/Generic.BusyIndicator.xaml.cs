@@ -147,6 +147,7 @@
 
             this.Loaded += OnLoaded;
             this.SizeChanged += OnSizeChanged;
+            this.IsVisibleChanged += OnIsVisibleChanged;
         }
         #endregion コンストラクタ
 
@@ -199,6 +200,16 @@
         /// <param name="sender">イベント発行元</param>
         /// <param name="e">イベント引数</param>
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            UpdateAnimation();
+        }
+
+        /// <summary>
+        /// IsVisibleChanged イベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             UpdateAnimation();
         }

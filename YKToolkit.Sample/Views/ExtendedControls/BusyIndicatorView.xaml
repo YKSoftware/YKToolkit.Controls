@@ -24,10 +24,23 @@
                 </Rectangle>
             </Border>
         </YK:DropDownButton>
+        <CheckBox x:Name="visibility" Content="IsBusy" />
         <YK:BusyIndicator IndicatorSize="{Binding Value, ElementName=spinInput}" Margin="-20,10,-20,0">
-            <YK:BusyIndicator.IndicatorBrush>
-                <SolidColorBrush Color="{Binding SelectedColor}" />
-            </YK:BusyIndicator.IndicatorBrush>
+            <YK:BusyIndicator.Style>
+                <Style TargetType="YK:BusyIndicator" BasedOn="{StaticResource {x:Type YK:BusyIndicator}}">
+                    <Setter Property="IndicatorBrush">
+                        <Setter.Value>
+                            <SolidColorBrush Color="{Binding SelectedColor}" />
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsChecked, ElementName=visibility}" Value="True">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </YK:BusyIndicator.Style>
         </YK:BusyIndicator>
     </StackPanel>
 </UserControl>
