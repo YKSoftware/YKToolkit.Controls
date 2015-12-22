@@ -255,7 +255,8 @@
       <DependentUpon>Generic.BinaryEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExtendedControls\BinaryEditor\NumStyles.cs" />
-    <Compile Include="Helpers\Extensions\Fourier.cs" />
+    <Compile Include="Helpers\Complex.cs" />
+    <Compile Include="Helpers\Math\Fourier.cs" />
     <Compile Include="Helpers\Extensions\Serialization.cs" />
     <Compile Include="Core\Shell32.cs" />
     <Compile Include="Core\User32.cs" />
@@ -293,6 +294,7 @@
     <Compile Include="ExtendedControls\SplitButton\Generic.SplitButton.xaml.cs">
       <DependentUpon>Generic.SplitButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\WindowFunctions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
