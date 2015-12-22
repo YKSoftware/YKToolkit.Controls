@@ -20,7 +20,7 @@
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Padding" Value="2,1,0,1" />
         <Setter Property="TextAlignment" Value="Left" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Top" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
