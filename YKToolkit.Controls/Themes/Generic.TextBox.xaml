@@ -18,19 +18,18 @@
             </Setter.Value>
         </Setter>
         <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="Padding" Value="2,1" />
+        <Setter Property="Padding" Value="2,1,0,1" />
         <Setter Property="TextAlignment" Value="Left" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
-                    <Border x:Name="border"
-                            Background="{TemplateBinding Background}"
+                    <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="2"
-                            Padding="{TemplateBinding Padding}">
+                            CornerRadius="2">
                         <ScrollViewer x:Name="PART_ContentHost"
+                                      Padding="{TemplateBinding Padding}"
                                       HorizontalContentAlignment="{TemplateBinding TextAlignment}"
                                       VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                       />

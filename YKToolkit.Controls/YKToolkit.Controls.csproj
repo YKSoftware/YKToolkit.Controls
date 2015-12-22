@@ -294,6 +294,7 @@
     <Compile Include="ExtendedControls\SplitButton\Generic.SplitButton.xaml.cs">
       <DependentUpon>Generic.SplitButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Matrix.cs" />
     <Compile Include="Helpers\WindowFunctions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
