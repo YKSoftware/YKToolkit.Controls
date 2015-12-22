@@ -207,7 +207,7 @@
                     break;
 
                 case WindowFunctions.Hanning:
-                    win = HanningWindowFunction(length, true);
+                    win = HanningWindowFunction(length, false);     // 本当は周期的な窓関数として取得するべきだが
                     break;
 
                 case WindowFunctions.Kaiser:
