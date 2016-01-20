@@ -6,10 +6,7 @@
              mc:Ignorable="d" 
              xmlns:vm="clr-namespace:YKToolkit.Sample.ViewModels"
              d:DataContext="{d:DesignInstance vm:DebugViewModel}"
-             d:DesignHeight="300" d:DesignWidth="300"
-             xmlns:YKb="clr-namespace:YKToolkit.Controls.Behaviors;assembly=YKToolkit.Controls">
+             d:DesignHeight="300" d:DesignWidth="300">
     <StackPanel>
-        <Button Content="Click me." YKb:EventTriggerAction.RoutedEvent="Button.Click" YKb:EventTriggerAction.Action="{Binding ClickActionCommand}" />
-        <Thumb YKb:EventTriggerAction.RoutedEvent="Thumb.DragDelta" YKb:EventTriggerAction.Action="{Binding DragDeltaCommand}" />
     </StackPanel>
 </UserControl>

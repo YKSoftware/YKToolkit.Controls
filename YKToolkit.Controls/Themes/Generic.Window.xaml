@@ -73,246 +73,248 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:Window}">
-                    <Border x:Name="PART_MainBorder"
-                            Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            Padding="0">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
+                    <AdornerDecorator>
+                        <Border x:Name="PART_MainBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Padding="0">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
 
-                            <Grid Grid.Row="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
 
-                                <!-- アイコン -->
-                                <Button x:Name="PART_IconButton"
-                                        Grid.Column="0"
-                                        Opacity="1"
-                                        Width="26" Height="26"
-                                        VerticalAlignment="Center"
-                                        Cursor="Arrow"
-                                        ContextMenu="{TemplateBinding SystemMenuContent}"
-                                        WindowChrome.IsHitTestVisibleInChrome="True">
-                                    <Button.Background>
-                                        <VisualBrush>
-                                            <VisualBrush.Visual>
-                                                <Image Source="{TemplateBinding Icon}" />
-                                            </VisualBrush.Visual>
-                                        </VisualBrush>
-                                    </Button.Background>
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Background="{TemplateBinding Background}">
-                                                <ContentPresenter />
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
-
-                                <!-- ウィンドウタイトル -->
-                                <TextBlock x:Name="PART_TitleText" Grid.Column="1">
-                                    <TextBlock.Style>
-                                        <Style TargetType="TextBlock">
-                                            <Setter Property="Text" Value="{Binding Title, RelativeSource={RelativeSource TemplatedParent}}" />
-                                            <Setter Property="FontSize" Value="16" />
-                                            <Setter Property="TextAlignment" Value="Left" />
-                                            <Setter Property="VerticalAlignment" Value="Center" />
-                                            <Setter Property="Margin" Value="4,0,0,0" />
-                                            <Setter Property="Background" Value="Transparent" />
-                                            <Setter Property="Foreground">
-                                                <Setter.Value>
-                                                    <SolidColorBrush Color="{DynamicResource ActiveWindowTitleColor}" />
-                                                </Setter.Value>
-                                            </Setter>
-                                        </Style>
-                                    </TextBlock.Style>
-                                </TextBlock>
-
-                                <!-- 閉じるボタンなど -->
-                                <StackPanel Grid.Column="2"
-                                            Orientation="Horizontal"
+                                    <!-- アイコン -->
+                                    <Button x:Name="PART_IconButton"
+                                            Grid.Column="0"
+                                            Opacity="1"
+                                            Width="26" Height="26"
+                                            VerticalAlignment="Center"
+                                            Cursor="Arrow"
+                                            ContextMenu="{TemplateBinding SystemMenuContent}"
                                             WindowChrome.IsHitTestVisibleInChrome="True">
-                                    <ContentControl Content="{TemplateBinding CaptionContent}"
-                                                    WindowChrome.IsHitTestVisibleInChrome="True"
-                                                    Margin="0"
-                                                    />
-                                    <!-- 常に手前に表示ボタン -->
-                                    <Button x:Name="PART_TopmostButton" Style="{StaticResource CaptionButtonStyle}" IsEnabled="{TemplateBinding IsTopmostButtonEnabled}" Visibility="{TemplateBinding TopmostButtonVisibility}">
-                                        <Path x:Name="TopmostIcon"
-                                              Data="M50.493442,61.90625 L55.506308,61.90625 54.781,68.844 57.187666,70.874929 53.750138,70.874929 53.093787,78.000117 52.249908,70.874929 48.812084,70.874929 51.21875,68.844 z"
-                                              Stretch="Uniform"
-                                              Margin="7,4">
-                                            <Path.Style>
-                                                <Style TargetType="{x:Type Path}">
-                                                    <Setter Property="Fill">
-                                                        <Setter.Value>
-                                                            <SolidColorBrush Color="{DynamicResource SymbolColor}" />
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                    <Setter Property="RenderTransform">
-                                                        <Setter.Value>
-                                                            <RotateTransform Angle="45" CenterX="4" CenterY="10" />
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding IsTopmostButtonEnabled, RelativeSource={RelativeSource TemplatedParent}}" Value="False">
-                                                            <Setter Property="Fill">
-                                                                <Setter.Value>
-                                                                    <SolidColorBrush Color="{DynamicResource DisabledSymbolColor}" />
-                                                                </Setter.Value>
-                                                            </Setter>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Path.Style>
-                                        </Path>
+                                        <Button.Background>
+                                            <VisualBrush>
+                                                <VisualBrush.Visual>
+                                                    <Image Source="{TemplateBinding Icon}" />
+                                                </VisualBrush.Visual>
+                                            </VisualBrush>
+                                        </Button.Background>
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}">
+                                                    <ContentPresenter />
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Button.Template>
                                     </Button>
-                                    <!-- 最小化ボタン -->
-                                    <Button x:Name="PART_MinimizeButton" Style="{StaticResource CaptionButtonStyle}" IsEnabled="{TemplateBinding IsMinimizeButtonEnabled}" Visibility="{TemplateBinding MinimizeButtonVisibility}">
-                                        <Path Width="30" Height="26">
-                                            <Path.Style>
-                                                <Style TargetType="{x:Type Path}">
-                                                    <Setter Property="Fill">
-                                                        <Setter.Value>
-                                                            <SolidColorBrush Color="{DynamicResource SymbolColor}" />
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                    <Setter Property="Data">
-                                                        <Setter.Value>
-                                                            <RectangleGeometry Rect="10,15,10,3" />
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding IsMinimizeButtonEnabled, RelativeSource={RelativeSource TemplatedParent}}" Value="False">
-                                                            <Setter Property="Fill">
-                                                                <Setter.Value>
-                                                                    <SolidColorBrush Color="{DynamicResource DisabledSymbolColor}" />
-                                                                </Setter.Value>
-                                                            </Setter>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Path.Style>
-                                        </Path>
-                                    </Button>
-                                    <!-- 最大化ボタン -->
-                                    <Button x:Name="PART_MaximizeButton" Style="{StaticResource CaptionButtonStyle}" IsEnabled="{TemplateBinding IsMaximizeButtonEnabled}" Visibility="{TemplateBinding MaximizeButtonVisibility}">
-                                        <Path>
-                                            <Path.Style>
-                                                <Style TargetType="{x:Type Path}">
-                                                    <Setter Property="SnapsToDevicePixels" Value="True" />
-                                                    <Setter Property="Fill">
-                                                        <Setter.Value>
-                                                            <SolidColorBrush Color="{DynamicResource SymbolColor}" />
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                    <Setter Property="Data">
-                                                        <Setter.Value>
-                                                            <GeometryGroup FillRule="EvenOdd">
-                                                                <RectangleGeometry Rect="0,0,9,10" />
-                                                                <RectangleGeometry Rect="1,2,7,7" />
-                                                            </GeometryGroup>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding IsMaximizeButtonEnabled, RelativeSource={RelativeSource TemplatedParent}}" Value="False">
-                                                            <Setter Property="Stroke">
-                                                                <Setter.Value>
-                                                                    <SolidColorBrush Color="{DynamicResource DisabledSymbolColor}" />
-                                                                </Setter.Value>
-                                                            </Setter>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Path.Style>
-                                        </Path>
-                                    </Button>
-                                    <!-- 元に戻すボタン -->
-                                    <Button x:Name="PART_RestoreButton" Style="{StaticResource CaptionButtonStyle}" IsEnabled="{TemplateBinding IsRestoreButtonEnabled}" Visibility="{TemplateBinding RestoreButtonVisibility}">
-                                        <Path Width="30" Height="26">
-                                            <Path.Style>
-                                                <Style TargetType="{x:Type Path}">
-                                                    <Setter Property="SnapsToDevicePixels" Value="True" />
-                                                    <Setter Property="Stroke">
-                                                        <Setter.Value>
-                                                            <SolidColorBrush Color="{DynamicResource SymbolColor}" />
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                    <Setter Property="Data">
-                                                        <Setter.Value>
-                                                            <GeometryGroup FillRule="Nonzero">
-                                                                <LineGeometry StartPoint="13,9" EndPoint="20,9" />
-                                                                <PathGeometry>
-                                                                    <PathFigure IsClosed="False" IsFilled="False" StartPoint="13,10">
-                                                                        <LineSegment Point="13,8" />
-                                                                        <LineSegment Point="20,8" />
-                                                                        <LineSegment Point="20,15" />
-                                                                        <LineSegment Point="18,15" />
-                                                                    </PathFigure>
-                                                                </PathGeometry>
-                                                                <LineGeometry StartPoint="10,12" EndPoint="17,12" />
-                                                                <RectangleGeometry Rect="10,11,7,7" />
-                                                            </GeometryGroup>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding IsRestoreButtonEnabled, RelativeSource={RelativeSource TemplatedParent}}" Value="False">
-                                                            <Setter Property="Stroke">
-                                                                <Setter.Value>
-                                                                    <SolidColorBrush Color="{DynamicResource DisabledSymbolColor}" />
-                                                                </Setter.Value>
-                                                            </Setter>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Path.Style>
-                                        </Path>
-                                    </Button>
-                                    <!-- 閉じるボタン -->
-                                    <Button x:Name="PART_CloseButton" Style="{StaticResource CaptionButtonStyle}" IsEnabled="{TemplateBinding IsCloseButtonEnabled}" Visibility="{TemplateBinding CloseButtonVisibility}">
-                                        <Path>
-                                            <Path.Style>
-                                                <Style TargetType="{x:Type Path}">
-                                                    <Setter Property="Stroke">
-                                                        <Setter.Value>
-                                                            <SolidColorBrush Color="{DynamicResource SymbolColor}" />
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                    <Setter Property="Data">
-                                                        <Setter.Value>
-                                                            <GeometryGroup FillRule="Nonzero">
-                                                                <LineGeometry StartPoint="0,0" EndPoint="10,10" />
-                                                                <LineGeometry StartPoint="10,0" EndPoint="0,10" />
-                                                            </GeometryGroup>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding IsCloseButtonEnabled, RelativeSource={RelativeSource TemplatedParent}}" Value="False">
-                                                            <Setter Property="Stroke">
-                                                                <Setter.Value>
-                                                                    <SolidColorBrush Color="{DynamicResource DisabledSymbolColor}" />
-                                                                </Setter.Value>
-                                                            </Setter>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Path.Style>
-                                        </Path>
-                                    </Button>
-                                </StackPanel>
-                            </Grid>
 
-                            <!-- メインコンテンツ -->
-                            <ContentPresenter Grid.Row="1" />
-                        </Grid>
-                    </Border>
+                                    <!-- ウィンドウタイトル -->
+                                    <TextBlock x:Name="PART_TitleText" Grid.Column="1">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Text" Value="{Binding Title, RelativeSource={RelativeSource TemplatedParent}}" />
+                                                <Setter Property="FontSize" Value="16" />
+                                                <Setter Property="TextAlignment" Value="Left" />
+                                                <Setter Property="VerticalAlignment" Value="Center" />
+                                                <Setter Property="Margin" Value="4,0,0,0" />
+                                                <Setter Property="Background" Value="Transparent" />
+                                                <Setter Property="Foreground">
+                                                    <Setter.Value>
+                                                        <SolidColorBrush Color="{DynamicResource ActiveWindowTitleColor}" />
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+
+                                    <!-- 閉じるボタンなど -->
+                                    <StackPanel Grid.Column="2"
+                                                Orientation="Horizontal"
+                                                WindowChrome.IsHitTestVisibleInChrome="True">
+                                        <ContentControl Content="{TemplateBinding CaptionContent}"
+                                                        WindowChrome.IsHitTestVisibleInChrome="True"
+                                                        Margin="0"
+                                                        />
+                                        <!-- 常に手前に表示ボタン -->
+                                        <Button x:Name="PART_TopmostButton" Style="{StaticResource CaptionButtonStyle}" IsEnabled="{TemplateBinding IsTopmostButtonEnabled}" Visibility="{TemplateBinding TopmostButtonVisibility}">
+                                            <Path x:Name="TopmostIcon"
+                                                  Data="M50.493442,61.90625 L55.506308,61.90625 54.781,68.844 57.187666,70.874929 53.750138,70.874929 53.093787,78.000117 52.249908,70.874929 48.812084,70.874929 51.21875,68.844 z"
+                                                  Stretch="Uniform"
+                                                  Margin="7,4">
+                                                <Path.Style>
+                                                    <Style TargetType="{x:Type Path}">
+                                                        <Setter Property="Fill">
+                                                            <Setter.Value>
+                                                                <SolidColorBrush Color="{DynamicResource SymbolColor}" />
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                        <Setter Property="RenderTransform">
+                                                            <Setter.Value>
+                                                                <RotateTransform Angle="45" CenterX="4" CenterY="10" />
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsTopmostButtonEnabled, RelativeSource={RelativeSource TemplatedParent}}" Value="False">
+                                                                <Setter Property="Fill">
+                                                                    <Setter.Value>
+                                                                        <SolidColorBrush Color="{DynamicResource DisabledSymbolColor}" />
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Path.Style>
+                                            </Path>
+                                        </Button>
+                                        <!-- 最小化ボタン -->
+                                        <Button x:Name="PART_MinimizeButton" Style="{StaticResource CaptionButtonStyle}" IsEnabled="{TemplateBinding IsMinimizeButtonEnabled}" Visibility="{TemplateBinding MinimizeButtonVisibility}">
+                                            <Path Width="30" Height="26">
+                                                <Path.Style>
+                                                    <Style TargetType="{x:Type Path}">
+                                                        <Setter Property="Fill">
+                                                            <Setter.Value>
+                                                                <SolidColorBrush Color="{DynamicResource SymbolColor}" />
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                        <Setter Property="Data">
+                                                            <Setter.Value>
+                                                                <RectangleGeometry Rect="10,15,10,3" />
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsMinimizeButtonEnabled, RelativeSource={RelativeSource TemplatedParent}}" Value="False">
+                                                                <Setter Property="Fill">
+                                                                    <Setter.Value>
+                                                                        <SolidColorBrush Color="{DynamicResource DisabledSymbolColor}" />
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Path.Style>
+                                            </Path>
+                                        </Button>
+                                        <!-- 最大化ボタン -->
+                                        <Button x:Name="PART_MaximizeButton" Style="{StaticResource CaptionButtonStyle}" IsEnabled="{TemplateBinding IsMaximizeButtonEnabled}" Visibility="{TemplateBinding MaximizeButtonVisibility}">
+                                            <Path>
+                                                <Path.Style>
+                                                    <Style TargetType="{x:Type Path}">
+                                                        <Setter Property="SnapsToDevicePixels" Value="True" />
+                                                        <Setter Property="Fill">
+                                                            <Setter.Value>
+                                                                <SolidColorBrush Color="{DynamicResource SymbolColor}" />
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                        <Setter Property="Data">
+                                                            <Setter.Value>
+                                                                <GeometryGroup FillRule="EvenOdd">
+                                                                    <RectangleGeometry Rect="0,0,9,10" />
+                                                                    <RectangleGeometry Rect="1,2,7,7" />
+                                                                </GeometryGroup>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsMaximizeButtonEnabled, RelativeSource={RelativeSource TemplatedParent}}" Value="False">
+                                                                <Setter Property="Stroke">
+                                                                    <Setter.Value>
+                                                                        <SolidColorBrush Color="{DynamicResource DisabledSymbolColor}" />
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Path.Style>
+                                            </Path>
+                                        </Button>
+                                        <!-- 元に戻すボタン -->
+                                        <Button x:Name="PART_RestoreButton" Style="{StaticResource CaptionButtonStyle}" IsEnabled="{TemplateBinding IsRestoreButtonEnabled}" Visibility="{TemplateBinding RestoreButtonVisibility}">
+                                            <Path Width="30" Height="26">
+                                                <Path.Style>
+                                                    <Style TargetType="{x:Type Path}">
+                                                        <Setter Property="SnapsToDevicePixels" Value="True" />
+                                                        <Setter Property="Stroke">
+                                                            <Setter.Value>
+                                                                <SolidColorBrush Color="{DynamicResource SymbolColor}" />
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                        <Setter Property="Data">
+                                                            <Setter.Value>
+                                                                <GeometryGroup FillRule="Nonzero">
+                                                                    <LineGeometry StartPoint="13,9" EndPoint="20,9" />
+                                                                    <PathGeometry>
+                                                                        <PathFigure IsClosed="False" IsFilled="False" StartPoint="13,10">
+                                                                            <LineSegment Point="13,8" />
+                                                                            <LineSegment Point="20,8" />
+                                                                            <LineSegment Point="20,15" />
+                                                                            <LineSegment Point="18,15" />
+                                                                        </PathFigure>
+                                                                    </PathGeometry>
+                                                                    <LineGeometry StartPoint="10,12" EndPoint="17,12" />
+                                                                    <RectangleGeometry Rect="10,11,7,7" />
+                                                                </GeometryGroup>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsRestoreButtonEnabled, RelativeSource={RelativeSource TemplatedParent}}" Value="False">
+                                                                <Setter Property="Stroke">
+                                                                    <Setter.Value>
+                                                                        <SolidColorBrush Color="{DynamicResource DisabledSymbolColor}" />
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Path.Style>
+                                            </Path>
+                                        </Button>
+                                        <!-- 閉じるボタン -->
+                                        <Button x:Name="PART_CloseButton" Style="{StaticResource CaptionButtonStyle}" IsEnabled="{TemplateBinding IsCloseButtonEnabled}" Visibility="{TemplateBinding CloseButtonVisibility}">
+                                            <Path>
+                                                <Path.Style>
+                                                    <Style TargetType="{x:Type Path}">
+                                                        <Setter Property="Stroke">
+                                                            <Setter.Value>
+                                                                <SolidColorBrush Color="{DynamicResource SymbolColor}" />
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                        <Setter Property="Data">
+                                                            <Setter.Value>
+                                                                <GeometryGroup FillRule="Nonzero">
+                                                                    <LineGeometry StartPoint="0,0" EndPoint="10,10" />
+                                                                    <LineGeometry StartPoint="10,0" EndPoint="0,10" />
+                                                                </GeometryGroup>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsCloseButtonEnabled, RelativeSource={RelativeSource TemplatedParent}}" Value="False">
+                                                                <Setter Property="Stroke">
+                                                                    <Setter.Value>
+                                                                        <SolidColorBrush Color="{DynamicResource DisabledSymbolColor}" />
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Path.Style>
+                                            </Path>
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
+
+                                <!-- メインコンテンツ -->
+                                <ContentPresenter Grid.Row="1" />
+                            </Grid>
+                        </Border>
+                    </AdornerDecorator>
                     <ControlTemplate.Triggers>
                         <Trigger Property="WindowState" Value="Maximized">
                             <Setter TargetName="PART_MainBorder" Property="Padding" Value="4" />

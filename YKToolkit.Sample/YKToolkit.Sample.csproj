@@ -110,6 +110,7 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\VersionViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\Debug\ItemDragBehavior.cs" />
     <Compile Include="Views\ExtendedControls\BinaryEditorView.xaml.cs">
       <DependentUpon>BinaryEditorView.xaml</DependentUpon>
     </Compile>
