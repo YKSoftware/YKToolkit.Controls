@@ -236,6 +236,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Behaviors\AdornerBehavior.cs" />
     <Compile Include="Core\Behaviors\CommonDialogBehavior.cs" />
     <Compile Include="Core\Behaviors\DataGridBehavior.cs" />
     <Compile Include="Core\Behaviors\FileDropBehavior.cs" />
@@ -256,6 +257,7 @@
     </Compile>
     <Compile Include="ExtendedControls\BinaryEditor\NumStyles.cs" />
     <Compile Include="Helpers\Complex.cs" />
+    <Compile Include="Helpers\Extensions\FrameworkElementExtensions.cs" />
     <Compile Include="Helpers\Math\Fourier.cs" />
     <Compile Include="Helpers\Extensions\Serialization.cs" />
     <Compile Include="Core\Shell32.cs" />

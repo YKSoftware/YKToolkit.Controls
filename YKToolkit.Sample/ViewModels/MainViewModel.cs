@@ -177,6 +177,7 @@
                             Name = "Helpers",
                             Children = new List<ViewModelInfo>()
                             {
+                                new ViewModelInfo() { Name = "Adorner", Instance = this._adornerViewModel, },
                                 new ViewModelInfo() { Name = "Fourier", Instance = this._fourierViewModel, },
                             },
                             IsExpanded = false,
@@ -220,6 +221,7 @@
         private SpinInputViewModel _spinInputViewModel = new SpinInputViewModel();
         private SplitButtonViewModel _splitButtonViewModel = new SplitButtonViewModel();
 
+        private AdornerViewModel _adornerViewModel = new AdornerViewModel();
         private FourierViewModel _fourierViewModel = new FourierViewModel();
         #endregion ViewModel 選択
     }

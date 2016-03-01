@@ -1,0 +1,102 @@
+﻿<UserControl x:Class="YKToolkit.Sample.Views.AdornerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d"
+             xmlns:vm="clr-namespace:YKToolkit.Sample.ViewModels"
+             d:DataContext="{d:DesignInstance vm:AdornerViewModel}"
+             d:DesignHeight="300" d:DesignWidth="300"
+             xmlns:vw="clr-namespace:YKToolkit.Sample.Views"
+             xmlns:YKb="clr-namespace:YKToolkit.Controls.Behaviors;assembly=YKToolkit.Controls">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="red" Color="Red" />
+        <SolidColorBrush x:Key="blue" Color="MediumBlue" />
+        <DataTemplate x:Key="template1">
+            <Grid Margin="-10">
+                <Ellipse Width="8" Height="8" Fill="{StaticResource red}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                <Ellipse Width="8" Height="8" Fill="{StaticResource red}" HorizontalAlignment="Right" VerticalAlignment="Top" />
+                <Ellipse Width="8" Height="8" Fill="{StaticResource red}" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
+                <Ellipse Width="8" Height="8" Fill="{StaticResource red}" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="template2">
+            <Grid Margin="-10">
+                <Rectangle Width="8" Height="8" Fill="{StaticResource blue}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                <Rectangle Width="8" Height="8" Fill="{StaticResource blue}" HorizontalAlignment="Right" VerticalAlignment="Top" />
+                <Rectangle Width="8" Height="8" Fill="{StaticResource blue}" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
+                <Rectangle Width="8" Height="8" Fill="{StaticResource blue}" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <ToggleButton x:Name="toggle1" Content="Toggle me." Margin="10">
+                <YKb:AdornerBehavior.AdornerTemplate>
+                    <StaticResource ResourceKey="template1" />
+                </YKb:AdornerBehavior.AdornerTemplate>
+                <YKb:AdornerBehavior.IsEnabled>
+                    <Binding Path="IsChecked" ElementName="toggle1" />
+                </YKb:AdornerBehavior.IsEnabled>
+            </ToggleButton>
+            <ToggleButton x:Name="toggle2" Content="Toggle me." Margin="10">
+                <YKb:AdornerBehavior.AdornerTemplate>
+                    <StaticResource ResourceKey="template2" />
+                </YKb:AdornerBehavior.AdornerTemplate>
+                <YKb:AdornerBehavior.IsEnabled>
+                    <Binding Path="IsChecked" ElementName="toggle2" />
+                </YKb:AdornerBehavior.IsEnabled>
+            </ToggleButton>
+        </StackPanel>
+
+        <ListBox x:Name="list1" Grid.Column="1" ItemsSource="{Binding Templates}" VerticalAlignment="Center">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Margin="10" Text="{Binding Name}">
+                        <YKb:AdornerBehavior.DataContextElement>
+                            <Binding ElementName="list1" />
+                        </YKb:AdornerBehavior.DataContextElement>
+                        <YKb:AdornerBehavior.AdornerTemplateSelector>
+                            <vw:AdornerTemplateSelector />
+                        </YKb:AdornerBehavior.AdornerTemplateSelector>
+                        <YKb:AdornerBehavior.IsEnabled>
+                            <Binding Path="IsSelected" />
+                        </YKb:AdornerBehavior.IsEnabled>
+                    </TextBlock>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ContentControl">
+                                <Border Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="IsSelected" Value="{Binding IsSelected}" />
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="Gray" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
+
+    </Grid>
+
+</UserControl>

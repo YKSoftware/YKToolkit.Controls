@@ -95,6 +95,9 @@
             <vw:SplitButtonView />
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type vm:AdornerViewModel}">
+            <vw:AdornerView />
+        </DataTemplate>
         <DataTemplate DataType="{x:Type vm:FourierViewModel}">
             <vw:FourierView />
         </DataTemplate>
