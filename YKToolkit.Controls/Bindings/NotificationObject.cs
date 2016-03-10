@@ -1,17 +1,20 @@
 ﻿namespace YKToolkit.Bindings
 {
+    using System;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
 
     /// <summary>
     /// <c>System.ComponentModel.INotifyPropertyChanged</c> インターフェースを実装した抽象クラスを表します。
     /// </summary>
+    [Serializable]
     public abstract class NotificationObject : INotifyPropertyChanged
     {
         #region INotifyPropertyChanged のメンバ
         /// <summary>
         /// プロパティ変更時に発生します。
         /// </summary>
+        [field: NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion INotifyPropertyChanged のメンバ
 

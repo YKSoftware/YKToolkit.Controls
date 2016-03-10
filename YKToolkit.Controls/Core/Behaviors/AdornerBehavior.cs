@@ -4,7 +4,6 @@
     using System.Windows.Controls;
     using System.Windows.Documents;
     using System.Windows.Media;
-    using YKToolkit.Helpers;
 
     /// <summary>
     /// 装飾に関するビヘイビアを表します。

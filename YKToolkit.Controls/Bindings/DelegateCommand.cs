@@ -6,6 +6,7 @@
     /// <summary>
     /// <c>System.Windows.Input.ICommand</c> インターフェースを実装したコマンドを表します。
     /// </summary>
+    [Serializable]
     public class DelegateCommand : ICommand
     {
         /// <summary>
