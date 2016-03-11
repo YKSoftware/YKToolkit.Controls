@@ -67,6 +67,36 @@
         }
         #endregion DropDownContent 依存関係プロパティ
 
+        #region CloseTriggerObject 依存関係プロパティ
+        /// <summary>
+        /// CloseTriggerObject 依存関係プロパティの定義
+        /// </summary>
+        public static readonly DependencyProperty CloseTriggerObjectProperty = DependencyProperty.Register("CloseTriggerObject", typeof(object), typeof(SplitButton), new PropertyMetadata(null, OnCloseTriggerObjectPropertyChanged));
+
+        /// <summary>
+        /// ドロップダウンコンテンツを閉じるトリガオブジェクトを取得または設定します。
+        /// </summary>
+        public object CloseTriggerObject
+        {
+            get { return GetValue(CloseTriggerObjectProperty); }
+            set { SetValue(CloseTriggerObjectProperty, value); }
+        }
+
+        /// <summary>
+        /// CloseTriggerObject プロパティ変更イベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private static void OnCloseTriggerObjectPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            var control = sender as SplitButton;
+            if (control != null)
+            {
+                control.IsDropDownOpen = false;
+            }
+        }
+        #endregion CloseTriggerObject 依存関係プロパティ
+
         #region Command 依存関係プロパティ
         /// <summary>
         /// Command 依存関係プロパティの定義
