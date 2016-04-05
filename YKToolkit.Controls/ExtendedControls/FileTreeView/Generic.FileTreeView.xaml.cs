@@ -165,6 +165,10 @@
         /// </summary>
         private void Initilization()
         {
+            // テンプレート適用前は処理しない
+            if (this.MainTree == null)
+                return;
+
             var w = Window.GetWindow(this);
             if (w == null)
                 return;
