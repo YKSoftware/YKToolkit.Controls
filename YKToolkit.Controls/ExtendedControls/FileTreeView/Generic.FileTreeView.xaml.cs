@@ -1,11 +1,15 @@
 ﻿namespace YKToolkit.Controls
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.IO;
+    using System.Linq;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Input;
     using System.Windows.Interop;
+    using System.Windows.Threading;
 
     /// <summary>
     /// ファイルツリーを表します。
@@ -15,6 +19,7 @@
     {
         #region TemplatePart
         private const string PART_MainTree = "PART_MainTree";
+        private const string PART_ItemButton = "PART_ItemButton";
 
         private TreeView _mainTree;
         private TreeView MainTree
@@ -26,11 +31,13 @@
                 {
                     _mainTree.ItemsSource = null;
                     _mainTree.SelectedItemChanged -= MainTree_SelectedItemChanged;
+                    _mainTree.MouseDoubleClick -= MainTree_MouseDoubleClick;
                 }
                 _mainTree = value;
                 if (_mainTree != null)
                 {
                     _mainTree.SelectedItemChanged += MainTree_SelectedItemChanged;
+                    _mainTree.MouseDoubleClick += MainTree_MouseDoubleClick;
                 }
             }
         }
@@ -170,6 +177,41 @@
         }
         #endregion RootPath 依存関係プロパティ
 
+        #region IsSynchronizeFileSystem 依存関係プロパティ
+        /// <summary>
+        /// IsSynchronizeFileSystem 依存関係プロパティの定義
+        /// </summary>
+        public static readonly DependencyProperty IsSynchronizeFileSystemProperty = DependencyProperty.Register("IsSynchronizeFileSystem", typeof(bool), typeof(FileTreeView), new PropertyMetadata(true, OnIsSynchronizeFileSystemPropertyChanged));
+
+        /// <summary>
+        /// ファイルシステムを監視するかどうかを取得または設定します。
+        /// </summary>
+        public bool IsSynchronizeFileSystem
+        {
+            get { return (bool)GetValue(IsSynchronizeFileSystemProperty); }
+            set { SetValue(IsSynchronizeFileSystemProperty, value); }
+        }
+
+        /// <summary>
+        /// IsSynchronizeFileSystem プロパティ変更イベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private static void OnIsSynchronizeFileSystemPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            var control = sender as FileTreeView;
+            if (control == null)
+                return;
+
+            control.Initilization();
+        }
+        #endregion IsSynchronizeFileSystem 依存関係プロパティ
+
+        /// <summary>
+        /// アイテムをダブルクリックしたときに発生します。
+        /// </summary>
+        public event EventHandler<FileTreeViewItemDoubleClickEventArgs> ItemDoubleClick;
+
         #region イベントハンドラ
         /// <summary>
         /// MainTree SelectedItemChanged イベントハンドラ
@@ -181,6 +223,18 @@
             var item = e.NewValue as FileTreeViewItem;
             this.SelectedPath = item != null ? item.FullPath : null;
         }
+
+        /// <summary>
+        /// MainTree MouseDoubleClick イベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private void MainTree_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var item = (e.OriginalSource as FrameworkElement).DataContext as FileTreeViewItem;
+            var h = this.ItemDoubleClick;
+            if (h != null) h(this, new FileTreeViewItemDoubleClickEventArgs(item != null ? item.FullPath : ""));
+        }
         #endregion イベントハンドラ
 
         #region private フィールド
@@ -188,6 +242,11 @@
         /// マイコンピュータを表すノード
         /// </summary>
         private FileTreeViewItem _myComputer;
+
+        /// <summary>
+        /// ファイルシステム監視
+        /// </summary>
+        List<FileSystemWatcher> _watchers;
         #endregion private フィールド
 
         /// <summary>
@@ -256,6 +315,86 @@
             }
 
             this.MainTree.ItemsSource = rootCollection ?? new ObservableCollection<FileTreeViewItem>();
+
+            #region ファイルシステムの監視
+            if (this._watchers != null)
+            {
+                foreach (var watcher in this._watchers)
+                {
+                    watcher.EnableRaisingEvents = false;
+                    watcher.Changed -= OnFileSystemUpdated;
+                    watcher.Created -= OnFileSystemUpdated;
+                    watcher.Deleted -= OnFileSystemUpdated;
+                    watcher.Renamed -= OnFileSystemUpdated;
+                    watcher.Dispose();
+                }
+                this._watchers.Clear();
+            }
+            else
+            {
+                this._watchers = new List<FileSystemWatcher>();
+            }
+            if (this.IsSynchronizeFileSystem)
+            {
+                _dispatcher = w.Dispatcher;
+                foreach (var item in rootCollection)
+                {
+                    if (!string.IsNullOrWhiteSpace(item.FullPath) && Directory.Exists(item.FullPath))
+                    {
+                        var watcher = new FileSystemWatcher()
+                        {
+                            Path = item.FullPath,
+                            Filter = "",
+                            NotifyFilter = NotifyFilters.FileName | NotifyFilters.DirectoryName | NotifyFilters.LastWrite,
+                            IncludeSubdirectories = true,
+                            SynchronizingObject = w as System.ComponentModel.ISynchronizeInvoke,
+                        };
+                        watcher.Changed += OnFileSystemUpdated;
+                        watcher.Created += OnFileSystemUpdated;
+                        watcher.Deleted += OnFileSystemUpdated;
+                        watcher.Renamed += OnFileSystemUpdated;
+                        watcher.EnableRaisingEvents = true;
+                        this._watchers.Add(watcher);
+                    }
+                }
+            }
+            else
+            {
+                this._watchers = null;
+                _dispatcher = null;
+            }
+            #endregion ファイルシステムの監視
+        }
+
+        /// <summary>
+        /// ファイルシステム監視スレッドからUIスレッドを触るため
+        /// </summary>
+        private static Dispatcher _dispatcher;
+
+        /// <summary>
+        /// ファイルシステム監視イベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private void OnFileSystemUpdated(object sender, FileSystemEventArgs e)
+        {
+            if (_dispatcher == null)
+                return;
+
+            _dispatcher.BeginInvoke(new Action(() =>
+            {
+                var dir = Path.GetDirectoryName(e.FullPath);
+                var items = this.MainTree.ItemsSource as ObservableCollection<FileTreeViewItem>;
+                var item = items.FirstOrDefault(x => x.FullPath == dir);
+                if (item != null)
+                {
+                    var newItem = new FileTreeViewItem(dir, this.SearchPattern, this.IsFileEnabled) { IsExpanded = item.IsExpanded };
+                    var index = items.IndexOf(item);
+                    items.RemoveAt(index);
+                    items.Insert(index, newItem);
+                }
+                System.Diagnostics.Trace.WriteLine("ファイルシステムが更新されましたぁ！");
+            }), DispatcherPriority.Normal);
         }
     }
 }

@@ -256,6 +256,7 @@
       <DependentUpon>Generic.BinaryEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExtendedControls\BinaryEditor\NumStyles.cs" />
+    <Compile Include="ExtendedControls\FileTreeView\FileTreeViewItemDoubleClickEventArgs.cs" />
     <Compile Include="Helpers\Complex.cs" />
     <Compile Include="Helpers\Extensions\FrameworkElementExtensions.cs" />
     <Compile Include="Helpers\Math\Fourier.cs" />

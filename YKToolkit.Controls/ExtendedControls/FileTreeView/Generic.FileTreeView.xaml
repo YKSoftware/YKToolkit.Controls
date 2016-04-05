@@ -68,15 +68,17 @@
                                                             </ControlTemplate>
                                                         </ToggleButton.Template>
                                                     </ToggleButton>
-                                                    <Border Background="{TemplateBinding Background}"
-                                                            Grid.Row="0" Grid.Column="1"
-                                                            Margin="4,0,0,0"
-                                                            Padding="0,1">
-                                                        <ContentPresenter x:Name="PART_Header"
-                                                                          ContentSource="Header"
-                                                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                                          />
-                                                    </Border>
+                                                    <ContentControl Grid.Row="0" Grid.Column="1">
+                                                        <Border Background="{TemplateBinding Background}"
+                                                                Grid.Row="0" Grid.Column="1"
+                                                                Margin="4,0,0,0"
+                                                                Padding="0,1">
+                                                            <ContentPresenter x:Name="PART_Header"
+                                                                                ContentSource="Header"
+                                                                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                                                />
+                                                        </Border>
+                                                    </ContentControl>
                                                     <ItemsPresenter x:Name="itemsHost" Grid.Row="1" Grid.Column="1" Visibility="Collapsed" />
                                                 </Grid>
                                                 <ControlTemplate.Triggers>
