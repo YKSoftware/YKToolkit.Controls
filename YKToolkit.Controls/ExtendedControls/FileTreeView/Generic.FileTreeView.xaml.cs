@@ -140,6 +140,36 @@
         }
         #endregion IsFileEnabled 依存関係プロパティ
 
+        #region RootPath 依存関係プロパティ
+        /// <summary>
+        /// RootPath 依存関係プロパティの定義
+        /// </summary>
+        public static readonly DependencyProperty RootPathProperty = DependencyProperty.Register("RootPath", typeof(string), typeof(FileTreeView), new PropertyMetadata(null, OnRootPathPropertyChanged));
+
+        /// <summary>
+        /// ルートノードのパスを取得または設定します。
+        /// </summary>
+        public string RootPath
+        {
+            get { return (string)GetValue(RootPathProperty); }
+            set { SetValue(RootPathProperty, value); }
+        }
+
+        /// <summary>
+        /// RootPath プロパティ変更イベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private static void OnRootPathPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            var control = sender as FileTreeView;
+            if (control == null)
+                return;
+
+            control.Initilization();
+        }
+        #endregion RootPath 依存関係プロパティ
+
         #region イベントハンドラ
         /// <summary>
         /// MainTree SelectedItemChanged イベントハンドラ
@@ -173,46 +203,59 @@
             if (w == null)
                 return;
 
-            var handle = (new WindowInteropHelper(w)).Handle;
-
-            #region マイコンピュータ
-            _myComputer = new FileTreeViewItem("", this.SearchPattern, this.IsFileEnabled);
-            _myComputer.Name = "マイコンピュータ";
-            _myComputer.IsExpanded = true;
-            _myComputer.IsExpanded = false;
-            _myComputer.BitmapByteArray = Shell32.ShellInfo.GetSpecialIconByByteArray(handle, Shell32.ShellInfo.FolderID.MyComputer);
-            _myComputer.Children = new ObservableCollection<FileTreeViewItem>();
-
-            var infoArray = DriveInfo.GetDrives();
-            foreach (var info in infoArray)
+            ObservableCollection<FileTreeViewItem> rootCollection = null;
+            if (Directory.Exists(this.RootPath))
             {
-                if (info.IsReady)
+                var root = new FileTreeViewItem(this.RootPath, this.SearchPattern, this.IsFileEnabled);
+                rootCollection = new ObservableCollection<FileTreeViewItem>()
                 {
-                    (_myComputer.Children as ObservableCollection<FileTreeViewItem>).Add(new FileTreeViewItem(info.RootDirectory.FullName, this.SearchPattern, this.IsFileEnabled));
-                }
+                    root,
+                };
             }
-            #endregion マイコンピュータ
-
-            #region マイドキュメント
-            var myDocumentPath = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            var myDocument = new FileTreeViewItem(myDocumentPath, this.SearchPattern, this.IsFileEnabled);
-            #endregion マイドキュメント
-
-            #region デスクトップ
-            var desktopPath = System.Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-            var desktop = new FileTreeViewItem(desktopPath, this.SearchPattern, this.IsFileEnabled);
-            desktop.Name = "デスクトップ";
-            desktop.IsExpanded = true;
-
-            (desktop.Children as Collection<FileTreeViewItem>).Insert(0, _myComputer);
-            (desktop.Children as Collection<FileTreeViewItem>).Insert(1, myDocument);
-            #endregion デスクトップ
-
-            var rootCollection = new ObservableCollection<FileTreeViewItem>()
+            else
             {
-                desktop,
-            };
-            this.MainTree.ItemsSource = rootCollection;
+                var handle = (new WindowInteropHelper(w)).Handle;
+
+                #region マイコンピュータ
+                _myComputer = new FileTreeViewItem("", this.SearchPattern, this.IsFileEnabled);
+                _myComputer.Name = "マイコンピュータ";
+                _myComputer.IsExpanded = true;
+                _myComputer.IsExpanded = false;
+                _myComputer.BitmapByteArray = Shell32.ShellInfo.GetSpecialIconByByteArray(handle, Shell32.ShellInfo.FolderID.MyComputer);
+                _myComputer.Children = new ObservableCollection<FileTreeViewItem>();
+
+                var infoArray = DriveInfo.GetDrives();
+                foreach (var info in infoArray)
+                {
+                    if (info.IsReady)
+                    {
+                        (_myComputer.Children as ObservableCollection<FileTreeViewItem>).Add(new FileTreeViewItem(info.RootDirectory.FullName, this.SearchPattern, this.IsFileEnabled));
+                    }
+                }
+                #endregion マイコンピュータ
+
+                #region マイドキュメント
+                var myDocumentPath = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                var myDocument = new FileTreeViewItem(myDocumentPath, this.SearchPattern, this.IsFileEnabled);
+                #endregion マイドキュメント
+
+                #region デスクトップ
+                var desktopPath = System.Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+                var desktop = new FileTreeViewItem(desktopPath, this.SearchPattern, this.IsFileEnabled);
+                desktop.Name = "デスクトップ";
+                desktop.IsExpanded = true;
+
+                (desktop.Children as Collection<FileTreeViewItem>).Insert(0, _myComputer);
+                (desktop.Children as Collection<FileTreeViewItem>).Insert(1, myDocument);
+                #endregion デスクトップ
+
+                rootCollection = new ObservableCollection<FileTreeViewItem>()
+                {
+                    desktop,
+                };
+            }
+
+            this.MainTree.ItemsSource = rootCollection ?? new ObservableCollection<FileTreeViewItem>();
         }
     }
 }
