@@ -206,7 +206,7 @@
             ObservableCollection<FileTreeViewItem> rootCollection = null;
             if (Directory.Exists(this.RootPath))
             {
-                var root = new FileTreeViewItem(this.RootPath, this.SearchPattern, this.IsFileEnabled);
+                var root = new FileTreeViewItem(this.RootPath, this.SearchPattern, this.IsFileEnabled) { IsExpanded = true };
                 rootCollection = new ObservableCollection<FileTreeViewItem>()
                 {
                     root,
