@@ -137,7 +137,8 @@
                                     </TextBlock>
 
                                     <!-- 閉じるボタンなど -->
-                                    <StackPanel Grid.Column="2"
+                                    <StackPanel x:Name="PART_SystemButtonPanel"
+                                                Grid.Column="2"
                                                 Orientation="Horizontal"
                                                 WindowChrome.IsHitTestVisibleInChrome="True">
                                         <ContentControl Content="{TemplateBinding CaptionContent}"
@@ -316,6 +317,10 @@
                         </Border>
                     </AdornerDecorator>
                     <ControlTemplate.Triggers>
+                        <Trigger Property="WindowStyle" Value="None">
+                            <Setter TargetName="PART_SystemButtonPanel" Property="Visibility" Value="Collapsed" />
+                            <Setter Property="ResizeMode" Value="NoResize" />
+                        </Trigger>
                         <Trigger Property="WindowState" Value="Maximized">
                             <Setter TargetName="PART_MainBorder" Property="Padding" Value="4" />
                         </Trigger>
