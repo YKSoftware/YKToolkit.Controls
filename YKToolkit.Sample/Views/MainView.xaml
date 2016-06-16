@@ -26,9 +26,9 @@
             <MenuItem Header="終了" Command="{Binding CloseWindowCommand}" InputGestureText="Alt+F4" />
         </ContextMenu>
     </YK:Window.SystemMenuContent>
-    <YK:Window.CaptionContent>
+    <YK:Window.CaptionRightContent>
         <ComboBox ItemsSource="{Binding Themes}" SelectedItem="{Binding CurrentTheme}" Width="110" Margin="0,1" />
-    </YK:Window.CaptionContent>
+    </YK:Window.CaptionRightContent>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="ファイル (_F)">

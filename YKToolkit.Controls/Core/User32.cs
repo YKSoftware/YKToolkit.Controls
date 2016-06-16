@@ -10,23 +10,66 @@
     public static class User32
     {
         /// <summary>
-        /// GetWindowLong 関数の導入
+        /// GetWindowLong(x86) 関数の導入
         /// </summary>
-        /// <param name="hwnd">ウィンドウハンドル</param>
-        /// <param name="index">インデックス</param>
+        /// <param name="hWnd">ウィンドウハンドル</param>
+        /// <param name="nIndex">インデックス</param>
         /// <returns>戻り値</returns>
-        [DllImport("user32.dll")]
-        public extern static int GetWindowLong(IntPtr hwnd, int index);
+        [DllImport("user32.dll", EntryPoint = "GetWindowLong")]
+        private static extern IntPtr GetWindowLongPtr32(IntPtr hWnd, int nIndex);
 
         /// <summary>
-        /// SetWindowLong 関数の導入
+        /// GetWindowLong(x64) 関数の導入
         /// </summary>
-        /// <param name="hwnd">ウィンドウハンドル</param>
-        /// <param name="index">インデックス</param>
-        /// <param name="value">設定値</param>
+        /// <param name="hWnd">ウィンドウハンドル</param>
+        /// <param name="nIndex">インデックス</param>
         /// <returns>戻り値</returns>
-        [DllImport("user32.dll")]
-        public extern static int SetWindowLong(IntPtr hwnd, int index, int value);
+        [DllImport("user32.dll", EntryPoint = "GetWindowLongPtr")]
+        private static extern IntPtr GetWindowLongPtr64(IntPtr hWnd, int nIndex);
+
+        /// <summary>
+        /// GetWindowLong 関数
+        /// </summary>
+        /// <param name="hWnd">ウィンドウハンドル</param>
+        /// <param name="nIndex">インデックス</param>
+        /// <returns>戻り値</returns>
+        public static IntPtr GetWindowLongPtr(IntPtr hWnd, int nIndex)
+        {
+            return IntPtr.Size == 8 ? GetWindowLongPtr64(hWnd, nIndex) : GetWindowLongPtr32(hWnd, nIndex);
+        }
+
+        /// <summary>
+        /// SetWindowLong(x86) 関数の導入
+        /// </summary>
+        /// <param name="hWnd">ウィンドウハンドル</param>
+        /// <param name="nIndex">インデックス</param>
+        /// <param name="dwNewLong">設定値</param>
+        /// <returns>戻り値</returns>
+        [DllImport("user32.dll", EntryPoint = "SetWindowLong")]
+        private static extern int SetWindowLongPtr32(IntPtr hWnd, int nIndex, int dwNewLong);
+
+        /// <summary>
+        /// SetWindowLong(x64) 関数の導入
+        /// </summary>
+        /// <param name="hWnd">ウィンドウハンドル</param>
+        /// <param name="nIndex">インデックス</param>
+        /// <param name="dwNewLong">設定値</param>
+        /// <returns>戻り値</returns>
+        [DllImport("user32.dll", EntryPoint = "SetWindowLongPtr")]
+        private static extern IntPtr SetWindowLongPtr64(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
+
+        /// <summary>
+        /// SetWindowLong 関数
+        /// </summary>
+        /// <param name="hWnd">ウィンドウハンドル</param>
+        /// <param name="nIndex">インデックス</param>
+        /// <param name="dwNewLong">設定値</param>
+        /// <returns>戻り値</returns>
+        public static IntPtr SetWindowLongPtr(IntPtr hWnd, int nIndex, IntPtr dwNewLong)
+        {
+            return IntPtr.Size == 8 ? SetWindowLongPtr64(hWnd, nIndex, dwNewLong) :
+                new IntPtr(SetWindowLongPtr32(hWnd, nIndex, dwNewLong.ToInt32()));
+        }
 
         /// <summary>
         /// SendMessage 関数の導入
@@ -87,6 +130,11 @@
             /// WindowStyle - WS_NONE
             /// </summary>
             WS_NONE = 0x00000000,
+
+            /// <summary>
+            /// WindowStyle - WS_EX_TOOLWINDOW
+            /// </summary>
+            WS_EX_TOOLWINDOW = 0x00000080,
 
             /// <summary>
             /// WindowStyle - WS_EX_CONTEXTHELP

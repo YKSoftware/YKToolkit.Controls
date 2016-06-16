@@ -100,7 +100,8 @@
                                             VerticalAlignment="Center"
                                             Cursor="Arrow"
                                             ContextMenu="{TemplateBinding SystemMenuContent}"
-                                            WindowChrome.IsHitTestVisibleInChrome="True">
+                                            WindowChrome.IsHitTestVisibleInChrome="True"
+                                            Visibility="{TemplateBinding IconVisibility}">
                                         <Button.Background>
                                             <VisualBrush>
                                                 <VisualBrush.Visual>
@@ -118,33 +119,41 @@
                                     </Button>
 
                                     <!-- ウィンドウタイトル -->
-                                    <TextBlock x:Name="PART_TitleText" Grid.Column="1">
-                                        <TextBlock.Style>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="Text" Value="{Binding Title, RelativeSource={RelativeSource TemplatedParent}}" />
-                                                <Setter Property="FontSize" Value="16" />
-                                                <Setter Property="TextAlignment" Value="Left" />
-                                                <Setter Property="VerticalAlignment" Value="Center" />
-                                                <Setter Property="Margin" Value="4,0,0,0" />
-                                                <Setter Property="Background" Value="Transparent" />
-                                                <Setter Property="Foreground">
-                                                    <Setter.Value>
-                                                        <SolidColorBrush Color="{DynamicResource ActiveWindowTitleColor}" />
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Style>
-                                        </TextBlock.Style>
-                                    </TextBlock>
+                                    <DockPanel Grid.Column="1">
+                                        <ContentControl Content="{TemplateBinding CaptionLeftContent}"
+                                                        DockPanel.Dock="Left"
+                                                        WindowChrome.IsHitTestVisibleInChrome="True"
+                                                        Margin="0"
+                                                        />
+                                        <ContentControl Content="{TemplateBinding CaptionRightContent}"
+                                                        DockPanel.Dock="Right"
+                                                        WindowChrome.IsHitTestVisibleInChrome="True"
+                                                        Margin="0"
+                                                        />
+                                        <TextBlock x:Name="PART_TitleText">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Text" Value="{Binding Title, RelativeSource={RelativeSource TemplatedParent}}" />
+                                                    <Setter Property="FontSize" Value="16" />
+                                                    <Setter Property="TextAlignment" Value="Left" />
+                                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                                    <Setter Property="Margin" Value="4,0,0,0" />
+                                                    <Setter Property="Background" Value="Transparent" />
+                                                    <Setter Property="Foreground">
+                                                        <Setter.Value>
+                                                            <SolidColorBrush Color="{DynamicResource ActiveWindowTitleColor}" />
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </DockPanel>
 
                                     <!-- 閉じるボタンなど -->
                                     <StackPanel x:Name="PART_SystemButtonPanel"
                                                 Grid.Column="2"
                                                 Orientation="Horizontal"
                                                 WindowChrome.IsHitTestVisibleInChrome="True">
-                                        <ContentControl Content="{TemplateBinding CaptionContent}"
-                                                        WindowChrome.IsHitTestVisibleInChrome="True"
-                                                        Margin="0"
-                                                        />
                                         <!-- 常に手前に表示ボタン -->
                                         <Button x:Name="PART_TopmostButton" Style="{StaticResource CaptionButtonStyle}" IsEnabled="{TemplateBinding IsTopmostButtonEnabled}" Visibility="{TemplateBinding TopmostButtonVisibility}">
                                             <Path x:Name="TopmostIcon"

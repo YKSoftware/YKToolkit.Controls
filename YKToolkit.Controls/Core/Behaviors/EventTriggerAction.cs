@@ -7,40 +7,40 @@
     /// <summary>
     /// 登録したイベントが発行されたときにアクションをおこなうためのビヘイビアを表します。
     /// </summary>
-    public class EventTriggerAction
+    public class EventTriggerCommandBehavior
     {
-        #region Action 添付プロパティ
+        #region Command 添付プロパティ
         /// <summary>
-        /// Action 添付プロパティの定義
+        /// Command 添付プロパティの定義
         /// </summary>
-        public static readonly DependencyProperty ActionProperty = DependencyProperty.RegisterAttached("Action", typeof(ICommand), typeof(EventTriggerAction), new PropertyMetadata(null));
+        public static readonly DependencyProperty CommandProperty = DependencyProperty.RegisterAttached("Command", typeof(ICommand), typeof(EventTriggerCommandBehavior), new PropertyMetadata(null));
 
         /// <summary>
-        /// Action 添付プロパティを取得します。
+        /// Command 添付プロパティを取得します。
         /// </summary>
         /// <param name="target">対象とする DependencyObject を指定します。</param>
         /// <returns>取得した値を返します。</returns>
-        public static ICommand GetAction(DependencyObject target)
+        public static ICommand GetCommand(DependencyObject target)
         {
-            return (ICommand)target.GetValue(ActionProperty);
+            return (ICommand)target.GetValue(CommandProperty);
         }
 
         /// <summary>
-        /// Action 添付プロパティを設定します。
+        /// Command 添付プロパティを設定します。
         /// </summary>
         /// <param name="target">対象とする DependencyObject を指定します。</param>
         /// <param name="value">設定する値を指定します。</param>
-        public static void SetAction(DependencyObject target, ICommand value)
+        public static void SetCommand(DependencyObject target, ICommand value)
         {
-            target.SetValue(ActionProperty, value);
+            target.SetValue(CommandProperty, value);
         }
-        #endregion Action 添付プロパティ
+        #endregion Command 添付プロパティ
 
         #region RoutedEvent 添付プロパティ
         /// <summary>
         /// RoutedEvent 添付プロパティの定義
         /// </summary>
-        public static readonly DependencyProperty RoutedEventProperty = DependencyProperty.RegisterAttached("RoutedEvent", typeof(RoutedEvent), typeof(EventTriggerAction), new PropertyMetadata(null, OnRoutedEventPropertyChanged));
+        public static readonly DependencyProperty RoutedEventProperty = DependencyProperty.RegisterAttached("RoutedEvent", typeof(RoutedEvent), typeof(EventTriggerCommandBehavior), new PropertyMetadata(null, OnRoutedEventPropertyChanged));
 
         /// <summary>
         /// RoutedEvent 添付プロパティを取得します。
@@ -94,11 +94,11 @@
                                     var control = obj as UIElement;
                                     if (control == null)
                                         return;
-                                    var action = GetAction(control);
-                                    if (action == null)
+                                    var command = GetCommand(control);
+                                    if (command == null)
                                         return;
-                                    if (action.CanExecute(args))
-                                        action.Execute(args);
+                                    if (command.CanExecute(args))
+                                        command.Execute(args);
                                 }));
                             isEnd = true;
                             break;

@@ -243,6 +243,7 @@
     <Compile Include="Core\Behaviors\EventTriggerAction.cs" />
     <Compile Include="Core\Behaviors\MessageDialogBehavior.cs" />
     <Compile Include="Core\Behaviors\NotifyUsbDeviceChangedBehavior.cs" />
+    <Compile Include="Core\Behaviors\ShowAltTabMenuBehavior.cs" />
     <Compile Include="Core\Behaviors\SystemMenuBehavior.cs" />
     <Compile Include="Core\Behaviors\TextBoxAllSelectBehavior.cs" />
     <Compile Include="Core\Behaviors\TreeViewAutoHorizontalScrollBehavior.cs" />

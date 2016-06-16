@@ -53,11 +53,11 @@
                     return;
 
                 var handle = (new WindowInteropHelper(w)).Handle;
-                var original = User32.GetWindowLong(handle, (int)User32.GWLs.GWL_STYLE);
+                var original = User32.GetWindowLongPtr(handle, (int)User32.GWLs.GWL_STYLE).ToInt32();
                 var current = GetWindowStyle(w, original);
                 if (original != current)
                 {
-                    User32.SetWindowLong(handle, (int)User32.GWLs.GWL_STYLE, current);
+                    User32.SetWindowLongPtr(handle, (int)User32.GWLs.GWL_STYLE, new IntPtr(current));
                 }
 
                 // メッセージ処理をフック

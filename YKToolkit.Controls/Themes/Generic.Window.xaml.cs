@@ -148,21 +148,37 @@
         }
         #endregion TemplatePart
 
-        #region CaptionContent プロパティ
+        #region CaptionLeftContent プロパティ
         /// <summary>
-        /// CaptionContent 依存関係プロパティの定義
+        /// CaptionLeftContent 依存関係プロパティの定義
         /// </summary>
-        public static readonly DependencyProperty CaptionContentProperty = DependencyProperty.Register("CaptionContent", typeof(object), typeof(Window), new PropertyMetadata(null));
+        public static readonly DependencyProperty CaptionLeftContentProperty = DependencyProperty.Register("CaptionLeftContent", typeof(object), typeof(Window), new PropertyMetadata(null));
 
         /// <summary>
         /// キャプションバーに表示するコンテンツを取得または設定します。
         /// </summary>
-        public object CaptionContent
+        public object CaptionLeftContent
         {
-            get { return GetValue(CaptionContentProperty); }
-            set { SetValue(CaptionContentProperty, value); }
+            get { return GetValue(CaptionLeftContentProperty); }
+            set { SetValue(CaptionLeftContentProperty, value); }
         }
-        #endregion CaptionContent プロパティ
+        #endregion CaptionLeftContent プロパティ
+
+        #region CaptionRightContent プロパティ
+        /// <summary>
+        /// CaptionRightContent 依存関係プロパティの定義
+        /// </summary>
+        public static readonly DependencyProperty CaptionRightContentProperty = DependencyProperty.Register("CaptionRightContent", typeof(object), typeof(Window), new PropertyMetadata(null));
+
+        /// <summary>
+        /// キャプションバーに表示するコンテンツを取得または設定します。
+        /// </summary>
+        public object CaptionRightContent
+        {
+            get { return GetValue(CaptionRightContentProperty); }
+            set { SetValue(CaptionRightContentProperty, value); }
+        }
+        #endregion CaptionRightContent プロパティ
 
         #region SystemMenuContent プロパティ
         /// <summary>
@@ -307,6 +323,22 @@
             set { SetValue(IsTopmostButtonEnabledProperty, value); }
         }
         #endregion IsTopmostButtonEnabled プロパティ
+
+        #region IconVisibility プロパティ
+        /// <summary>
+        /// IconVisibility 依存関係プロパティの定義
+        /// </summary>
+        public static readonly DependencyProperty IconVisibilityProperty = DependencyProperty.Register("IconVisibility", typeof(Visibility), typeof(Window), new PropertyMetadata(Visibility.Visible));
+
+        /// <summary>
+        /// アイコンの視認性を取得または設定します。
+        /// </summary>
+        public Visibility IconVisibility
+        {
+            get { return (Visibility)GetValue(IconVisibilityProperty); }
+            set { SetValue(IconVisibilityProperty, value); }
+        }
+        #endregion IconVisibility プロパティ
 
         #region CloseButtonVisibility プロパティ
         /// <summary>

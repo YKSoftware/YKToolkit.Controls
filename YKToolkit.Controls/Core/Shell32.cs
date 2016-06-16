@@ -521,13 +521,14 @@
             /// アイコン画像を取得します。
             /// </summary>
             /// <param name="path">ファイルのフルパスを指定します。</param>
+            /// <param name="isLarge">大きいアイコンを取得したい場合に true を指定します。</param>
             /// <returns>取得結果</returns>
-            public static BitmapSource GetSystemIcon(string path)
+            public static BitmapSource GetSystemIcon(string path, bool isLarge = false)
             {
                 BitmapSource icon = null;
 
                 SHFILEINFO psf = new SHFILEINFO();
-                SHGetFileInfo(path, 0, ref psf, Marshal.SizeOf(psf), SHGFI_ICON | SHGFI_SMALLICON);
+                SHGetFileInfo(path, 0, ref psf, Marshal.SizeOf(psf), SHGFI_ICON | (isLarge ? SHGFI_LARGEICON : SHGFI_SMALLICON));
 
                 if (psf.hIcon != IntPtr.Zero)
                     icon = Imaging.CreateBitmapSourceFromHIcon(psf.hIcon, Int32Rect.Empty, null);
