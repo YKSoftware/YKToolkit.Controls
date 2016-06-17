@@ -8,7 +8,7 @@ namespace YKToolkit.Controls.Behaviors
     internal static class NativeMethods
     {
         [DllImport("user32.dll")]
-        internal static extern IntPtr SetWinEventHook(uint eventMin, uint eventMax, IntPtr hmodWinEventProc, ShowDesktopDisableBehavior.WinEventDelegate lpfnWinEventProc, uint idProcess, uint idThread, uint dwFlags);
+        internal static extern IntPtr SetWinEventHook(uint eventMin, uint eventMax, IntPtr hmodWinEventProc, ShowDesktopBehavior.WinEventDelegate lpfnWinEventProc, uint idProcess, uint idThread, uint dwFlags);
 
         [DllImport("user32.dll")]
         internal static extern bool UnhookWinEvent(IntPtr hWinEventHook);
@@ -20,13 +20,13 @@ namespace YKToolkit.Controls.Behaviors
     /// <summary>
     /// 「デスクトップを表示」ボタンを押したとき、ウィンドウを最小化するかどうかを制御するためのビヘイビアを表します。
     /// </summary>
-    public class ShowDesktopDisableBehavior
+    public class ShowDesktopBehavior
     {
         #region IsEnabled 添付プロパティ
         /// <summary>
         /// IsEnabled 添付プロパティの定義
         /// </summary>
-        public static readonly DependencyProperty IsEnabledProperty = DependencyProperty.RegisterAttached("IsEnabled", typeof(bool), typeof(ShowDesktopDisableBehavior), new PropertyMetadata(OnIsEnabledPropertyChanged));
+        public static readonly DependencyProperty IsEnabledProperty = DependencyProperty.RegisterAttached("IsEnabled", typeof(bool), typeof(ShowDesktopBehavior), new PropertyMetadata(true, OnIsEnabledPropertyChanged));
 
         /// <summary>
         /// IsEnabled 添付プロパティを取得します。
@@ -62,12 +62,12 @@ namespace YKToolkit.Controls.Behaviors
             var isEnabled = (bool)e.NewValue;
             if (isEnabled)
             {
-                w.SourceInitialized += OnSourceInitialized;
+                RemoveHook(w);
+                w.SourceInitialized -= OnSourceInitialized;
             }
             else
             {
-                RemoveHook(w);
-                w.SourceInitialized -= OnSourceInitialized;
+                w.SourceInitialized += OnSourceInitialized;
             }
         }
         #endregion IsEnabled 添付プロパティ
