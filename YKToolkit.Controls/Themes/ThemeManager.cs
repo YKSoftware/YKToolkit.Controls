@@ -192,7 +192,7 @@
         /// <summary>
         /// リソース内のテーマ用ファイル名を取得します。
         /// </summary>
-        /// <returns></returns>
+        /// <returns>テーマ用ファイル名リストを返します。</returns>
         private string[] GetThemeNameList()
         {
             var assembly = Assembly.GetExecutingAssembly();
