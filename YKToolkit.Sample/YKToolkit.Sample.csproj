@@ -78,6 +78,7 @@
     <Compile Include="Models\ProductInfo.cs" />
     <Compile Include="Models\ViewModelInfo.cs" />
     <Compile Include="ViewModels\ExtendedControls\BinaryEditorViewModel.cs" />
+    <Compile Include="ViewModels\ExtendedControls\RadarChartViewModel.cs" />
     <Compile Include="ViewModels\Helpers\AdornerViewModel.cs" />
     <Compile Include="ViewModels\Helpers\FourierViewModel.cs" />
     <Compile Include="ViewModels\ExtendedControls\LineGraphSubViewModel.cs" />
@@ -115,6 +116,9 @@
     <Compile Include="Views\Debug\ItemDragBehavior.cs" />
     <Compile Include="Views\ExtendedControls\BinaryEditorView.xaml.cs">
       <DependentUpon>BinaryEditorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExtendedControls\RadarChartView.xaml.cs">
+      <DependentUpon>RadarChartView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ExtendedControls\LineGraphView.xaml.cs">
       <DependentUpon>LineGraphView.xaml</DependentUpon>
@@ -218,6 +222,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\ExtendedControls\BinaryEditorView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ExtendedControls\RadarChartView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

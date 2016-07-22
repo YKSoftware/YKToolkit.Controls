@@ -88,6 +88,9 @@
         <DataTemplate DataType="{x:Type vm:MessageBoxViewModel}">
             <vw:MessageBoxView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:RadarChartViewModel}">
+            <vw:RadarChartView />
+        </DataTemplate>
         <DataTemplate DataType="{x:Type vm:SpinInputViewModel}">
             <vw:SpinInputView />
         </DataTemplate>

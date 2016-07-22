@@ -31,6 +31,7 @@
         <ResourceDictionary Source="/YKToolkit.Controls;component/ExtendedControls/FileTreeView/Generic.FileTreeView.xaml" />
         <ResourceDictionary Source="/YKToolkit.Controls;component/ExtendedControls/LineGraph/Generic.LineGraph.xaml" />
         <ResourceDictionary Source="/YKToolkit.Controls;component/ExtendedControls/MessageBox/Generic.MessageBox.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/ExtendedControls/RadarChart/Generic.RadarChart.xaml" />
         <ResourceDictionary Source="/YKToolkit.Controls;component/ExtendedControls/SpinInput/Generic.SpinInput.xaml" />
         <ResourceDictionary Source="/YKToolkit.Controls;component/ExtendedControls/SplitButton/Generic.SplitButton.xaml" />
     </ResourceDictionary.MergedDictionaries>

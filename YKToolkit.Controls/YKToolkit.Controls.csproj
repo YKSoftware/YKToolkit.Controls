@@ -73,6 +73,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ExtendedControls\RadarChart\Generic.RadarChart.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ExtendedControls\LineGraph\Generic.LineGraph.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -259,6 +263,9 @@
       <DependentUpon>Generic.BinaryEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExtendedControls\BinaryEditor\NumStyles.cs" />
+    <Compile Include="ExtendedControls\RadarChart\Generic.RadarChart.xaml.cs">
+      <DependentUpon>Generic.RadarChart.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ExtendedControls\FileTreeView\FileTreeViewItemDoubleClickEventArgs.cs" />
     <Compile Include="Helpers\Complex.cs" />
     <Compile Include="Helpers\Extensions\FrameworkElementExtensions.cs" />
