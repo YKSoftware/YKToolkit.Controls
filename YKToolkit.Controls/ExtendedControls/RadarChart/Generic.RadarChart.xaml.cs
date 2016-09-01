@@ -51,11 +51,6 @@
         }
         #endregion コンストラクタ
 
-        public RadarChart()
-        {
-            ThemeManager.Instance.ThemeChanged += (s, e) => InvalidateVisual();
-        }
-
         #region LabelOffset 添付プロパティ
         /// <summary>
         /// Point 型の LabelOffset 添付プロパティの定義を表します。
@@ -85,7 +80,7 @@
 
         #region LabelsSource 依存関係プロパティ
         /// <summary>
-        /// IEnumerable<object> 型の LabelsSource 依存関係プロパティの定義を表します。
+        /// IEnumerable&lt;object&gt; 型の LabelsSource 依存関係プロパティの定義を表します。
         /// </summary>
         public static readonly DependencyProperty LabelsSourceProperty = DependencyProperty.Register("LabelsSource", typeof(IEnumerable<object>), typeof(RadarChart), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender, (s, e) => (s as RadarChart).OnLabelsSourcePropertyChanged(e.OldValue as IEnumerable<object>, e.NewValue as IEnumerable<object>)));
 
@@ -229,8 +224,8 @@
         /// <summary>
         /// Values プロパティ変更イベントハンドラ
         /// </summary>
-        /// <param name="sender">イベント発行元</param>
-        /// <param name="e">イベント引数</param>
+        /// <param name="oldValue">変更前の値</param>
+        /// <param name="newValue">変更後の値</param>
         private static void OnValuesPropertyChanged(IEnumerable<double> oldValue, IEnumerable<double> newValue)
         {
             if (oldValue != null)
