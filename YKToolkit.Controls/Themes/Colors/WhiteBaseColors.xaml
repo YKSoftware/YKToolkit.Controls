@@ -95,6 +95,10 @@
     <!-- BusyIndicator -->
     <Color x:Key="IndicatorColor">#FF3399FF</Color>
 
+    <!-- グラフ関連 -->
+    <Color x:Key="GraphBorderColor">#FF007ACC</Color>
+    <Color x:Key="GraphFillColor">#60007ACC</Color>
+
 
 
     <Color x:Key="MentionColor">#FFFFCC00</Color>

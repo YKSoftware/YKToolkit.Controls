@@ -1,6 +1,7 @@
 ﻿namespace YKToolkit.Helpers
 {
     using System;
+    using System.Windows;
 
     /// <summary>
     /// 拡張メソッドを提供します。
@@ -222,5 +223,36 @@
             return x;
         }
         #endregion 連立方程式
+
+        #region 回転座標
+        /// <summary>
+        /// 回転座標を算出します。
+        /// </summary>
+        /// <param name="pt">回転させる座標を指定します。</param>
+        /// <param name="angle">時計回りの回転角度を度数法で指定します。</param>
+        /// <param name="origin">原点座標を指定します。</param>
+        /// <returns>原点を中心に</returns>
+        public static Point Rotate(this Point pt, double angle, Point origin)
+        {
+            if (angle % 360 == 0)
+                return pt;
+
+            // 原点をシフト
+            var x = pt.X - origin.X;
+            var y = pt.Y - origin.Y;
+
+            // 予備計算
+            var theta = -angle * Math.PI / 180.0;
+            var cos = Math.Cos(theta);
+            var sin = Math.Sin(theta);
+
+            // シフトした原点の周りに回転
+            var rotatedX = x * cos + y * sin;
+            var rotatedY = -x * sin + y * cos;
+
+            // シフトした分を元に戻す
+            return new Point(rotatedX + origin.X, rotatedY + origin.Y);
+        }
+        #endregion 回転座標
     }
 }

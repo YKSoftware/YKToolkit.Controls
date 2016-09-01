@@ -8,7 +8,44 @@
              d:DataContext="{d:DesignInstance vm:DropDownButtonViewModel}"
              d:DesignHeight="300" d:DesignWidth="300"
              xmlns:YK="clr-namespace:YKToolkit.Controls;assembly=YKToolkit.Controls">
-    <StackPanel>
-        <YK:RadarChart />
-    </StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,2">
+                <TextBlock Text="項目数 :" VerticalAlignment="Center" />
+                <YK:SpinInput Value="{Binding Number}" Minimum="3" Maximum="15" Delay="80" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,2">
+                <TextBlock Text="GraphMargin :" VerticalAlignment="Center" />
+                <YK:SpinInput Value="{Binding GraphMargin}" Minimum="0" Maximum="100" Delay="80" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,2">
+                <Button Content="Random Data" Command="{Binding RandomDataCommand}" />
+            </StackPanel>
+        </StackPanel>
+
+        <YK:RadarChart Grid.Row="1" LabelsSource="{Binding Labels}" Values="{Binding Values}" GraphMargin="{Binding GraphMargin}">
+            <YK:RadarChart.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="Orange" BorderThickness="0,0,0,1" Padding="0" YK:RadarChart.LabelOffset="0,0">
+                        <TextBlock Text="{Binding .}" />
+                    </Border>
+                </DataTemplate>
+            </YK:RadarChart.ItemTemplate>
+        </YK:RadarChart>
+        <YK:RadarChart Grid.Row="1" LabelsSource="{Binding Labels}" Values="{Binding Values2}" GraphMargin="{Binding GraphMargin}"
+                       BorderBrush="Transparent"
+                       TickBorderBrush="Transparent"
+                       Fill="#60FF0000" Stroke="#FFFF0000">
+            <YK:RadarChart.ItemTemplate>
+                <DataTemplate>
+                    <Border />
+                </DataTemplate>
+            </YK:RadarChart.ItemTemplate>
+        </YK:RadarChart>
+    </Grid>
 </UserControl>

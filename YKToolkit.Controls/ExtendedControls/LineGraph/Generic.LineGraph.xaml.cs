@@ -962,7 +962,7 @@
         private LinearGradientBrush _xAxisMoveAreaBrush;
 
         /// <summary>
-        /// 縦軸/第 2 2主軸移動領域塗潰しブラシ
+        /// 縦軸/第 2 主軸移動領域塗潰しブラシ
         /// </summary>
         private LinearGradientBrush _yAxisMoveAreaBrush;
 

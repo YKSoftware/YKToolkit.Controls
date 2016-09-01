@@ -6,16 +6,19 @@
         <ResourceDictionary Source="pack://application:,,,/YKToolkit.Controls;component/Themes/DefaultColors.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <c:BooleanInverseConverter x:Key="BooleanInverseConverter" />
-
     <Style TargetType="{x:Type local:RadarChart}">
-        <Setter Property="Template">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="GraphMargin" Value="20" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="TickBorderThickness" Value="1" />
+        <Setter Property="Ticks" Value="5" />
+        <Setter Property="TickWidth" Value="12" />
+        <Setter Property="Fill">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:RadarChart}">
-                    <TextBlock>RadarChart</TextBlock>
-                </ControlTemplate>
+                <SolidColorBrush Color="{DynamicResource GraphFillColor}" />
             </Setter.Value>
         </Setter>
+        <Setter Property="StrokeThickness" Value="1" />
     </Style>
 
 </ResourceDictionary>
