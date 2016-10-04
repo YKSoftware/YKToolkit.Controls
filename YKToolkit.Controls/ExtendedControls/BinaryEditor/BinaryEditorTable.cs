@@ -5,20 +5,36 @@
 //              +00  +01  +02  +03  +04  +05  +06  +07  +08  +09  +0A  +0B  +0C  +0D  +0E  +0F       ASCII      
 // 0x12345678  -128 -128 -128 -128 -128 -128 -128 -128 -128 -128 -128 -128 -128 -128 -128 -128  ................
 // 
+// 1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789
+//             +00 +01 +02 +03 +04 +05 +06 +07 +08 +09 +0A +0B +0C +0D +0E +0F       ASCII      
+// 0x12345678   FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  ................
+// 
 // ■ 2 バイト表示
 // 1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789
-//                +00     +02     +04     +06     +08     +0A     +0C     +0E 
-// 0x12345678  -32,768 -32,768 -32,768 -32,768 -32,768 -32,768 -32,768 -32,768
+//                +00     +02     +04     +06     +08     +0A     +0C     +0E        ASCII      
+// 0x12345678  -32,768 -32,768 -32,768 -32,768 -32,768 -32,768 -32,768 -32,768  ................
+// 
+// 1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789
+//              +00  +02  +04  +06  +08  +0A  +0C  +0E       ASCII      
+// 0x12345678  FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF  ................
 // 
 // ■ 4 バイト表示
 // 1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789
-//                    +00            +04            +08            +0C    
-// 0x12345678  -2,147,483,648 -2,147,483,648 -2,147,483,648 -2,147,483,648
+//                    +00            +04            +08            +0C           ASCII      
+// 0x12345678  -2,147,483,648 -2,147,483,648 -2,147,483,648 -2,147,483,648  ................
+// 
+// 1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789
+//                +00      +04      +08      +0C         ASCII      
+// 0x12345678  FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF  ................
 // 
 // ■ 8 バイト表示
 // 1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789
-//                         +00                        +08           
-// 0x12345678  -9,223,372,036,854,775,808 -9,223,372,036,854,775,808
+//                         +00                        +08                  ASCII      
+// 0x12345678  -9,223,372,036,854,775,808 -9,223,372,036,854,775,808  ................
+// 
+// 1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789
+//                   +00              +08              ASCII      
+// 0x12345678  FFFFFFFFFFFFFFFF FFFFFFFFFFFFFFFF  ................
 /////////////////////////////////////////////////////////////////////////////////////
 
 namespace YKToolkit.Controls
@@ -46,6 +62,7 @@ namespace YKToolkit.Controls
         public BinaryEditorTable()
         {
             ThemeManager.Instance.ThemeChanged += OnThemeChanged;
+            this.Typeface = new Typeface("consolas");
         }
         #endregion コンストラクタ
 
@@ -134,7 +151,7 @@ namespace YKToolkit.Controls
         /// <summary>
         /// VisibleLines 依存関係プロパティの定義
         /// </summary>
-        public static readonly DependencyProperty VisibleLinesProperty = BinaryEditor.VisibleLinesProperty.AddOwner(typeof(BinaryEditorTable), new FrameworkPropertyMetadata(16, FrameworkPropertyMetadataOptions.AffectsMeasure));
+        public static readonly DependencyProperty VisibleLinesProperty = BinaryEditor.VisibleLinesProperty.AddOwner(typeof(BinaryEditorTable), new FrameworkPropertyMetadata(16, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         /// <summary>
         /// 表示行数を取得または設定します。
@@ -166,7 +183,7 @@ namespace YKToolkit.Controls
         /// <summary>
         /// DataStyle 依存関係プロパティの定義
         /// </summary>
-        public static readonly DependencyProperty DataStyleProperty = BinaryEditor.DataStyleProperty.AddOwner(typeof(BinaryEditorTable), new FrameworkPropertyMetadata(DataStyles.Byte, FrameworkPropertyMetadataOptions.AffectsRender));
+        public static readonly DependencyProperty DataStyleProperty = BinaryEditor.DataStyleProperty.AddOwner(typeof(BinaryEditorTable), new FrameworkPropertyMetadata(DataStyles.Byte, FrameworkPropertyMetadataOptions.AffectsMeasure));
 
         /// <summary>
         /// データ表現を取得または設定します。
@@ -182,7 +199,7 @@ namespace YKToolkit.Controls
         /// <summary>
         /// NumStyle 依存関係プロパティの定義
         /// </summary>
-        public static readonly DependencyProperty NumStyleProperty = BinaryEditor.NumStyleProperty.AddOwner(typeof(BinaryEditorTable), new FrameworkPropertyMetadata(NumStyles.Hexadecimal, FrameworkPropertyMetadataOptions.AffectsRender));
+        public static readonly DependencyProperty NumStyleProperty = BinaryEditor.NumStyleProperty.AddOwner(typeof(BinaryEditorTable), new FrameworkPropertyMetadata(NumStyles.Hexadecimal, FrameworkPropertyMetadataOptions.AffectsMeasure));
 
         /// <summary>
         /// 数値表現を取得または設定します。
@@ -194,6 +211,22 @@ namespace YKToolkit.Controls
         }
         #endregion NumStyle 依存関係プロパティ
 
+        #region IsMonitoringMode 依存関係プロパティ
+        /// <summary>
+        /// IsMonitoringMode 依存関係プロパティの定義
+        /// </summary>
+        public static readonly DependencyProperty IsMonitoringModeProperty = DependencyProperty.Register("IsMonitoringMode", typeof(bool), typeof(BinaryEditorTable), new PropertyMetadata(false));
+
+        /// <summary>
+        /// モニタモードかどうかを取得または設定します。
+        /// </summary>
+        public bool IsMonitoringMode
+        {
+            get { return (bool)GetValue(IsMonitoringModeProperty); }
+            set { SetValue(IsMonitoringModeProperty, value); }
+        }
+        #endregion IsMonitoringMode 依存関係プロパティ
+
         #region 描画関連オーバーライド
 
         /// <summary>
@@ -203,12 +236,24 @@ namespace YKToolkit.Controls
         /// <returns>必要なサイズ</returns>
         protected override Size MeasureOverride(Size availableSize)
         {
-            this.Typeface = new Typeface("consolas");
             var temp = new FormattedText("F", CultureInfo.CurrentUICulture, FlowDirection.LeftToRight, this.Typeface, this.FontSize, null);
             this._charSize = new Size(temp.Width, temp.Height);
 
+            //var line = double.IsInfinity(availableSize.Height) ? 16 : (int)(availableSize.Height / this._charSize.Height);
+            //this.VisibleLines = line > 1 ? line : 1;
+
             // 1 バイト表示の幅と高さに合わせてサイズを計測する
-            this._extent = new Size(109 * this._charSize.Width, (this.VisibleLines + 1) * this._charSize.Height);
+            var charNumber = 0;
+            switch (this.DataStyle)
+            {
+                default:
+                case DataStyles.Byte: charNumber = this.NumStyle == NumStyles.Hexadecimal ? 93 : 109; break;
+                case DataStyles.Word: charNumber = this.NumStyle == NumStyles.Hexadecimal ? 69 : 93; break;
+                case DataStyles.DoubleWord: charNumber = this.NumStyle == NumStyles.Hexadecimal ? 65 : 89; break;
+                case DataStyles.QuadWord: charNumber = this.NumStyle == NumStyles.Hexadecimal ? 63 : 83; break;
+            }
+            var width = double.IsNaN(this.Width) ? charNumber * this._charSize.Width : this.Width;
+            this._extent = new Size(width, (this.VisibleLines + 1) * this._charSize.Height);
 
             return this._extent;
         }
@@ -298,7 +343,7 @@ namespace YKToolkit.Controls
                 drawingContext.DrawText(header, pt);
                 pt.Offset(w + w_max, 0);
             }
-            if (this.DataStyle == DataStyles.Byte)
+//            if (this.DataStyle == DataStyles.Byte)
             {
                 pt.Offset(9 * w - w_max / 2.0, 0);
                 var text = new FormattedText("ASCII", CultureInfo.CurrentUICulture, FlowDirection.LeftToRight, this.Typeface, this.FontSize, foreground);
@@ -314,6 +359,7 @@ namespace YKToolkit.Controls
                 var address = this.TopAddress;
                 while (pt.Y < this._extent.Height)
                 {
+                    // アドレス部
                     var str = "0x" + (address + this.AddressOffset).ToString("X08");
                     var text = new FormattedText(str, CultureInfo.CurrentUICulture, FlowDirection.LeftToRight, this.Typeface, this.FontSize, foreground);
                     drawingContext.DrawText(text, pt);
@@ -321,19 +367,25 @@ namespace YKToolkit.Controls
                     #region 16 個のデータを描画
                     var pt2 = new Point(12 * w + w_max, pt.Y);
                     var line = data.Count - address < 16 ? data.Skip(address).ToArray() : data.Skip(address).Take(16).ToArray();
+
+                    // ASCII
+                    for (var i = 0; i < line.Length; i += (int)DataStyles.Byte)
+                    {
+                        if ((0x20 <= line[i]) && (line[i] <= 0x7f))
+                            str = System.Text.Encoding.ASCII.GetString(new byte[] { line[i] });
+                        else
+                            str = ".";
+                        text = new FormattedText(str, CultureInfo.CurrentUICulture, FlowDirection.LeftToRight, this.Typeface, this.FontSize, foreground);
+                        drawingContext.DrawText(text, new Point((13 + i) * this._charSize.Width + (this._charSize.Width + w_max) * 16 / (int)this.DataStyle, pt2.Y));
+                    }
+
+                    // バイナリデータ部
                     for (var i = 0; i < line.Length; i += (int)dataStyle)
                     {
                         var bytes = line.Skip(i).Take((int)dataStyle).Reverse().ToArray();
                         switch (bytes.Length)
                         {
                             case 1:
-                                if ((0x20 <= line[i]) && (line[i] <= 0x7f))
-                                    str = System.Text.Encoding.ASCII.GetString(new byte[] { line[i] });
-                                else
-                                    str = ".";
-                                text = new FormattedText(str, CultureInfo.CurrentUICulture, FlowDirection.LeftToRight, this.Typeface, this.FontSize, foreground);
-                                drawingContext.DrawText(text, new Point((13 + i) * this._charSize.Width + (this._charSize.Width + w_max) * 16 / (int)this.DataStyle, pt2.Y));
-
                                 if (this.NumStyle == NumStyles.Hexadecimal)
                                 {
                                     str = line[i].ToString("X2");
@@ -404,7 +456,7 @@ namespace YKToolkit.Controls
                     pt.Offset(0, h);
 
                     address += 0x10;
-                    if (address > data.Count)
+                    if (address > data.Count - (this.IsMonitoringMode ? 1 : 0))
                         break;
 
                     if (double.IsPositiveInfinity(extent.Height))

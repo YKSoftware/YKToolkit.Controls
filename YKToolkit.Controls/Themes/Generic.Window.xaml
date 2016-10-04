@@ -4,7 +4,7 @@
                     xmlns:b="clr-namespace:YKToolkit.Controls.Behaviors">
 
     <!-- キャプション上のボタン用スタイル -->
-    <Style x:Key="CaptionButtonStyle" TargetType="Button">
+    <Style x:Key="CaptionButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
         <Setter Property="IsTabStop" Value="False" />
@@ -15,7 +15,7 @@
         <!--<Setter Property="Height" Value="26" />-->
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="Button">
+                <ControlTemplate TargetType="{x:Type Button}">
                     <Border x:Name="border" SnapsToDevicePixels="True" Background="Transparent">
                         <ContentPresenter Focusable="False"
                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"

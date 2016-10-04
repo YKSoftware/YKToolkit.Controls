@@ -53,7 +53,7 @@
         }
 
         /// <summary>
-        /// 実行可能判別条件が変更したときに発生しいます。
+        /// 実行可能判別条件が変更したときに発生します。
         /// </summary>
         public event System.EventHandler CanExecuteChanged
         {
@@ -71,5 +71,13 @@
                 this._execute(parameter);
         }
         #endregion ICommand のメンバ
+
+        /// <summary>
+        /// 実行可能判別条件に関する状態が変更したことを通知します。
+        /// </summary>
+        public void RaiseCanExecuteChanged()
+        {
+            CommandManager.InvalidateRequerySuggested();
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace YKToolkit.Controls
 {
+    using System;
     using System.ComponentModel;
     using System.Windows;
     using System.Windows.Controls;
@@ -466,6 +467,19 @@
         public Window()
         {
             this.Closing += OnWindowClosing;
+            this.StateChanged += OnStateChanged;
+        }
+
+        private void OnStateChanged(object sender, EventArgs e)
+        {
+            if (this.MaximizeButtonVisibility == System.Windows.Visibility.Collapsed)
+            {
+                var w = sender as Window;
+                if (w.WindowState == System.Windows.WindowState.Maximized)
+                {
+                    w.WindowState = System.Windows.WindowState.Normal;
+                }
+            }
         }
 
         /// <summary>

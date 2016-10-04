@@ -128,6 +128,22 @@
                             </MultiTrigger.Conditions>
                             <Setter TargetName="PART_InputTextBox" Property="Text" Value="{Binding Value, RelativeSource={RelativeSource TemplatedParent}}" />
                         </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition SourceName="PART_InputTextBox" Property="IsFocused" Value="True" />
+                                <Condition Property="IsReadOnly" Value="False" />
+                                <Condition Property="NumberStyle" Value="AllowHexSpecifier" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="PART_InputTextBox" Property="Text" Value="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition SourceName="PART_InputTextBox" Property="IsFocused" Value="True" />
+                                <Condition Property="IsReadOnly" Value="False" />
+                                <Condition Property="NumberStyle" Value="HexNumber" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="PART_InputTextBox" Property="Text" Value="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}" />
+                        </MultiTrigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="BorderBrush">
                                 <Setter.Value>

@@ -123,7 +123,19 @@
 
             if (control.CoerceValue())
             {
-                control.ArrangeText();
+                var c = string.IsNullOrWhiteSpace(control.StringFormat) ? "" : control.StringFormat.Substring(0, 1).ToLower();
+                if (c == "d")
+                {
+                    control.Text = ((int)control.Value).ToString(control.StringFormat);
+                }
+                else if (c == "x")
+                {
+                    control.Text = "0x" + ((int)control.Value).ToString(control.StringFormat);
+                }
+                else
+                {
+                    control.Text = control.Value.ToString(control.StringFormat);
+                }
             }
         }
         #endregion Value 依存関係プロパティ
@@ -153,6 +165,9 @@
             var control = sender as SpinInput;
             if (control == null)
                 return;
+
+            var text = control.RemoveHexHeader(control.Text);
+            control.UpdateValueFromText(text, control.NumberStyle, false);
         }
         #endregion Text 依存関係プロパティ
 
@@ -182,7 +197,19 @@
             if (control == null)
                 return;
 
-            control.ArrangeText();
+            var c = string.IsNullOrWhiteSpace(control.StringFormat) ? "" : control.StringFormat.Substring(0, 1).ToLower();
+            if (c == "d")
+            {
+                control.Text = ((int)control.Value).ToString(control.StringFormat);
+            }
+            else if (c == "x")
+            {
+                control.Text = "0x" + ((int)control.Value).ToString(control.StringFormat);
+            }
+            else
+            {
+                control.Text = control.Value.ToString(control.StringFormat);
+            }
         }
         #endregion StringFormat 依存関係プロパティ
 
@@ -356,7 +383,8 @@
 
             if (e.Key == Key.Enter)
             {
-                UpdateValueFromText(textbox.Text, this.NumberStyle);
+                var text = RemoveHexHeader(textbox.Text);
+                UpdateValueFromText(text, this.NumberStyle);
                 textbox.SetCurrentValue(TextBox.TextProperty, textbox.Text);
             }
         }
@@ -390,14 +418,22 @@
         /// </summary>
         /// <param name="text">テキストを指定します。</param>
         /// <param name="style">パースするための読取形式を指定します。</param>
-        private void UpdateValueFromText(string text, NumberStyles style)
+        /// <param name="isChangeFromUI">UI からの変更指令の場合に true を指定します。</param>
+        private void UpdateValueFromText(string text, NumberStyles style, bool isChangeFromUI = true)
         {
             if (style.HasFlag(NumberStyles.AllowHexSpecifier))
             {
                 long temp = 0;
                 if (long.TryParse(text, style, CultureInfo.CurrentUICulture, out temp))
                 {
-                    this.Value = temp;
+                    if (isChangeFromUI)
+                    {
+                        this.Value = temp;
+                    }
+                    else
+                    {
+                        SetCurrentValue(ValueProperty, (double)temp);
+                    }
                 }
             }
             else
@@ -405,7 +441,14 @@
                 double value = 0.0;
                 if (double.TryParse(text, style, CultureInfo.CurrentUICulture, out value))
                 {
-                    this.Value = value;
+                    if (isChangeFromUI)
+                    {
+                        this.Value = value;
+                    }
+                    else
+                    {
+                        SetCurrentValue(ValueProperty, value);
+                    }
                 }
             }
         }
@@ -433,23 +476,15 @@
         }
 
         /// <summary>
-        /// 指定された StringFormat プロパティによって表示するテキストを整形します。
+        /// 16 進数の先頭にある "0x" を取り除きます。
         /// </summary>
-        private void ArrangeText()
+        /// <param name="text">16 進数を表す文字列を指定します。</param>
+        /// <returns>"0x" が取り除かれた 16 進数文字列を返します。</returns>
+        private string RemoveHexHeader(string text)
         {
-            var c = string.IsNullOrWhiteSpace(this.StringFormat) ? "" : this.StringFormat.Substring(0, 1).ToLower();
-            if (c == "d")
-            {
-                this.Text = ((int)this.Value).ToString(this.StringFormat);
-            }
-            else if (c == "x")
-            {
-                this.Text = "0x" + ((int)this.Value).ToString(this.StringFormat);
-            }
-            else
-            {
-                this.Text = this.Value.ToString(this.StringFormat);
-            }
+            return text.Length > 2 ?
+                text.Substring(0, 2) == "0x" ? text.Substring(2, text.Length - 2) : text
+                : text;
         }
         #endregion ヘルパ
     }

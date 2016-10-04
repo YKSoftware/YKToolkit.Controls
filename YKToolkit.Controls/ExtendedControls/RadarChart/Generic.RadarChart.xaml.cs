@@ -500,7 +500,7 @@
             // 中心座標を算出する
             this._mainboardCenter = new Point(drawingSize.Width / 2.0, drawingSize.Height / 2.0);
 
-            return base.MeasureOverride(drawingSize);
+            return drawingSize;
         }
 
         /// <summary>

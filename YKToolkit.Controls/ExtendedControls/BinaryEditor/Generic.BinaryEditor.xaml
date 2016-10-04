@@ -8,12 +8,13 @@
     <Style TargetType="{x:Type local:BinaryEditor}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Focusable" Value="True" />
+        <Setter Property="FontSize" Value="16" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:BinaryEditor}">
                     <Grid Background="{TemplateBinding Background}">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <Canvas>
@@ -23,11 +24,13 @@
                                                  IsHitTestVisible="False"
                                                  Focusable="False"
                                                  Data="{TemplateBinding Data}"
-                                                 TopAddress="{Binding TopAddress, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                                                 TopAddress="{Binding TopAddress, RelativeSource={RelativeSource TemplatedParent}}"
                                                  AddressOffset="{TemplateBinding AddressOffset}"
-                                                 VisibleLines="{TemplateBinding VisibleLines}"
+                                                 VisibleLines="{Binding VisibleLines, RelativeSource={RelativeSource TemplatedParent}}"
+                                                 FontSize="{TemplateBinding FontSize}"
                                                  DataStyle="{TemplateBinding DataStyle}"
                                                  NumStyle="{TemplateBinding NumStyle}"
+                                                 IsMonitoringMode="{TemplateBinding IsMonitoringMode}"
                                                  />
                         <Canvas>
                             <TextBox x:Name="PART_InputTextBox" />
