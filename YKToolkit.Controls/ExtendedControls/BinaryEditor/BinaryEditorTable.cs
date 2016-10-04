@@ -151,7 +151,7 @@ namespace YKToolkit.Controls
         /// <summary>
         /// VisibleLines 依存関係プロパティの定義
         /// </summary>
-        public static readonly DependencyProperty VisibleLinesProperty = BinaryEditor.VisibleLinesProperty.AddOwner(typeof(BinaryEditorTable), new FrameworkPropertyMetadata(16, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        public static readonly DependencyProperty VisibleLinesProperty = BinaryEditor.VisibleLinesProperty.AddOwner(typeof(BinaryEditorTable), new FrameworkPropertyMetadata(16, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         /// <summary>
         /// 表示行数を取得または設定します。
