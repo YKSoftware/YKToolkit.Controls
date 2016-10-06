@@ -1,0 +1,39 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.Button.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.CheckBox.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.ComboBox.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.ContextMenu.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.DataGrid.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.Expander.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.Label.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.ListBox.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.Menu.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.PasswordBox.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.RadioButton.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.RepeatButton.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.ScrollBar.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.ScrollViewer.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.Slider.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.StatusBar.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.TabControl.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.TextBox.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.ToggleButton.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.TreeView.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.Window.xaml" />
+
+        <ResourceDictionary Source="/YKToolkit.Controls;component/ExtendedControls/BinaryEditor/Generic.BinaryEditor.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/ExtendedControls/BusyIndicator/Generic.BusyIndicator.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/ExtendedControls/ColorPicker/Generic.ColorPicker.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/ExtendedControls/DropDownButton/Generic.DropDownButton.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/ExtendedControls/FileTreeView/Generic.FileTreeView.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/ExtendedControls/LineGraph/Generic.LineGraph.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/ExtendedControls/MessageBox/Generic.MessageBox.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/ExtendedControls/RadarChart/Generic.RadarChart.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/ExtendedControls/SpinInput/Generic.SpinInput.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/ExtendedControls/SplitButton/Generic.SplitButton.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>

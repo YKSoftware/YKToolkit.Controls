@@ -37,8 +37,8 @@
         <TextBlock Grid.Column="2" Text="Amplitude" TextAlignment="Center" VerticalAlignment="Center" />
 
         <TextBox Grid.Row="1" Text="{Binding Source, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Margin="4" />
-        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Result}" IsReadOnly="True" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Margin="4" />
-        <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding Amplitude}" IsReadOnly="True" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Margin="4" />
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Result, Mode=OneWay}" IsReadOnly="True" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Margin="4" />
+        <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding Amplitude, Mode=OneWay}" IsReadOnly="True" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Margin="4" />
 
     </Grid>
 </UserControl>

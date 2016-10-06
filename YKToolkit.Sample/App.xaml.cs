@@ -22,7 +22,7 @@
             };
 
             // テーマの初期化をおこないます。
-            //YKToolkit.Controls.ThemeManager.Initialize("Light");
+            //YKToolkit.Controls.ThemeManager.Instance.Initialize("Light");
         }
 
         #region static 公開プロパティ

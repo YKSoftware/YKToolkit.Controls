@@ -1,0 +1,467 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4244437B-2E3A-4224-ADC5-81B4EA3FD762}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>YKToolkit.Controls</RootNamespace>
+    <AssemblyName>YKToolkit.Controls</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET4</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NET4</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\YKToolkit.Controls.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Beta Release|AnyCPU'">
+    <OutputPath>bin\Beta Release\</OutputPath>
+    <DefineConstants>TRACE;NET4, BETA</DefineConstants>
+    <DocumentationFile>bin\Release\YKToolkit.Controls.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Windows.Shell">
+      <HintPath>..\..\..\..\DLL\V4.0\Microsoft.Windows.Shell.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\YKToolkit.Controls\Bindings\DelegateCommand.cs">
+      <Link>Bindings\DelegateCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Bindings\NotificationObject.cs">
+      <Link>Bindings\NotificationObject.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Core\Behaviors\AdornerBehavior.cs">
+      <Link>Core\Behaviors\AdornerBehavior.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Core\Behaviors\CommonDialogBehavior.cs">
+      <Link>Core\Behaviors\CommonDialogBehavior.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Core\Behaviors\DataGridBehavior.cs">
+      <Link>Core\Behaviors\DataGridBehavior.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Core\Behaviors\EventTriggerAction.cs">
+      <Link>Core\Behaviors\EventTriggerAction.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Core\Behaviors\FileDropBehavior.cs">
+      <Link>Core\Behaviors\FileDropBehavior.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Core\Behaviors\MessageDialogBehavior.cs">
+      <Link>Core\Behaviors\MessageDialogBehavior.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Core\Behaviors\NotifyUsbDeviceChangedBehavior.cs">
+      <Link>Core\Behaviors\NotifyUsbDeviceChangedBehavior.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Core\Behaviors\ShowAltTabMenuBehavior.cs">
+      <Link>Core\Behaviors\ShowAltTabMenuBehavior.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Core\Behaviors\ShowDesktopBehavior.cs">
+      <Link>Core\Behaviors\ShowDesktopBehavior.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Core\Behaviors\SystemMenuBehavior.cs">
+      <Link>Core\Behaviors\SystemMenuBehavior.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Core\Behaviors\TextBoxAllSelectBehavior.cs">
+      <Link>Core\Behaviors\TextBoxAllSelectBehavior.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Core\Behaviors\TreeViewAutoHorizontalScrollBehavior.cs">
+      <Link>Core\Behaviors\TreeViewAutoHorizontalScrollBehavior.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Core\Behaviors\WriteBitmapBehavior.cs">
+      <Link>Core\Behaviors\WriteBitmapBehavior.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Core\Converters\BooleanInverseConverter.cs">
+      <Link>Core\Converters\BooleanInverseConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Core\Converters\DrawingIcontoImageConverter.cs">
+      <Link>Core\Converters\DrawingIcontoImageConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Core\Converters\InverseConverter.cs">
+      <Link>Core\Converters\InverseConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Core\Converters\TabControlBorderThicknessConverter.cs">
+      <Link>Core\Converters\TabControlBorderThicknessConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Core\Shell32.cs">
+      <Link>Core\Shell32.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Core\User32.cs">
+      <Link>Core\User32.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\BinaryEditor\BinaryEditorTable.cs">
+      <Link>ExtendedControls\BinaryEditor\BinaryEditorTable.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\BinaryEditor\DataStyles.cs">
+      <Link>ExtendedControls\BinaryEditor\DataStyles.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\BinaryEditor\Generic.BinaryEditor.xaml.cs">
+      <Link>ExtendedControls\BinaryEditor\Generic.BinaryEditor.xaml.cs</Link>
+      <DependentUpon>Generic.BinaryEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\BinaryEditor\NumStyles.cs">
+      <Link>ExtendedControls\BinaryEditor\NumStyles.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\BusyIndicator\Generic.BusyIndicator.xaml.cs">
+      <Link>ExtendedControls\BusyIndicator\Generic.BusyIndicator.xaml.cs</Link>
+      <DependentUpon>Generic.BusyIndicator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\ColorPicker\ColorPickerItem.cs">
+      <Link>ExtendedControls\ColorPicker\ColorPickerItem.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\ColorPicker\Generic.ColorPicker.xaml.cs">
+      <Link>ExtendedControls\ColorPicker\Generic.ColorPicker.xaml.cs</Link>
+      <DependentUpon>Generic.ColorPicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\ColorPicker\HsvColor.cs">
+      <Link>ExtendedControls\ColorPicker\HsvColor.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\ColorPicker\HsvColorHelper.cs">
+      <Link>ExtendedControls\ColorPicker\HsvColorHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\DropDownButton\Generic.DropDownButton.xaml.cs">
+      <Link>ExtendedControls\DropDownButton\Generic.DropDownButton.xaml.cs</Link>
+      <DependentUpon>Generic.DropDownButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\FileTreeView\FileTreeViewItem.cs">
+      <Link>ExtendedControls\FileTreeView\FileTreeViewItem.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\FileTreeView\FileTreeViewItemDoubleClickEventArgs.cs">
+      <Link>ExtendedControls\FileTreeView\FileTreeViewItemDoubleClickEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\FileTreeView\Generic.FileTreeView.xaml.cs">
+      <Link>ExtendedControls\FileTreeView\Generic.FileTreeView.xaml.cs</Link>
+      <DependentUpon>Generic.FileTreeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\Generic.LineGraph.xaml.cs">
+      <Link>ExtendedControls\LineGraph\Generic.LineGraph.xaml.cs</Link>
+      <DependentUpon>Generic.LineGraph.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\LineGraphItem.cs">
+      <Link>ExtendedControls\LineGraph\LineGraphItem.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\LineGraphLegendPanel.cs">
+      <Link>ExtendedControls\LineGraph\LineGraphLegendPanel.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\LineGraphPanel.cs">
+      <Link>ExtendedControls\LineGraph\LineGraphPanel.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\MessageBox\IDialogInfo.cs">
+      <Link>ExtendedControls\MessageBox\IDialogInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\RadarChart\Generic.RadarChart.xaml.cs">
+      <Link>ExtendedControls\RadarChart\Generic.RadarChart.xaml.cs</Link>
+      <DependentUpon>Generic.RadarChart.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\SpinInput\Generic.SpinInput.xaml.cs">
+      <Link>ExtendedControls\SpinInput\Generic.SpinInput.xaml.cs</Link>
+      <DependentUpon>Generic.SpinInput.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\SplitButton\Generic.SplitButton.xaml.cs">
+      <Link>ExtendedControls\SplitButton\Generic.SplitButton.xaml.cs</Link>
+      <DependentUpon>Generic.SplitButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Helpers\Complex.cs">
+      <Link>Helpers\Complex.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Helpers\Extensions\FrameworkElementExtensions.cs">
+      <Link>Helpers\Extensions\FrameworkElementExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Helpers\Extensions\Serialization.cs">
+      <Link>Helpers\Extensions\Serialization.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Helpers\Math\Fourier.cs">
+      <Link>Helpers\Math\Fourier.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Helpers\Math\YKMath.cs">
+      <Link>Helpers\Math\YKMath.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Helpers\Matrix.cs">
+      <Link>Helpers\Matrix.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Helpers\WindowFunctions.cs">
+      <Link>Helpers\WindowFunctions.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Themes\ThemeManager.cs">
+      <Link>Themes\ThemeManager.cs</Link>
+    </Compile>
+    <Compile Include="ExtendedControls\MessageBox\Generic.MessageBox.xaml.cs">
+      <DependentUpon>Generic.MessageBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Themes\Generic.Window.xaml.cs">
+      <DependentUpon>Generic.Window.xaml</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="..\YKToolkit.Controls\ExtendedControls\BinaryEditor\Generic.BinaryEditor.xaml">
+      <Link>ExtendedControls\BinaryEditor\Generic.BinaryEditor.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\ExtendedControls\BusyIndicator\Generic.BusyIndicator.xaml">
+      <Link>ExtendedControls\BusyIndicator\Generic.BusyIndicator.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\ExtendedControls\ColorPicker\Generic.ColorPicker.xaml">
+      <Link>ExtendedControls\ColorPicker\Generic.ColorPicker.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\ExtendedControls\DropDownButton\Generic.DropDownButton.xaml">
+      <Link>ExtendedControls\DropDownButton\Generic.DropDownButton.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\ExtendedControls\FileTreeView\Generic.FileTreeView.xaml">
+      <Link>ExtendedControls\FileTreeView\Generic.FileTreeView.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\Generic.LineGraph.xaml">
+      <Link>ExtendedControls\LineGraph\Generic.LineGraph.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\ExtendedControls\RadarChart\Generic.RadarChart.xaml">
+      <Link>ExtendedControls\RadarChart\Generic.RadarChart.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\ExtendedControls\SpinInput\Generic.SpinInput.xaml">
+      <Link>ExtendedControls\SpinInput\Generic.SpinInput.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\ExtendedControls\SplitButton\Generic.SplitButton.xaml">
+      <Link>ExtendedControls\SplitButton\Generic.SplitButton.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\Themes\Colors\BlackBaseColors.xaml">
+      <Link>Themes\Colors\BlackBaseColors.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\Themes\Colors\BlackBaseGreenColors.xaml">
+      <Link>Themes\Colors\BlackBaseGreenColors.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\Themes\Colors\WhiteBaseColors.xaml">
+      <Link>Themes\Colors\WhiteBaseColors.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\Themes\Colors\WhiteBaseGreenColors.xaml">
+      <Link>Themes\Colors\WhiteBaseGreenColors.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\Themes\DefaultColors.xaml">
+      <Link>Themes\DefaultColors.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\Themes\Generic.Button.xaml">
+      <Link>Themes\Generic.Button.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\Themes\Generic.CheckBox.xaml">
+      <Link>Themes\Generic.CheckBox.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\Themes\Generic.ComboBox.xaml">
+      <Link>Themes\Generic.ComboBox.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\Themes\Generic.ContextMenu.xaml">
+      <Link>Themes\Generic.ContextMenu.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\Themes\Generic.DataGrid.xaml">
+      <Link>Themes\Generic.DataGrid.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\Themes\Generic.Expander.xaml">
+      <Link>Themes\Generic.Expander.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\Themes\Generic.Label.xaml">
+      <Link>Themes\Generic.Label.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\Themes\Generic.ListBox.xaml">
+      <Link>Themes\Generic.ListBox.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\Themes\Generic.Menu.xaml">
+      <Link>Themes\Generic.Menu.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\Themes\Generic.PasswordBox.xaml">
+      <Link>Themes\Generic.PasswordBox.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\Themes\Generic.RadioButton.xaml">
+      <Link>Themes\Generic.RadioButton.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\Themes\Generic.RepeatButton.xaml">
+      <Link>Themes\Generic.RepeatButton.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\Themes\Generic.ScrollBar.xaml">
+      <Link>Themes\Generic.ScrollBar.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\Themes\Generic.ScrollViewer.xaml">
+      <Link>Themes\Generic.ScrollViewer.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\Themes\Generic.Slider.xaml">
+      <Link>Themes\Generic.Slider.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\Themes\Generic.StatusBar.xaml">
+      <Link>Themes\Generic.StatusBar.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\Themes\Generic.TabControl.xaml">
+      <Link>Themes\Generic.TabControl.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\Themes\Generic.TextBox.xaml">
+      <Link>Themes\Generic.TextBox.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\Themes\Generic.ToggleButton.xaml">
+      <Link>Themes\Generic.ToggleButton.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\Themes\Generic.TreeView.xaml">
+      <Link>Themes\Generic.TreeView.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExtendedControls\MessageBox\Generic.MessageBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic.Window.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\Themes\Generic.xaml">
+      <Link>Themes\Generic.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

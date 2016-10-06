@@ -122,7 +122,7 @@
                 _isInitialized = true;
 
                 LoadThemes();
-                var resourceDictionary = (ResourceDictionary)Application.LoadComponent(new Uri(namespaceString + ";component/Themes/Generic.xaml", UriKind.Relative));
+                var resourceDictionary = (ResourceDictionary)Application.LoadComponent(new Uri("/" + namespaceString + ";component/Themes/Generic.xaml", UriKind.Relative));
                 Application.Current.Resources.MergedDictionaries.Add(resourceDictionary);
 
                 if (!this._themeDictionary.ContainsKey(theme))

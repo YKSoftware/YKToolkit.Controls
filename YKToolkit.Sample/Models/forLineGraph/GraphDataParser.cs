@@ -12,8 +12,12 @@
         /// CSV ファイルを読み込みます。
         /// </summary>
         /// <param name="fullPath">CSV ファイルのフルパス</param>
+#if !NET4
         /// <param name="progress">進捗状況を報告するための <c>IProgress&lt;int&gt;</c></param>
         public static List<List<string>> ReadFile(string fullPath, IProgress<int> progress)
+#else
+        public static List<List<string>> ReadFile(string fullPath)
+#endif
         {
             if (!File.Exists(fullPath))
             {
@@ -39,11 +43,13 @@
                     }
                     list.Add(lineList);
 
+#if !NET4
                     if (progress != null)
                     {
                         var completion = (int)(100 * bytes / totalBytes);
                         progress.Report(completion > 100 ? 100 : completion);
                     }
+#endif
                 }
             }
 
@@ -54,8 +60,12 @@
         /// csv ファイルを書き込みます。
         /// </summary>
         /// <param name="fullPath">CSV ファイルのフルパス</param>
+#if !NET4
         /// <param name="progress">進捗状況を報告するための <c>IProgress&lt;int&gt;</c></param>
         public static void WriteFile(string fullPath, List<List<string>> writeData, IProgress<int> progress)
+#else
+        public static void WriteFile(string fullPath, List<List<string>> writeData)
+#endif
         {
             if (writeData == null)
             {
@@ -78,11 +88,13 @@
                     sw.WriteLine(str);
                     row++;
 
+#if !NET4
                     if (progress != null)
                     {
                         var completion = (int)(100 * row / rows);
                         progress.Report(completion);
                     }
+#endif
                 }
             }
         }

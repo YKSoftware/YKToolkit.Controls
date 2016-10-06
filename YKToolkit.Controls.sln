@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YKToolkit.Controls", "YKToo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YKToolkit.Sample", "YKToolkit.Sample\YKToolkit.Sample.csproj", "{43DF0675-6C92-48EF-9730-B7D0E092E400}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YKToolkit.Controls.NET4", "YKToolkit.Controls.NET4\YKToolkit.Controls.NET4.csproj", "{4244437B-2E3A-4224-ADC5-81B4EA3FD762}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YKToolkit.Sample.NET4", "YKToolkit.Sample.NET4\YKToolkit.Sample.NET4.csproj", "{EF2F03C6-CD27-46ED-A327-6B4CA111951F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Beta Debug|Any CPU = Beta Debug|Any CPU
@@ -31,6 +35,22 @@ Global
 		{43DF0675-6C92-48EF-9730-B7D0E092E400}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43DF0675-6C92-48EF-9730-B7D0E092E400}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43DF0675-6C92-48EF-9730-B7D0E092E400}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4244437B-2E3A-4224-ADC5-81B4EA3FD762}.Beta Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4244437B-2E3A-4224-ADC5-81B4EA3FD762}.Beta Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4244437B-2E3A-4224-ADC5-81B4EA3FD762}.Beta Release|Any CPU.ActiveCfg = Beta Release|Any CPU
+		{4244437B-2E3A-4224-ADC5-81B4EA3FD762}.Beta Release|Any CPU.Build.0 = Beta Release|Any CPU
+		{4244437B-2E3A-4224-ADC5-81B4EA3FD762}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4244437B-2E3A-4224-ADC5-81B4EA3FD762}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4244437B-2E3A-4224-ADC5-81B4EA3FD762}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4244437B-2E3A-4224-ADC5-81B4EA3FD762}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF2F03C6-CD27-46ED-A327-6B4CA111951F}.Beta Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF2F03C6-CD27-46ED-A327-6B4CA111951F}.Beta Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF2F03C6-CD27-46ED-A327-6B4CA111951F}.Beta Release|Any CPU.ActiveCfg = Beta Release|Any CPU
+		{EF2F03C6-CD27-46ED-A327-6B4CA111951F}.Beta Release|Any CPU.Build.0 = Beta Release|Any CPU
+		{EF2F03C6-CD27-46ED-A327-6B4CA111951F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF2F03C6-CD27-46ED-A327-6B4CA111951F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF2F03C6-CD27-46ED-A327-6B4CA111951F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF2F03C6-CD27-46ED-A327-6B4CA111951F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

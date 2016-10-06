@@ -2,7 +2,9 @@
 {
     using System;
     using System.ComponentModel;
+#if !NET4
     using System.Runtime.CompilerServices;
+#endif
 
     /// <summary>
     /// <c>System.ComponentModel.INotifyPropertyChanged</c> インターフェースを実装した抽象クラスを表します。
@@ -22,7 +24,11 @@
         /// プロパティ変更イベント PropertyChanged を発行します。
         /// </summary>
         /// <param name="propertyName">プロパティ名を指定します。</param>
+#if NET4
+        protected void RaisePropertyChanged(string propertyName = null)
+#else
         protected void RaisePropertyChanged([CallerMemberName]string propertyName = null)
+#endif
         {
             var h = this.PropertyChanged;
             if (h != null) h(this, new PropertyChangedEventArgs(propertyName));
@@ -36,7 +42,11 @@
         /// <param name="value">変更後の値を指定します。</param>
         /// <param name="propertyName">プロパティ名を指定します。</param>
         /// <returns>プロパティ値に変更があった場合に true を返します。</returns>
+#if NET4
+        protected bool SetProperty<T>(ref T target, T value, string propertyName = null)
+#else
         protected bool SetProperty<T>(ref T target, T value, [CallerMemberName]string propertyName = null)
+#endif
         {
             if (object.Equals(target, value))
                 return false;

@@ -7,16 +7,12 @@ using System.Windows;
 // アセンブリに関する一般情報は以下の属性セットをとおして制御されます。
 // アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更してください。
-[assembly: AssemblyTitle("YKToolkit.Controls")]
-#if NET4
-[assembly: AssemblyDescription(".NET Framework 4.0 用 の WPF カスタムコントロールライブラリです。")]
-#else
-[assembly: AssemblyDescription("WPF カスタムコントロールライブラリです。")]
-#endif
+[assembly: AssemblyTitle("YKToolkit.Sample.NET4")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("YKSoftware")]
-[assembly: AssemblyProduct("YKToolkit.Controls")]
-[assembly: AssemblyCopyright("Copyright © 2015 YKSoftware")]
+[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyProduct("YKToolkit.Sample.NET4")]
+[assembly: AssemblyCopyright("Copyright © Microsoft 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -35,13 +31,13 @@ using System.Windows;
 //[assembly: NeutralResourcesLanguage("en-US", UltimateResourceFallbackLocation.Satellite)]
 
 
-[assembly:ThemeInfo(
+[assembly: ThemeInfo(
     ResourceDictionaryLocation.None, //テーマ固有のリソース ディクショナリが置かれている場所
-                             //(リソースがページ、
-                             // またはアプリケーション リソース ディクショナリに見つからない場合に使用されます)
+    //(リソースがページ、
+    //またはアプリケーション リソース ディクショナリに見つからない場合に使用されます)
     ResourceDictionaryLocation.SourceAssembly //汎用リソース ディクショナリが置かれている場所
-                                      //(リソースがページ、
-                                      // アプリケーション、またはいずれのテーマ固有のリソース ディクショナリにも見つからない場合に使用されます)
+    //(リソースがページ、
+    //アプリケーション、またはいずれのテーマ固有のリソース ディクショナリにも見つからない場合に使用されます)
 )]
 
 
@@ -55,5 +51,5 @@ using System.Windows;
 // すべての値を指定するか、下のように '*' を使ってビルドおよびリビジョン番号を 
 // 既定値にすることができます:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.0.6.3")]
-//[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]
