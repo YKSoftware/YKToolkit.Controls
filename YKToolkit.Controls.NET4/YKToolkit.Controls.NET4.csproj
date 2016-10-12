@@ -306,6 +306,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="..\YKToolkit.Controls\Themes\Colors\BlackBaseOrangeColors.xaml">
+      <Link>Themes\Colors\BlackBaseOrangeColors.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="..\YKToolkit.Controls\Themes\Colors\WhiteBaseColors.xaml">
       <Link>Themes\Colors\WhiteBaseColors.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
@@ -313,6 +318,11 @@
     </Page>
     <Page Include="..\YKToolkit.Controls\Themes\Colors\WhiteBaseGreenColors.xaml">
       <Link>Themes\Colors\WhiteBaseGreenColors.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\Themes\Colors\WhiteBaseOrangeColors.xaml">
+      <Link>Themes\Colors\WhiteBaseOrangeColors.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
