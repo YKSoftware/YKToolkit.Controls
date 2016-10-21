@@ -74,7 +74,7 @@
             <Setter.Value>
                 <shell:WindowChrome CaptionHeight="{x:Static local:Window.CaptionHeight}"
                                     UseAeroCaptionButtons="False"
-                                    ResizeBorderThickness="{x:Static local:Window.WindowResizeBorderThickness}" />
+                                    ResizeBorderThickness="0" />
             </Setter.Value>
         </Setter>
         <Setter Property="ResizeMode" Value="NoResize" />
