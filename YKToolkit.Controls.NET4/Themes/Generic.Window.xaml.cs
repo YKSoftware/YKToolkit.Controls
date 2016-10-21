@@ -1,5 +1,6 @@
 ﻿namespace YKToolkit.Controls
 {
+    using Microsoft.Windows.Shell;
     using System;
     using System.ComponentModel;
     using System.Windows;
@@ -146,6 +147,8 @@
             this.MaximizeButton = this.Template.FindName(PART_MaximizeButton, this) as Button;
             this.MinimizeButton = this.Template.FindName(PART_MinimizeButton, this) as Button;
             this.TopmostButton = this.Template.FindName(PART_TopmostButton, this) as Button;
+
+            UpdateResizeBorderThickness();
         }
         #endregion TemplatePart
 
@@ -421,12 +424,28 @@
         }
         #endregion TopmostButtonVisibility プロパティ
 
+        #region ResizeMode プロパティ
+        /// <summary>
+        /// ResizeMode 依存関係プロパティの定義
+        /// </summary>
+        public static readonly new DependencyProperty ResizeModeProperty = DependencyProperty.Register("ResizeMode", typeof(ResizeMode), typeof(Window), new PropertyMetadata(ResizeMode.CanResize, OnResizeModePropertyChanged));
+
+        /// <summary>
+        /// ウィンドウのリサイズモードを取得または設定します。
+        /// </summary>
+        public new ResizeMode ResizeMode
+        {
+            get { return (ResizeMode)GetValue(ResizeModeProperty); }
+            set { SetValue(ResizeModeProperty, value); }
+        }
+        #endregion ResizeMode プロパティ
+
         /// <summary>
         /// CaptionHeight プロパティを取得します。
         /// </summary>
         public static double CaptionHeight
         {
-            get { return Microsoft.Windows.Shell.SystemParameters2.Current.WindowCaptionHeight; }
+            get { return SystemParameters2.Current.WindowCaptionHeight; }
         }
 
         /// <summary>
@@ -434,7 +453,7 @@
         /// </summary>
         public static Thickness WindowResizeBorderThickness
         {
-            get { return Microsoft.Windows.Shell.SystemParameters2.Current.WindowResizeBorderThickness; }
+            get { return SystemParameters2.Current.WindowResizeBorderThickness; }
         }
 
         /// <summary>
@@ -490,6 +509,34 @@
             this.StateChanged += OnStateChanged;
         }
 
+        /// <summary>
+        /// ResizeMode プロパティ変更イベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private static void OnResizeModePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            var w = sender as Window;
+            w.UpdateResizeBorderThickness();
+        }
+
+        /// <summary>
+        /// ResizeBorderThickness を更新します。
+        /// </summary>
+        private void UpdateResizeBorderThickness()
+        {
+            var chrome = WindowChrome.GetWindowChrome(this);
+            if (chrome != null)
+            {
+                chrome.ResizeBorderThickness = this.ResizeMode == ResizeMode.NoResize ? new Thickness(0) : Window.WindowResizeBorderThickness;
+            }
+        }
+
+        /// <summary>
+        /// WindowState プロパティ変更イベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
         private void OnStateChanged(object sender, EventArgs e)
         {
             if (this.MaximizeButtonVisibility == System.Windows.Visibility.Collapsed)

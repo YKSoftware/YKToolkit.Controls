@@ -5,6 +5,7 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
+    using System.Windows.Shell;
 
     /// <summary>
     /// YKToolkit.Controls のテーマに則った Window コントロールを表します。
@@ -146,6 +147,8 @@
             this.MaximizeButton = this.Template.FindName(PART_MaximizeButton, this) as Button;
             this.MinimizeButton = this.Template.FindName(PART_MinimizeButton, this) as Button;
             this.TopmostButton = this.Template.FindName(PART_TopmostButton, this) as Button;
+
+            UpdateResizeBorderThickness();
         }
         #endregion TemplatePart
 
@@ -421,6 +424,22 @@
         }
         #endregion TopmostButtonVisibility プロパティ
 
+        #region ResizeMode プロパティ
+        /// <summary>
+        /// ResizeMode 依存関係プロパティの定義
+        /// </summary>
+        public static readonly new DependencyProperty ResizeModeProperty = DependencyProperty.Register("ResizeMode", typeof(ResizeMode), typeof(Window), new PropertyMetadata(ResizeMode.CanResize, OnResizeModePropertyChanged));
+
+        /// <summary>
+        /// ウィンドウのリサイズモードを取得または設定します。
+        /// </summary>
+        public new ResizeMode ResizeMode
+        {
+            get { return (ResizeMode)GetValue(ResizeModeProperty); }
+            set { SetValue(ResizeModeProperty, value); }
+        }
+        #endregion ResizeMode プロパティ
+
         /// <summary>
         /// 静的なコンストラクタ
         /// </summary>
@@ -470,15 +489,26 @@
             this.StateChanged += OnStateChanged;
         }
 
-        private void OnStateChanged(object sender, EventArgs e)
+        /// <summary>
+        /// ResizeMode プロパティ変更イベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private static void OnResizeModePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            if (this.MaximizeButtonVisibility == System.Windows.Visibility.Collapsed)
+            var w = sender as Window;
+            w.UpdateResizeBorderThickness();
+        }
+
+        /// <summary>
+        /// ResizeBorderThickness を更新します。
+        /// </summary>
+        private void UpdateResizeBorderThickness()
+        {
+            var chrome = WindowChrome.GetWindowChrome(this);
+            if (chrome != null)
             {
-                var w = sender as Window;
-                if (w.WindowState == System.Windows.WindowState.Maximized)
-                {
-                    w.WindowState = System.Windows.WindowState.Normal;
-                }
+                chrome.ResizeBorderThickness = this.ResizeMode == ResizeMode.NoResize ? new Thickness(0) : SystemParameters.WindowResizeBorderThickness;
             }
         }
 
@@ -494,6 +524,23 @@
                 var result = MessageBox.Show(this, this.ClosingConfirmationMessage, this.ClosingConfirmationTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question);
                 if (result == MessageBoxResult.Cancel)
                     e.Cancel = true;
+            }
+        }
+
+        /// <summary>
+        /// WindowState プロパティ変更イベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private void OnStateChanged(object sender, EventArgs e)
+        {
+            if (this.MaximizeButtonVisibility == System.Windows.Visibility.Collapsed)
+            {
+                var w = sender as Window;
+                if (w.WindowState == System.Windows.WindowState.Maximized)
+                {
+                    w.WindowState = System.Windows.WindowState.Normal;
+                }
             }
         }
 
