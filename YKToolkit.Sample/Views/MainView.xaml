@@ -1,19 +1,19 @@
-﻿<YK:Window x:Class="YKToolkit.Sample.Views.MainView"
-           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-           xmlns:vm="clr-namespace:YKToolkit.Sample.ViewModels"
-           mc:Ignorable="d"
-           d:DataContext="{d:DesignInstance vm:MainViewModel}"
-           xmlns:YK="clr-namespace:YKToolkit.Controls;assembly=YKToolkit.Controls"
-           xmlns:YKb="clr-namespace:YKToolkit.Controls.Behaviors;assembly=YKToolkit.Controls"
-           Title="{Binding Title}"
-           Width="1280"
-           Height="800"
-           Icon="pack://application:,,,/Views/Resources/icon.ico"
-           WindowStartupLocation="CenterScreen"
-           >
+﻿<YK:AutoRestoreWindow x:Class="YKToolkit.Sample.Views.MainView"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:vm="clr-namespace:YKToolkit.Sample.ViewModels"
+                      mc:Ignorable="d"
+                      d:DataContext="{d:DesignInstance vm:MainViewModel}"
+                      xmlns:YK="clr-namespace:YKToolkit.Controls;assembly=YKToolkit.Controls"
+                      xmlns:YKb="clr-namespace:YKToolkit.Controls.Behaviors;assembly=YKToolkit.Controls"
+                      Title="{Binding Title}"
+                      Width="1280"
+                      Height="800"
+                      Icon="pack://application:,,,/Views/Resources/icon.ico"
+                      WindowStartupLocation="CenterScreen"
+                      >
     <YK:Window.InputBindings>
         <KeyBinding Command="{Binding CreateDialogCommand}" CommandParameter="Version" Key="F1" />
         <KeyBinding Command="{Binding CloseWindowCommand}" Key="F4" Modifiers="Alt" />
@@ -83,4 +83,4 @@
         </Grid>
 
     </DockPanel>
-</YK:Window>
+</YK:AutoRestoreWindow>

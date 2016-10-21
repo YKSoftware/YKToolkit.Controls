@@ -221,8 +221,14 @@
     <Compile Include="..\YKToolkit.Controls\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="..\YKToolkit.Controls\Themes\AutoRestoreWindow.cs">
+      <Link>Themes\AutoRestoreWindow.cs</Link>
+    </Compile>
     <Compile Include="..\YKToolkit.Controls\Themes\ThemeManager.cs">
       <Link>Themes\ThemeManager.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Themes\WindowSettings.cs">
+      <Link>Themes\WindowSettings.cs</Link>
     </Compile>
     <Compile Include="ExtendedControls\MessageBox\Generic.MessageBox.xaml.cs">
       <DependentUpon>Generic.MessageBox.xaml</DependentUpon>

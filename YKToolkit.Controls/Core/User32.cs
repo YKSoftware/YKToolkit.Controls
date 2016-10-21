@@ -72,6 +72,24 @@
         }
 
         /// <summary>
+        /// SetWindowPlacement 関数
+        /// </summary>
+        /// <param name="hWnd">ウィンドウハンドル</param>
+        /// <param name="lpwndpl">ウィンドウの位置やサイズなどの情報を含む構造体</param>
+        /// <returns>戻り値</returns>
+        [DllImport("user32.dll")]
+        public static extern bool SetWindowPlacement(IntPtr hWnd, [In] ref WINDOWPLACEMENT lpwndpl);
+
+        /// <summary>
+        /// GetWindowPlacement 関数
+        /// </summary>
+        /// <param name="hWnd">ウィンドウハンドル</param>
+        /// <param name="lpwndpl">ウィンドウの位置やサイズなどの情報を含む構造体</param>
+        /// <returns>戻り値</returns>
+        [DllImport("user32.dll")]
+        public static extern bool GetWindowPlacement(IntPtr hWnd, out WINDOWPLACEMENT lpwndpl);
+
+        /// <summary>
         /// SendMessage 関数の導入
         /// </summary>
         /// <param name="hwnd">ウィンドウハンドル</param>
@@ -157,6 +175,179 @@
             WS_SYSMENU = 0x80000,
         }
         #endregion WindowStyle
+
+        #region WindowPlacement
+        /// <summary>
+        /// ウィンドウのサイズや位置などの情報を含む構造体を表します。
+        /// </summary>
+        [Serializable]
+        [StructLayout(LayoutKind.Sequential)]
+        public struct WINDOWPLACEMENT
+        {
+            /// <summary>
+            /// この構造体の長さをバイト数で表します。
+            /// </summary>
+            public int length;
+
+            /// <summary>
+            /// ウィンドウを元に戻すメソッドおよび最小化されたウィンドウの位置を制御するフラグを表します。
+            /// </summary>
+            public int flags;
+
+            /// <summary>
+            /// ウィンドウの状態を表します。
+            /// </summary>
+            public SW showCmd;
+
+            /// <summary>
+            /// ウィンドウを最小化する直前のウィンドウの左上隅点座標を表します。
+            /// </summary>
+            public POINT minPosition;
+
+            /// <summary>
+            /// ウィンドウを最大化する直前のウィンドウの左上隅点座標を表します。
+            /// </summary>
+            public POINT maxPosition;
+
+            /// <summary>
+            /// ウィンドウが正常に復元された位置にあるときの座標を表します。
+            /// </summary>
+            public RECT normalPosition;
+        }
+
+        /// <summary>
+        /// 2 次元座標を表します。
+        /// </summary>
+        [Serializable]
+        [StructLayout(LayoutKind.Sequential)]
+        public struct POINT
+        {
+            /// <summary>
+            /// X 座標を表します。
+            /// </summary>
+            public int X;
+
+            /// <summary>
+            /// Y 座標を表します。
+            /// </summary>
+            public int Y;
+
+            /// <summary>
+            /// 新しいインスタンスを生成します。
+            /// </summary>
+            /// <param name="x">X 座標を指定します。</param>
+            /// <param name="y">Y 座標を指定します。</param>
+            public POINT(int x, int y)
+            {
+                this.X = x;
+                this.Y = y;
+            }
+        }
+
+        /// <summary>
+        /// 2 次元座標の領域を表します。
+        /// </summary>
+        [Serializable]
+        [StructLayout(LayoutKind.Sequential)]
+        public struct RECT
+        {
+            /// <summary>
+            /// 領域の左端座標を表します。
+            /// </summary>
+            public int Left;
+
+            /// <summary>
+            /// 領域の上端座標を表します。
+            /// </summary>
+            public int Top;
+
+            /// <summary>
+            /// 領域の右端座標を表します。
+            /// </summary>
+            public int Right;
+
+            /// <summary>
+            /// 領域の下端座標を表します。
+            /// </summary>
+            public int Bottom;
+
+            /// <summary>
+            /// 新しいインスタンスを生成します。
+            /// </summary>
+            /// <param name="left">領域の左端座標を指定します。</param>
+            /// <param name="top">領域の上端座標を指定します。</param>
+            /// <param name="right">領域の右端座標を指定します。</param>
+            /// <param name="bottom">領域の下端座標を指定します。</param>
+            public RECT(int left, int top, int right, int bottom)
+            {
+                this.Left = left;
+                this.Top = top;
+                this.Right = right;
+                this.Bottom = bottom;
+            }
+        }
+
+        /// <summary>
+        /// ウィンドウの状態を表します。
+        /// </summary>
+        public enum SW
+        {
+            /// <summary>
+            /// 非表示を表します。
+            /// </summary>
+            HIDE = 0,
+
+            /// <summary>
+            /// 通常のウィンドウ状態を表します。
+            /// </summary>
+            SHOWNORMAL = 1,
+
+            /// <summary>
+            /// 最小化されたウィンドウを表します。
+            /// </summary>
+            SHOWMINIMIZED = 2,
+
+            /// <summary>
+            /// 最大化されたウィンドウを表します。
+            /// </summary>
+            SHOWMAXIMIZED = 3,
+
+            /// <summary>
+            /// アクティブ化されたウィンドウを表します。
+            /// </summary>
+            SHOWACTIVATE = 4,
+
+            /// <summary>
+            /// アクティブ化されたウィンドウを表します。
+            /// </summary>
+            SHOW = 5,
+
+            /// <summary>
+            /// 最小化状態を表します。
+            /// </summary>
+            MINIMIZE = 6,
+
+            /// <summary>
+            /// 最小化状態を表します。
+            /// </summary>
+            SHOWMINNOACTIVE = 7,
+
+            /// <summary>
+            /// 通常の状態を表します。
+            /// </summary>
+            SHOWNA = 8,
+
+            /// <summary>
+            /// 元のサイズを表します。
+            /// </summary>
+            RESTORE = 9,
+
+            /// <summary>
+            /// 既定値を表します。
+            /// </summary>
+            SHOWDEFAULT = 10,
+        }
+        #endregion WindowPlacement
 
         #region WindowMessage
         /// <summary>
