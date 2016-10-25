@@ -58,7 +58,14 @@
             {
                 ThemeManager.Instance.SetTheme(this.WindowSettings.ThemeName);
             }
+
+            this._isSourceInitialized = true;
         }
+
+        /// <summary>
+        /// OnSourceInitialized イベントが発行されたときに true になります。
+        /// </summary>
+        private bool _isSourceInitialized;
 
         /// <summary>
         /// ウィンドウを閉じるときの処理
@@ -66,6 +73,10 @@
         /// <param name="e">イベント引数</param>
         protected override void OnClosing(CancelEventArgs e)
         {
+            // 一度も開いていないウィンドウについては処理しない
+            if (!this._isSourceInitialized)
+                return;
+
             base.OnClosing(e);
 
             if (!e.Cancel)
