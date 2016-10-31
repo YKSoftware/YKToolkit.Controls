@@ -8,7 +8,11 @@ using System.Windows;
 // アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更してください。
 [assembly: AssemblyTitle("YKToolkit サンプルアプリケーション")]
+#if NET4
+[assembly: AssemblyDescription(".NET Framework 4.0 向け YKToolkit.Controls ライブラリのサンプルアプリケーションです。")]
+#else
 [assembly: AssemblyDescription("YKToolkit.Controls ライブラリのサンプルアプリケーションです。")]
+#endif
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("YKSoftware")]
 [assembly: AssemblyProduct("YKToolkit.Sample")]

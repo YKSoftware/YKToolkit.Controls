@@ -98,6 +98,9 @@
     <Compile Include="..\YKToolkit.Sample\Models\ViewModelInfo.cs">
       <Link>Models\ViewModelInfo.cs</Link>
     </Compile>
+    <Compile Include="..\YKToolkit.Sample\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="..\YKToolkit.Sample\ViewModels\DebugViewModel.cs">
       <Link>ViewModels\DebugViewModel.cs</Link>
     </Compile>
@@ -139,6 +142,9 @@
     </Compile>
     <Compile Include="..\YKToolkit.Sample\ViewModels\Helpers\FourierViewModel.cs">
       <Link>ViewModels\Helpers\FourierViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Sample\ViewModels\Helpers\HsvColorViewModel.cs">
+      <Link>ViewModels\Helpers\HsvColorViewModel.cs</Link>
     </Compile>
     <Compile Include="..\YKToolkit.Sample\ViewModels\MainViewModel.cs">
       <Link>ViewModels\MainViewModel.cs</Link>
@@ -264,6 +270,10 @@
       <Link>Views\Helpers\FourierView.xaml.cs</Link>
       <DependentUpon>FourierView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="..\YKToolkit.Sample\Views\Helpers\HsvColorView.xaml.cs">
+      <Link>Views\Helpers\HsvColorView.xaml.cs</Link>
+      <DependentUpon>HsvColorView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="..\YKToolkit.Sample\Views\MainView.xaml.cs">
       <Link>Views\MainView.xaml.cs</Link>
       <DependentUpon>MainView.xaml</DependentUpon>
@@ -350,9 +360,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -441,6 +448,11 @@
     </Page>
     <Page Include="..\YKToolkit.Sample\Views\Helpers\FourierView.xaml">
       <Link>Views\Helpers\FourierView.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Sample\Views\Helpers\HsvColorView.xaml">
+      <Link>Views\Helpers\HsvColorView.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
