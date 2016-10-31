@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="YKToolkit.Sample.Views.HsvColorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d"
+             xmlns:vm="clr-namespace:YKToolkit.Sample.ViewModels"
+             d:DataContext="{d:DesignInstance vm:HsvColorViewModel}"
+             d:DesignHeight="300" d:DesignWidth="300"
+             xmlns:YK="clr-namespace:YKToolkit.Controls;assembly=YKToolkit.Controls">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel>
+            <Grid Margin="10,0,10,10" SnapsToDevicePixels="True">
+                <Rectangle Stroke="Black">
+                    <Rectangle.Fill>
+                        <SolidColorBrush Color="{Binding SelectedColor}" />
+                    </Rectangle.Fill>
+                </Rectangle>
+                <TextBlock Text="{Binding SelectedColor}" Margin="0,20" Padding="4,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock.Background>
+                        <SolidColorBrush Color="{DynamicResource WindowColor}" />
+                    </TextBlock.Background>
+                    <TextBlock.Foreground>
+                        <SolidColorBrush Color="{DynamicResource ForegroundColor}" />
+                    </TextBlock.Foreground>
+                </TextBlock>
+            </Grid>
+
+            <YK:ColorPicker SelectedColor="{Binding SelectedColor}" RecentColorsVisibility="Collapsed" IsAlphaValueEnabled="False" />
+
+            <TextBlock Text="{Binding H, StringFormat='{}H : {0}'}" />
+            <Slider Value="{Binding H}" Minimum="0" Maximum="359" TickFrequency="1" />
+            <TextBlock Text="{Binding S, StringFormat='{}S : {0}'}" />
+            <Slider Value="{Binding S}" Minimum="0" Maximum="255" TickFrequency="1" />
+            <TextBlock Text="{Binding V, StringFormat='{}V : {0}'}" />
+            <Slider Value="{Binding V}" Minimum="0" Maximum="255" TickFrequency="1" />
+        </StackPanel>
+    </Grid>
+</UserControl>

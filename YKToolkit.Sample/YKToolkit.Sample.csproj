@@ -80,6 +80,7 @@
     <Compile Include="ViewModels\ExtendedControls\BinaryEditorViewModel.cs" />
     <Compile Include="ViewModels\ExtendedControls\RadarChartViewModel.cs" />
     <Compile Include="ViewModels\Helpers\AdornerViewModel.cs" />
+    <Compile Include="ViewModels\Helpers\HsvColorViewModel.cs" />
     <Compile Include="ViewModels\Helpers\FourierViewModel.cs" />
     <Compile Include="ViewModels\ExtendedControls\LineGraphSubViewModel.cs" />
     <Compile Include="ViewModels\ExtendedControls\LineGraphViewModel.cs" />
@@ -150,6 +151,9 @@
     <Compile Include="Views\Helpers\AdornerTemplateSelector.cs" />
     <Compile Include="Views\Helpers\AdornerView.xaml.cs">
       <DependentUpon>AdornerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Helpers\HsvColorView.xaml.cs">
+      <DependentUpon>HsvColorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Helpers\FourierView.xaml.cs">
       <DependentUpon>FourierView.xaml</DependentUpon>
@@ -266,6 +270,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Helpers\AdornerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Helpers\HsvColorView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

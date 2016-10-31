@@ -104,6 +104,9 @@
         <DataTemplate DataType="{x:Type vm:FourierViewModel}">
             <vw:FourierView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:HsvColorViewModel}">
+            <vw:HsvColorView />
+        </DataTemplate>
 
     </Application.Resources>
 </Application>

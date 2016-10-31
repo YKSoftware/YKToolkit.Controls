@@ -60,6 +60,7 @@
             </Grid>
             <CheckBox x:Name="recentColorsVisibility" Content="RecentColors visible" IsChecked="True" />
             <CheckBox x:Name="isAdvancedModeEnabled" Content="Advanced mode enable" IsChecked="True" />
+            <CheckBox x:Name="isAlphaValueEnabled" Content="Alpha Value enable" IsChecked="True" />
         </StackPanel>
 
         <StackPanel Grid.Column="1" Margin="0,0,0,20">
@@ -85,6 +86,7 @@
                         SelectedColor="MediumSeaGreen"
                         RecentColorsVisibility="{Binding IsChecked, ElementName=recentColorsVisibility, Converter={StaticResource BooleanToVisibilityConverter}}"
                         IsAdvancedModeEnabled="{Binding IsChecked, ElementName=isAdvancedModeEnabled}"
+                        IsAlphaValueEnabled="{Binding IsChecked, ElementName=isAlphaValueEnabled}"
                         />
 
         <YK:ColorPicker x:Name="colorPicker2" Grid.Row="1" Grid.Column="1" />

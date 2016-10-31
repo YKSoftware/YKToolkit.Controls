@@ -180,6 +180,7 @@
                             {
                                 new ViewModelInfo() { Name = "Adorner", Instance = this._adornerViewModel, },
                                 new ViewModelInfo() { Name = "Fourier", Instance = this._fourierViewModel, },
+                                new ViewModelInfo() { Name = "HsvColor", Instance = this._hsvColorViewModel, },
                             },
                             IsExpanded = false,
                         },
@@ -225,6 +226,7 @@
 
         private AdornerViewModel _adornerViewModel = new AdornerViewModel();
         private FourierViewModel _fourierViewModel = new FourierViewModel();
+        private HsvColorViewModel _hsvColorViewModel = new HsvColorViewModel();
         #endregion ViewModel 選択
     }
 }

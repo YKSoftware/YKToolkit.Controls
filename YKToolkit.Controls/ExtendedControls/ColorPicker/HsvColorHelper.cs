@@ -6,7 +6,7 @@
     /// <summary>
     /// HSV 値による色表現に関するヘルパを提供します。
     /// </summary>
-    internal static class HsvColorHelper
+    public static class HsvColorHelper
     {
         /// <summary>
         /// Color の情報から HsvColor の新しいインスタンスを生成します。

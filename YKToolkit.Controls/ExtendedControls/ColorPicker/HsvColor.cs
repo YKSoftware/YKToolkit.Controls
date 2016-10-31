@@ -1,6 +1,8 @@
-﻿using System;
-namespace YKToolkit.Controls
+﻿namespace YKToolkit.Controls
 {
+    using System;
+    using System.Windows.Media;
+
     /// <summary>
     /// HSV 値による色情報を表します。
     /// </summary>
@@ -62,6 +64,37 @@ namespace YKToolkit.Controls
         {
             get { return _v; }
             set { _v = value; }
+        }
+
+        /// <summary>
+        /// RGB 表現による色情報から HSV 表現による色情報を生成します。
+        /// </summary>
+        /// <param name="color">RGB 表現による色情報を指定します。</param>
+        /// <returns>HSV 表現による色情報を返します。</returns>
+        public static HsvColor FromRgb(Color color)
+        {
+            return FromRgb(color.R, color.G, color.B);
+        }
+
+        /// <summary>
+        /// RGB 表現による色情報から HSV 表現による色情報を生成します。
+        /// </summary>
+        /// <param name="r">R チャンネルの値を指定します。</param>
+        /// <param name="g">G チャンネルの値を指定します。</param>
+        /// <param name="b">B チャンネルの値を指定します。</param>
+        /// <returns>HSV 表現による色情報を返します。</returns>
+        public static HsvColor FromRgb(int r, int g, int b)
+        {
+            return HsvColorHelper.HsvColorFromRgb(r, g, b);
+        }
+
+        /// <summary>
+        /// 文字列に変換します。
+        /// </summary>
+        /// <returns>変換した文字列を返します。</returns>
+        public override string ToString()
+        {
+            return string.Join(",", new object[] { this.H, this.S, this.V });
         }
     }
 }

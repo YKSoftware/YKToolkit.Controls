@@ -565,6 +565,41 @@
         }
         #endregion IsAdvancedModeEnabled 依存関係プロパティ
 
+        #region IsAlphaValueEnabled 依存関係プロパティ
+        /// <summary>
+        /// IsAdvancedModeEnabled 依存関係プロパティの定義
+        /// </summary>
+        public static readonly DependencyProperty IsAlphaValueEnabledProperty = DependencyProperty.Register("IsAlphaValueEnabled", typeof(bool), typeof(ColorPicker), new FrameworkPropertyMetadata(true, OnIsAlphaValueEnabledPropertyChanged));
+
+        /// <summary>
+        /// Alpha 値が有効かどうかを取得または設定します。
+        /// </summary>
+        public bool IsAlphaValueEnabled
+        {
+            get { return (bool)GetValue(IsAlphaValueEnabledProperty); }
+            set { SetValue(IsAlphaValueEnabledProperty, value); }
+        }
+
+        /// <summary>
+        /// IsAlphaValueEnabled プロパティ変更イベントハンドラ
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private static void OnIsAlphaValueEnabledPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            var control = sender as ColorPicker;
+
+            if (control._isTemplateApplyed)
+            {
+                control._isSampleColorTextChangedFromUI = false;
+                control._isHsvColorChangedFromUI = false;
+                control.UpdatePalleteColor();
+                control._isSampleColorTextChangedFromUI = true;
+                control._isHsvColorChangedFromUI = true;
+            }
+        }
+        #endregion IsAlphaValueEnabled 依存関係プロパティ
+
         #region 公開静的プロパティ
         /// <summary>
         /// テーマカラー 1 を取得します。
@@ -687,9 +722,15 @@
         {
             if (this._isRgbColorChangedFromUI)
             {
-                var color = this.PalleteColor;
-                color.A = (byte)this.Slider_A.Value;
-                this.PalleteColor = color;
+                //var color = this.PalleteColor;
+                //color.A = (byte)this.Slider_A.Value;
+                //this.PalleteColor = color;
+
+                this._isSampleColorTextChangedFromUI = false;
+                this._isHsvColorChangedFromUI = false;
+                UpdatePalleteColor();
+                this._isSampleColorTextChangedFromUI = true;
+                this._isHsvColorChangedFromUI = true;
             }
         }
 
@@ -974,7 +1015,7 @@
         /// </summary>
         private void UpdatePalleteColor()
         {
-            PalleteColor = Color.FromArgb((byte)this.Slider_A.Value, (byte)this.Slider_R.Value, (byte)this.Slider_G.Value, (byte)this.Slider_B.Value);
+            PalleteColor = Color.FromArgb(this.IsAlphaValueEnabled ? (byte)this.Slider_A.Value : (byte)0xFF, (byte)this.Slider_R.Value, (byte)this.Slider_G.Value, (byte)this.Slider_B.Value);
         }
 
         /// <summary>
@@ -1065,7 +1106,7 @@
                 // カラーコードのテキスト変更
                 if (!this._isSampleColorTextChangedFromUI)
                 {
-                    var code = string.Format("#{0:X2}{1:X2}{2:X2}{3:X2}", _palleteColor.A, _palleteColor.R, _palleteColor.G, _palleteColor.B);
+                    var code = string.Format("#{0}{1:X2}{2:X2}{3:X2}", this.IsAlphaValueEnabled ? _palleteColor.A.ToString("X2") : "", _palleteColor.R, _palleteColor.G, _palleteColor.B);
                     PalleteColorTextBox.Text = code;
                 }
 
