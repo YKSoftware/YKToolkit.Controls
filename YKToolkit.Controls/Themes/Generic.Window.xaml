@@ -52,7 +52,7 @@
         </Setter>
         <Setter Property="ContentBackground">
             <Setter.Value>
-                <SolidColorBrush Color="{DynamicResource BoxBaseColor}" />
+                <SolidColorBrush Color="{DynamicResource WindowColor}" />
             </Setter.Value>
         </Setter>
         <Setter Property="Foreground">
@@ -86,6 +86,7 @@
                                 Padding="0">
                             <Grid>
                                 <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
@@ -325,8 +326,16 @@
                                     </StackPanel>
                                 </Grid>
 
+                                <Rectangle Grid.Row="1" Height="{TemplateBinding CaptionBorderThickness}" HorizontalAlignment="Stretch">
+                                    <Rectangle.Fill>
+                                        <LinearGradientBrush>
+                                            <GradientStop Color="{DynamicResource WindowBorderColor}" />
+                                        </LinearGradientBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+
                                 <!-- メインコンテンツ -->
-                                <Border Grid.Row="1" Background="{TemplateBinding ContentBackground}">
+                                <Border Grid.Row="2" Background="{TemplateBinding ContentBackground}">
                                     <ContentPresenter />
                                 </Border>
                             </Grid>
