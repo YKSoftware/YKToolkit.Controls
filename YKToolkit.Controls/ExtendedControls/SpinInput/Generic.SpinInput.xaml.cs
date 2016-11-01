@@ -82,6 +82,8 @@
             this.InputTextBox = this.Template.FindName(PART_InputTextBox, this) as TextBox;
             this.UpButton = this.Template.FindName(PART_UpButton, this) as RepeatButton;
             this.DownButton = this.Template.FindName(PART_DownButton, this) as RepeatButton;
+
+            UpdateTextFromValue();
         }
         #endregion TemplatePart
 
@@ -120,23 +122,7 @@
             var control = sender as SpinInput;
             if (control == null)
                 return;
-
-            if (control.CoerceValue())
-            {
-                var c = string.IsNullOrWhiteSpace(control.StringFormat) ? "" : control.StringFormat.Substring(0, 1).ToLower();
-                if (c == "d")
-                {
-                    control.Text = ((int)control.Value).ToString(control.StringFormat);
-                }
-                else if (c == "x")
-                {
-                    control.Text = "0x" + ((int)control.Value).ToString(control.StringFormat);
-                }
-                else
-                {
-                    control.Text = control.Value.ToString(control.StringFormat);
-                }
-            }
+            control.UpdateTextFromValue();
         }
         #endregion Value 依存関係プロパティ
 
@@ -414,7 +400,30 @@
 
         #region ヘルパ
         /// <summary>
-        /// テキストから Value プロパティを更新します。
+        /// Value プロパティから Text プロパティを更新します。
+        /// </summary>
+        private void UpdateTextFromValue()
+        {
+            if (CoerceValue())
+            {
+                var c = string.IsNullOrWhiteSpace(this.StringFormat) ? "" : this.StringFormat.Substring(0, 1).ToLower();
+                if (c == "d")
+                {
+                    this.Text = ((int)this.Value).ToString(this.StringFormat);
+                }
+                else if (c == "x")
+                {
+                    this.Text = "0x" + ((int)this.Value).ToString(this.StringFormat);
+                }
+                else
+                {
+                    this.Text = this.Value.ToString(this.StringFormat);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Text プロパティから Value プロパティを更新します。
         /// </summary>
         /// <param name="text">テキストを指定します。</param>
         /// <param name="style">パースするための読取形式を指定します。</param>
