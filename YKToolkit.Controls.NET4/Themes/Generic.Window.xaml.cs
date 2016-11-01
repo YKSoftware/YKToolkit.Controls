@@ -6,6 +6,7 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
+    using System.Windows.Media;
 
     /// <summary>
     /// YKToolkit.Controls のテーマに則った Window コントロールを表します。
@@ -439,6 +440,22 @@
             set { SetValue(ResizeModeProperty, value); }
         }
         #endregion ResizeMode プロパティ
+
+        #region ContentBackground プロパティ
+        /// <summary>
+        /// ContentBackground 依存関係プロパティの定義
+        /// </summary>
+        public static readonly DependencyProperty ContentBackgroundProperty = DependencyProperty.Register("ContentBackground", typeof(Brush), typeof(Window), new PropertyMetadata(null));
+
+        /// <summary>
+        /// コンテンツ部の背景色を取得または設定します。
+        /// </summary>
+        public Brush ContentBackground
+        {
+            get { return (Brush)GetValue(ContentBackgroundProperty); }
+            set { SetValue(ContentBackgroundProperty, value); }
+        }
+        #endregion ContentBackground プロパティ
 
         /// <summary>
         /// CaptionHeight プロパティを取得します。

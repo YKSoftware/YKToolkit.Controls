@@ -51,6 +51,11 @@
                 <SolidColorBrush Color="{DynamicResource WindowColor}" />
             </Setter.Value>
         </Setter>
+        <Setter Property="ContentBackground">
+            <Setter.Value>
+                <SolidColorBrush Color="{DynamicResource BoxBaseColor}" />
+            </Setter.Value>
+        </Setter>
         <Setter Property="Foreground">
             <Setter.Value>
                 <SolidColorBrush Color="{DynamicResource ForegroundColor}" />
@@ -322,7 +327,9 @@
                                 </Grid>
 
                                 <!-- メインコンテンツ -->
-                                <ContentPresenter Grid.Row="1" />
+                                <Border Grid.Row="1" Background="{TemplateBinding ContentBackground}">
+                                    <ContentPresenter />
+                                </Border>
                             </Grid>
                         </Border>
                     </AdornerDecorator>
