@@ -265,7 +265,7 @@ namespace YKToolkit.Controls
         /// <returns>子要素の配置に必要なサイズ</returns>
         protected override Size ArrangeOverride(Size finalSize)
         {
-            return finalSize;
+            return this._extent;
         }
 
         /// <summary>

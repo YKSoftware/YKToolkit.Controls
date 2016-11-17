@@ -260,6 +260,10 @@
         /// <param name="newValue">変更後の値</param>
         private void OnAddressOffsetPropertyChanged(int oldValue, int newValue)
         {
+            if (this.IsMonitoringMode)
+            {
+                this.VerticalScrollBar.Value = this.AddressOffset;
+            }
             ClearInputTextBox();
         }
         #endregion AddressOffset 依存関係プロパティ
@@ -3576,6 +3580,8 @@
         /// </summary>
         private void UpdateScrollBarInfo()
         {
+            //if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
+            //    return;
             if ((this.VerticalScrollBar == null) && (this.Data == null))
                 return;
 
@@ -3967,6 +3973,5 @@
         }
 
         #endregion ヘルパ
-
     }
 }

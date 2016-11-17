@@ -12,7 +12,7 @@
     <StackPanel Margin="0,0,0,10">
         <StackPanel.Resources>
             <Style x:Key="labelStyle" TargetType="TextBlock">
-                <Setter Property="Width" Value="100" />
+                <Setter Property="Width" Value="120" />
                 <Setter Property="TextAlignment" Value="Right" />
                 <Setter Property="VerticalAlignment" Value="Center" />
             </Style>
@@ -63,6 +63,10 @@
             <TextBlock Text="SelectedAddress : " Style="{StaticResource labelStyle}" />
             <YK:SpinInput Value="{Binding SelectedAddress}" Minimum="0" Maximum="{Binding Data.Count}" Tick="16" NumberStyle="HexNumber" StringFormat="X08" />
         </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="IsMonitoringMode : " Style="{StaticResource labelStyle}" />
+            <CheckBox IsChecked="{Binding IsMonitoringMode}" VerticalAlignment="Center" />
+        </StackPanel>
         <Button Content="Change" Command="{Binding ChangeCommand}" />
 
         <ScrollViewer VerticalScrollBarVisibility="Auto" CanContentScroll="True">
@@ -74,6 +78,7 @@
                              DataStyle="{Binding DataStyle}"
                              NumStyle="{Binding NumStyle}"
                              SelectedAddress="{Binding SelectedAddress}"
+                             IsMonitoringMode="{Binding IsMonitoringMode}"
                              />
         </ScrollViewer>
     </StackPanel>

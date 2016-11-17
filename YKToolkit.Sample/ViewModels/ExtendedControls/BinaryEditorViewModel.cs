@@ -117,6 +117,16 @@
             set { SetProperty(ref this._selectedAddress, value); }
         }
 
+        private bool _isMonitoringMode;
+        /// <summary>
+        /// モニタリングモードかどうかを取得または設定します。
+        /// </summary>
+        public bool IsMonitoringMode
+        {
+            get { return this._isMonitoringMode; }
+            set { SetProperty(ref this._isMonitoringMode, value); }
+        }
+
         private DelegateCommand _changeCommand;
         public DelegateCommand ChangeCommand
         {
