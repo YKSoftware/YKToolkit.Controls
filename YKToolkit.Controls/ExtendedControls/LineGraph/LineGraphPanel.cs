@@ -731,9 +731,12 @@
                         var graphPoint = !item.IsSecond ? graphPoint1 : graphPoint2;
                         var xArray = item.XAxisData.OfType<double>().ToArray();
                         var yArray = item.YAxisData.OfType<double>().ToArray();
-                        var mins = xArray.Select(x => System.Math.Abs(graphPoint.X - x)).ToList();
-                        var index = mins.IndexOf(mins.Min());
-                        item.HighlightPoint = new Point(xArray[index], yArray[index]);
+                        if ((xArray.Length > 0) && (yArray.Length > 0))
+                        {
+                            var mins = xArray.Select(x => System.Math.Abs(graphPoint.X - x)).ToList();
+                            var index = mins.IndexOf(mins.Min());
+                            item.HighlightPoint = new Point(xArray[index], yArray[index]);
+                        }
                     }
                 }
 

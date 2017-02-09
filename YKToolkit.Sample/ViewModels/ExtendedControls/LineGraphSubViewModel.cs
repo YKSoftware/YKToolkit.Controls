@@ -167,13 +167,14 @@
             {
                 return this._addDataCommand ?? (this._addDataCommand = new DelegateCommand(_ =>
                 {
+                    var n = 1000;
                     var rnd = new Random();
-                    var x = new double[1000];
-                    var y = new double[1000];
+                    var x = new double[n];
+                    var y = new double[n];
                     var a = rnd.Next(0, 100);
                     var f = rnd.Next(0, 100);
                     var p = rnd.NextDouble() * Math.PI / 2.0;
-                    for (var i = 0; i < 1000; i++)
+                    for (var i = 0; i < n; i++)
                     {
                         x[i] = (double)i;
                         y[i] = a * Math.Sin(2.0 * Math.PI * f * i / 1000.0 + p);

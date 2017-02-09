@@ -461,7 +461,7 @@ using System.Windows.Shell;
         /// <summary>
         /// CaptionBorderThickness 依存関係プロパティの定義
         /// </summary>
-        public static readonly DependencyProperty CaptionBorderThicknessProperty = DependencyProperty.Register("CaptionBorderThickness", typeof(double), typeof(Window), new PropertyMetadata(1.0));
+        public static readonly DependencyProperty CaptionBorderThicknessProperty = DependencyProperty.Register("CaptionBorderThickness", typeof(double), typeof(Window), new PropertyMetadata(0.0));
 
         /// <summary>
         /// 非クライアント領域とクライアント領域の境界線の太さを取得または設定します。
