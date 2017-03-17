@@ -210,7 +210,7 @@
 
             var typeface = new Typeface(this.FontFamily.FamilyNames.Select(x => x.Value).First());
             this._textDic.Clear();
-            foreach (var item in this.LimeGraphItems)
+            foreach (var item in this.LineGraphItems)
             {
                 var str = item.Legend;
                 if (item.HighlightPoint != null)
@@ -356,7 +356,7 @@
         /// <summary>
         /// 凡例表示が有効なグラフデータ配列を取得します。
         /// </summary>
-        private LineGraphItem[] LimeGraphItems
+        private LineGraphItem[] LineGraphItems
         {
             get { return this.ItemsSource != null ? this.ItemsSource.OfType<LineGraphItem>().Where(x => x.IsDataEnabled && x.Legend != null).ToArray() : new LineGraphItem[] { }; }
         }

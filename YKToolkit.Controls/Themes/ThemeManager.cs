@@ -115,19 +115,34 @@
         /// 初期化を行います。
         /// </summary>
         /// <param name="theme">設定するテーマ名を指定します。</param>
-        public void Initialize(string theme = "Dark")
+        /// <param name="window">マージされるリソースを持つウィンドウを指定します。</param>
+        public void Initialize(string theme = "Dark", System.Windows.Window window = null)
         {
-            if (!_isInitialized)
+            if ((window != null) || (Application.Current != null))
             {
-                _isInitialized = true;
+                if (!_isInitialized)
+                {
+                    _isInitialized = true;
 
-                LoadThemes();
-                var resourceDictionary = (ResourceDictionary)Application.LoadComponent(new Uri("/" + namespaceString + ";component/Themes/Generic.xaml", UriKind.Relative));
-                Application.Current.Resources.MergedDictionaries.Add(resourceDictionary);
+                    LoadThemes();
+                    var resourceDictionary = (ResourceDictionary)Application.LoadComponent(new Uri("/" + namespaceString + ";component/Themes/Generic.xaml", UriKind.Relative));
+                    if (window != null)
+                    {
+                        window.Resources.MergedDictionaries.Add(resourceDictionary);
+                    }
+                    else// if (Application.Current != null)
+                    {
+                        Application.Current.Resources.MergedDictionaries.Add(resourceDictionary);
+                    }
+                    //else
+                    //{
+                    //    throw new InvalidOperationException("リソースディクショナリをマージできませんでした。");
+                    //}
 
-                if (!this._themeDictionary.ContainsKey(theme))
-                    theme = this._themeDictionary.Keys.First();
-                SetTheme(theme);
+                    if (!this._themeDictionary.ContainsKey(theme))
+                        theme = this._themeDictionary.Keys.First();
+                    SetTheme(theme, window);
+                }
             }
         }
 
@@ -135,13 +150,21 @@
         /// テーマを設定します。
         /// </summary>
         /// <param name="theme">設定するテーマ名を指定します。</param>
-        public void SetTheme(string theme)
+        /// <param name="window">マージされるリソースを持つウィンドウを指定します。</param>
+        public void SetTheme(string theme, System.Windows.Window window = null)
         {
             if (this.CurrentTheme != theme)
             {
                 if (this._themeDictionary.ContainsKey(theme))
                 {
-                    Application.Current.Resources.MergedDictionaries.Add(this._themeDictionary[theme]);
+                    if (window != null)
+                    {
+                        window.Resources.MergedDictionaries.Add(this._themeDictionary[theme]);
+                    }
+                    else
+                    {
+                        Application.Current.Resources.MergedDictionaries.Add(this._themeDictionary[theme]);
+                    }
                     this.CurrentTheme = theme;
                     this.RaiseThemeChanged();
                 }
