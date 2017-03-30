@@ -584,7 +584,10 @@ using System.Windows.Shell;
         /// <param name="e">イベント引数</param>
         private void IconButtonDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            this.Close();
+            if (this.IsCloseButtonEnabled)
+            {
+                this.Close();
+            }
         }
 
         /// <summary>

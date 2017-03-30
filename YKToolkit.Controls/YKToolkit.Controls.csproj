@@ -317,6 +317,7 @@
     </Compile>
     <Compile Include="Helpers\Math\YKMath.cs" />
     <Compile Include="Helpers\Matrix.cs" />
+    <Compile Include="Helpers\ProductInfo.cs" />
     <Compile Include="Helpers\WindowFunctions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
