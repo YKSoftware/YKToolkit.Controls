@@ -21,6 +21,7 @@
         <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.TabControl.xaml" />
         <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.TextBox.xaml" />
         <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.ToggleButton.xaml" />
+        <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.Tooltip.xaml" />
         <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.TreeView.xaml" />
         <ResourceDictionary Source="/YKToolkit.Controls;component/Themes/Generic.Window.xaml" />
 

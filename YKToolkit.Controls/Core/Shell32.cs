@@ -544,7 +544,7 @@
             public static byte[] GetSystemIconByByteArray(string path)
             {
                 var icon = GetSystemIcon(path);
-                return BitmapSourceToByteArray(icon);
+                return icon != null ? BitmapSourceToByteArray(icon) : null;
             }
             #endregion  アイコン取得関連
         }

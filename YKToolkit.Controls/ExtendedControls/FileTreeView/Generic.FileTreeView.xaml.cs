@@ -32,12 +32,14 @@
                     _mainTree.ItemsSource = null;
                     _mainTree.SelectedItemChanged -= MainTree_SelectedItemChanged;
                     _mainTree.MouseDoubleClick -= MainTree_MouseDoubleClick;
+                    _mainTree.MouseRightButtonDown -= MainTree_MouseRightButtonDown;
                 }
                 _mainTree = value;
                 if (_mainTree != null)
                 {
                     _mainTree.SelectedItemChanged += MainTree_SelectedItemChanged;
                     _mainTree.MouseDoubleClick += MainTree_MouseDoubleClick;
+                    _mainTree.MouseRightButtonDown += MainTree_MouseRightButtonDown;
                 }
             }
         }
@@ -208,6 +210,11 @@
         #endregion IsSynchronizeFileSystem 依存関係プロパティ
 
         /// <summary>
+        /// アイテム上で右ボタンを押したときに発生します。
+        /// </summary>
+        public event EventHandler<FileTreeViewItemMouseEventArgs> ItemRightButtonDown;
+
+        /// <summary>
         /// アイテムをダブルクリックしたときに発生します。
         /// </summary>
         public event EventHandler<FileTreeViewItemDoubleClickEventArgs> ItemDoubleClick;
@@ -222,6 +229,18 @@
         {
             var item = e.NewValue as FileTreeViewItem;
             this.SelectedPath = item != null ? item.FullPath : null;
+        }
+
+        /// <summary>
+        /// MainTree MouseRightButtonDown イベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private void MainTree_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var item = (e.OriginalSource as FrameworkElement).DataContext as FileTreeViewItem;
+            var h = this.ItemRightButtonDown;
+            if (h != null) h(this, new FileTreeViewItemMouseEventArgs(item != null ? item.FullPath : "", e.ButtonState));
         }
 
         /// <summary>
@@ -288,24 +307,24 @@
                 {
                     if (info.IsReady)
                     {
-                        (_myComputer.Children as ObservableCollection<FileTreeViewItem>).Add(new FileTreeViewItem(info.RootDirectory.FullName, this.SearchPattern, this.IsFileEnabled));
+                        _myComputer.Children.Add(new FileTreeViewItem(info.RootDirectory.FullName, this.SearchPattern, this.IsFileEnabled));
                     }
                 }
                 #endregion マイコンピュータ
 
                 #region マイドキュメント
-                var myDocumentPath = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                var myDocumentPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                 var myDocument = new FileTreeViewItem(myDocumentPath, this.SearchPattern, this.IsFileEnabled);
                 #endregion マイドキュメント
 
                 #region デスクトップ
-                var desktopPath = System.Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+                var desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
                 var desktop = new FileTreeViewItem(desktopPath, this.SearchPattern, this.IsFileEnabled);
                 desktop.Name = "デスクトップ";
                 desktop.IsExpanded = true;
 
-                (desktop.Children as Collection<FileTreeViewItem>).Insert(0, _myComputer);
-                (desktop.Children as Collection<FileTreeViewItem>).Insert(1, myDocument);
+                desktop.Children.Insert(0, _myComputer);
+                desktop.Children.Insert(1, myDocument);
                 #endregion デスクトップ
 
                 rootCollection = new ObservableCollection<FileTreeViewItem>()
@@ -393,7 +412,6 @@
                     items.RemoveAt(index);
                     items.Insert(index, newItem);
                 }
-                System.Diagnostics.Trace.WriteLine("ファイルシステムが更新されましたぁ！");
             }), DispatcherPriority.Normal);
         }
     }

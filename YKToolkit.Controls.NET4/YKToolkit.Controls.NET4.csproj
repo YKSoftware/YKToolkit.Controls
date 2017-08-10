@@ -165,6 +165,9 @@
     <Compile Include="..\YKToolkit.Controls\ExtendedControls\FileTreeView\FileTreeViewItemDoubleClickEventArgs.cs">
       <Link>ExtendedControls\FileTreeView\FileTreeViewItemDoubleClickEventArgs.cs</Link>
     </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\FileTreeView\FileTreeViewItemMouseEventArgs.cs">
+      <Link>ExtendedControls\FileTreeView\FileTreeViewItemMouseEventArgs.cs</Link>
+    </Compile>
     <Compile Include="..\YKToolkit.Controls\ExtendedControls\FileTreeView\Generic.FileTreeView.xaml.cs">
       <Link>ExtendedControls\FileTreeView\Generic.FileTreeView.xaml.cs</Link>
       <DependentUpon>Generic.FileTreeView.xaml</DependentUpon>
@@ -447,6 +450,12 @@
     </Page>
     <Page Include="..\YKToolkit.Controls\Themes\Generic.ToggleButton.xaml">
       <Link>Themes\Generic.ToggleButton.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Controls\Themes\Generic.Tooltip.xaml">
+      <Link>Themes\Generic.Tooltip.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <DependentUpon>Generic.xaml</DependentUpon>
       <SubType>Designer</SubType>

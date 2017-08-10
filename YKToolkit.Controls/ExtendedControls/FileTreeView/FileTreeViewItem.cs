@@ -1,10 +1,12 @@
 ﻿namespace YKToolkit.Controls
 {
     using System;
-    using System.Collections;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.IO;
     using System.Linq;
+    using System.Threading.Tasks;
+    using System.Windows.Threading;
     using YKToolkit.Bindings;
 
     /// <summary>
@@ -41,7 +43,7 @@
                 var subDirs = dir.GetDirectories();
                 var subFiles = dir.GetFiles(searchPattern != null ? searchPattern : string.Empty);
                 if ((subDirs.Length > 0) || (isFileEnabled && (subFiles.Length > 0)))
-                    this.Children = new object[] { null };   // ダミーデータを入れておく
+                    this.Children = new ObservableCollection<FileTreeViewItem>() { null };   // ダミーデータを入れておく
             }
             else if (isFile && isFileEnabled)
             {
@@ -51,11 +53,11 @@
             }
         }
 
-        private IEnumerable _children;
+        private ObservableCollection<FileTreeViewItem> _children;
         /// <summary>
         /// 階層構造を取得または設定します。
         /// </summary>
-        public IEnumerable Children
+        public ObservableCollection<FileTreeViewItem> Children
         {
             get { return _children; }
             set { SetProperty(ref _children, value); }
@@ -92,7 +94,8 @@
                     if (!string.IsNullOrWhiteSpace(this.FullPath))
                     {
                         // 展開されて初めて下層の実体を取得しにいく
-                        var children = new ObservableCollection<FileTreeViewItem>();
+                        this.Children = new ObservableCollection<FileTreeViewItem>();
+                        //var children = new Collection<FileTreeViewItem>();
                         var currentDir = new DirectoryInfo(this.FullPath);
                         try
                         {
@@ -102,7 +105,13 @@
                                 try
                                 {
                                     dirInfo.GetAccessControl();
-                                    children.Add(new FileTreeViewItem(dirInfo.FullName, _searchPattern, _isFileEnabled));
+                                    Task.Factory.StartNew(() =>
+                                    {
+                                        return new FileTreeViewItem(dirInfo.FullName, _searchPattern, _isFileEnabled);
+                                    }).ContinueWith(t =>
+                                    {
+                                        AddChild(t.Result);
+                                    }, TaskScheduler.FromCurrentSynchronizationContext());
                                 }
                                 catch (Exception err)
                                 {
@@ -128,8 +137,14 @@
                                     {
                                         try
                                         {
-                                            fileInfo.GetAccessControl();
-                                            children.Add(new FileTreeViewItem(fileInfo.FullName, _searchPattern, _isFileEnabled));
+                                            //fileInfo.GetAccessControl();
+                                            Task.Factory.StartNew(() =>
+                                            {
+                                                return new FileTreeViewItem(fileInfo.FullName, _searchPattern, _isFileEnabled);
+                                            }).ContinueWith(t =>
+                                            {
+                                                AddChild(t.Result);
+                                            }, TaskScheduler.FromCurrentSynchronizationContext());
                                         }
                                         catch (Exception err)
                                         {
@@ -138,7 +153,7 @@
                                     }
                                 }
                             }
-                            this.Children = children;
+                            //this.Children = new ObservableCollection<FileTreeViewItem>(children.OrderBy(x => x.Name).ToArray());
                         }
                         catch
                         {
@@ -153,6 +168,38 @@
             }
         }
 
+        private void AddChild(FileTreeViewItem item)
+        {
+            if (this._tempChildren == null) this._tempChildren = new ObservableCollection<FileTreeViewItem>();
+            this._tempChildren.Add(item);
+
+            // 非同期で何度もコールされるので
+            // まとめて処理できるようにタイマーでちょっとだけ待つ
+            if (this._timer == null)
+            {
+                this._timer = new DispatcherTimer()
+                {
+                    Interval = TimeSpan.FromMilliseconds(200),
+                };
+                this._timer.Tick += OnTimerTick;
+            }
+            this._timer.Start();
+        }
+
+        private void OnTimerTick(object sender, EventArgs e)
+        {
+            this._timer.Stop();
+            this._timer = null;
+
+            var children = this.Children.Concat(this._tempChildren);
+            this.Children = new ObservableCollection<FileTreeViewItem>(children.OrderBy(x => x, FileTreeViewItemComparer.Comparer));
+            this._tempChildren.Clear();
+        }
+
+        private DispatcherTimer _timer;
+
+        private ObservableCollection<FileTreeViewItem> _tempChildren;
+
         /// <summary>
         /// ファイル検索のための検索パターン
         /// </summary>
@@ -162,5 +209,65 @@
         /// ファイルを表示するかどうか
         /// </summary>
         private static bool _isFileEnabled;
+    }
+
+    internal class FileTreeViewItemComparer : IComparer<FileTreeViewItem>
+    {
+        public static readonly FileTreeViewItemComparer Comparer = new FileTreeViewItemComparer();
+
+        private readonly List<string> SpecialPath = new List<string>()
+        {
+            null,
+            Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+        };
+
+        public int Compare(FileTreeViewItem x, FileTreeViewItem y)
+        {
+            // 特殊ディレクトリが優先
+            if (SpecialPath.Contains(x.FullPath))
+            {
+                if (!SpecialPath.Contains(y.FullPath))
+                {
+                    // x のみ特殊ディレクトリ
+                    return -1;
+                }
+                else
+                {
+                    // 両方特殊ディレクトリの場合はリストのインデックス順とする
+                    return SpecialPath.IndexOf(x.FullPath) - SpecialPath.IndexOf(y.FullPath);
+                }
+            }
+            else if (SpecialPath.Contains(y.FullPath))
+            {
+                // y のみ特殊ディレクトリ
+                return 1;
+            }
+
+            // ディレクトリが優先
+            if (Directory.Exists(x.FullPath))
+            {
+                if (Directory.Exists(y.FullPath))
+                {
+                    // 両方ディレクトリの場合は単純に文字列でソート
+                    return string.Compare(x.FullPath, y.FullPath);
+                }
+                else
+                {
+                    // x がディレクトリ、y がファイル
+                    return -1;
+                }
+            }
+            else if (Directory.Exists(y.FullPath))
+            {
+                // y のみディレクトリ
+                return 1;
+            }
+
+            // 両方ファイルの場合は拡張子でソート
+            var ret = string.Compare(Path.GetExtension(x.FullPath), Path.GetExtension(y.FullPath));
+            if (ret != 0) return ret;
+            else return string.Compare(x.FullPath, y.FullPath);
+        }
     }
 }

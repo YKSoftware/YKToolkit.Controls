@@ -170,6 +170,16 @@
                 }
             }
         }
+
+        /// <summary>
+        /// テーマを切り替えます。
+        /// </summary>
+        public void ChangeNextTheme()
+        {
+            var themeName = this.ThemeNameList.SkipWhile(x => x != this.CurrentTheme).Skip(1).FirstOrDefault();
+            if (themeName == null) themeName = this.ThemeNameList.First();
+            SetTheme(themeName);
+        }
         #endregion 公開メソッド
 
         #region イベント

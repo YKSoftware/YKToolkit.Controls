@@ -232,6 +232,11 @@
       <SubType>Designer</SubType>
       <DependentUpon>Generic.xaml</DependentUpon>
     </Page>
+    <Page Include="Themes\Generic.Tooltip.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+    </Page>
     <Page Include="Themes\Generic.TreeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -271,6 +276,7 @@
       <DependentUpon>Generic.BinaryEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExtendedControls\BinaryEditor\NumStyles.cs" />
+    <Compile Include="ExtendedControls\FileTreeView\FileTreeViewItemMouseEventArgs.cs" />
     <Compile Include="ExtendedControls\RadarChart\Generic.RadarChart.xaml.cs">
       <DependentUpon>Generic.RadarChart.xaml</DependentUpon>
     </Compile>
