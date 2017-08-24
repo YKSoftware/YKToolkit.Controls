@@ -283,6 +283,7 @@
     <Compile Include="ExtendedControls\FileTreeView\FileTreeViewItemDoubleClickEventArgs.cs" />
     <Compile Include="Helpers\Complex.cs" />
     <Compile Include="Helpers\Extensions\FrameworkElementExtensions.cs" />
+    <Compile Include="Helpers\Extensions\Linq.cs" />
     <Compile Include="Helpers\Math\Fourier.cs" />
     <Compile Include="Helpers\Extensions\Serialization.cs" />
     <Compile Include="Core\Shell32.cs" />

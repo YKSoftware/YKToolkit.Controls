@@ -206,6 +206,9 @@
     <Compile Include="..\YKToolkit.Controls\Helpers\Extensions\FrameworkElementExtensions.cs">
       <Link>Helpers\Extensions\FrameworkElementExtensions.cs</Link>
     </Compile>
+    <Compile Include="..\YKToolkit.Controls\Helpers\Extensions\Linq.cs">
+      <Link>Helpers\Extensions\Linq.cs</Link>
+    </Compile>
     <Compile Include="..\YKToolkit.Controls\Helpers\Extensions\Serialization.cs">
       <Link>Helpers\Extensions\Serialization.cs</Link>
     </Compile>
