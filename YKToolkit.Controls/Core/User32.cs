@@ -242,6 +242,15 @@
                 this.X = x;
                 this.Y = y;
             }
+
+            /// <summary>
+            /// 文字列変換します。
+            /// </summary>
+            /// <returns>変換した文字列を返します。</returns>
+            public override string ToString()
+            {
+                return string.Format("({0}, {1})", this.X, this.Y);
+            }
         }
 
         /// <summary>
@@ -374,8 +383,71 @@
             /// WindowMessage - WM_HOTKEY
             /// </summary>
             WM_HOTKEY = 0x0312,
+
+            /// <summary>
+            /// WindowMessage - WM_MOUSEMOVE
+            /// </summary>
+            WM_MOUSEMOVE = 0x0200,
+
+            /// <summary>
+            /// WindowMessage - WM_LBUTTONDOWN
+            /// </summary>
+            WM_LBUTTONDOWN = 0x0201,
+
+            /// <summary>
+            /// WindowMessage - WM_LBUTTONUP
+            /// </summary>
+            WM_LBUTTONUP = 0x0202,
+
+            /// <summary>
+            /// WindowMessage - WM_LBUTTONDBLCLK
+            /// </summary>
+            WM_LBUTTONDBLCLK = 0x0203,
+
+            /// <summary>
+            /// WindowMessage - WM_RBUTTONDOWN
+            /// </summary>
+            WM_RBUTTONDOWN = 0x0204,
+
+            /// <summary>
+            /// WindowMessage - WM_RBUTTONUP
+            /// </summary>
+            WM_RBUTTONUP = 0x0205,
+
+            /// <summary>
+            /// WindowMessage - WM_MBUTTONDOWN
+            /// </summary>
+            WM_MBUTTONDOWN = 0x0207,
+
+            /// <summary>
+            /// WindowMessage - WM_MBUTTONUP
+            /// </summary>
+            WM_MBUTTONUP = 0x0208,
+
+            /// <summary>
+            /// WindowMessage - WM_MOUSEWHEEL
+            /// </summary>
+            WM_MOUSEWHEEL = 0x020A,
         }
         #endregion WindowMessage
+
+        #region WindowsHook
+        /// <summary>
+        /// Windows Hook を表します。
+        /// </summary>
+        public enum WHs : int
+        {
+            /// <summary>
+            /// WindowsHook - WH_KEYBOARD_LL
+            /// </summary>
+            WH_KEYBOARD_LL = 13,
+
+            /// <summary>
+            /// WindowsHook - WH_MOUSE_LL
+            /// </summary>
+            WH_MOUSE_LL = 14,
+        }
+        #endregion WindowsHook
 
         #region SystemCommand
         /// <summary>

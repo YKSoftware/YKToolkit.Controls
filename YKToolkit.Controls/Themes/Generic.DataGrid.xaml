@@ -270,6 +270,7 @@
                                                     Converter={x:Static DataGrid.HeadersVisibilityConverter},
                                                     ConverterParameter={x:Static DataGridHeadersVisibility.Row},
                                                     RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                               x:Name="rowHeader"
                                                />
                         </SelectiveScrollingGrid>
 
@@ -280,6 +281,20 @@
                             <Setter Property="Background">
                                 <Setter.Value>
                                     <SolidColorBrush Color="{DynamicResource DataGridNormalRowBackgroundColor}" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="rowHeader" Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{DynamicResource HoverColor}" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="rowHeader" Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{DynamicResource SelectedColor}" />
                                 </Setter.Value>
                             </Setter>
                         </Trigger>
@@ -309,7 +324,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="DataGridRowHeader">
                     <Grid>
-                        <VisualStateManager.VisualStateGroups>
+                        <!--<VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal" />
                                 <VisualState x:Name="Normal_CurrentRow" />
@@ -405,9 +420,9 @@
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
+                        </VisualStateManager.VisualStateGroups>-->
 
-                        <Border x:Name="rowHeaderBorder" Background="Transparent" BorderThickness="1" Width="30">
+                        <Border x:Name="rowHeaderBorder" Background="{TemplateBinding Background}" BorderThickness="1" Width="30">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <ContentPresenter VerticalAlignment="Center" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                                 <Control Template="{Binding ValidationErrorTemplate, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}"

@@ -146,6 +146,9 @@
     <Compile Include="..\YKToolkit.Sample\ViewModels\Helpers\HsvColorViewModel.cs">
       <Link>ViewModels\Helpers\HsvColorViewModel.cs</Link>
     </Compile>
+    <Compile Include="..\YKToolkit.Sample\ViewModels\Helpers\MouseHookViewModel.cs">
+      <Link>ViewModels\Helpers\MouseHookViewModel.cs</Link>
+    </Compile>
     <Compile Include="..\YKToolkit.Sample\ViewModels\MainViewModel.cs">
       <Link>ViewModels\MainViewModel.cs</Link>
     </Compile>
@@ -273,6 +276,10 @@
     <Compile Include="..\YKToolkit.Sample\Views\Helpers\HsvColorView.xaml.cs">
       <Link>Views\Helpers\HsvColorView.xaml.cs</Link>
       <DependentUpon>HsvColorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\YKToolkit.Sample\Views\Helpers\MouseHookView.xaml.cs">
+      <Link>Views\Helpers\MouseHookView.xaml.cs</Link>
+      <DependentUpon>MouseHookView.xaml</DependentUpon>
     </Compile>
     <Compile Include="..\YKToolkit.Sample\Views\MainView.xaml.cs">
       <Link>Views\MainView.xaml.cs</Link>
@@ -453,6 +460,11 @@
     </Page>
     <Page Include="..\YKToolkit.Sample\Views\Helpers\HsvColorView.xaml">
       <Link>Views\Helpers\HsvColorView.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Sample\Views\Helpers\MouseHookView.xaml">
+      <Link>Views\Helpers\MouseHookView.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
