@@ -119,6 +119,9 @@
     <Compile Include="..\YKToolkit.Controls\Core\Converters\TabControlBorderThicknessConverter.cs">
       <Link>Core\Converters\TabControlBorderThicknessConverter.cs</Link>
     </Compile>
+    <Compile Include="..\YKToolkit.Controls\Core\KeyboardHook.cs">
+      <Link>Core\KeyboardHook.cs</Link>
+    </Compile>
     <Compile Include="..\YKToolkit.Controls\Core\MouseHook.cs">
       <Link>Core\MouseHook.cs</Link>
     </Compile>

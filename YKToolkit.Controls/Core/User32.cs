@@ -370,9 +370,24 @@
             WM_NCLBUTTONDBLCLK = 0x00A3,
 
             /// <summary>
+            /// WindowMessage - WM_KEYDOWN
+            /// </summary>
+            WM_KEYDOWN = 0x0100,
+
+            /// <summary>
+            /// WindowMessage - WM_KEYUP
+            /// </summary>
+            WM_KEYUP = 0x0101,
+
+            /// <summary>
             /// WindowMessage - WM_SYSKEYDOWN
             /// </summary>
             WM_SYSKEYDOWN = 0x0104,
+
+            /// <summary>
+            /// WindowMessage - WM_SYSKEYUP
+            /// </summary>
+            WM_SYSKEYUP = 0x0105,
 
             /// <summary>
             /// WindowMessage - WM_SYSCOMMAND
@@ -498,6 +513,8 @@
             /// </summary>
             VK_XBUTTON2 = 0x06,
 
+            // 0x07 // Undefined
+
             /// <summary>
             /// BACKSPACE key
             /// </summary>
@@ -508,6 +525,8 @@
             /// </summary>
             VK_TAB = 0x09,
 
+            // 0x0A, 0x0B // Reserved
+
             /// <summary>
             /// CLEAR key
             /// </summary>
@@ -517,6 +536,8 @@
             /// ENTER key
             /// </summary>
             VK_RETURN = 0x0D,
+
+            // 0x0E, 0x0F // Undefined
 
             /// <summary>
             /// SHIFT key
@@ -577,6 +598,8 @@
             /// IME Kanji mode
             /// </summary>
             VK_KANJI = 0x19,
+
+            // 0x1A // Undefined
 
             /// <summary>
             /// ESC key
@@ -733,6 +756,8 @@
             /// </summary>
             K_9 = 0x39,
 
+            // 0x3A - 0x40 // Undefined
+
             /// <summary>
             /// A key
             /// </summary>
@@ -877,6 +902,8 @@
             /// Applications key (Natural keyboard)
             /// </summary>
             VK_APPS = 0x5D,
+
+            // 0x5E // Reserved
 
             /// <summary>
             /// Computer Sleep key
@@ -1083,6 +1110,8 @@
             /// </summary>
             VK_F24 = 0x87,
 
+            // 0x88 - 0x8F // Unassigned
+
             /// <summary>
             /// NUM LOCK key
             /// </summary>
@@ -1092,6 +1121,10 @@
             /// SCROLL LOCK key
             /// </summary>
             VK_SCROLL = 0x91,
+
+            // 0x92 - 0x96 // OEM specific
+
+            // 0x97 - 0x9F // Unassigned
 
             /// <summary>
             /// Left SHIFT key
@@ -1213,6 +1246,8 @@
             /// </summary>
             VK_LAUNCH_APP2 = 0xB7,
 
+            // 0xB8, 0xB9 // Reserved
+
             /// <summary>
             /// Used for miscellaneous characters; it can vary by keyboard. For the US standard keyboard, the ';:' key
             /// </summary>
@@ -1248,6 +1283,10 @@
             /// </summary>
             VK_OEM_3 = 0xC0,
 
+            // 0xC1 - 0xD7 // Reserved
+
+            // 0xD8 - 0xDA // Unassigned
+
             /// <summary>
             /// Used for miscellaneous characters; it can vary by keyboard. For the US standard keyboard, the '[{' key
             /// </summary>
@@ -1273,15 +1312,23 @@
             /// </summary>
             VK_OEM_8 = 0xDF,
 
+            // 0xE0 // Reserved
+
+            // 0xE1 // OEM specific
+
             /// <summary>
             /// Either the angle bracket key or the backslash key on the RT 102-key keyboard
             /// </summary>
             VK_OEM_102 = 0xE2,
 
+            // 0xE3, 0xE4 // OEM specific
+
             /// <summary>
             /// IME PROCESS key
             /// </summary>
             VK_PROCESSKEY = 0xE5,
+
+            // 0xE6 // OEM specific
 
             /// <summary>
             /// Used to pass Unicode characters as if they were keystrokes.
@@ -1289,6 +1336,10 @@
             /// For more information, see Remark in KEYBDINPUT, SendInput, WM_KEYDOWN, and WM_KEYUP
             /// </summary>
             VK_PACKET = 0xE7,
+
+            // 0xE8 // Unassigned
+
+            // 0xE9 - 0xF5 // OEM specific
 
             /// <summary>
             /// Attn key
@@ -1319,6 +1370,11 @@
             /// Zoom key
             /// </summary>
             VK_ZOOM = 0xFB,
+
+            /// <summary>
+            /// Reserved
+            /// </summary>
+            VK_NONAME = 0xFC,
 
             /// <summary>
             /// PA1 key

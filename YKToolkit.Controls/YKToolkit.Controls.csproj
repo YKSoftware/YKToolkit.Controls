@@ -270,6 +270,7 @@
     <Compile Include="Core\Converters\DrawingIcontoImageConverter.cs" />
     <Compile Include="Core\Converters\InverseConverter.cs" />
     <Compile Include="Core\Converters\TabControlBorderThicknessConverter.cs" />
+    <Compile Include="Core\KeyboardHook.cs" />
     <Compile Include="Core\MouseHook.cs" />
     <Compile Include="ExtendedControls\BinaryEditor\BinaryEditorTable.cs" />
     <Compile Include="ExtendedControls\BinaryEditor\DataStyles.cs" />
