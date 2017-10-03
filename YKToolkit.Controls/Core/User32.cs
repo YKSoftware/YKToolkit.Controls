@@ -380,6 +380,11 @@
             WM_KEYUP = 0x0101,
 
             /// <summary>
+            /// WindowMessage - WM_CHAR
+            /// </summary>
+            WM_CHAR = 0x0102,
+
+            /// <summary>
             /// WindowMessage - WM_SYSKEYDOWN
             /// </summary>
             WM_SYSKEYDOWN = 0x0104,
@@ -484,6 +489,11 @@
         public enum VKs : int
         {
             /// <summary>
+            /// Undefined
+            /// </summary>
+            VK_0x00 = 0x00,
+
+            /// <summary>
             /// Left mouse button
             /// </summary>
             VK_LBUTTON = 0x01,
@@ -513,7 +523,10 @@
             /// </summary>
             VK_XBUTTON2 = 0x06,
 
-            // 0x07 // Undefined
+            /// <summary>
+            /// Undefined
+            /// </summary>
+            VK_0x07 = 0x07,
 
             /// <summary>
             /// BACKSPACE key
@@ -525,7 +538,15 @@
             /// </summary>
             VK_TAB = 0x09,
 
-            // 0x0A, 0x0B // Reserved
+            /// <summary>
+            /// Reserved
+            /// </summary>
+            VK_0x0A = 0x0A,
+
+            /// <summary>
+            /// Reserved
+            /// </summary>
+            VK_0x0B = 0x0B,
 
             /// <summary>
             /// CLEAR key
@@ -537,7 +558,15 @@
             /// </summary>
             VK_RETURN = 0x0D,
 
-            // 0x0E, 0x0F // Undefined
+            /// <summary>
+            /// Undefined
+            /// </summary>
+            VK_0x0E = 0x0E,
+
+            /// <summary>
+            /// Undefined
+            /// </summary>
+            VK_0x0F = 0x0F,
 
             /// <summary>
             /// SHIFT key
@@ -756,7 +785,40 @@
             /// </summary>
             K_9 = 0x39,
 
-            // 0x3A - 0x40 // Undefined
+            /// <summary>
+            /// Undefined
+            /// </summary>
+            VK_0x3A = 0x3A,
+
+            /// <summary>
+            /// Undefined
+            /// </summary>
+            VK_0x3B = 0x3B,
+
+            /// <summary>
+            /// Undefined
+            /// </summary>
+            VK_0x3C = 0x3C,
+
+            /// <summary>
+            /// Undefined
+            /// </summary>
+            VK_0x3D = 0x3D,
+
+            /// <summary>
+            /// Undefined
+            /// </summary>
+            VK_0x3E = 0x3E,
+
+            /// <summary>
+            /// Undefined
+            /// </summary>
+            VK_0x3F = 0x3F,
+
+            /// <summary>
+            /// Undefined
+            /// </summary>
+            VK_0x40 = 0x40,
 
             /// <summary>
             /// A key
@@ -903,7 +965,10 @@
             /// </summary>
             VK_APPS = 0x5D,
 
-            // 0x5E // Reserved
+            /// <summary>
+            /// Reserved
+            /// </summary>
+            VK_0x5E = 0x5E,
 
             /// <summary>
             /// Computer Sleep key
@@ -1110,7 +1175,45 @@
             /// </summary>
             VK_F24 = 0x87,
 
-            // 0x88 - 0x8F // Unassigned
+            /// <summary>
+            /// Unassigned
+            /// </summary>
+            VK_0x88 = 0x88,
+
+            /// <summary>
+            /// Unassigned
+            /// </summary>
+            VK_0x89 = 0x89,
+
+            /// <summary>
+            /// Unassigned
+            /// </summary>
+            VK_0x8A = 0x8A,
+
+            /// <summary>
+            /// Unassigned
+            /// </summary>
+            VK_0x8B = 0x8B,
+
+            /// <summary>
+            /// Unassigned
+            /// </summary>
+            VK_0x8C = 0x8C,
+
+            /// <summary>
+            /// Unassigned
+            /// </summary>
+            VK_0x8D = 0x8D,
+
+            /// <summary>
+            /// Unassigned
+            /// </summary>
+            VK_0x8E = 0x8E,
+
+            /// <summary>
+            /// Unassigned
+            /// </summary>
+            VK_0x8F = 0x8F,
 
             /// <summary>
             /// NUM LOCK key
@@ -1122,9 +1225,75 @@
             /// </summary>
             VK_SCROLL = 0x91,
 
-            // 0x92 - 0x96 // OEM specific
+            /// <summary>
+            /// OEM specific
+            /// </summary>
+            VK_0x92 = 0x92,
 
-            // 0x97 - 0x9F // Unassigned
+            /// <summary>
+            /// OEM specific
+            /// </summary>
+            VK_0x93 = 0x93,
+
+            /// <summary>
+            /// OEM specific
+            /// </summary>
+            VK_0x94 = 0x94,
+
+            /// <summary>
+            /// OEM specific
+            /// </summary>
+            VK_0x95 = 0x95,
+
+            /// <summary>
+            /// OEM specific
+            /// </summary>
+            VK_0x96 = 0x96,
+
+            /// <summary>
+            /// Unassigned
+            /// </summary>
+            VK_0x97 = 0x97,
+
+            /// <summary>
+            /// Unassigned
+            /// </summary>
+            VK_0x98 = 0x98,
+
+            /// <summary>
+            /// Unassigned
+            /// </summary>
+            VK_0x99 = 0x99,
+
+            /// <summary>
+            /// Unassigned
+            /// </summary>
+            VK_0x9A = 0x9A,
+
+            /// <summary>
+            /// Unassigned
+            /// </summary>
+            VK_0x9B = 0x9B,
+
+            /// <summary>
+            /// Unassigned
+            /// </summary>
+            VK_0x9C = 0x9C,
+
+            /// <summary>
+            /// Unassigned
+            /// </summary>
+            VK_0x9D = 0x9D,
+
+            /// <summary>
+            /// Unassigned
+            /// </summary>
+            VK_0x9E = 0x9E,
+
+            /// <summary>
+            /// Unassigned
+            /// </summary>
+            VK_0x9F = 0x9F,
 
             /// <summary>
             /// Left SHIFT key
@@ -1246,7 +1415,15 @@
             /// </summary>
             VK_LAUNCH_APP2 = 0xB7,
 
-            // 0xB8, 0xB9 // Reserved
+            /// <summary>
+            /// Reserved
+            /// </summary>
+            VK_0xB8 = 0xB8,
+
+            /// <summary>
+            /// Reserved
+            /// </summary>
+            VK_0xB9 = 0xB9,
 
             /// <summary>
             /// Used for miscellaneous characters; it can vary by keyboard. For the US standard keyboard, the ';:' key
@@ -1283,9 +1460,135 @@
             /// </summary>
             VK_OEM_3 = 0xC0,
 
-            // 0xC1 - 0xD7 // Reserved
+            /// <summary>
+            /// Reserved
+            /// </summary>
+            VK_0xC1 = 0xC1,
 
-            // 0xD8 - 0xDA // Unassigned
+            /// <summary>
+            /// Reserved
+            /// </summary>
+            VK_0xC2 = 0xC2,
+
+            /// <summary>
+            /// Reserved
+            /// </summary>
+            VK_0xC3 = 0xC3,
+
+            /// <summary>
+            /// Reserved
+            /// </summary>
+            VK_0xC4 = 0xC4,
+
+            /// <summary>
+            /// Reserved
+            /// </summary>
+            VK_0xC5 = 0xC5,
+
+            /// <summary>
+            /// Reserved
+            /// </summary>
+            VK_0xC6 = 0xC6,
+
+            /// <summary>
+            /// Reserved
+            /// </summary>
+            VK_0xC7 = 0xC7,
+
+            /// <summary>
+            /// Reserved
+            /// </summary>
+            VK_0xC8 = 0xC8,
+
+            /// <summary>
+            /// Reserved
+            /// </summary>
+            VK_0xC9 = 0xC9,
+
+            /// <summary>
+            /// Reserved
+            /// </summary>
+            VK_0xCA = 0xCA,
+
+            /// <summary>
+            /// Reserved
+            /// </summary>
+            VK_0xCB = 0xCB,
+
+            /// <summary>
+            /// Reserved
+            /// </summary>
+            VK_0xCC = 0xCC,
+
+            /// <summary>
+            /// Reserved
+            /// </summary>
+            VK_0xCD = 0xCD,
+
+            /// <summary>
+            /// Reserved
+            /// </summary>
+            VK_0xCE = 0xCE,
+
+            /// <summary>
+            /// Reserved
+            /// </summary>
+            VK_0xCF = 0xCF,
+
+            /// <summary>
+            /// Reserved
+            /// </summary>
+            VK_0xD0 = 0xD0,
+
+            /// <summary>
+            /// Reserved
+            /// </summary>
+            VK_0xD1 = 0xD1,
+
+            /// <summary>
+            /// Reserved
+            /// </summary>
+            VK_0xD2 = 0xD2,
+
+            /// <summary>
+            /// Reserved
+            /// </summary>
+            VK_0xD3 = 0xD3,
+
+            /// <summary>
+            /// Reserved
+            /// </summary>
+            VK_0xD4 = 0xD4,
+
+            /// <summary>
+            /// Reserved
+            /// </summary>
+            VK_0xD5 = 0xD5,
+
+            /// <summary>
+            /// Reserved
+            /// </summary>
+            VK_0xD6 = 0xD6,
+
+            /// <summary>
+            /// Reserved
+            /// </summary>
+            VK_0xD7 = 0xD7,
+
+            /// <summary>
+            /// Unassigned
+            /// </summary>
+            VK_0xD8 = 0xD8,
+
+            /// <summary>
+            /// Unassigned
+            /// </summary>
+            VK_0xD9 = 0xD9,
+
+            /// <summary>
+            /// Unassigned
+            /// </summary>
+            VK_0xDA = 0xDA,
 
             /// <summary>
             /// Used for miscellaneous characters; it can vary by keyboard. For the US standard keyboard, the '[{' key
@@ -1312,23 +1615,41 @@
             /// </summary>
             VK_OEM_8 = 0xDF,
 
-            // 0xE0 // Reserved
+            /// <summary>
+            /// Reserved
+            /// </summary>
+            VK_0xE0 = 0xE0,
 
-            // 0xE1 // OEM specific
+            /// <summary>
+            /// OEM specific
+            /// </summary>
+            VK_0xE1 = 0xE1,
 
             /// <summary>
             /// Either the angle bracket key or the backslash key on the RT 102-key keyboard
             /// </summary>
             VK_OEM_102 = 0xE2,
 
-            // 0xE3, 0xE4 // OEM specific
+
+            /// <summary>
+            /// OEM specific
+            /// </summary>
+            VK_0xEe = 0xE3,
+
+            /// <summary>
+            /// OEM specific
+            /// </summary>
+            VK_0xE4 = 0xE4,
 
             /// <summary>
             /// IME PROCESS key
             /// </summary>
             VK_PROCESSKEY = 0xE5,
 
-            // 0xE6 // OEM specific
+            /// <summary>
+            /// OEM specific
+            /// </summary>
+            VK_0xE6 = 0xE6,
 
             /// <summary>
             /// Used to pass Unicode characters as if they were keystrokes.
@@ -1337,9 +1658,75 @@
             /// </summary>
             VK_PACKET = 0xE7,
 
-            // 0xE8 // Unassigned
+            /// <summary>
+            /// Unassigned
+            /// </summary>
+            VK_0xE8 = 0xE8,
 
-            // 0xE9 - 0xF5 // OEM specific
+            /// <summary>
+            /// OEM specific
+            /// </summary>
+            VK_0xE9 = 0xE9,
+
+            /// <summary>
+            /// OEM specific
+            /// </summary>
+            VK_0xEA = 0xEA,
+
+            /// <summary>
+            /// OEM specific
+            /// </summary>
+            VK_0xEB = 0xEB,
+
+            /// <summary>
+            /// OEM specific
+            /// </summary>
+            VK_0xEC = 0xEC,
+
+            /// <summary>
+            /// OEM specific
+            /// </summary>
+            VK_0xED = 0xED,
+
+            /// <summary>
+            /// OEM specific
+            /// </summary>
+            VK_0xEE = 0xEE,
+
+            /// <summary>
+            /// OEM specific
+            /// </summary>
+            VK_0xEF = 0xEF,
+
+            /// <summary>
+            /// OEM specific
+            /// </summary>
+            VK_0xF0 = 0xF0,
+
+            /// <summary>
+            /// OEM specific
+            /// </summary>
+            VK_0xF1 = 0xF1,
+
+            /// <summary>
+            /// OEM specific
+            /// </summary>
+            VK_0xF2 = 0xF2,
+
+            /// <summary>
+            /// OEM specific
+            /// </summary>
+            VK_0xF3 = 0xF3,
+
+            /// <summary>
+            /// OEM specific
+            /// </summary>
+            VK_0xF4 = 0xF4,
+
+            /// <summary>
+            /// OEM specific
+            /// </summary>
+            VK_0xF5 = 0xF5,
 
             /// <summary>
             /// Attn key
@@ -1385,6 +1772,11 @@
             /// Clear key
             /// </summary>
             VK_OEM_CLEAR = 0xFE,
+
+            /// <summary>
+            /// Undefined
+            /// </summary>
+            VK_0xFF = 0xFF,
         }
         #endregion VirtualKeyboard
 
