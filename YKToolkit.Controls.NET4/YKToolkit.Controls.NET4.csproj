@@ -227,6 +227,9 @@
     <Compile Include="..\YKToolkit.Controls\Helpers\Matrix.cs">
       <Link>Helpers\Matrix.cs</Link>
     </Compile>
+    <Compile Include="..\YKToolkit.Controls\Helpers\ProductInfo.cs">
+      <Link>Helpers\ProductInfo.cs</Link>
+    </Compile>
     <Compile Include="..\YKToolkit.Controls\Helpers\WindowFunctions.cs">
       <Link>Helpers\WindowFunctions.cs</Link>
     </Compile>

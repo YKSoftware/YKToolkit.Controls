@@ -44,7 +44,11 @@
         private T GetAttribute<T>()
             where T : Attribute
         {
-            return _assembly.GetCustomAttribute(typeof(T)) as T;
+#if NET4
+            return Attribute.GetCustomAttribute(this._assembly, typeof(T)) as T;
+#else
+            return this._assembly.GetCustomAttribute(typeof(T)) as T;
+#endif
         }
 
         /// <summary>
