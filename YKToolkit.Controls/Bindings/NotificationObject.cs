@@ -35,6 +35,15 @@
         }
 
         /// <summary>
+        /// 全プロパティを対象としたプロパティ変更イベント PropertyChanged を発行します。
+        /// </summary>
+        protected void RaiseAllPropertyChanged()
+        {
+            var h = this.PropertyChanged;
+            if (h != null) h(this, new PropertyChangedEventArgs(null));
+        }
+
+        /// <summary>
         /// プロパティ変更をおこない、プロパティ変更イベント PropertyChanged を発行します。
         /// </summary>
         /// <typeparam name="T">プロパティの型</typeparam>

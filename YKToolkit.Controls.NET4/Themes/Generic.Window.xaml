@@ -161,6 +161,40 @@
                                                 Grid.Column="2"
                                                 Orientation="Horizontal"
                                                 shell:WindowChrome.IsHitTestVisibleInChrome="True">
+                                        <!-- テーマ切替ボタン -->
+                                        <Button x:Name="PART_ChangeThemeButton" Style="{StaticResource CaptionButtonStyle}" IsEnabled="{TemplateBinding IsChangeThemeButtonEnabled}" Visibility="{TemplateBinding ChangeThemeButtonVisibility}">
+                                            <Path Width="30" Height="26">
+                                                <Path.Style>
+                                                    <Style TargetType="{x:Type Path}">
+                                                        <Setter Property="SnapsToDevicePixels" Value="True" />
+                                                        <Setter Property="Stroke">
+                                                            <Setter.Value>
+                                                                <SolidColorBrush Color="{DynamicResource SymbolColor}" />
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                        <Setter Property="Data">
+                                                            <Setter.Value>
+                                                                <PathGeometry>
+                                                                    <PathFigure IsClosed="True" IsFilled="True" StartPoint="4,2">
+                                                                        <LineSegment Point="4,14" />
+                                                                        <LineSegment Point="9,9" />
+                                                                    </PathFigure>
+                                                                </PathGeometry>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsChangeThemeButtonEnabled, RelativeSource={RelativeSource TemplatedParent}}" Value="False">
+                                                                <Setter Property="Stroke">
+                                                                    <Setter.Value>
+                                                                        <SolidColorBrush Color="{DynamicResource DisabledSymbolColor}" />
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Path.Style>
+                                            </Path>
+                                        </Button>
                                         <!-- 常に手前に表示ボタン -->
                                         <Button x:Name="PART_TopmostButton" Style="{StaticResource CaptionButtonStyle}" IsEnabled="{TemplateBinding IsTopmostButtonEnabled}" Visibility="{TemplateBinding TopmostButtonVisibility}">
                                             <Path x:Name="TopmostIcon"

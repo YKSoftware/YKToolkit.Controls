@@ -1,5 +1,6 @@
 ﻿namespace YKToolkit.Controls
 {
+    using System;
     using System.Windows;
 
     /// <summary>
@@ -26,5 +27,10 @@
         /// 表示するアイコンの種類を取得します。
         /// </summary>
         MessageBoxImage MessageBoxImage { get; }
+
+        /// <summary>
+        /// ダイアログ終了後のコールバックを取得します。
+        /// </summary>
+        Action<MessageBoxResult> Callback { get; }
     }
 }

@@ -78,25 +78,17 @@
             set { SetProperty(ref _dialogInfo, value); }
         }
 
-        private MessageBoxResult _messageBoxResult;
-        public MessageBoxResult MessageBoxResult
+        private void OnDialog(MessageBoxResult result)
         {
-            get { return _messageBoxResult; }
-            set
+            switch (result)
             {
-                if (SetProperty(ref _messageBoxResult, value))
-                {
-                    switch(_messageBoxResult)
-                    {
-                        case MessageBoxResult.None: break;
-                        case MessageBoxResult.OK: this.Result = "OK になりました。"; break;
-                        case MessageBoxResult.Cancel: this.Result = "Cancel になりました。"; break;
-                        case MessageBoxResult.Yes: this.Result = "Yes になりました。"; break;
-                        case MessageBoxResult.No: this.Result = "No になりました。"; break;
-                    }
-                    DialogInfo = null;
-                }
+                case MessageBoxResult.None: break;
+                case MessageBoxResult.OK: this.Result = "OK になりました。"; break;
+                case MessageBoxResult.Cancel: this.Result = "Cancel になりました。"; break;
+                case MessageBoxResult.Yes: this.Result = "Yes になりました。"; break;
+                case MessageBoxResult.No: this.Result = "No になりました。"; break;
             }
+            DialogInfo = null;
         }
 
         private DelegateCommand _showDialogCommand;
@@ -106,13 +98,13 @@
             {
                 return _showDialogCommand ?? (_showDialogCommand = new DelegateCommand(_ =>
                 {
-                    MessageBoxResult = MessageBoxResult.None;
                     DialogInfo = new DialogInfo()
                     {
                         Message = this.Message,
                         Title = this.Title,
                         MessageBoxButton = this._messageBoxButton,
                         MessageBoxImage = this._messageBoxImage,
+                        Callback = OnDialog,
                     };
                 }));
             }

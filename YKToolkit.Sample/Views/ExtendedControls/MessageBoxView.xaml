@@ -10,8 +10,7 @@
              xmlns:YK="clr-namespace:YKToolkit.Controls;assembly=YKToolkit.Controls"
              xmlns:YKb="clr-namespace:YKToolkit.Controls.Behaviors;assembly=YKToolkit.Controls"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             YKb:MessageDialogBehavior.DialogInfo="{Binding DialogInfo}"
-             YKb:MessageDialogBehavior.MessageBoxResult="{Binding MessageBoxResult}">
+             YKb:MessageDialogBehavior.DialogInfo="{Binding DialogInfo}">
     <StackPanel>
         <TextBlock Text="Message :" />
         <TextBox Text="{Binding Message}" />

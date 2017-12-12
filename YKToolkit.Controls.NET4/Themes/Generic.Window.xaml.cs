@@ -17,6 +17,7 @@
     [TemplatePart(Name = PART_MaximizeButton, Type = typeof(Button))]
     [TemplatePart(Name = PART_MinimizeButton, Type = typeof(Button))]
     [TemplatePart(Name = PART_TopmostButton, Type = typeof(Button))]
+    [TemplatePart(Name = PART_ChangeThemeButton, Type = typeof(Button))]
     public class Window : System.Windows.Window
     {
         #region TemplatePart
@@ -26,6 +27,7 @@
         private const string PART_MaximizeButton = "PART_MaximizeButton";
         private const string PART_MinimizeButton = "PART_MinimizeButton";
         private const string PART_TopmostButton = "PART_TopmostButton";
+        private const string PART_ChangeThemeButton = "PART_ChangeThemeButton";
 
         private Button _iconButton;
         private Button IconButton
@@ -135,6 +137,24 @@
             }
         }
 
+        private Button _changeThemeButton;
+        private Button ChangeThemeButton
+        {
+            get { return _changeThemeButton; }
+            set
+            {
+                if (_changeThemeButton != null)
+                {
+                    _changeThemeButton.Click -= ChangeThemeButtonClick;
+                }
+                _changeThemeButton = value;
+                if (_changeThemeButton != null)
+                {
+                    _changeThemeButton.Click += ChangeThemeButtonClick;
+                }
+            }
+        }
+
         /// <summary>
         /// テンプレート適用時の処理
         /// </summary>
@@ -148,6 +168,7 @@
             this.MaximizeButton = this.Template.FindName(PART_MaximizeButton, this) as Button;
             this.MinimizeButton = this.Template.FindName(PART_MinimizeButton, this) as Button;
             this.TopmostButton = this.Template.FindName(PART_TopmostButton, this) as Button;
+            this.ChangeThemeButton = this.Template.FindName(PART_ChangeThemeButton, this) as Button;
 
             UpdateResizeBorderThickness();
         }
@@ -329,6 +350,22 @@
         }
         #endregion IsTopmostButtonEnabled プロパティ
 
+        #region IsChangeThemeButtonEnabled プロパティ
+        /// <summary>
+        /// IsChangeThemeButtonEnabled 依存関係プロパティの定義
+        /// </summary>
+        public static readonly DependencyProperty IsChangeThemeButtonEnabledProperty = DependencyProperty.Register("IsChangeThemeButtonEnabled", typeof(bool), typeof(Window), new PropertyMetadata(true));
+
+        /// <summary>
+        /// テーマ切替ボタンが有効かどうかを取得または設定します。
+        /// </summary>
+        public bool IsChangeThemeButtonEnabled
+        {
+            get { return (bool)GetValue(IsChangeThemeButtonEnabledProperty); }
+            set { SetValue(IsChangeThemeButtonEnabledProperty, value); }
+        }
+        #endregion IsChangeThemeButtonEnabled プロパティ
+
         #region IconVisibility プロパティ
         /// <summary>
         /// IconVisibility 依存関係プロパティの定義
@@ -424,6 +461,22 @@
             set { SetValue(TopmostButtonVisibilityProperty, value); }
         }
         #endregion TopmostButtonVisibility プロパティ
+
+        #region ChangeThemeButtonVisibility プロパティ
+        /// <summary>
+        /// ChangeThemeButtonVisibility 依存関係プロパティの定義
+        /// </summary>
+        public static readonly DependencyProperty ChangeThemeButtonVisibilityProperty = DependencyProperty.Register("ChangeThemeButtonVisibility", typeof(Visibility), typeof(Window), new PropertyMetadata(Visibility.Visible));
+
+        /// <summary>
+        /// テーマ切替ボタンの視認性を取得または設定します。
+        /// </summary>
+        public Visibility ChangeThemeButtonVisibility
+        {
+            get { return (Visibility)GetValue(ChangeThemeButtonVisibilityProperty); }
+            set { SetValue(ChangeThemeButtonVisibilityProperty, value); }
+        }
+        #endregion ChangeThemeButtonVisibility プロパティ
 
         #region ResizeMode プロパティ
         /// <summary>
@@ -655,6 +708,16 @@
         private void TopmostButtonClick(object sender, RoutedEventArgs e)
         {
             this.Topmost = !this.Topmost;
+        }
+
+        /// <summary>
+        /// ChangeThemeButton クリックイベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private void ChangeThemeButtonClick(object sender, RoutedEventArgs e)
+        {
+            ThemeManager.Instance.ChangeNextTheme();
         }
     }
 }
