@@ -150,6 +150,7 @@
                                 new ViewModelInfo() { Name = "TabControl", Instance = this._tabControlViewModel, },
                                 new ViewModelInfo() { Name = "TextBox", Instance = this._textBoxViewModel, },
                                 new ViewModelInfo() { Name = "ToggleButton", Instance = this._toggleButtonViewModel, },
+                                //new ViewModelInfo() { Name = "TreeView", Instance = this._treeViewViewModel, },
                             },
                             IsExpanded = false,
                         },
@@ -214,6 +215,7 @@
         private TabControlViewModel _tabControlViewModel = new TabControlViewModel();
         private TextBoxViewModel _textBoxViewModel = new TextBoxViewModel();
         private ToggleButtonViewModel _toggleButtonViewModel = new ToggleButtonViewModel();
+        private TreeViewViewModel _treeViewViewModel = new TreeViewViewModel();
 
         private BinaryEditorViewModel _binaryEditorViewModel = new BinaryEditorViewModel();
         private BusyIndicatorViewModel _busyIndicatorViewModel = new BusyIndicatorViewModel();

@@ -619,6 +619,21 @@
         }
 
         /// <summary>
+        /// Window Closing イベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private void OnWindowClosing(object sender, CancelEventArgs e)
+        {
+            if (this.IsClosingConfirmationEnabled)
+            {
+                var result = MessageBox.Show(this, this.ClosingConfirmationMessage, this.ClosingConfirmationTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Cancel)
+                    e.Cancel = true;
+            }
+        }
+
+        /// <summary>
         /// WindowState プロパティ変更イベントハンドラ
         /// </summary>
         /// <param name="sender">イベント発行元</param>
@@ -636,28 +651,16 @@
         }
 
         /// <summary>
-        /// Window Closing イベントハンドラ
-        /// </summary>
-        /// <param name="sender">イベント発行元</param>
-        /// <param name="e">イベント引数</param>
-        private void OnWindowClosing(object sender, CancelEventArgs e)
-        {
-            if (this.IsClosingConfirmationEnabled)
-            {
-                var result = MessageBox.Show(this, this.ClosingConfirmationMessage, this.ClosingConfirmationTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question);
-                if (result == MessageBoxResult.Cancel)
-                    e.Cancel = true;
-            }
-        }
-
-        /// <summary>
         /// IconButton ダブルクリックイベントハンドラ
         /// </summary>
         /// <param name="sender">イベント発行元</param>
         /// <param name="e">イベント引数</param>
         private void IconButtonDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            this.Close();
+            if (this.IsCloseButtonEnabled)
+            {
+                this.Close();
+            }
         }
 
         /// <summary>

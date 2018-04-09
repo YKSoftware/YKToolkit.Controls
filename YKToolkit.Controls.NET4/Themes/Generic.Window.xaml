@@ -93,6 +93,17 @@
                                 </Grid.RowDefinitions>
 
                                 <Grid Grid.Row="0">
+                                    <Grid.Style>
+                                        <Style TargetType="{x:Type Grid}">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding WindowStyle, RelativeSource={RelativeSource TemplatedParent}}" Value="None">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Grid.Style>
+
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition />
@@ -163,7 +174,7 @@
                                                 shell:WindowChrome.IsHitTestVisibleInChrome="True">
                                         <!-- テーマ切替ボタン -->
                                         <Button x:Name="PART_ChangeThemeButton" Style="{StaticResource CaptionButtonStyle}" IsEnabled="{TemplateBinding IsChangeThemeButtonEnabled}" Visibility="{TemplateBinding ChangeThemeButtonVisibility}">
-                                            <Path Width="30" Height="26">
+                                            <Path>
                                                 <Path.Style>
                                                     <Style TargetType="{x:Type Path}">
                                                         <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -176,15 +187,25 @@
                                                             <Setter.Value>
                                                                 <PathGeometry>
                                                                     <PathFigure IsClosed="True" IsFilled="True" StartPoint="4,2">
-                                                                        <LineSegment Point="4,14" />
-                                                                        <LineSegment Point="9,9" />
+                                                                        <LineSegment Point="4,10" />
+                                                                        <LineSegment Point="9,6" />
                                                                     </PathFigure>
                                                                 </PathGeometry>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                        <Setter Property="Fill">
+                                                            <Setter.Value>
+                                                                <SolidColorBrush Color="{DynamicResource SymbolColor}" />
                                                             </Setter.Value>
                                                         </Setter>
                                                         <Style.Triggers>
                                                             <DataTrigger Binding="{Binding IsChangeThemeButtonEnabled, RelativeSource={RelativeSource TemplatedParent}}" Value="False">
                                                                 <Setter Property="Stroke">
+                                                                    <Setter.Value>
+                                                                        <SolidColorBrush Color="{DynamicResource DisabledSymbolColor}" />
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                                <Setter Property="Fill">
                                                                     <Setter.Value>
                                                                         <SolidColorBrush Color="{DynamicResource DisabledSymbolColor}" />
                                                                     </Setter.Value>
@@ -416,6 +437,17 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Style.Triggers>
+            <Trigger Property="WindowStyle" Value="None">
+                <Setter Property="shell:WindowChrome.WindowChrome">
+                    <Setter.Value>
+                        <shell:WindowChrome CaptionHeight="0"
+                                            UseAeroCaptionButtons="False"
+                                            ResizeBorderThickness="{x:Static local:Window.WindowResizeBorderThickness}" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>

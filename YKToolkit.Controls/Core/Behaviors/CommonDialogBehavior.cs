@@ -72,6 +72,29 @@
         }
 
         /// <summary>
+        /// FileName 添付プロパティの定義
+        /// </summary>
+        public static readonly DependencyProperty FileNameProperty = DependencyProperty.RegisterAttached("FileName", typeof(string), typeof(CommonDialogBehavior), new FrameworkPropertyMetadata(string.Empty));
+        /// <summary>
+        /// FileName 添付プロパティを取得します。
+        /// </summary>
+        /// <param name="target">添付プロパティの取得先</param>
+        /// <returns>取得結果</returns>
+        public static string GetFileName(DependencyObject target)
+        {
+            return (string)target.GetValue(FileNameProperty);
+        }
+        /// <summary>
+        /// FileName 添付プロパティを設定します。
+        /// </summary>
+        /// <param name="target">添付プロパティの設定対象</param>
+        /// <param name="value">設定値を指定します。</param>
+        public static void SetFileName(DependencyObject target, string value)
+        {
+            target.SetValue(FileNameProperty, value);
+        }
+
+        /// <summary>
         /// FileFilter 添付プロパティの定義
         /// </summary>
         public static readonly DependencyProperty FileFilterProperty = DependencyProperty.RegisterAttached("FileFilter", typeof(string), typeof(CommonDialogBehavior), new FrameworkPropertyMetadata(string.Empty));
@@ -148,6 +171,7 @@
                 var callback = e.NewValue as Action<object, bool?>;
                 var type = GetDialogType(element);
                 var title = GetTitle(element);
+                var filename = GetFileName(element);
                 var filter = GetFileFilter(element);
                 var isMultiSelect = GetIsMultiSelect(element);
                 if (callback != null)
@@ -156,6 +180,7 @@
                     {
                         var dlg = new SaveFileDialog();
                         dlg.Title = title;
+                        dlg.FileName = filename;
                         dlg.Filter = filter;
                         var result = dlg.ShowDialog(Window.GetWindow(element));
                         callback(dlg.FileName, result);
@@ -164,6 +189,7 @@
                     {
                         var dlg = new OpenFileDialog();
                         dlg.Title = title;
+                        dlg.FileName = filename;
                         dlg.Filter = filter;
                         dlg.Multiselect = isMultiSelect;
                         var result = dlg.ShowDialog(Window.GetWindow(element));
