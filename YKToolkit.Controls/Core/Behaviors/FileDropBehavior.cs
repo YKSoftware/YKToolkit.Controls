@@ -49,14 +49,27 @@
             if (callback != null)
             {
                 control.AllowDrop = true;
+                control.PreviewDragOver += OnPreviewDragOver;
                 control.Drop += OnDrop;
             }
             else
             {
+                control.PreviewDragOver -= OnPreviewDragOver;
                 control.Drop -= OnDrop;
             }
         }
         #endregion Callback 添付プロパティ
+
+        /// <summary>
+        /// PreviewDragOver イベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private static void OnPreviewDragOver(object sender, DragEventArgs e)
+        {
+            e.Effects = DragDropEffects.Move;
+            e.Handled = e.Data.GetDataPresent(DataFormats.FileDrop);
+        }
 
         /// <summary>
         /// Drop イベントハンドラ
