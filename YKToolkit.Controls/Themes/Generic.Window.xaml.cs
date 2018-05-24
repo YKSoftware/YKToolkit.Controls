@@ -174,6 +174,22 @@
         }
         #endregion TemplatePart
 
+        #region CaptionFontSize プロパティ
+        /// <summary>
+        /// CaptionFontSize 依存関係プロパティの定義
+        /// </summary>
+        public static readonly DependencyProperty CaptionFontSizeProperty = DependencyProperty.Register("CaptionFontSize", typeof(double?), typeof(Window), new PropertyMetadata(16.0));
+
+        /// <summary>
+        /// キャプションバーに表示するキャプションのフォントサイズを取得または設定します。
+        /// </summary>
+        public double? CaptionFontSize
+        {
+            get { return (double?)GetValue(CaptionFontSizeProperty); }
+            set { SetValue(CaptionFontSizeProperty, value); }
+        }
+        #endregion CaptionFontSize プロパティ
+
         #region CaptionLeftContent プロパティ
         /// <summary>
         /// CaptionLeftContent 依存関係プロパティの定義
