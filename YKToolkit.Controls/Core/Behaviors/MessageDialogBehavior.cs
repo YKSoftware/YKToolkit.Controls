@@ -48,7 +48,8 @@
             if (info == null)
                 return;
 
-            var result = YKToolkit.Controls.MessageBox.Show(Window.GetWindow(element), info.Message, info.Title, info.MessageBoxButton, info.MessageBoxImage);
+            var captions = new object[] { info.OkButtonCaption, info.CancelButtonCaption, info.YesButtonCaption, info.NoButtonCaption };
+            var result = YKToolkit.Controls.MessageBox.Show(Window.GetWindow(element), info.Message, info.Title, info.MessageBoxButton, info.MessageBoxImage, captions);
             if (info.Callback != null) info.Callback(result);
         }
         #endregion DialogInfo 添付プロパティ

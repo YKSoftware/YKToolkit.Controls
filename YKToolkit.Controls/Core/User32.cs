@@ -476,6 +476,91 @@
         public enum SCs : int
         {
             /// <summary>
+            /// SystemCommand - SC_SIZE
+            /// </summary>
+            SC_SIZE = 0xF000,
+
+            /// <summary>
+            /// SystemCommand - SC_MOVE
+            /// </summary>
+            SC_MOVE = 0xF010,
+
+            /// <summary>
+            /// SystemCommand - SC_MINIMIZE
+            /// </summary>
+            SC_MINIMIZE = 0xF020,
+
+            /// <summary>
+            /// SystemCommand - SC_MAXIMIZE
+            /// </summary>
+            SC_MAXIMIZE = 0xF030,
+
+            /// <summary>
+            /// SystemCommand - SC_NEXTWINDOW
+            /// </summary>
+            SC_NEXTWINDOW = 0xF040,
+
+            /// <summary>
+            /// SystemCommand - SC_PREVWINDOW
+            /// </summary>
+            SC_PREVWINDOW = 0xF050,
+
+            /// <summary>
+            /// SystemCommand - SC_CLOSE
+            /// </summary>
+            SC_CLOSE = 0xF060,
+
+            /// <summary>
+            /// SystemCommand - SC_VSCROLL
+            /// </summary>
+            SC_VSCROLL = 0xF070,
+
+            /// <summary>
+            /// SystemCommand - SC_HSCROLL
+            /// </summary>
+            SC_HSCROLL = 0xF080,
+
+            /// <summary>
+            /// SystemCommand - SC_MOUSEMENU
+            /// </summary>
+            SC_MOUSEMENU = 0xF090,
+
+            /// <summary>
+            /// SystemCommand - SC_KEYMENU
+            /// </summary>
+            SC_KEYMENU = 0xF100,
+
+            /// <summary>
+            /// SystemCommand - SC_RESTORE
+            /// </summary>
+            SC_RESTORE = 0xF120,
+
+            /// <summary>
+            /// SystemCommand - SC_TASKLIST
+            /// </summary>
+            SC_TASKLIST = 0xF130,
+
+            /// <summary>
+            /// SystemCommand - SC_SCREENSAVE
+            /// </summary>
+            SC_SCREENSAVE = 0xF140,
+
+            /// <summary>
+            /// SystemCommand - SC_HOTKEY
+            /// </summary>
+            SC_HOTKEY = 0xF150,
+
+            /// <summary>
+            /// SystemCommand - SC_DEFAULT
+            /// </summary>
+            SC_DEFAULT = 0xF160,
+
+            /// <summary>
+            /// SystemCommand - SC_MONITORPOWER
+            /// </summary>
+            SC_MONITORPOWER = 0xF170,
+
+            /// <summary>
             /// SystemCommand - SC_CONTEXTHELP
             /// </summary>
             SC_CONTEXTHELP = 0xF180,

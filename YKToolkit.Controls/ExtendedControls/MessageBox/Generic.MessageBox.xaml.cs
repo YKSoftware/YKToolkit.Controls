@@ -179,6 +179,70 @@
         }
         #endregion MessageBoxImage 依存関係プロパティ
 
+        #region OkButtonCaption 依存関係プロパティ
+        /// <summary>
+        /// OkButtonCaption 依存関係プロパティの定義
+        /// </summary>
+        public static readonly DependencyProperty OkButtonCaptionProperty = DependencyProperty.Register("OkButtonCaption", typeof(object), typeof(MessageBox), new PropertyMetadata("OK"));
+
+        /// <summary>
+        /// OK ボタンに表示するキャプションを取得または設定します。
+        /// </summary>
+        public object OkButtonCaption
+        {
+            get { return GetValue(OkButtonCaptionProperty); }
+            set { SetValue(OkButtonCaptionProperty, value); }
+        }
+        #endregion OkButtonCaption 依存関係プロパティ
+
+        #region CancelButtonCaption 依存関係プロパティ
+        /// <summary>
+        /// CancelButtonCaption 依存関係プロパティの定義
+        /// </summary>
+        public static readonly DependencyProperty CancelButtonCaptionProperty = DependencyProperty.Register("CancelButtonCaption", typeof(object), typeof(MessageBox), new PropertyMetadata("Cancel"));
+
+        /// <summary>
+        /// Cancel ボタンに表示するキャプションを取得または設定します。
+        /// </summary>
+        public object CancelButtonCaption
+        {
+            get { return GetValue(CancelButtonCaptionProperty); }
+            set { SetValue(CancelButtonCaptionProperty, value); }
+        }
+        #endregion CancelButtonCaption 依存関係プロパティ
+
+        #region YesButtonCaption 依存関係プロパティ
+        /// <summary>
+        /// YesButtonCaption 依存関係プロパティの定義
+        /// </summary>
+        public static readonly DependencyProperty YesButtonCaptionProperty = DependencyProperty.Register("YesButtonCaption", typeof(object), typeof(MessageBox), new PropertyMetadata("Yes"));
+
+        /// <summary>
+        /// Yes ボタンに表示するキャプションを取得または設定します。
+        /// </summary>
+        public object YesButtonCaption
+        {
+            get { return GetValue(YesButtonCaptionProperty); }
+            set { SetValue(YesButtonCaptionProperty, value); }
+        }
+        #endregion YesButtonCaption 依存関係プロパティ
+
+        #region NoButtonCaption 依存関係プロパティ
+        /// <summary>
+        /// NoButtonCaption 依存関係プロパティの定義
+        /// </summary>
+        public static readonly DependencyProperty NoButtonCaptionProperty = DependencyProperty.Register("NoButtonCaption", typeof(object), typeof(MessageBox), new PropertyMetadata("No"));
+
+        /// <summary>
+        /// No ボタンに表示するキャプションを取得または設定します。
+        /// </summary>
+        public object NoButtonCaption
+        {
+            get { return GetValue(NoButtonCaptionProperty); }
+            set { SetValue(NoButtonCaptionProperty, value); }
+        }
+        #endregion NoButtonCaption 依存関係プロパティ
+
         #region イベントハンドラ
         /// <summary>
         /// OkButton クリックイベントハンドラ
@@ -233,7 +297,7 @@
         /// <returns>ダイアログの結果を返します。</returns>
         public static MessageBoxResult Show(string message)
         {
-            return Show(null, message, null, MessageBoxButton.OK, MessageBoxImage.None);
+            return Show(null, message, "", MessageBoxButton.OK, MessageBoxImage.None, null);
         }
 
         /// <summary>
@@ -244,7 +308,7 @@
         /// <returns>ダイアログの結果を返します。</returns>
         public static MessageBoxResult Show(string message, string title)
         {
-            return Show(null, message, title, MessageBoxButton.OK, MessageBoxImage.None);
+            return Show(null, message, title, MessageBoxButton.OK, MessageBoxImage.None, null);
         }
 
         /// <summary>
@@ -256,7 +320,7 @@
         /// <returns>ダイアログの結果を返します。</returns>
         public static MessageBoxResult Show(string message, string title, MessageBoxButton button)
         {
-            return Show(null, message, title, button, MessageBoxImage.None);
+            return Show(null, message, title, button, MessageBoxImage.None, null);
         }
 
         /// <summary>
@@ -269,7 +333,7 @@
         /// <returns>ダイアログの結果を返します。</returns>
         public static MessageBoxResult Show(string message, string title, MessageBoxButton button, MessageBoxImage image)
         {
-            return Show(null, message, title, button, image);
+            return Show(null, message, title, button, image, null);
         }
 
         /// <summary>
@@ -280,7 +344,7 @@
         /// <returns>ダイアログの結果を返します。</returns>
         public static MessageBoxResult Show(System.Windows.Window owner, string message)
         {
-            return Show(owner, message, null, MessageBoxButton.OK, MessageBoxImage.None);
+            return Show(owner, message, null, MessageBoxButton.OK, MessageBoxImage.None, null);
         }
 
         /// <summary>
@@ -292,7 +356,7 @@
         /// <returns>ダイアログの結果を返します。</returns>
         public static MessageBoxResult Show(System.Windows.Window owner, string message, string title)
         {
-            return Show(owner, message, title, MessageBoxButton.OK, MessageBoxImage.None);
+            return Show(owner, message, title, MessageBoxButton.OK, MessageBoxImage.None, null);
         }
 
         /// <summary>
@@ -305,7 +369,7 @@
         /// <returns>ダイアログの結果を返します。</returns>
         public static MessageBoxResult Show(System.Windows.Window owner, string message, string title, MessageBoxButton button)
         {
-            return Show(owner, message, title, button, MessageBoxImage.None);
+            return Show(owner, message, title, button, MessageBoxImage.None, null);
         }
 
         /// <summary>
@@ -318,6 +382,110 @@
         /// <param name="image">表示するアイコンの種類を指定します。</param>
         /// <returns>ダイアログの結果を返します。</returns>
         public static MessageBoxResult Show(System.Windows.Window owner, string message, string title, MessageBoxButton button, MessageBoxImage image)
+        {
+            return Show(owner, message, title, button, image, null);
+        }
+
+        /// <summary>
+        /// メッセージダイアログを表示します。
+        /// </summary>
+        /// <param name="message">表示するメッセージを指定します。</param>
+        /// <param name="captions">ボタンに表示するキャプションを指定します。</param>
+        /// <returns>ダイアログの結果を返します。</returns>
+        public static MessageBoxResult Show(string message, object[] captions)
+        {
+            return Show(null, message, "", MessageBoxButton.OK, MessageBoxImage.None, captions);
+        }
+
+        /// <summary>
+        /// メッセージダイアログを表示します。
+        /// </summary>
+        /// <param name="message">表示するメッセージを指定します。</param>
+        /// <param name="title">ダイアログのタイトルを指定します。</param>
+        /// <param name="captions">ボタンに表示するキャプションを指定します。</param>
+        /// <returns>ダイアログの結果を返します。</returns>
+        public static MessageBoxResult Show(string message, string title, object[] captions)
+        {
+            return Show(null, message, title, MessageBoxButton.OK, MessageBoxImage.None, captions);
+        }
+
+        /// <summary>
+        /// メッセージダイアログを表示します。
+        /// </summary>
+        /// <param name="message">表示するメッセージを指定します。</param>
+        /// <param name="title">ダイアログのタイトルを指定します。</param>
+        /// <param name="button">表示するボタンの種類を指定します。</param>
+        /// <param name="captions">ボタンに表示するキャプションを指定します。</param>
+        /// <returns>ダイアログの結果を返します。</returns>
+        public static MessageBoxResult Show(string message, string title, MessageBoxButton button, object[] captions)
+        {
+            return Show(null, message, title, button, MessageBoxImage.None, captions);
+        }
+
+        /// <summary>
+        /// メッセージダイアログを表示します。
+        /// </summary>
+        /// <param name="message">表示するメッセージを指定します。</param>
+        /// <param name="title">ダイアログのタイトルを指定します。</param>
+        /// <param name="button">表示するボタンの種類を指定します。</param>
+        /// <param name="image">表示するアイコンの種類を指定します。</param>
+        /// <param name="captions">ボタンに表示するキャプションを指定します。</param>
+        /// <returns>ダイアログの結果を返します。</returns>
+        public static MessageBoxResult Show(string message, string title, MessageBoxButton button, MessageBoxImage image, object[] captions)
+        {
+            return Show(null, message, title, button, image, captions);
+        }
+
+        /// <summary>
+        /// メッセージダイアログを表示します。
+        /// </summary>
+        /// <param name="owner">ダイアログに対するオーナーウィンドウを指定します。</param>
+        /// <param name="message">表示するメッセージを指定します。</param>
+        /// <param name="captions">ボタンに表示するキャプションを指定します。</param>
+        /// <returns>ダイアログの結果を返します。</returns>
+        public static MessageBoxResult Show(System.Windows.Window owner, string message, object[] captions)
+        {
+            return Show(owner, message, null, MessageBoxButton.OK, MessageBoxImage.None, captions);
+        }
+
+        /// <summary>
+        /// メッセージダイアログを表示します。
+        /// </summary>
+        /// <param name="owner">ダイアログに対するオーナーウィンドウを指定します。</param>
+        /// <param name="message">表示するメッセージを指定します。</param>
+        /// <param name="title">ダイアログのタイトルを指定します。</param>
+        /// <param name="captions">ボタンに表示するキャプションを指定します。</param>
+        /// <returns>ダイアログの結果を返します。</returns>
+        public static MessageBoxResult Show(System.Windows.Window owner, string message, string title, object[] captions)
+        {
+            return Show(owner, message, title, MessageBoxButton.OK, MessageBoxImage.None, captions);
+        }
+
+        /// <summary>
+        /// メッセージダイアログを表示します。
+        /// </summary>
+        /// <param name="owner">ダイアログに対するオーナーウィンドウを指定します。</param>
+        /// <param name="message">表示するメッセージを指定します。</param>
+        /// <param name="title">ダイアログのタイトルを指定します。</param>
+        /// <param name="button">表示するボタンの種類を指定します。</param>
+        /// <param name="captions">ボタンに表示するキャプションを指定します。</param>
+        /// <returns>ダイアログの結果を返します。</returns>
+        public static MessageBoxResult Show(System.Windows.Window owner, string message, string title, MessageBoxButton button, object[] captions)
+        {
+            return Show(owner, message, title, button, MessageBoxImage.None, captions);
+        }
+
+        /// <summary>
+        /// メッセージダイアログを表示します。
+        /// </summary>
+        /// <param name="owner">ダイアログに対するオーナーウィンドウを指定します。</param>
+        /// <param name="message">表示するメッセージを指定します。</param>
+        /// <param name="title">ダイアログのタイトルを指定します。</param>
+        /// <param name="button">表示するボタンの種類を指定します。</param>
+        /// <param name="image">表示するアイコンの種類を指定します。</param>
+        /// <param name="captions">ボタンに表示するキャプションを指定します。</param>
+        /// <returns>ダイアログの結果を返します。</returns>
+        public static MessageBoxResult Show(System.Windows.Window owner, string message, string title, MessageBoxButton button, MessageBoxImage image, object[] captions)
         {
             var dlg = new MessageBox();
 
@@ -335,6 +503,14 @@
             dlg.Title = title;
             dlg.MessageBoxButton = button;
             dlg.MessageBoxImage = image;
+
+            if (captions != null)
+            {
+                if (captions.Length > 0) dlg.OkButtonCaption = captions[0];
+                if (captions.Length > 1) dlg.CancelButtonCaption = captions[1];
+                if (captions.Length > 2) dlg.YesButtonCaption = captions[2];
+                if (captions.Length > 3) dlg.NoButtonCaption = captions[3];
+            }
 
             dlg.PreviewKeyDown += (s, e) =>
             {

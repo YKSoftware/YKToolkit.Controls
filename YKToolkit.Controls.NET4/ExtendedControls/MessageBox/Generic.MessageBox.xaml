@@ -146,10 +146,10 @@
                             </Grid>
 
                             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10,6" FocusManager.FocusedElement="{Binding ElementName=PART_OkButton}">
-                                <Button x:Name="PART_YesButton" Content="Yes" Width="80" Visibility="Collapsed" />
-                                <Button x:Name="PART_NoButton" Content="No" Width="80" Margin="10,0,0,0" Visibility="Collapsed" />
-                                <Button x:Name="PART_OkButton" Content="OK" Width="80" Visibility="Collapsed" />
-                                <Button x:Name="PART_CancelButton" Content="Cancel" Width="80" Margin="10,0,0,0" Visibility="Collapsed" />
+                                <Button x:Name="PART_YesButton" Content="{TemplateBinding YesButtonCaption}" Width="80" Visibility="Collapsed" />
+                                <Button x:Name="PART_NoButton" Content="{TemplateBinding NoButtonCaption}" Width="80" Margin="10,0,0,0" Visibility="Collapsed" />
+                                <Button x:Name="PART_OkButton" Content="{TemplateBinding OkButtonCaption}" Width="80" Visibility="Collapsed" />
+                                <Button x:Name="PART_CancelButton" Content="{TemplateBinding CancelButtonCaption}" Width="80" Margin="10,0,0,0" Visibility="Collapsed" />
                             </StackPanel>
                         </Grid>
                     </Border>

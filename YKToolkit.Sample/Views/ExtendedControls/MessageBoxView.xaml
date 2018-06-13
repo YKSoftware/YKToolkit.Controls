@@ -39,6 +39,15 @@
                 </x:Array>
             </ComboBox.ItemsSource>
         </ComboBox>
+        <TextBlock Text="OK ボタンのキャプション :" Margin="0,10,0,0" />
+        <TextBox Text="{Binding OkButtonCaption}" />
+        <TextBlock Text="Cancel ボタンのキャプション :" Margin="0,10,0,0" />
+        <TextBox Text="{Binding CancelButtonCaption}" />
+        <TextBlock Text="Yes ボタンのキャプション :" Margin="0,10,0,0" />
+        <TextBox Text="{Binding YesButtonCaption}" />
+        <TextBlock Text="No ボタンのキャプション :" Margin="0,10,0,0" />
+        <TextBox Text="{Binding NoButtonCaption}" />
+
         <Button Content="Show Dialog" Command="{Binding ShowDialogCommand}" Margin="0,40,0,0" Width="200" HorizontalAlignment="Left" />
         <TextBlock Margin="0,10,0,0">
             <Run Text="Result : " />

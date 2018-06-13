@@ -61,6 +61,34 @@
             }
         }
 
+        private string _okButtonCaption = "OK";
+        public string OkButtonCaption
+        {
+            get { return this._okButtonCaption; }
+            set { SetProperty(ref this._okButtonCaption, value); }
+        }
+
+        private string _cancelButtonCaption = "Cancel";
+        public string CancelButtonCaption
+        {
+            get { return this._cancelButtonCaption; }
+            set { SetProperty(ref this._cancelButtonCaption, value); }
+        }
+
+        private string _yesButtonCaption = "Yes";
+        public string YesButtonCaption
+        {
+            get { return this._yesButtonCaption; }
+            set { SetProperty(ref this._yesButtonCaption, value); }
+        }
+
+        private string _noButtonCaption = "No";
+        public string NoButtonCaption
+        {
+            get { return this._noButtonCaption; }
+            set { SetProperty(ref this._noButtonCaption, value); }
+        }
+
         private string _result;
         public string Result
         {
@@ -105,6 +133,10 @@
                         MessageBoxButton = this._messageBoxButton,
                         MessageBoxImage = this._messageBoxImage,
                         Callback = OnDialog,
+                        OkButtonCaption = this.OkButtonCaption,
+                        CancelButtonCaption = this.CancelButtonCaption,
+                        YesButtonCaption = this.YesButtonCaption,
+                        NoButtonCaption = this.NoButtonCaption,
                     };
                 }));
             }

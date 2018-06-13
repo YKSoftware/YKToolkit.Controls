@@ -42,6 +42,26 @@
         /// ダイアログ終了後のコールバックを取得または設定します。
         /// </summary>
         public Action<MessageBoxResult> Callback { get; set; }
+
+        /// <summary>
+        /// OK ボタンのキャプションを取得または設定します。
+        /// </summary>
+        public object OkButtonCaption { get; set; }
+
+        /// <summary>
+        /// Cancel ボタンのキャプションを取得または設定します。
+        /// </summary>
+        public object CancelButtonCaption { get; set; }
+
+        /// <summary>
+        /// Yes ボタンのキャプションを取得または設定します。
+        /// </summary>
+        public object YesButtonCaption { get; set; }
+
+        /// <summary>
+        /// No ボタンのキャプションを取得または設定します。
+        /// </summary>
+        public object NoButtonCaption { get; set; }
     }
 
 }
