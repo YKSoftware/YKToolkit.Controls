@@ -694,6 +694,11 @@
             VK_HANGUL = 0x15,
 
             /// <summary>
+            /// Undefined
+            /// </summary>
+            VK_0x16 = 0x16,
+
+            /// <summary>
             /// IME Junja mode
             /// </summary>
             VK_JUNJA = 0x17,
@@ -713,7 +718,10 @@
             /// </summary>
             VK_KANJI = 0x19,
 
-            // 0x1A // Undefined
+            /// <summary>
+            /// Undefined
+            /// </summary>
+            VK_0x1A = 0x1A,
 
             /// <summary>
             /// ESC key
@@ -1719,7 +1727,7 @@
             /// <summary>
             /// OEM specific
             /// </summary>
-            VK_0xEe = 0xE3,
+            VK_0xE3 = 0xE3,
 
             /// <summary>
             /// OEM specific
