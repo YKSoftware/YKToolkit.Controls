@@ -30,7 +30,7 @@
         /// <returns>変換後の値を返します。</returns>
         public object ConvertBack(object value, System.Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            throw new System.NotImplementedException();
+            return !(bool)value;
         }
     }
 }
