@@ -112,6 +112,8 @@
         static MessageBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(MessageBox), new FrameworkPropertyMetadata(typeof(MessageBox)));
+
+            IConVisibility = Visibility.Collapsed;
         }
         #endregion コンストラクタ
 
@@ -242,6 +244,22 @@
             set { SetValue(NoButtonCaptionProperty, value); }
         }
         #endregion NoButtonCaption 依存関係プロパティ
+
+        #region IconVisibility 依存関係プロパティ
+        /// <summary>
+        /// IconVisibility 依存関係プロパティの定義
+        /// </summary>
+        public static readonly DependencyProperty IconVisibilityProperty = DependencyProperty.Register("IconVisibility", typeof(Visibility), typeof(MessageBox), new PropertyMetadata(Visibility.Collapsed));
+
+        /// <summary>
+        /// No ボタンに表示するキャプションを取得または設定します。
+        /// </summary>
+        public Visibility IconVisibility
+        {
+            get { return (Visibility)GetValue(IconVisibilityProperty); }
+            set { SetValue(IconVisibilityProperty, value); }
+        }
+        #endregion IconVisibility 依存関係プロパティ
 
         #region イベントハンドラ
         /// <summary>
@@ -498,6 +516,7 @@
                 dlg.Owner = owner;
                 dlg.WindowStartupLocation = WindowStartupLocation.CenterOwner;
                 dlg.Icon = owner.Icon;
+                dlg.IconVisibility = IConVisibility;
             }
             dlg.Message = message;
             dlg.Title = title;
@@ -536,5 +555,10 @@
             return result;
         }
         #endregion 公開メソッド
+
+        /// <summary>
+        /// Show() メソッドを通じて表示する MessageBox ダイアログのアイコンの表示状態を取得または設定します。
+        /// </summary>
+        public static Visibility IConVisibility { get; set; }
     }
 }
