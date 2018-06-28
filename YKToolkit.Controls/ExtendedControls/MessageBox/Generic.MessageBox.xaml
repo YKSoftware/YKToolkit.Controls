@@ -100,10 +100,10 @@
                                 </Grid.ColumnDefinitions>
 
                                 <!-- アイコン -->
-                                <Image x:Name="PART_Icon" Source="{TemplateBinding Icon}" Width="26" Height="26" VerticalAlignment="Center" Opacity="1" />
+                                <Image x:Name="PART_Icon" Source="{TemplateBinding Icon}" Width="26" Height="26" VerticalAlignment="Center" Opacity="1" Visibility="{TemplateBinding IconVisibility}" />
 
                                 <!-- ウィンドウタイトル -->
-                                <TextBlock x:Name="PART_TitleText" Grid.Column="1" Margin="0,0,10,0">
+                                <TextBlock x:Name="PART_TitleText" Grid.Column="1" Margin="2,0,10,0">
                                     <TextBlock.Style>
                                         <Style TargetType="TextBlock">
                                             <Setter Property="Text" Value="{Binding Title, RelativeSource={RelativeSource TemplatedParent}}" />
