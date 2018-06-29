@@ -113,7 +113,7 @@
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(MessageBox), new FrameworkPropertyMetadata(typeof(MessageBox)));
 
-            IConVisibility = Visibility.Collapsed;
+            DefaultIconVisibility = Visibility.Collapsed;
         }
         #endregion コンストラクタ
 
@@ -516,7 +516,7 @@
                 dlg.Owner = owner;
                 dlg.WindowStartupLocation = WindowStartupLocation.CenterOwner;
                 dlg.Icon = owner.Icon;
-                dlg.IconVisibility = IConVisibility;
+                dlg.IconVisibility = DefaultIconVisibility;
             }
             dlg.Message = message;
             dlg.Title = title;
@@ -557,8 +557,8 @@
         #endregion 公開メソッド
 
         /// <summary>
-        /// Show() メソッドを通じて表示する MessageBox ダイアログのアイコンの表示状態を取得または設定します。
+        /// Show() メソッドを通じて表示する MessageBox ダイアログのアイコン表示状態を取得または設定します。
         /// </summary>
-        public static Visibility IConVisibility { get; set; }
+        public static Visibility DefaultIconVisibility { get; set; }
     }
 }
