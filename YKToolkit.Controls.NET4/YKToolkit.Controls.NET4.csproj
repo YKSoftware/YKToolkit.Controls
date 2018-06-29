@@ -125,6 +125,9 @@
     <Compile Include="..\YKToolkit.Controls\Core\MouseHook.cs">
       <Link>Core\MouseHook.cs</Link>
     </Compile>
+    <Compile Include="..\YKToolkit.Controls\Core\QpTimer.cs">
+      <Link>Core\QpTimer.cs</Link>
+    </Compile>
     <Compile Include="..\YKToolkit.Controls\Core\Shell32.cs">
       <Link>Core\Shell32.cs</Link>
     </Compile>

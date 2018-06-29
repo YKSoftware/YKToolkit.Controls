@@ -1,4 +1,4 @@
-﻿namespace YKToolkit.Controls.Core
+﻿namespace YKToolkit.Controls
 {
     using System;
     using System.Runtime.InteropServices;

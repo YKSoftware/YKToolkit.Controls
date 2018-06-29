@@ -47,6 +47,9 @@
 
         #endregion MSLLHOOKSTRUCT 構造体
 
+        [DllImport("User32.dll")]
+        private static extern uint GetDoubleClickTime();
+
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern IntPtr SetWindowsHookEx(int idHook, MouseHookEventHandler lpfn, IntPtr hMod, uint dwThreadId);
 
@@ -177,7 +180,24 @@
                         break;
 
                     case User32.WMs.WM_LBUTTONDOWN:
-                        h = this.MouseLeftButtonDown;
+                        if (this._hasLeftButtonDown)
+                        {
+                            if ((uint)this._timer.MilliSeconds <= GetDoubleClickTime())
+                            {
+                                h = this.DoubleClick;
+                                this._hasLeftButtonDown = false;
+                            }
+                            else
+                            {
+                                h = this.MouseLeftButtonDown;
+                            }
+                        }
+                        else
+                        {
+                            h = this.MouseLeftButtonDown;
+                            this._hasLeftButtonDown = true;
+                        }
+                        this._timer.Start();
                         break;
 
                     case User32.WMs.WM_LBUTTONUP:
@@ -230,5 +250,9 @@
         }
 
         private bool _isDisposed;
+
+        private QpTimer _timer = new QpTimer();
+
+        private bool _hasLeftButtonDown;
     }
 }
