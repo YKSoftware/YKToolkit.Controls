@@ -65,6 +65,14 @@
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(FileTreeView), new FrameworkPropertyMetadata(typeof(FileTreeView)));
         }
+
+        /// <summary>
+        /// 新しいインスタンスを生成します。
+        /// </summary>
+        public FileTreeView()
+        {
+            this._dispatcher = Dispatcher.CurrentDispatcher;
+        }
         #endregion コンストラクタ
 
         #region SelectedPath 依存関係プロパティ
@@ -265,7 +273,17 @@
         /// <summary>
         /// ファイルシステム監視
         /// </summary>
-        List<FileSystemWatcher> _watchers;
+        List<FileSystemWatcher> _watchers = new List<FileSystemWatcher>(200);
+
+        /// <summary>
+        /// ルートノード
+        /// </summary>
+        private ObservableCollection<FileTreeViewItem> _rootCollection = new ObservableCollection<FileTreeViewItem>(new List<FileTreeViewItem>(200));
+
+        /// <summary>
+        /// ファイルシステム監視スレッドからUIスレッドを触るため
+        /// </summary>
+        private Dispatcher _dispatcher;
         #endregion private フィールド
 
         /// <summary>
@@ -281,33 +299,33 @@
             if (w == null)
                 return;
 
-            ObservableCollection<FileTreeViewItem> rootCollection = null;
+            // とりあえず全クリア
+            this._rootCollection.Clear();
+
+            // ノード確定
             if (Directory.Exists(this.RootPath))
             {
                 var root = new FileTreeViewItem(this.RootPath, this.SearchPattern, this.IsFileEnabled) { IsExpanded = true };
-                rootCollection = new ObservableCollection<FileTreeViewItem>()
-                {
-                    root,
-                };
+                this._rootCollection.Add(root);
             }
             else
             {
                 var handle = (new WindowInteropHelper(w)).Handle;
 
                 #region マイコンピュータ
-                _myComputer = new FileTreeViewItem("", this.SearchPattern, this.IsFileEnabled);
-                _myComputer.Name = "マイコンピュータ";
-                _myComputer.IsExpanded = true;
-                _myComputer.IsExpanded = false;
-                _myComputer.BitmapByteArray = Shell32.ShellInfo.GetSpecialIconByByteArray(handle, Shell32.ShellInfo.FolderID.MyComputer);
-                _myComputer.Children = new ObservableCollection<FileTreeViewItem>();
+                this._myComputer = new FileTreeViewItem("", this.SearchPattern, this.IsFileEnabled);
+                this._myComputer.Name = "マイコンピュータ";
+                this._myComputer.IsExpanded = true;
+                this._myComputer.IsExpanded = false;
+                this._myComputer.BitmapByteArray = Shell32.ShellInfo.GetSpecialIconByByteArray(handle, Shell32.ShellInfo.FolderID.MyComputer);
+                this._myComputer.Children = new ObservableCollection<FileTreeViewItem>();
 
                 var infoArray = DriveInfo.GetDrives();
                 foreach (var info in infoArray)
                 {
                     if (info.IsReady)
                     {
-                        _myComputer.Children.Add(new FileTreeViewItem(info.RootDirectory.FullName, this.SearchPattern, this.IsFileEnabled));
+                        this._myComputer.Children.Add(new FileTreeViewItem(info.RootDirectory.FullName, this.SearchPattern, this.IsFileEnabled));
                     }
                 }
                 #endregion マイコンピュータ
@@ -323,17 +341,15 @@
                 desktop.Name = "デスクトップ";
                 desktop.IsExpanded = true;
 
-                desktop.Children.Insert(0, _myComputer);
+                desktop.Children.Insert(0, this._myComputer);
                 desktop.Children.Insert(1, myDocument);
                 #endregion デスクトップ
 
-                rootCollection = new ObservableCollection<FileTreeViewItem>()
-                {
-                    desktop,
-                };
+                this._rootCollection.Add(desktop);
             }
 
-            this.MainTree.ItemsSource = rootCollection ?? new ObservableCollection<FileTreeViewItem>();
+            // ツリーのルート要素確定
+            this.MainTree.ItemsSource = this._rootCollection;
 
             #region ファイルシステムの監視
             if (this._watchers != null)
@@ -355,8 +371,7 @@
             }
             if (this.IsSynchronizeFileSystem)
             {
-                _dispatcher = w.Dispatcher;
-                foreach (var item in rootCollection)
+                foreach (var item in this._rootCollection)
                 {
                     if (!string.IsNullOrWhiteSpace(item.FullPath) && Directory.Exists(item.FullPath))
                     {
@@ -377,18 +392,8 @@
                     }
                 }
             }
-            else
-            {
-                this._watchers = null;
-                _dispatcher = null;
-            }
             #endregion ファイルシステムの監視
         }
-
-        /// <summary>
-        /// ファイルシステム監視スレッドからUIスレッドを触るため
-        /// </summary>
-        private static Dispatcher _dispatcher;
 
         /// <summary>
         /// ファイルシステム監視イベントハンドラ
