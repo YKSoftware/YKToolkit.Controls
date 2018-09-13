@@ -2,6 +2,7 @@
 {
     using System;
     using System.Windows;
+    using System.Windows.Threading;
 
     /// <summary>
     /// ファイルドロップ時にフルパスをコールバックに渡すためのビヘイビアを表します。
@@ -57,6 +58,8 @@
                 control.PreviewDragOver -= OnPreviewDragOver;
                 control.Drop -= OnDrop;
             }
+
+            System.Diagnostics.Debug.WriteLine(System.Threading.Thread.CurrentThread.ManagedThreadId);
         }
         #endregion Callback 添付プロパティ
 
@@ -78,6 +81,7 @@
         /// <param name="e">イベント引数</param>
         private static void OnDrop(object sender, DragEventArgs e)
         {
+            System.Diagnostics.Debug.WriteLine(System.Threading.Thread.CurrentThread.ManagedThreadId);
             var element = sender as UIElement;
             if (element == null)
                 return;
@@ -86,7 +90,18 @@
             if (callback == null)
                 return;
 
-            callback(e.Data.GetData(DataFormats.FileDrop) as string[]);
+            // ドラッグ＆ドロップの処理は OLE に渡される。
+            // OLE はターゲットとソースの両方を扱うので別スレッドで動作する。
+            // このため、ドロップ処理で発生する例外は OLE の管轄になるが、
+            // 発生した例外を元のアプリケーションに渡す方法がない。
+            // よって Drop イベントハンドラで発生する例外は握りつぶされてしまう。
+            // これを防ぐため、例外が発生した場合は UI スレッドに非同期で渡すようにする。
+            // ちなみに Invoke() メソッドだと例外情報は渡せない模様。謎。
+            // とにかく Drop イベントハンドラから抜けないとダメらしい。
+            Dispatcher.CurrentDispatcher.BeginInvoke((Action)(() =>
+            {
+                callback(e.Data.GetData(DataFormats.FileDrop) as string[]);
+            }));
             e.Handled = true;
         }
     }
