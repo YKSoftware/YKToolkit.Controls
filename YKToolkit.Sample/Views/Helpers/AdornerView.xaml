@@ -38,7 +38,7 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <ToggleButton x:Name="toggle1" Content="Toggle me." Margin="10">
+            <ToggleButton x:Name="toggle1" Content="Toggle me." Margin="10" IsChecked="True">
                 <YKb:AdornerBehavior.AdornerTemplate>
                     <StaticResource ResourceKey="template1" />
                 </YKb:AdornerBehavior.AdornerTemplate>

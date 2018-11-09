@@ -148,6 +148,24 @@
         private static void OnIsEnabledPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             OnChange(sender);
+
+            var element = sender as FrameworkElement;
+            if (!element.IsLoaded)
+            {
+                element.Loaded += OnElementLoaded;
+            }
+        }
+
+        /// <summary>
+        /// ビヘイビアを適用した <c>System.Windows.FrameworkElement</c> オブジェクトの Loaded イベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private static void OnElementLoaded(object sender, RoutedEventArgs e)
+        {
+            var element = sender as FrameworkElement;
+            element.Loaded -= OnElementLoaded;
+            OnChange(element);
         }
 
         /// <summary>
@@ -171,6 +189,10 @@
         private static void OnChange(DependencyObject target)
         {
             var element = target as FrameworkElement;
+            // Loaded イベント以前は AdornerLayer が null になってしまうので実行しない
+            if (!element.IsLoaded)
+                return;
+
             var template = GetDataTemplate(element);
             var isEnabled = GetIsEnabled(element);
 
