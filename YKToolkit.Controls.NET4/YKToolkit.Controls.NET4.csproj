@@ -122,6 +122,21 @@
     <Compile Include="..\YKToolkit.Controls\Core\KeyboardHook.cs">
       <Link>Core\KeyboardHook.cs</Link>
     </Compile>
+    <Compile Include="..\YKToolkit.Controls\Core\Messenger\InteractionDialogMessageBehavior.cs">
+      <Link>Core\Messenger\InteractionDialogMessageBehavior.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Core\Messenger\InteractionMessageListener.cs">
+      <Link>Core\Messenger\InteractionMessageListener.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Core\Messenger\InteractionMessenger.cs">
+      <Link>Core\Messenger\InteractionMessenger.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Core\Messenger\Message\DialogMessage.cs">
+      <Link>Core\Messenger\Message\DialogMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Core\Messenger\Message\Message.cs">
+      <Link>Core\Messenger\Message\Message.cs</Link>
+    </Compile>
     <Compile Include="..\YKToolkit.Controls\Core\MouseHook.cs">
       <Link>Core\MouseHook.cs</Link>
     </Compile>

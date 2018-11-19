@@ -149,6 +149,9 @@
     <Compile Include="..\YKToolkit.Sample\ViewModels\Helpers\KeyboardHookViewModel.cs">
       <Link>ViewModels\Helpers\KeyboardHookViewModel.cs</Link>
     </Compile>
+    <Compile Include="..\YKToolkit.Sample\ViewModels\Helpers\MessengerViewModel.cs">
+      <Link>ViewModels\Helpers\MessengerViewModel.cs</Link>
+    </Compile>
     <Compile Include="..\YKToolkit.Sample\ViewModels\Helpers\MouseHookViewModel.cs">
       <Link>ViewModels\Helpers\MouseHookViewModel.cs</Link>
     </Compile>
@@ -283,6 +286,10 @@
     <Compile Include="..\YKToolkit.Sample\Views\Helpers\KeyboardHookView.xaml.cs">
       <Link>Views\Helpers\KeyboardHookView.xaml.cs</Link>
       <DependentUpon>KeyboardHookView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\YKToolkit.Sample\Views\Helpers\MenssengerView.xaml.cs">
+      <Link>Views\Helpers\MenssengerView.xaml.cs</Link>
+      <DependentUpon>MenssengerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="..\YKToolkit.Sample\Views\Helpers\MouseHookView.xaml.cs">
       <Link>Views\Helpers\MouseHookView.xaml.cs</Link>
@@ -472,6 +479,11 @@
     </Page>
     <Page Include="..\YKToolkit.Sample\Views\Helpers\KeyboardHookView.xaml">
       <Link>Views\Helpers\KeyboardHookView.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Sample\Views\Helpers\MenssengerView.xaml">
+      <Link>Views\Helpers\MenssengerView.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

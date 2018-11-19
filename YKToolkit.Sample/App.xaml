@@ -110,6 +110,9 @@
         <DataTemplate DataType="{x:Type vm:MouseHookViewModel}">
             <vw:MouseHookView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:MessengerViewModel}">
+            <vw:MenssengerView />
+        </DataTemplate>
         <DataTemplate DataType="{x:Type vm:KeyboardHookViewModel}">
             <vw:KeyboardHookView />
         </DataTemplate>

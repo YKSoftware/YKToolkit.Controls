@@ -183,6 +183,7 @@
                                 new ViewModelInfo() { Name = "Fourier", Instance = this._fourierViewModel, },
                                 new ViewModelInfo() { Name = "HsvColor", Instance = this._hsvColorViewModel, },
                                 new ViewModelInfo() { Name = "MouseHook", Instance = this._mouseHookViewModel, },
+                                new ViewModelInfo() { Name = "Messenger", Instance = this._messengerViewModel, },
                                 new ViewModelInfo() { Name = "KeyboardHook", Instance = this._keyboardHookViewModel, },
                             },
                             IsExpanded = false,
@@ -232,6 +233,7 @@
         private FourierViewModel _fourierViewModel = new FourierViewModel();
         private HsvColorViewModel _hsvColorViewModel = new HsvColorViewModel();
         private MouseHookViewModel _mouseHookViewModel = new MouseHookViewModel();
+        private MessengerViewModel _messengerViewModel = new MessengerViewModel();
         private KeyboardHookViewModel _keyboardHookViewModel = new KeyboardHookViewModel();
         #endregion ViewModel 選択
     }
