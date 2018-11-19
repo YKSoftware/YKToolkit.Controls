@@ -270,9 +270,13 @@
     <Compile Include="Core\Converters\DrawingIcontoImageConverter.cs" />
     <Compile Include="Core\Converters\InverseConverter.cs" />
     <Compile Include="Core\Converters\TabControlBorderThicknessConverter.cs" />
-    <Compile Include="Core\Messenger\InteractionDialogMessageBehavior.cs" />
+    <Compile Include="Core\Messenger\Behaviors\InteractionSaveFileDialogMessageBehavior.cs" />
+    <Compile Include="Core\Messenger\Behaviors\InteractionOpenFileDialogMessageBehavior.cs" />
+    <Compile Include="Core\Messenger\Behaviors\InteractionDialogMessageBehavior.cs" />
     <Compile Include="Core\Messenger\InteractionMessageListener.cs" />
     <Compile Include="Core\Messenger\InteractionMessenger.cs" />
+    <Compile Include="Core\Messenger\Message\SaveFileDialogMessage.cs" />
+    <Compile Include="Core\Messenger\Message\OpenFileDialogMessage.cs" />
     <Compile Include="Core\Messenger\Message\DialogMessage.cs" />
     <Compile Include="Core\Messenger\Message\Message.cs" />
     <Compile Include="Core\QpTimer.cs" />

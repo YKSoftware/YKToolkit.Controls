@@ -1,7 +1,7 @@
 ﻿namespace YKToolkit.Controls
 {
     using System;
-using System.Windows;
+    using System.Windows;
 
     /// <summary>
     /// ダイアログ表示用のメッセージを表します。

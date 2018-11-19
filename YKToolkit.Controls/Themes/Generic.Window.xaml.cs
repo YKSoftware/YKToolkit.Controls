@@ -542,6 +542,22 @@
         }
         #endregion CaptionBorderThickness プロパティ
 
+        #region ClosingFunction プロパティ
+        /// <summary>
+        /// ClosingFunction 依存関係プロパティの定義
+        /// </summary>
+        public static readonly DependencyProperty ClosingFunctionProperty = DependencyProperty.Register("ClosingFunction", typeof(Func<bool>), typeof(Window), new PropertyMetadata(null));
+
+        /// <summary>
+        /// ウィンドウを閉じる前に実行する処理を取得または設定します。
+        /// </summary>
+        public Func<bool> ClosingFunction
+        {
+            get { return (Func<bool>)GetValue(ClosingFunctionProperty); }
+            set { SetValue(ClosingFunctionProperty, value); }
+        }
+        #endregion ClosingFunction プロパティ
+
         /// <summary>
         /// 静的なコンストラクタ
         /// </summary>
@@ -621,11 +637,18 @@
         /// <param name="e">イベント引数</param>
         private void OnWindowClosing(object sender, CancelEventArgs e)
         {
-            if (this.IsClosingConfirmationEnabled)
+            if ((this.ClosingFunction == null) || this.ClosingFunction())
             {
-                var result = MessageBox.Show(this, this.ClosingConfirmationMessage, this.ClosingConfirmationTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question);
-                if (result == MessageBoxResult.Cancel)
-                    e.Cancel = true;
+                if (this.IsClosingConfirmationEnabled)
+                {
+                    var result = MessageBox.Show(this, this.ClosingConfirmationMessage, this.ClosingConfirmationTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                    if (result == MessageBoxResult.Cancel)
+                        e.Cancel = true;
+                }
+            }
+            else
+            {
+                e.Cancel = true;
             }
         }
 

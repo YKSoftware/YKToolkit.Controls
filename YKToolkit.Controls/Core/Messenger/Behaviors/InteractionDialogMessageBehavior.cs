@@ -40,7 +40,7 @@
         /// <param name="e">イベント引数</param>
         private static void OnMessageKeyPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            var w = Window.GetWindow(sender);
+            var w = sender as Window ?? Window.GetWindow(sender);
             var key = GetMessageKey(sender);
             var oldKey = e.OldValue as string;
             var newKey = e.NewValue as string;

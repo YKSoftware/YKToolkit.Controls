@@ -122,8 +122,14 @@
     <Compile Include="..\YKToolkit.Controls\Core\KeyboardHook.cs">
       <Link>Core\KeyboardHook.cs</Link>
     </Compile>
-    <Compile Include="..\YKToolkit.Controls\Core\Messenger\InteractionDialogMessageBehavior.cs">
-      <Link>Core\Messenger\InteractionDialogMessageBehavior.cs</Link>
+    <Compile Include="..\YKToolkit.Controls\Core\Messenger\Behaviors\InteractionDialogMessageBehavior.cs">
+      <Link>Core\Messenger\Behaviors\InteractionDialogMessageBehavior.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Core\Messenger\Behaviors\InteractionOpenFileDialogMessageBehavior.cs">
+      <Link>Core\Messenger\Behaviors\InteractionOpenFileDialogMessageBehavior.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Core\Messenger\Behaviors\InteractionSaveFileDialogMessageBehavior.cs">
+      <Link>Core\Messenger\Behaviors\InteractionSaveFileDialogMessageBehavior.cs</Link>
     </Compile>
     <Compile Include="..\YKToolkit.Controls\Core\Messenger\InteractionMessageListener.cs">
       <Link>Core\Messenger\InteractionMessageListener.cs</Link>
@@ -136,6 +142,12 @@
     </Compile>
     <Compile Include="..\YKToolkit.Controls\Core\Messenger\Message\Message.cs">
       <Link>Core\Messenger\Message\Message.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Core\Messenger\Message\OpenFileDialogMessage.cs">
+      <Link>Core\Messenger\Message\OpenFileDialogMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Core\Messenger\Message\SaveFileDialogMessage.cs">
+      <Link>Core\Messenger\Message\SaveFileDialogMessage.cs</Link>
     </Compile>
     <Compile Include="..\YKToolkit.Controls\Core\MouseHook.cs">
       <Link>Core\MouseHook.cs</Link>
