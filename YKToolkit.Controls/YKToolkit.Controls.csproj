@@ -338,6 +338,15 @@
     <Compile Include="Helpers\Matrix.cs" />
     <Compile Include="Helpers\ProductInfo.cs" />
     <Compile Include="Helpers\WindowFunctions.cs" />
+    <Compile Include="Melsec\Core\Extensions.cs" />
+    <Compile Include="Melsec\Enums\McDeviceTypes.cs" />
+    <Compile Include="Melsec\Enums\McEndCode.cs" />
+    <Compile Include="Melsec\Enums\McFrame.cs" />
+    <Compile Include="Melsec\Enums\McTimeout.cs" />
+    <Compile Include="Melsec\Interfaces\IMcDevice.cs" />
+    <Compile Include="Melsec\McClient.cs" />
+    <Compile Include="Melsec\McConnection.cs" />
+    <Compile Include="Melsec\McMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
