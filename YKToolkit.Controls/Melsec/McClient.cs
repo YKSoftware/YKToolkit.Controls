@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using YKToolkit.Helpers;
 
     /// <summary>
     /// MC プロトコルを用いた通信をおこなうクライアント機能を提供します。
@@ -90,7 +91,7 @@
         /// </summary>
         /// <param name="devices">値を読み出すデバイス群を指定します。</param>
         /// <returns>一括読出しをおこなう非同期タスク。</returns>
-        public Task ReadDeviceAsync(IEnumerable<IMcDevice> devices)
+        public Task<McEndCode> ReadDeviceAsync(IEnumerable<IMcDevice> devices)
         {
             return Task.Run(() => ReadDevice(devices));
         }
@@ -154,7 +155,7 @@
                 {
                     if (i < bitDevices.Length)
                     {
-                        bitDevices[i].Value = pair.Value[i] != 0;
+                        bitDevices[i].Value = (pair.Value[i] & 0x01) != 0;
                     }
                     else //if (i < wordLength)
                     {
