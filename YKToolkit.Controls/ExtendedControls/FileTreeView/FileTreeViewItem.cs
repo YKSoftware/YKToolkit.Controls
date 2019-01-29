@@ -15,6 +15,21 @@
     internal class FileTreeViewItem : NotificationObject
     {
         /// <summary>
+        /// 静的なコンストラクタ
+        /// </summary>
+        static FileTreeViewItem()
+        {
+            // 特殊ディレクトリのパスを保持しておく
+            SpecialFolders = new Dictionary<string, byte[]>(Enum.GetValues(typeof(Environment.SpecialFolder))
+                                                                .Cast<Environment.SpecialFolder>()
+                                                                .Select(x => Environment.GetFolderPath(x))
+                                                                .Where(x => x != null)
+                                                                .Distinct()
+                                                                .Select(x => new KeyValuePair<string, byte[]>(x, Shell32.ShellInfo.GetSystemIconByByteArray(x)))
+                                                                .ToDictionary(x => x.Key, x => x.Value));
+        }
+
+        /// <summary>
         /// 新しいインスタンスを生成します。
         /// </summary>
         /// <param name="fullPath">フルパスを指定します。</param>
@@ -38,7 +53,7 @@
             if (isDirectory)
             {
                 this.Name = dir.Name;
-                this.BitmapByteArray = Shell32.ShellInfo.GetSystemIconByByteArray(fullPath);
+                this.BitmapByteArray = GetSystemIconByByteArray(fullPath);
 
                 var subDirs = dir.GetDirectories();
                 var subFiles = dir.GetFiles(searchPattern != null ? searchPattern : string.Empty);
@@ -49,7 +64,7 @@
             {
                 var file = new FileInfo(fullPath);
                 this.Name = file.Name;
-                this.BitmapByteArray = Shell32.ShellInfo.GetSystemIconByByteArray(fullPath);
+                this.BitmapByteArray = GetSystemIconByByteArray(fullPath);
             }
         }
 
@@ -167,6 +182,66 @@
                 }
             }
         }
+
+        /// <summary>
+        /// 指定されたパスのディレクトリまたはファイルのアイコン画像をバイト配列として取得します。
+        /// </summary>
+        /// <param name="path">フルパスを指定します。</param>
+        /// <returns>アイコン画像のためのバイト配列を返します。</returns>
+        private byte[] GetSystemIconByByteArray(string path)
+        {
+            // 特殊フォルダ
+            if (SpecialFolders.ContainsKey(path))
+            {
+                // 保持してあるバイト配列を返す
+                return SpecialFolders[path];
+            }
+
+            var extension = Path.GetExtension(path).ToLower();
+
+            // 論理ドライブのパス、.ico ファイル、.exe ファイル、.lnk ファイルの場合は毎回読み込む
+            if ((Directory.GetLogicalDrives().Any(x => x == path))
+                || (extension == ".ico")
+                || (extension == ".exe")
+                || (extension == ".lnk"))
+            {
+                return Shell32.ShellInfo.GetSystemIconByByteArray(path);
+            }
+
+            // 通常のフォルダ
+            if (Directory.Exists(path))
+            {
+                return DirectoryIcon ?? (DirectoryIcon = Shell32.ShellInfo.GetSystemIconByByteArray(path));
+            }
+
+            // コレクションに非同期でアクセスされるのでロックしておく
+            lock (OtherFolders)
+            {
+                if (!OtherFolders.ContainsKey(extension))
+                {
+                    // 新たに読み込む拡張子を持つファイル
+                    OtherFolders.Add(extension, Shell32.ShellInfo.GetSystemIconByByteArray(path));
+                }
+            }
+
+            // 読み込み済みの拡張子を持つファイル
+            return OtherFolders[extension];
+        }
+
+        /// <summary>
+        /// 特殊ディレクトリに対するアイコン画像バイト配列をキャッシュ
+        /// </summary>
+        private readonly static Dictionary<string, byte[]> SpecialFolders;
+
+        /// <summary>
+        /// 読み込み済みの拡張子に対するアイコン画像バイト配列をキャッシュ
+        /// </summary>
+        private readonly static Dictionary<string, byte[]> OtherFolders = new Dictionary<string,byte[]>();
+
+        /// <summary>
+        /// 通常のディレクトリアイコン画像バイト配列をキャッシュ
+        /// </summary>
+        private static byte[] DirectoryIcon;
 
         private void AddChild(FileTreeViewItem item)
         {
