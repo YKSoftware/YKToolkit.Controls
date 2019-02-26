@@ -98,6 +98,8 @@
             }
             if (newValue != null)
             {
+                this._xArray = this.XAxisData.OfType<double>().ToArray();
+
                 if (newValue is INotifyCollectionChanged)
                     (newValue as INotifyCollectionChanged).CollectionChanged += OnXAxisDataCollectionChanged;
                 BeginAnimation();
@@ -133,6 +135,7 @@
                     break;
             }
 
+            this._xArray = this.XAxisData.OfType<double>().ToArray();
             this.InvalidateVisual();
         }
         #endregion XAxisData プロパティ
@@ -167,6 +170,8 @@
             }
             if (newValue != null)
             {
+                this._yArray = this.YAxisData.OfType<double>().ToArray();
+                
                 if (newValue is INotifyCollectionChanged)
                     (newValue as INotifyCollectionChanged).CollectionChanged += OnYAxisDataCollectionChanged;
                 BeginAnimation();
@@ -202,6 +207,7 @@
                     break;
             }
 
+            this._yArray = this.YAxisData.OfType<double>().ToArray();
             this.InvalidateVisual();
         }
         #endregion YAxisData プロパティ
@@ -336,7 +342,7 @@
         /// <summary>
         /// Color 依存関係プロパティの定義
         /// </summary>
-        public static readonly DependencyProperty ColorProperty = DependencyProperty.Register("Color", typeof(Color?), typeof(LineGraphItem), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender));
+        public static readonly DependencyProperty ColorProperty = DependencyProperty.Register("Color", typeof(Color?), typeof(LineGraphItem), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender, OnColorPropertyChanged));
 
         /// <summary>
         /// 折れ線グラフの色を取得または設定します。
@@ -346,13 +352,23 @@
             get { return (Color?)GetValue(ColorProperty); }
             set { SetValue(ColorProperty, value); }
         }
+
+        /// <summary>
+        /// Color 依存関係プロパティ変更イベントハンドラ
+        /// </summary>
+        /// <param name="d">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private static void OnColorPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as LineGraphItem).UpdatePensAndBrushes();
+        }
         #endregion Color プロパティ
 
         #region Fill プロパティ
         /// <summary>
         /// Fill 依存関係プロパティの定義
         /// </summary>
-        public static readonly DependencyProperty FillProperty = DependencyProperty.Register("Fill", typeof(Brush), typeof(LineGraphItem), new FrameworkPropertyMetadata(Brushes.Red, FrameworkPropertyMetadataOptions.AffectsRender));
+        public static readonly DependencyProperty FillProperty = DependencyProperty.Register("Fill", typeof(Brush), typeof(LineGraphItem), new FrameworkPropertyMetadata(Brushes.Red, FrameworkPropertyMetadataOptions.AffectsRender, OnFillPropertyChanged));
 
         /// <summary>
         /// データ点塗潰しブラシを取得または設定します。
@@ -362,13 +378,23 @@
             get { return (Brush)GetValue(FillProperty); }
             set { SetValue(FillProperty, value); }
         }
+
+        /// <summary>
+        /// Fill 依存関係プロパティ変更イベントハンドラ
+        /// </summary>
+        /// <param name="d">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private static void OnFillPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as LineGraphItem).UpdatePensAndBrushes();
+        }
         #endregion Fill プロパティ
 
         #region Stroke プロパティ
         /// <summary>
         /// Stroke 依存関係プロパティの定義
         /// </summary>
-        public static readonly DependencyProperty StrokeProperty = DependencyProperty.Register("Stroke", typeof(Brush), typeof(LineGraphItem), new FrameworkPropertyMetadata(Brushes.Red, FrameworkPropertyMetadataOptions.AffectsRender));
+        public static readonly DependencyProperty StrokeProperty = DependencyProperty.Register("Stroke", typeof(Brush), typeof(LineGraphItem), new FrameworkPropertyMetadata(Brushes.Red, FrameworkPropertyMetadataOptions.AffectsRender, OnStrokePropertyChanged));
 
         /// <summary>
         /// 折れ線塗潰し色を取得または設定します。
@@ -378,13 +404,23 @@
             get { return (Brush)GetValue(StrokeProperty); }
             set { SetValue(StrokeProperty, value); }
         }
+
+        /// <summary>
+        /// Stroke 依存関係プロパティ変更イベントハンドラ
+        /// </summary>
+        /// <param name="d">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private static void OnStrokePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as LineGraphItem).UpdatePensAndBrushes();
+        }
         #endregion Stroke プロパティ
 
         #region Thickness プロパティ
         /// <summary>
         /// Thickness 依存関係プロパティの定義
         /// </summary>
-        public static readonly DependencyProperty ThicknessProperty = DependencyProperty.Register("Thickness", typeof(double), typeof(LineGraphItem), new FrameworkPropertyMetadata(1.0, FrameworkPropertyMetadataOptions.AffectsRender));
+        public static readonly DependencyProperty ThicknessProperty = DependencyProperty.Register("Thickness", typeof(double), typeof(LineGraphItem), new FrameworkPropertyMetadata(1.0, FrameworkPropertyMetadataOptions.AffectsRender, OnThicknessPropertyChanged));
 
         /// <summary>
         /// 折れ線の太さを取得または設定します。
@@ -394,13 +430,23 @@
             get { return (double)GetValue(ThicknessProperty); }
             set { SetValue(ThicknessProperty, value); }
         }
+
+        /// <summary>
+        /// Thickness 依存関係プロパティ変更イベントハンドラ
+        /// </summary>
+        /// <param name="d">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private static void OnThicknessPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as LineGraphItem).UpdatePensAndBrushes();
+        }
         #endregion Thickness プロパティ
 
         #region MarkerPen プロパティ
         /// <summary>
         /// MarkerPen 依存関係プロパティの定義
         /// </summary>
-        public static readonly DependencyProperty MarkerPenProperty = DependencyProperty.Register("MarkerPen", typeof(Pen), typeof(LineGraphItem), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender));
+        public static readonly DependencyProperty MarkerPenProperty = DependencyProperty.Register("MarkerPen", typeof(Pen), typeof(LineGraphItem), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender, OnMarkerPenPropertyChanged));
 
         /// <summary>
         /// データ点境界線ペンを取得または設定します。
@@ -409,6 +455,16 @@
         {
             get { return (Pen)GetValue(MarkerPenProperty); }
             set { SetValue(MarkerPenProperty, value); }
+        }
+
+        /// <summary>
+        /// MarkerPen 依存関係プロパティ変更イベントハンドラ
+        /// </summary>
+        /// <param name="d">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private static void OnMarkerPenPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as LineGraphItem).UpdatePensAndBrushes();
         }
         #endregion MarkerPen プロパティ
 
@@ -839,145 +895,130 @@
         {
             //base.OnRender(dc);
 
-            if (XAxisData == null)
+            if (this._xArray == null)
             {
                 IsDataEnabled = false;
                 return;
             }
-            if (YAxisData == null)
+            if (this._yArray == null)
             {
                 IsDataEnabled = false;
                 return;
             }
 
-            var xArray = XAxisData.OfType<double>().ToArray();
-            var yArray = YAxisData.OfType<double>().ToArray();
-            var length = xArray.Length < yArray.Length ? xArray.Length : yArray.Length;
-            Point? pt0 = null;
+            var length = Math.Min(this._xArray.Length, this._yArray.Length);
+            var pt0 = new Point();
+            var ptLine0 = new Point();
+            var ptLine1 = new Point();
+            var isPtLine0 = false;
+            var isPtLine1 = false;
+            var isFirstPoint = true;
             var isLineFirst = true;
             var pathfigure = new PathFigure();
-            var pen = new Pen(this.Color != null ? new SolidColorBrush(this.Color.Value) : this.Stroke, this.Thickness);
-            pen.Freeze();
-            Pen markerPen = null;
-            if (this.MarkerPen != null)
-            {
-                markerPen = this.Color != null ? new Pen(new SolidColorBrush(this.Color.Value), this.MarkerPen.Thickness) : this.MarkerPen;
-                markerPen.Freeze();
-            }
-            var markerFill = this.Color != null ? new SolidColorBrush(this.Color.Value) : this.Fill;
-            if (markerFill != null)
-                markerFill.Freeze();
             for (var i = 0; i < length; i++)
             {
                 if (IsStrokeEnabled)
                 {
                     #region 線の描画
-                    if (pt0 != null)
+                    if (!isFirstPoint)
                     {
 
-                        if ((pt0.Value.Y >= this.YMax) && (yArray[i] >= this.YMax))
+                        if ((pt0.Y > this.YMax) && (this._yArray[i] > this.YMax))
                         {
                             // 絶対に線の描画があり得ないパターン
                         }
-                        else if ((pt0.Value.Y <= this.YMin) && (yArray[i] <= this.YMin))
+                        else if ((pt0.Y < this.YMin) && (this._yArray[i] < this.YMin))
                         {
                             // 絶対に線の描画があり得ないパターン
                         }
                         else
                         {
-                            Point? ptLine0 = null;
-                            Point? ptLine1 = null;
 
                             // 以前の点が右端より左側にあって
                             // 今回の点が左端より右側にある場合のみ
                             // 線を描画する可能性がある
-                            if ((pt0.Value.X < this.XMax) && (xArray[i] > this.XMin))
+                            if ((pt0.X < this.XMax) && (this._xArray[i] > this.XMin))
                             {
                                 // 以前の点が範囲内ならこれを左端の点とする
-                                if ((this.XMin <= pt0.Value.X) && (pt0.Value.X <= this.XMax) && (this.YMin <= pt0.Value.Y) && (pt0.Value.Y <= this.YMax))
+                                if ((this.XMin <= pt0.X) && (pt0.X <= this.XMax) && (this.YMin <= pt0.Y) && (pt0.Y <= this.YMax))
                                 {
-                                    ptLine0 = GetControlPointFromGraphPoint(pt0.Value);
+                                    isPtLine0 = GetControlPointFromGraphPoint(pt0, out ptLine0);
                                 }
                                 // 今回の点が範囲内ならこれを右端の点とする
-                                if ((this.XMin <= xArray[i]) && (xArray[i] <= this.XMax) && (this.YMin <= yArray[i]) && (yArray[i] <= this.YMax))
+                                if ((this.XMin <= this._xArray[i]) && (this._xArray[i] <= this.XMax) && (this.YMin <= this._yArray[i]) && (this._yArray[i] <= this.YMax))
                                 {
-                                    ptLine1 = GetControlPointFromGraphPoint(xArray[i], yArray[i]);
+                                    isPtLine1 = GetControlPointFromGraphPoint(this._xArray[i], this._yArray[i], out ptLine1);
                                 }
 
                                 // 左端または右端の点が確定していない場合はグラフ表示範囲の境界線との交点を調べる
-                                if ((ptLine0 == null) || (ptLine1 == null))
+                                if (!isPtLine0 || !isPtLine1)
                                 {
-                                    // y = ax + b
-                                    // 傾き
-                                    double? a = xArray[i] != pt0.Value.X ? (yArray[i] - pt0.Value.Y) / (xArray[i] - pt0.Value.X) : (double?)null;
-                                    if (a != null)
+                                    if (this._xArray[i] != pt0.X)
                                     {
+                                        // y = ax + b
+                                        // 傾き
+                                        double a = (this._yArray[i] - pt0.Y) / (this._xArray[i] - pt0.X);
                                         // 切片
-                                        double b = pt0.Value.Y - a.Value * pt0.Value.X;
+                                        double b = pt0.Y - a * pt0.X;
 
                                         // 左端縦軸との交点
-                                        var yLeft = a.Value * this.XMin + b;
+                                        var yLeft = a * this.XMin + b;
                                         // 右端縦軸との交点
-                                        var yRight = a.Value * this.XMax + b;
+                                        var yRight = a * this.XMax + b;
                                         // 上端横軸との交点
-                                        var xTop = (this.YMax - b) / a.Value;
+                                        var xTop = (this.YMax - b) / a;
                                         // 下端横軸との交点
-                                        var xBottom = (this.YMin - b) / a.Value;
+                                        var xBottom = (this.YMin - b) / a;
 
                                         #region 左端の点を確定する
-                                        if (ptLine0 == null)
+                                        if (!isPtLine0)
                                         {
                                             // 左端縦軸交点の確認
                                             if ((this.YMin <= yLeft) && (yLeft <= this.YMax))
                                             {
-                                                ptLine0 = GetControlPointFromGraphPoint(this.XMin, yLeft);
+                                                isPtLine0 = GetControlPointFromGraphPoint(this.XMin, yLeft, out ptLine0);
                                             }
-                                            else
+                                            else if (yLeft < this.YMin)
                                             {
-                                                // 下から上への線の場合
-                                                if (pt0.Value.Y < yArray[i])
+                                                // 交わり得るのは下端横軸交点
+                                                if ((this.XMin <= xBottom) && (xBottom <= this.XMax))
                                                 {
-                                                    // 交わり得るのは下端横軸交点
-                                                    if ((this.XMin <= xBottom) && (xBottom <= this.XMax))
-                                                    {
-                                                        ptLine0 = GetControlPointFromGraphPoint(xBottom, this.YMin);
-                                                    }
+                                                    isPtLine0 = GetControlPointFromGraphPoint(xBottom, this.YMin, out ptLine0);
                                                 }
-                                                else
+                                            }
+                                            else // if (yLeft > this.YMax)
+                                            {
+                                                // 交わり得るのは上端横軸交点
+                                                if ((this.XMin <= xTop) && (xTop <= this.XMax))
                                                 {
-                                                    // 上から下への線の場合は
-                                                    // 交わり得るのは上端横軸交点
-                                                    if ((this.XMin <= xTop) && (xTop <= this.XMax))
-                                                    {
-                                                        ptLine0 = GetControlPointFromGraphPoint(xTop, this.YMax);
-                                                    }
+                                                    isPtLine0 = GetControlPointFromGraphPoint(xTop, this.YMax, out ptLine0);
                                                 }
                                             }
 
-                                            if (ptLine0 != null)
+                                            if (isPtLine0)
                                             {
-                                                pathfigure.Segments.Add(new LineSegment(ptLine0.Value, false));
+                                                pathfigure.Segments.Add(new LineSegment(ptLine0, false));
                                             }
                                         }
                                         #endregion 左端の点を確定する
 
                                         #region 右端の点を確定する
-                                        if (ptLine1 == null)
+                                        if (!isPtLine1)
                                         {
                                             // 右端縦軸交点の確認
                                             if ((this.YMin <= yRight) && (yRight <= this.YMax))
                                             {
-                                                ptLine1 = GetControlPointFromGraphPoint(this.XMax, yRight);
+                                                isPtLine1 = GetControlPointFromGraphPoint(this.XMax, yRight, out ptLine1);
                                             }
                                             else
                                             {
                                                 // 下から上への線の場合
-                                                if (pt0.Value.Y < yArray[i])
+                                                if (pt0.Y < this._yArray[i])
                                                 {
                                                     // 交わり得るのは上端横軸交点
                                                     if ((this.XMin <= xTop) && (xTop <= this.XMax))
                                                     {
-                                                        ptLine1 = GetControlPointFromGraphPoint(xTop, this.YMax);
+                                                        isPtLine1 = GetControlPointFromGraphPoint(xTop, this.YMax, out ptLine1);
                                                     }
                                                 }
                                                 else
@@ -986,7 +1027,7 @@
                                                     // 交わり得るのは下端横軸交点
                                                     if ((this.XMin <= xBottom) && (xBottom <= this.XMax))
                                                     {
-                                                        ptLine1 = GetControlPointFromGraphPoint(xBottom, this.YMin);
+                                                        isPtLine1 = GetControlPointFromGraphPoint(xBottom, this.YMin, out ptLine1);
                                                     }
                                                 }
                                             }
@@ -996,19 +1037,21 @@
                                 }
 
                                 // 線の開始点を確定する
-                                if (isLineFirst && ptLine0 != null)
+                                if (isLineFirst && isPtLine0)
                                 {
-                                    pathfigure.StartPoint = ptLine0.Value;
+                                    pathfigure.StartPoint = ptLine0;
                                     isLineFirst = false;
                                 }
 
                                 // 右端の点が確定したら線を結ぶ
-                                if ((ptLine0 != null) && (ptLine1 != null))
+                                if (isPtLine0 && isPtLine1)
                                 {
-                                    pathfigure.Segments.Add(new LineSegment(ptLine1.Value, true));
+                                    pathfigure.Segments.Add(new LineSegment(ptLine1, true));
                                 }
                             }
                         }
+                        isPtLine0 = false;
+                        isPtLine1 = false;
                     }
                     #endregion 線の描画
                 }
@@ -1016,36 +1059,38 @@
                 if (this.IsMarkerEnabled)
                 {
                     #region データ点の描画
-                    if (pt0 != null)
+                    if (!isFirstPoint)
                     {
                         // 線の上にデータ点を描画するために
                         // ひとつ前のデータ点を描画する
-                        DrawingDataPoint(dc, markerFill, MarkerPen, pt0.Value);
+                        DrawingDataPoint(dc, this._markerFill, this._markerPen, pt0);
                     }
                     if (i == length - 1)
                     {
                         // ひとつ前のデータ点を描画していたので
                         // 最後のデータ点をここで描画する
-                        DrawingDataPoint(dc, markerFill, MarkerPen, new Point(xArray[i], yArray[i]));
+                        DrawingDataPoint(dc, this._markerFill, this._markerPen, new Point(this._xArray[i], this._yArray[i]));
                     }
                     #endregion データ点の描画
                 }
 
                 // 以前の点として保持
-                pt0 = new Point(xArray[i], yArray[i]);
+                pt0.X = this._xArray[i];
+                pt0.Y = this._yArray[i];
+                isFirstPoint = false;
             }
 
-            if (!pathfigure.IsFrozen)
+            if (pathfigure.CanFreeze)
                 pathfigure.Freeze();
             var geometry = new PathGeometry();
             geometry.Figures.Add(pathfigure);
             geometry.Freeze();
-            dc.DrawGeometry(null, pen, geometry);
+            dc.DrawGeometry(null, this._pen, geometry);
 
             // 強調表示するデータ点
             if (this.HighlightPoint != null)
             {
-                DrawingDataPoint(dc, markerFill, MarkerPen, this.HighlightPoint.Value, true);
+                DrawingDataPoint(dc, this._markerFill, this._markerPen, this.HighlightPoint.Value, true);
             }
 
             // データ表示確認
@@ -1065,19 +1110,19 @@
         {
             if ((this.XMin <= pt.X) && (pt.X <= this.XMax) && (this.YMin <= pt.Y) && (pt.Y <= this.YMax))
             {
-                var ptData = GetControlPointFromGraphPoint(pt);
-                if (ptData != null)
+                Point ptData;
+                if (GetControlPointFromGraphPoint(pt, out ptData))
                 {
                     var width = isHighLighted ? 2.0 * this.MarkerSize.Width : this.MarkerSize.Width;
                     var height = isHighLighted ? 2.0 * this.MarkerSize.Height : this.MarkerSize.Height;
                     switch (this.MarkerType)
                     {
                         case MarkerTypes.Ellipse:
-                            dc.DrawEllipse(fill, pen, ptData.Value, width, height);
+                            dc.DrawEllipse(fill, pen, ptData, width, height);
                             break;
 
                         case MarkerTypes.Rectangle:
-                            dc.DrawRectangle(fill, pen, new Rect(new Point(ptData.Value.X - width / 2.0, ptData.Value.Y - height / 2.0), new Size(width, height)));
+                            dc.DrawRectangle(fill, pen, new Rect(new Point(ptData.X - width / 2.0, ptData.Y - height / 2.0), new Size(width, height)));
                             break;
                     }
                 }
@@ -1089,11 +1134,12 @@
         /// <summary>
         /// グラフ座標をコントロール座標に変換します。
         /// </summary>
-        /// <param name="pt">グラフ座標</param>
-        /// <returns>コントロール座標</returns>
-        private Point? GetControlPointFromGraphPoint(Point pt)
+        /// <param name="pt0">グラフ座標</param>
+        /// <param name="pt1">コントロール座標</param>
+        /// <returns>変換できなかった場合に false を返します。</returns>
+        private bool GetControlPointFromGraphPoint(Point pt0, out Point pt1)
         {
-            return GetControlPointFromGraphPoint(pt.X, pt.Y);
+            return GetControlPointFromGraphPoint(pt0.X, pt0.Y, out pt1);
         }
 
         /// <summary>
@@ -1101,20 +1147,50 @@
         /// </summary>
         /// <param name="x">グラフの横軸座標</param>
         /// <param name="y">グラフの縦軸座標</param>
-        /// <returns>コントロール座標</returns>
-        private Point? GetControlPointFromGraphPoint(double x, double y)
+        /// <param name="pt">コントロール座標</param>
+        /// <returns>変換できなかった場合に false を返します。</returns>
+        private bool GetControlPointFromGraphPoint(double x, double y, out Point pt)
         {
             if (this.XMax <= this.XMin)
-                return null;
+            {
+                pt = new Point();
+                return false;
+            }
             if (this.YMax <= this.YMin)
-                return null;
+            {
+                pt = new Point();
+                return false;
+            }
 
             var xx = this.ActualWidth * (x - this.XMin) / (this.XMax - this.XMin);
             var yy = this.ActualHeight - this.ActualHeight * (y - this.YMin) / (this.YMax - this.YMin);
-            return new Point(xx, yy);
+            pt = new Point(xx, yy);
+            return true;
         }
         #endregion 座標変換ヘルパ
 
         #endregion 描画処理関連のオーバーライド
+
+        /// <summary>
+        /// ペンとブラシを更新します。
+        /// </summary>
+        private void UpdatePensAndBrushes()
+        {
+            this._pen = new Pen(this.Color != null ? new SolidColorBrush(this.Color.Value) : this.Stroke, this.Thickness);
+            if ((this._pen != null) && this._pen.CanFreeze) this._pen.Freeze();
+
+            this._markerPen = this.Color != null ? new Pen(new SolidColorBrush(this.Color.Value), (this.MarkerPen != null) ? this.MarkerPen.Thickness : 1.0) : this.MarkerPen;
+            if ((this._markerPen != null) && this._markerPen.CanFreeze) this._markerPen.Freeze();
+
+            this._markerFill = this.Color != null ? new SolidColorBrush(this.Color.Value) : this.Fill;
+            if ((this._markerFill != null) && this._markerFill.CanFreeze) this._markerFill.Freeze();
+        }
+
+        private Pen _pen;
+        private Pen _markerPen;
+        private Brush _markerFill;
+
+        private double[] _xArray;
+        private double[] _yArray;
     }
 }
