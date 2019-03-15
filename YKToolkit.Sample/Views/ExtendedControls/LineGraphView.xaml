@@ -19,77 +19,16 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,10">
-                <Button Content="New" Width="60" Command="{Binding NewCommand}" />
-                <Button Content="Save" Width="60" Command="{Binding SaveCommand}" Margin="10,0,0,0" />
-                <Button Content="Load" Width="60" Command="{Binding LoadCommand}" Margin="10,0,0,0" />
-                <Button Width="30"
-                        Command="{Binding SaveImageCommand}"
-                        Margin="10,0,0,0"
-                        YKb:CommonDialogBehavior.DialogType="SaveFile"
-                        YKb:CommonDialogBehavior.FileFilter="ビットマップ形式 (*.bmp)|*.bmp|ポータブルネットワークグラフィックス形式 (*.png)|*.png|すべてのファイル (*.*)|*.*"
-                        YKb:CommonDialogBehavior.Title="画像として保存"
-                        YKb:CommonDialogBehavior.Callback="{Binding SaveImageCommandCallback}"
-                        >
-                    <Path>
-                        <Path.Fill>
-                            <SolidColorBrush Color="{DynamicResource ForegroundColor}" />
-                        </Path.Fill>
-                        <Path.Data>
-                            <GeometryGroup FillRule="EvenOdd">
-                                <RectangleGeometry Rect="3,2,5,2" />
-                                <RectangleGeometry Rect="1,4,20,15" />
-                                <EllipseGeometry Center="11,12" RadiusX="4" RadiusY="4" />
-                                <EllipseGeometry Center="11,12" RadiusX="6" RadiusY="6" />
-                                <RectangleGeometry Rect="15,5,5,2" />
-                            </GeometryGroup>
-                        </Path.Data>
-                    </Path>
-                </Button>
+            <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Margin="0,10,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="Add Data" Width="80" Command="{Binding AddDataCommand}" />
+                <Button Content="Clear Data" Width="80" Margin="10,0,0,0" Command="{Binding ClearDataCommand}" />
             </StackPanel>
 
-            <Grid Grid.Row="1" DataContext="{Binding LineGraphSubViewModel}" d:DataContext="{d:DesignInstance vm:LineGraphSubViewModel}">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Grid.Resources>
-                    <Style TargetType="TextBlock">
-                        <Setter Property="HorizontalAlignment" Value="Right" />
-                        <Setter Property="VerticalAlignment" Value="Center" />
-                    </Style>
-                </Grid.Resources>
-
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="XStringFormat : " />
-                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding XAxis.StringFormat}" />
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="YStringFormat : " Margin="0,10,0,0" />
-                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding YAxis.StringFormat}" Margin="0,10,0,0" />
-                <TextBlock Grid.Row="2" Grid.Column="0" Text="Y2StringFormat : " Margin="0,10,0,0" />
-                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Y2Axis.StringFormat}" Margin="0,10,0,0" />
-                <CheckBox Grid.Row="3" Grid.ColumnSpan="2" Content="Legend enable" IsChecked="{Binding IsLegendEnabled}" Margin="0,5,0,0" />
-                <CheckBox Grid.Row="4" Grid.ColumnSpan="2" Content="Y2-Axis enable" IsChecked="{Binding IsY2Enabled}" Margin="0,5,0,0" />
-                <CheckBox Grid.Row="5" Grid.ColumnSpan="2" Content="MouseOver Information" IsChecked="{Binding IsMouseOverInformationEnabled}" Margin="0,5,0,0" />
-                <StackPanel Grid.Row="6" Grid.ColumnSpan="2" Margin="0,10,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button Content="Add Data" Width="80" Command="{Binding AddDataCommand}" />
-                    <Button Content="Clear Data" Width="80" Margin="10,0,0,0" Command="{Binding ClearDataCommand}" />
-                </StackPanel>
-            </Grid>
-
-            <DataGrid Grid.Row="2" Margin="10"
-                      ItemsSource="{Binding LineGraphSubViewModel.LineGraphItemCollection}"
+            <DataGrid Grid.Row="1" Margin="10"
+                      ItemsSource="{Binding LineGraphItemCollection}"
                       YKb:DataGridBehavior.DisplayRowNumber="1"
                       CanUserAddRows="False"
                       CanUserDeleteRows="False"
@@ -187,21 +126,11 @@
                 <Border.Background>
                     <SolidColorBrush Color="{DynamicResource WindowColor}" />
                 </Border.Background>
-                <YK:LineGraph DataContext="{Binding LineGraphSubViewModel}"
-                              d:DataContext="{d:DesignInstance vm:LineGraphSubViewModel}"
-                              ItemsSource="{Binding LineGraphItemCollection}"
-                              IsY2Enabled="{Binding IsY2Enabled}"
+                <YK:LineGraph GraphDataCollection="{Binding LineGraphItemCollection}"
                               IsLegendEnabled="{Binding IsLegendEnabled}"
                               GraphAreaMargin="80,40,80,60"
-                              Title="{Binding Title.Text}" TitleFontSize="{Binding Title.FontSize}"
-                              XLabel="{Binding XLabel.Text}" XLabelFontSize="{Binding XLabel.FontSize}"
-                              YLabel="{Binding YLabel.Text}" YLabelFontSize="{Binding YLabel.FontSize}"
-                              Y2Label="{Binding Y2Label.Text}" Y2LabelFontSize="{Binding Y2Label.FontSize}"
-                              XMin="{Binding XAxis.Minimum}" XMax="{Binding XAxis.Maximum}" XStep="{Binding XAxis.Step}" XGridPen="{Binding XAxis.GridPen}" XStringFormat="{Binding XAxis.StringFormat}"
-                              YMin="{Binding YAxis.Minimum}" YMax="{Binding YAxis.Maximum}" YStep="{Binding YAxis.Step}" YGridPen="{Binding YAxis.GridPen}" YStringFormat="{Binding YAxis.StringFormat}"
-                              Y2Min="{Binding Y2Axis.Minimum}" Y2Max="{Binding Y2Axis.Maximum}" Y2Step="{Binding Y2Axis.Step}" Y2GridPen="{Binding Y2Axis.GridPen}" Y2StringFormat="{Binding Y2Axis.StringFormat}"
-                              LegendPositionLeft="{Binding LegendPositionLeft}" LegendPositionTop="{Binding LegendPositionTop}"
-                              IsMouseOverInformationEnabled="{Binding IsMouseOverInformationEnabled}"
+                              GraphTitle="{Binding Title.Text}"
+                              MajorGridColor="{Binding XAxis.Color}"
                               />
             </Border>
         </Border>

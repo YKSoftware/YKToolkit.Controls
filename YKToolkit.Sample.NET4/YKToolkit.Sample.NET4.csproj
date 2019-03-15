@@ -71,20 +71,11 @@
     <Compile Include="..\YKToolkit.Sample\Models\DialogInfo.cs">
       <Link>Models\DialogInfo.cs</Link>
     </Compile>
-    <Compile Include="..\YKToolkit.Sample\Models\forLineGraph\GraphDataParser.cs">
-      <Link>Models\forLineGraph\GraphDataParser.cs</Link>
-    </Compile>
-    <Compile Include="..\YKToolkit.Sample\Models\forLineGraph\LineGraphAxisItem.cs">
-      <Link>Models\forLineGraph\LineGraphAxisItem.cs</Link>
-    </Compile>
-    <Compile Include="..\YKToolkit.Sample\Models\forLineGraph\LineGraphItemCollection.cs">
-      <Link>Models\forLineGraph\LineGraphItemCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\YKToolkit.Sample\Models\forLineGraph\LineGraphTextItem.cs">
-      <Link>Models\forLineGraph\LineGraphTextItem.cs</Link>
-    </Compile>
     <Compile Include="..\YKToolkit.Sample\Models\Gender.cs">
       <Link>Models\Gender.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Sample\Models\LineGraphItemCollection.cs">
+      <Link>Models\LineGraphItemCollection.cs</Link>
     </Compile>
     <Compile Include="..\YKToolkit.Sample\Models\People.cs">
       <Link>Models\People.cs</Link>
@@ -118,9 +109,6 @@
     </Compile>
     <Compile Include="..\YKToolkit.Sample\ViewModels\ExtendedControls\FileTreeViewViewModel.cs">
       <Link>ViewModels\ExtendedControls\FileTreeViewViewModel.cs</Link>
-    </Compile>
-    <Compile Include="..\YKToolkit.Sample\ViewModels\ExtendedControls\LineGraphSubViewModel.cs">
-      <Link>ViewModels\ExtendedControls\LineGraphSubViewModel.cs</Link>
     </Compile>
     <Compile Include="..\YKToolkit.Sample\ViewModels\ExtendedControls\LineGraphViewModel.cs">
       <Link>ViewModels\ExtendedControls\LineGraphViewModel.cs</Link>

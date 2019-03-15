@@ -1,0 +1,364 @@
+﻿<YK:Window x:Class="YKToolkit.Controls.LinegraphMenu"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+           xmlns:YK="clr-namespace:YKToolkit.Controls"
+           xmlns:b="clr-namespace:YKToolkit.Controls.Behaviors"
+           xmlns:c="clr-namespace:YKToolkit.Controls.Converters"
+           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+           mc:Ignorable="d"
+           Title="LinegraphMenu"
+           Width="300" Height="450"
+           ResizeMode="NoResize"
+           ShowInTaskbar="False"
+           ChangeThemeButtonVisibility="Collapsed"
+           CloseButtonVisibility="Collapsed"
+           IsClosingConfirmationEnabled="False"
+           MaximizeButtonVisibility="Collapsed"
+           MinimizeButtonVisibility="Collapsed"
+           RestoreButtonVisibility="Collapsed"
+           TopmostButtonVisibility="Collapsed"
+           WindowStartupLocation="CenterOwner">
+    <YK:Window.Resources>
+        <c:BooleanInverseConverter x:Key="BooleanInverseConverter" />
+    </YK:Window.Resources>
+
+    <DockPanel>
+        <StackPanel Margin="20,10" HorizontalAlignment="Right" DockPanel.Dock="Bottom" Orientation="Horizontal">
+            <Button Width="80" Margin="10,0" Command="{Binding ConfigOkCommand}" Content="OK" />
+            <Button Width="80" Margin="10,0" Command="{Binding ConfigApplyCommand}" Content="適用" />
+        </StackPanel>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" CanContentScroll="False">
+            <StackPanel>
+                <Grid Margin="6,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Text="グラフタイトル：" VerticalAlignment="Center" />
+                    <TextBox Grid.Column="1" Text="{Binding GraphTitle}" />
+                </Grid>
+
+                <Separator Margin="2,8,2,4" />
+                <TextBlock Text="横軸" Margin="6,0" />
+                <Grid Margin="10,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="軸タイトル：" TextAlignment="Right" />
+                    <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,2" Text="{Binding XAxisSettings.Title}" />
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="最小値：" TextAlignment="Right" />
+                    <YK:SpinInput Grid.Row="1" Grid.Column="1" Margin="0,2" StringFormat="{Binding XAxisSettings.StringFormat}" Value="{Binding XAxisSettings.Minimum}" />
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Text="最大値：" TextAlignment="Right" />
+                    <YK:SpinInput Grid.Row="2" Grid.Column="1" Margin="0,2" StringFormat="{Binding XAxisSettings.StringFormat}" Value="{Binding XAxisSettings.Maximum}" />
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Text="目盛：" TextAlignment="Right" />
+                    <YK:SpinInput Grid.Row="3" Grid.Column="1" Margin="0,2" Minimum="0" StringFormat="{Binding XAxisSettings.StringFormat}" Value="{Binding XAxisSettings.MajorStep}" />
+                    <CheckBox Grid.Row="3" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" Content="有効にする" IsChecked="{Binding XAxisSettings.IsMajorGridEnabled}" />
+
+                    <TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Text="補助目盛：" TextAlignment="Right" />
+                    <YK:SpinInput Grid.Row="4" Grid.Column="1" Margin="0,2" Minimum="0" StringFormat="{Binding XAxisSettings.StringFormat}" Value="{Binding XAxisSettings.MinorStep}" />
+                    <CheckBox Grid.Row="4" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" Content="有効にする" IsChecked="{Binding XAxisSettings.IsMinorGridEnabled}" />
+
+                    <TextBlock Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Text="目盛線幅：" TextAlignment="Right" />
+                    <YK:SpinInput Grid.Row="5" Grid.Column="1" Margin="0,2" Minimum="0" Value="{Binding XAxisSettings.MajorGridThickness}" />
+
+                    <TextBlock Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Text="補助線幅：" TextAlignment="Right" />
+                    <YK:SpinInput Grid.Row="6" Grid.Column="1" Margin="0,2" Minimum="0" Value="{Binding XAxisSettings.MinorGridThickness}" />
+
+                    <TextBlock Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" Text="表示形式：" TextAlignment="Right" />
+                    <TextBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,2" Text="{Binding XAxisSettings.StringFormat}" />
+                </Grid>
+
+                <Separator Margin="2,8,2,4" />
+                <TextBlock Text="縦軸" Margin="6,0" />
+                <Grid Margin="10,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="軸タイトル：" TextAlignment="Right" />
+                    <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,2" Text="{Binding YAxisSettings.Title}" />
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="最小値：" TextAlignment="Right" />
+                    <YK:SpinInput Grid.Row="1" Grid.Column="1" Margin="0,2" StringFormat="{Binding YAxisSettings.StringFormat}" Value="{Binding YAxisSettings.Minimum}" />
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Text="最大値：" TextAlignment="Right" />
+                    <YK:SpinInput Grid.Row="2" Grid.Column="1" Margin="0,2" StringFormat="{Binding YAxisSettings.StringFormat}" Value="{Binding YAxisSettings.Maximum}" />
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Text="目盛：" TextAlignment="Right" />
+                    <YK:SpinInput Grid.Row="3" Grid.Column="1" Margin="0,2" Minimum="0" StringFormat="{Binding YAxisSettings.StringFormat}" Value="{Binding YAxisSettings.MajorStep}" />
+                    <CheckBox Grid.Row="3" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" Content="有効にする" IsChecked="{Binding YAxisSettings.IsMajorGridEnabled}" />
+
+                    <TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Text="補助目盛：" TextAlignment="Right" />
+                    <YK:SpinInput Grid.Row="4" Grid.Column="1" Margin="0,2" Minimum="0" StringFormat="{Binding YAxisSettings.StringFormat}" Value="{Binding YAxisSettings.MinorStep}" />
+                    <CheckBox Grid.Row="4" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" Content="有効にする" IsChecked="{Binding YAxisSettings.IsMinorGridEnabled}" />
+
+                    <TextBlock Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Text="目盛線幅：" TextAlignment="Right" />
+                    <YK:SpinInput Grid.Row="5" Grid.Column="1" Margin="0,2" Minimum="0" Value="{Binding YAxisSettings.MajorGridThickness}" />
+
+                    <TextBlock Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Text="補助線幅：" TextAlignment="Right" />
+                    <YK:SpinInput Grid.Row="6" Grid.Column="1" Margin="0,2" Minimum="0" Value="{Binding YAxisSettings.MinorGridThickness}" />
+
+                    <TextBlock Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" Text="表示形式：" TextAlignment="Right" />
+                    <TextBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,2" Text="{Binding YAxisSettings.StringFormat}" />
+                </Grid>
+
+                <Separator Margin="2,8,2,4" />
+                <TextBlock Text="第 2 主軸" Margin="6,0" />
+                <Grid Margin="10,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="軸タイトル：" TextAlignment="Right" />
+                    <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,2" Text="{Binding Y2AxisSettings.Title}" />
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="最小値：" TextAlignment="Right" />
+                    <YK:SpinInput Grid.Row="1" Grid.Column="1" Margin="0,2" StringFormat="{Binding Y2AxisSettings.StringFormat}" Value="{Binding Y2AxisSettings.Minimum}" />
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Text="最大値：" TextAlignment="Right" />
+                    <YK:SpinInput Grid.Row="2" Grid.Column="1" Margin="0,2" StringFormat="{Binding Y2AxisSettings.StringFormat}" Value="{Binding Y2AxisSettings.Maximum}" />
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Text="目盛：" TextAlignment="Right" />
+                    <YK:SpinInput Grid.Row="3" Grid.Column="1" Margin="0,2" Minimum="0" StringFormat="{Binding Y2AxisSettings.StringFormat}" Value="{Binding Y2AxisSettings.MajorStep}" />
+                    <CheckBox Grid.Row="3" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" Content="有効にする" IsChecked="{Binding Y2AxisSettings.IsMajorGridEnabled}" />
+
+                    <TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Text="補助目盛：" TextAlignment="Right" />
+                    <YK:SpinInput Grid.Row="4" Grid.Column="1" Margin="0,2" Minimum="0" StringFormat="{Binding Y2AxisSettings.StringFormat}" Value="{Binding Y2AxisSettings.MinorStep}" />
+                    <CheckBox Grid.Row="4" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" Content="有効にする" IsChecked="{Binding Y2AxisSettings.IsMinorGridEnabled}" />
+
+                    <TextBlock Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Text="目盛線幅：" TextAlignment="Right" />
+                    <YK:SpinInput Grid.Row="5" Grid.Column="1" Margin="0,2" Minimum="0" Value="{Binding Y2AxisSettings.MajorGridThickness}" />
+
+                    <TextBlock Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Text="補助線幅：" TextAlignment="Right" />
+                    <YK:SpinInput Grid.Row="6" Grid.Column="1" Margin="0,2" Minimum="0" Value="{Binding Y2AxisSettings.MinorGridThickness}" />
+
+                    <TextBlock Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" Text="表示形式：" TextAlignment="Right" />
+                    <TextBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,2" Text="{Binding Y2AxisSettings.StringFormat}" />
+                </Grid>
+
+                <Separator Margin="2,8,2,4" />
+                <StackPanel Margin="20,10,10,10">
+                    <TextBlock Text="グラフ領域の余白" />
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="上余白：" TextAlignment="Right" />
+                        <YK:SpinInput Grid.Row="0" Grid.Column="1" Margin="0,2" Minimum="0" Value="{Binding GraphAreaMarginTop}" />
+
+                        <TextBlock Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" Text="下余白：" TextAlignment="Right" />
+                        <YK:SpinInput Grid.Row="0" Grid.Column="3" Margin="0,2" Minimum="0" Value="{Binding GraphAreaMarginBottom}" />
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="左余白：" TextAlignment="Right" />
+                        <YK:SpinInput Grid.Row="1" Grid.Column="1" Margin="0,2" Minimum="0" Value="{Binding GraphAreaMarginLeft}" />
+
+                        <TextBlock Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Text="右余白：" TextAlignment="Right" />
+                        <YK:SpinInput Grid.Row="1" Grid.Column="3" Margin="0,2" Minimum="0" Value="{Binding GraphAreaMarginRight}" />
+                    </Grid>
+
+                    <TextBlock Margin="0,10,0,0" Text="グラフ領域の枠線幅" />
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="上部：" TextAlignment="Right" />
+                        <YK:SpinInput Grid.Row="0" Grid.Column="1" Margin="0,2" Minimum="0" Value="{Binding GraphAreaBorderThicknessTop}" />
+
+                        <TextBlock Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" Text="下部：" TextAlignment="Right" />
+                        <YK:SpinInput Grid.Row="0" Grid.Column="3" Margin="0,2" Minimum="0" Value="{Binding GraphAreaBorderThicknessBottom}" />
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="左部：" TextAlignment="Right" />
+                        <YK:SpinInput Grid.Row="1" Grid.Column="1" Margin="0,2" Minimum="0" Value="{Binding GraphAreaBorderThicknessLeft}" />
+
+                        <TextBlock Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Text="右部：" TextAlignment="Right" />
+                        <YK:SpinInput Grid.Row="1" Grid.Column="3" Margin="0,2" Minimum="0" Value="{Binding GraphAreaBorderThicknessRight}" />
+                    </Grid>
+
+                    <Grid Margin="0,10,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" VerticalAlignment="Center" Text="背景色：" TextAlignment="Right" />
+                        <YK:DropDownButton Grid.Row="0" Grid.Column="1" Margin="0,2" HorizontalContentAlignment="Center" CloseTriggerObject="{Binding GraphAreaBackgroundColor}" IsEnabled="{Binding AutoGraphAreaBackgroundColor, Converter={StaticResource BooleanInverseConverter}}">
+                            <YK:DropDownButton.DropDownContent>
+                                <YK:ColorPicker SelectedColor="{Binding GraphAreaBackgroundColor}" />
+                            </YK:DropDownButton.DropDownContent>
+                            <Rectangle Width="16" Height="16" Margin="0,1">
+                                <Rectangle.Stroke>
+                                    <SolidColorBrush Color="{DynamicResource BorderColor}" />
+                                </Rectangle.Stroke>
+                                <Rectangle.Fill>
+                                    <SolidColorBrush Color="{Binding GraphAreaBackgroundColor}" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </YK:DropDownButton>
+                        <CheckBox Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" Content="自動" IsChecked="{Binding AutoGraphAreaBackgroundColor}" />
+
+                        <TextBlock Grid.Row="1" VerticalAlignment="Center" Text="枠線色：" TextAlignment="Right" />
+                        <YK:DropDownButton Grid.Row="1" Grid.Column="1" Margin="0,2" HorizontalContentAlignment="Center" CloseTriggerObject="{Binding GraphAreaBorderColor}">
+                            <YK:DropDownButton.DropDownContent>
+                                <YK:ColorPicker SelectedColor="{Binding GraphAreaBorderColor}" />
+                            </YK:DropDownButton.DropDownContent>
+                            <Rectangle Width="16" Height="16" Margin="0,1">
+                                <Rectangle.Stroke>
+                                    <SolidColorBrush Color="{DynamicResource BorderColor}" />
+                                </Rectangle.Stroke>
+                                <Rectangle.Fill>
+                                    <SolidColorBrush Color="{Binding GraphAreaBorderColor}" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </YK:DropDownButton>
+
+                        <TextBlock Grid.Row="2" VerticalAlignment="Center" Text="目盛線色：" TextAlignment="Right" />
+                        <YK:DropDownButton Grid.Row="2" Grid.Column="1" Margin="0,2" HorizontalContentAlignment="Center" CloseTriggerObject="{Binding MajorGridColor}">
+                            <YK:DropDownButton.DropDownContent>
+                                <YK:ColorPicker SelectedColor="{Binding MajorGridColor}" />
+                            </YK:DropDownButton.DropDownContent>
+                            <Rectangle Width="16" Height="16" Margin="0,1">
+                                <Rectangle.Stroke>
+                                    <SolidColorBrush Color="{DynamicResource BorderColor}" />
+                                </Rectangle.Stroke>
+                                <Rectangle.Fill>
+                                    <SolidColorBrush Color="{Binding MajorGridColor}" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </YK:DropDownButton>
+
+                        <TextBlock Grid.Row="3" VerticalAlignment="Center" Text="補助線色：" TextAlignment="Right" />
+                        <YK:DropDownButton Grid.Row="3" Grid.Column="1" Margin="0,2" HorizontalContentAlignment="Center" CloseTriggerObject="{Binding MinorGridColor}">
+                            <YK:DropDownButton.DropDownContent>
+                                <YK:ColorPicker SelectedColor="{Binding MinorGridColor}" />
+                            </YK:DropDownButton.DropDownContent>
+                            <Rectangle Width="16" Height="16" Margin="0,1">
+                                <Rectangle.Stroke>
+                                    <SolidColorBrush Color="{DynamicResource BorderColor}" />
+                                </Rectangle.Stroke>
+                                <Rectangle.Fill>
+                                    <SolidColorBrush Color="{Binding MinorGridColor}" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </YK:DropDownButton>
+                    </Grid>
+
+                    <DataGrid Margin="0,10,0,0" AutoGenerateColumns="False" ItemsSource="{Binding GraphDataCollection}" b:DataGridBehavior.DisplayRowNumber="1">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Legend, UpdateSourceTrigger=PropertyChanged}" Header="データ名" />
+                            <DataGridTemplateColumn Header="マーカー">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsMarkerEnabled, UpdateSourceTrigger=PropertyChanged}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="線幅">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <YK:SpinInput Value="{Binding StrokeThickness, UpdateSourceTrigger=PropertyChanged}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="線色">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <YK:DropDownButton HorizontalContentAlignment="Center" CloseTriggerObject="{Binding Stroke}" IsEnabled="{Binding AutoStroke, Converter={StaticResource BooleanInverseConverter}}">
+                                                <YK:DropDownButton.DropDownContent>
+                                                    <YK:ColorPicker SelectedColor="{Binding Stroke, UpdateSourceTrigger=PropertyChanged}" />
+                                                </YK:DropDownButton.DropDownContent>
+                                                <Rectangle Width="16" Height="16" Margin="0,1">
+                                                    <Rectangle.Stroke>
+                                                        <SolidColorBrush Color="{DynamicResource BorderColor}" />
+                                                    </Rectangle.Stroke>
+                                                    <Rectangle.Fill>
+                                                        <SolidColorBrush Color="{Binding Stroke}" />
+                                                    </Rectangle.Fill>
+                                                </Rectangle>
+                                            </YK:DropDownButton>
+                                            <CheckBox Margin="4,0" VerticalAlignment="Center" Content="自動" IsChecked="{Binding AutoStroke, UpdateSourceTrigger=PropertyChanged}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="第 2 主軸">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsY2, UpdateSourceTrigger=PropertyChanged}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</YK:Window>

@@ -2,124 +2,72 @@
 {
     using System;
     using YKToolkit.Bindings;
+    using YKToolkit.Controls;
     using YKToolkit.Helpers;
-    using YKToolkit.Models.SampleForLineGraph;
+    using YKToolkit.Sample.Models;
 
     public class LineGraphViewModel : ViewModelBase
     {
-        private LineGraphSubViewModel _lineGraphSubViewModel = new LineGraphSubViewModel();
+        #region LineGraphItemCollection プロパティ
+        private LineGraphItemCollection _lineGraphItemCollection = new LineGraphItemCollection();
         /// <summary>
-        /// LineGraph 用の ViewModel を取得します。
+        /// グラフデータコレクションを取得または設定します。
         /// </summary>
-        public LineGraphSubViewModel LineGraphSubViewModel
+        public LineGraphItemCollection LineGraphItemCollection
         {
-            get { return this._lineGraphSubViewModel; }
-            private set { SetProperty(ref this._lineGraphSubViewModel, value); }
+            get { return this._lineGraphItemCollection; }
+            set { SetProperty(ref this._lineGraphItemCollection, value); }
         }
+        #endregion LineGraphItemCollection プロパティ
 
+        #region データ追加
+        private DelegateCommand _addDataCommand;
         /// <summary>
-        /// 設定ファイルのフルパス
+        /// データ追加コマンドを取得します。
         /// </summary>
-        private const string _configFileName = @"test.xml";
-
-        #region グラフ状態の保存/読込
-        private DelegateCommand _newCommand;
-        /// <summary>
-        /// 新規作成コマンドを取得します。
-        /// </summary>
-        public DelegateCommand NewCommand
+        public DelegateCommand AddDataCommand
         {
             get
             {
-                return this._newCommand ?? (this._newCommand = new DelegateCommand(_ =>
+                return this._addDataCommand ?? (this._addDataCommand = new DelegateCommand(_ =>
                 {
-                    this.LineGraphSubViewModel = new LineGraphSubViewModel();
+                    var n = 1000;
+                    var rnd = new Random();
+                    var x = new double[n];
+                    var y = new double[n];
+                    var a = rnd.Next(0, 100);
+                    var f = rnd.Next(0, 100);
+                    var p = rnd.NextDouble() * Math.PI / 2.0;
+                    for (var i = 0; i < n; i++)
+                    {
+                        x[i] = (double)i;
+                        y[i] = a * Math.Sin(2.0 * Math.PI * f * i / 1000.0 + p) + 500.0;
+                    }
+                    this.LineGraphItemCollection.AddData("Data" + (this.LineGraphItemCollection.Count + 1).ToString(), x, y);
+
+                    LineGraphTrigger.ReDraw();
                 }));
             }
         }
+        #endregion データ追加
 
-        private DelegateCommand _saveCommand;
+        #region データクリア
+        private DelegateCommand _clearDataCommand;
         /// <summary>
-        /// ファイル保存コマンドを取得します。
+        /// データ追加コマンドを取得します。
         /// </summary>
-        public DelegateCommand SaveCommand
+        public DelegateCommand ClearDataCommand
         {
             get
             {
-                return this._saveCommand ?? (this._saveCommand = new DelegateCommand(_ =>
+                return this._clearDataCommand ?? (this._clearDataCommand = new DelegateCommand(_ =>
                 {
-                    this.LineGraphSubViewModel.SerializeByXamlWriter(_configFileName);
+                    this.LineGraphItemCollection.Clear();
+
+                    LineGraphTrigger.ReDraw();
                 }));
             }
         }
-
-        private DelegateCommand _loadCommand;
-        /// <summary>
-        /// ファイル読込コマンドを取得します。
-        /// </summary>
-        public DelegateCommand LoadCommand
-        {
-            get
-            {
-                return this._loadCommand ?? (this._loadCommand = new DelegateCommand(_ =>
-                {
-                    this.LineGraphSubViewModel = _configFileName.DeserializeByXamlReaderFromFile() as LineGraphSubViewModel;
-                },
-                _ => System.IO.File.Exists(_configFileName)));
-            }
-        }
-        #endregion グラフ状態の保存/読込
-
-        #region 画像保存
-        private DelegateCommand _saveImageCommand;
-        /// <summary>
-        /// 画像保存コマンドを取得します。
-        /// </summary>
-        public DelegateCommand SaveImageCommand
-        {
-            get
-            {
-                return this._saveImageCommand ?? (this._saveImageCommand = new DelegateCommand(_ =>
-                {
-                    SaveImageCommandCallback = this.OnSaveImage;
-                }));
-            }
-        }
-
-        private Action<object, bool?> _saveImageCommandCallback;
-        /// <summary>
-        /// 画像保存コールバック処理を取得または設定します。
-        /// </summary>
-        public Action<object, bool?> SaveImageCommandCallback
-        {
-            get { return this._saveImageCommandCallback; }
-            set { SetProperty(ref this._saveImageCommandCallback, value); }
-        }
-
-        /// <summary>
-        /// 画像保存のための処理をおこないます。
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="result"></param>
-        private void OnSaveImage(object obj, bool? result)
-        {
-            SaveImageCommandCallback = null;
-            var filePath = obj as string;
-            if (!string.IsNullOrWhiteSpace(filePath) && result.HasValue && result.Value)
-            {
-                BitmapFilePath = filePath;
-            }
-        }
-
-        private string _bitmapFilePath;
-        /// <summary>
-        /// 保存する画像のフルパスを取得または設定します。
-        /// </summary>
-        public string BitmapFilePath
-        {
-            get { return this._bitmapFilePath; }
-            set { SetProperty(ref this._bitmapFilePath, value); }
-        }
-        #endregion 画像保存
+        #endregion データクリア
     }
 }

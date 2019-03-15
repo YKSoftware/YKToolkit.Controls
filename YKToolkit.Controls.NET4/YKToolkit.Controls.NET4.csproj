@@ -22,6 +22,7 @@
     <DefineConstants>TRACE;DEBUG;NET4</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,6 +32,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\YKToolkit.Controls.xml</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Beta Release|AnyCPU'">
     <OutputPath>bin\Beta Release\</OutputPath>
@@ -41,6 +43,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Windows.Shell">
@@ -208,18 +211,75 @@
       <Link>ExtendedControls\FileTreeView\Generic.FileTreeView.xaml.cs</Link>
       <DependentUpon>Generic.FileTreeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\Generic.LineGraph.xaml.cs">
-      <Link>ExtendedControls\LineGraph\Generic.LineGraph.xaml.cs</Link>
-      <DependentUpon>Generic.LineGraph.xaml</DependentUpon>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\Componets\AxisSettings.cs">
+      <Link>ExtendedControls\LineGraph\Componets\AxisSettings.cs</Link>
     </Compile>
-    <Compile Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\LineGraphItem.cs">
-      <Link>ExtendedControls\LineGraph\LineGraphItem.cs</Link>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\Componets\GraphCursors.cs">
+      <Link>ExtendedControls\LineGraph\Componets\GraphCursors.cs</Link>
     </Compile>
-    <Compile Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\LineGraphLegendPanel.cs">
-      <Link>ExtendedControls\LineGraph\LineGraphLegendPanel.cs</Link>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\Componets\LegendPositions.cs">
+      <Link>ExtendedControls\LineGraph\Componets\LegendPositions.cs</Link>
     </Compile>
-    <Compile Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\LineGraphPanel.cs">
-      <Link>ExtendedControls\LineGraph\LineGraphPanel.cs</Link>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\Componets\LineGraphData.cs">
+      <Link>ExtendedControls\LineGraph\Componets\LineGraphData.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\Componets\LineGraphTrigger.cs">
+      <Link>ExtendedControls\LineGraph\Componets\LineGraphTrigger.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\Componets\OperationAxisModes.cs">
+      <Link>ExtendedControls\LineGraph\Componets\OperationAxisModes.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\LineGraph.cs">
+      <Link>ExtendedControls\LineGraph\LineGraph.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\LinegraphMenu.xaml.cs">
+      <Link>ExtendedControls\LineGraph\LinegraphMenu.xaml.cs</Link>
+      <DependentUpon>LinegraphMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\WriteableBitmapEx\BitmapContext.cs">
+      <Link>ExtendedControls\LineGraph\WriteableBitmapEx\BitmapContext.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\WriteableBitmapEx\BitmapFactory.cs">
+      <Link>ExtendedControls\LineGraph\WriteableBitmapEx\BitmapFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\WriteableBitmapEx\NativeMethods.cs">
+      <Link>ExtendedControls\LineGraph\WriteableBitmapEx\NativeMethods.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapAntialiasingExtensions.cs">
+      <Link>ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapAntialiasingExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapBaseExtensions.cs">
+      <Link>ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapBaseExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapBlitExtensions.cs">
+      <Link>ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapBlitExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapContextExtensions.cs">
+      <Link>ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapContextExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapConvertExtensions.cs">
+      <Link>ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapConvertExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapFillExtensions.cs">
+      <Link>ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapFillExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapFilterExtensions.cs">
+      <Link>ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapFilterExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapLineExtensions.cs">
+      <Link>ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapLineExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapShapeExtensions.cs">
+      <Link>ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapShapeExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapSplineExtensions.cs">
+      <Link>ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapSplineExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapStringExtensions.cs">
+      <Link>ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapStringExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapTransformationExtensions.cs">
+      <Link>ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapTransformationExtensions.cs</Link>
     </Compile>
     <Compile Include="..\YKToolkit.Controls\ExtendedControls\MessageBox\IDialogInfo.cs">
       <Link>ExtendedControls\MessageBox\IDialogInfo.cs</Link>
@@ -238,6 +298,9 @@
     </Compile>
     <Compile Include="..\YKToolkit.Controls\Helpers\Complex.cs">
       <Link>Helpers\Complex.cs</Link>
+    </Compile>
+    <Compile Include="..\YKToolkit.Controls\Helpers\Extensions\Extensions.cs">
+      <Link>Helpers\Extensions\Extensions.cs</Link>
     </Compile>
     <Compile Include="..\YKToolkit.Controls\Helpers\Extensions\FrameworkElementExtensions.cs">
       <Link>Helpers\Extensions\FrameworkElementExtensions.cs</Link>
@@ -327,8 +390,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\Generic.LineGraph.xaml">
-      <Link>ExtendedControls\LineGraph\Generic.LineGraph.xaml</Link>
+    <Page Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\LinegraphMenu.xaml">
+      <Link>ExtendedControls\LineGraph\LinegraphMenu.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

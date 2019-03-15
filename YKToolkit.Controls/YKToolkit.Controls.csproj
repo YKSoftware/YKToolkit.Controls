@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,6 +33,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\YKToolkit.Controls.xml</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Beta Release|AnyCPU'">
     <OutputPath>bin\Beta Release\</OutputPath>
@@ -42,6 +44,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>bin\Beta Release\YKToolkit.Controls.xml</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Beta Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -51,6 +54,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -73,11 +77,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExtendedControls\RadarChart\Generic.RadarChart.xaml">
+    <Page Include="ExtendedControls\LineGraph\LinegraphMenu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ExtendedControls\LineGraph\Generic.LineGraph.xaml">
+    <Page Include="ExtendedControls\RadarChart\Generic.RadarChart.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -289,11 +293,37 @@
     </Compile>
     <Compile Include="ExtendedControls\BinaryEditor\NumStyles.cs" />
     <Compile Include="ExtendedControls\FileTreeView\FileTreeViewItemMouseEventArgs.cs" />
+    <Compile Include="ExtendedControls\LineGraph\Componets\AxisSettings.cs" />
+    <Compile Include="ExtendedControls\LineGraph\Componets\GraphCursors.cs" />
+    <Compile Include="ExtendedControls\LineGraph\Componets\LegendPositions.cs" />
+    <Compile Include="ExtendedControls\LineGraph\Componets\LineGraphData.cs" />
+    <Compile Include="ExtendedControls\LineGraph\Componets\LineGraphTrigger.cs" />
+    <Compile Include="ExtendedControls\LineGraph\Componets\OperationAxisModes.cs" />
+    <Compile Include="ExtendedControls\LineGraph\LineGraph.cs" />
+    <Compile Include="ExtendedControls\LineGraph\LinegraphMenu.xaml.cs">
+      <DependentUpon>LinegraphMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExtendedControls\LineGraph\WriteableBitmapEx\BitmapContext.cs" />
+    <Compile Include="ExtendedControls\LineGraph\WriteableBitmapEx\BitmapFactory.cs" />
+    <Compile Include="ExtendedControls\LineGraph\WriteableBitmapEx\NativeMethods.cs" />
+    <Compile Include="ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapAntialiasingExtensions.cs" />
+    <Compile Include="ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapBaseExtensions.cs" />
+    <Compile Include="ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapBlitExtensions.cs" />
+    <Compile Include="ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapContextExtensions.cs" />
+    <Compile Include="ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapConvertExtensions.cs" />
+    <Compile Include="ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapFillExtensions.cs" />
+    <Compile Include="ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapFilterExtensions.cs" />
+    <Compile Include="ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapLineExtensions.cs" />
+    <Compile Include="ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapShapeExtensions.cs" />
+    <Compile Include="ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapSplineExtensions.cs" />
+    <Compile Include="ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapStringExtensions.cs" />
+    <Compile Include="ExtendedControls\LineGraph\WriteableBitmapEx\WriteableBitmapTransformationExtensions.cs" />
     <Compile Include="ExtendedControls\RadarChart\Generic.RadarChart.xaml.cs">
       <DependentUpon>Generic.RadarChart.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExtendedControls\FileTreeView\FileTreeViewItemDoubleClickEventArgs.cs" />
     <Compile Include="Helpers\Complex.cs" />
+    <Compile Include="Helpers\Extensions\Extensions.cs" />
     <Compile Include="Helpers\Extensions\FrameworkElementExtensions.cs" />
     <Compile Include="Helpers\Extensions\Linq.cs" />
     <Compile Include="Helpers\Math\Fourier.cs" />
@@ -302,9 +332,6 @@
     <Compile Include="Core\User32.cs" />
     <Compile Include="Bindings\DelegateCommand.cs" />
     <Compile Include="Bindings\NotificationObject.cs" />
-    <Compile Include="ExtendedControls\LineGraph\Generic.LineGraph.xaml.cs">
-      <DependentUpon>Generic.LineGraph.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ExtendedControls\FileTreeView\FileTreeViewItem.cs" />
     <Compile Include="ExtendedControls\FileTreeView\Generic.FileTreeView.xaml.cs">
       <DependentUpon>Generic.FileTreeView.xaml</DependentUpon>
@@ -321,9 +348,6 @@
     <Compile Include="ExtendedControls\DropDownButton\Generic.DropDownButton.xaml.cs">
       <DependentUpon>Generic.DropDownButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ExtendedControls\LineGraph\LineGraphItem.cs" />
-    <Compile Include="ExtendedControls\LineGraph\LineGraphLegendPanel.cs" />
-    <Compile Include="ExtendedControls\LineGraph\LineGraphPanel.cs" />
     <Compile Include="ExtendedControls\MessageBox\IDialogInfo.cs" />
     <Compile Include="ExtendedControls\SpinInput\Generic.SpinInput.xaml.cs">
       <DependentUpon>Generic.SpinInput.xaml</DependentUpon>
