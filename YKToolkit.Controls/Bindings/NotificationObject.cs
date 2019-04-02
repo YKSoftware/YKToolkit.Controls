@@ -1,6 +1,7 @@
 ﻿namespace YKToolkit.Bindings
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
 #if !NET4
     using System.Runtime.CompilerServices;
@@ -57,7 +58,7 @@
         protected bool SetProperty<T>(ref T target, T value, [CallerMemberName]string propertyName = null)
 #endif
         {
-            if (object.Equals(target, value))
+            if (EqualityComparer<T>.Default.Equals(target, value))
                 return false;
             target = value;
             RaisePropertyChanged(propertyName);
