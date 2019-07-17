@@ -407,7 +407,7 @@
 
             _dispatcher.BeginInvoke(new Action(() =>
             {
-                var dir = Path.GetDirectoryName(e.FullPath);
+                var dir = Path.GetDirectoryName(Kernel32.GetShortPath(e.FullPath));
                 var items = this.MainTree.ItemsSource as ObservableCollection<FileTreeViewItem>;
                 var item = items.FirstOrDefault(x => x.FullPath == dir);
                 if (item != null)
