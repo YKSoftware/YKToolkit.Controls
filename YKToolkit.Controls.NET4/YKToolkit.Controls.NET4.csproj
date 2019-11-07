@@ -214,6 +214,9 @@
       <Link>ExtendedControls\FileTreeView\Generic.FileTreeView.xaml.cs</Link>
       <DependentUpon>Generic.FileTreeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\FolderSelectDialog\FolderSelectDialog.cs">
+      <Link>ExtendedControls\FolderSelectDialog\FolderSelectDialog.cs</Link>
+    </Compile>
     <Compile Include="..\YKToolkit.Controls\ExtendedControls\LineGraph\Componets\AxisSettings.cs">
       <Link>ExtendedControls\LineGraph\Componets\AxisSettings.cs</Link>
     </Compile>

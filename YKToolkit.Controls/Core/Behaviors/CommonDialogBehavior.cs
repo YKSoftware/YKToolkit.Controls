@@ -23,6 +23,11 @@
             /// ファイル読込ダイアログ
             /// </summary>
             OpenFile,
+
+            /// <summary>
+            /// フォルダ選択ダイアログ
+            /// </summary>
+            FolderSelect,
         }
 
         /// <summary>
@@ -169,31 +174,44 @@
             if ((e.NewValue as Action<object, bool?>) != null)
             {
                 var callback = e.NewValue as Action<object, bool?>;
-                var type = GetDialogType(element);
-                var title = GetTitle(element);
-                var filename = GetFileName(element);
-                var filter = GetFileFilter(element);
-                var isMultiSelect = GetIsMultiSelect(element);
                 if (callback != null)
                 {
-                    if (type == DialogTypes.SaveFile)
+                    var owner = Window.GetWindow(target);
+                    var type = GetDialogType(element);
+                    var title = GetTitle(element);
+                    var filename = GetFileName(element);
+                    var filter = GetFileFilter(element);
+                    var isMultiSelect = GetIsMultiSelect(element);
+                    bool? result = null;
+
+                    switch (type)
                     {
-                        var dlg = new SaveFileDialog();
-                        dlg.Title = title;
-                        dlg.FileName = filename;
-                        dlg.Filter = filter;
-                        var result = dlg.ShowDialog(Window.GetWindow(element));
-                        callback(dlg.FileName, result);
-                    }
-                    else if (type == DialogTypes.OpenFile)
-                    {
-                        var dlg = new OpenFileDialog();
-                        dlg.Title = title;
-                        dlg.FileName = filename;
-                        dlg.Filter = filter;
-                        dlg.Multiselect = isMultiSelect;
-                        var result = dlg.ShowDialog(Window.GetWindow(element));
-                        callback(dlg.FileNames, result);
+                        case DialogTypes.SaveFile:
+                            var saveDialog = new SaveFileDialog();
+                            saveDialog.Title = title;
+                            saveDialog.FileName = filename;
+                            saveDialog.Filter = filter;
+                            result = saveDialog.ShowDialog(Window.GetWindow(element));
+                            callback(saveDialog.FileName, result);
+                            break;
+
+                        case DialogTypes.OpenFile:
+                            var openDialog = new OpenFileDialog();
+                            openDialog.Title = title;
+                            openDialog.FileName = filename;
+                            openDialog.Filter = filter;
+                            openDialog.Multiselect = isMultiSelect;
+                            result = openDialog.ShowDialog(Window.GetWindow(element));
+                            callback(openDialog.FileNames, result);
+                            break;
+
+                        case DialogTypes.FolderSelect:
+                            var selectDialog = new FolderSelectDialog();
+                            selectDialog.Title = title;
+                            selectDialog.Path = filename;
+                            result = selectDialog.ShowDialog(owner);
+                            callback(selectDialog.Path, result);
+                            break;
                     }
                 }
             }

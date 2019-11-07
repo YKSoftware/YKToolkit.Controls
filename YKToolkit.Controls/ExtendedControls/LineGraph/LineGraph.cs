@@ -1942,15 +1942,15 @@
             this._xCursor2TextBlock1.Visibility = Visibility.Collapsed;
             this._xCursor2TextBlock2.Visibility = Visibility.Collapsed;
 
-            // グラフカーソルのポインタ描画エリアをクリアする
-            this._cursorPointerBitmap.Clear(Colors.Transparent);
-
             if (!this.IsCursorEnabled)
                 return;
             if (this._cursorPointerImage == null)
                 return;
             if (this._cursorPointerBitmap == null)
                 return;
+
+            // グラフカーソルのポインタ描画エリアをクリアする
+            this._cursorPointerBitmap.Clear(Colors.Transparent);
 
             var color = (Color)this.FindResource("WindowBorderColor");
 
