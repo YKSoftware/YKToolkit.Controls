@@ -1361,10 +1361,12 @@
             // グラフ描画エリアをクリアする
             this._graphBitmap.Clear(Colors.Transparent);
 
-            var index = 0;
+            var index = -1;
             Color color;
             foreach (var graphData in this.GraphDataCollection)
             {
+                index++;
+
                 if (graphData.Visibility != Visibility.Visible) continue;
                 if (graphData.DataContext == null) graphData.DataContext = this.DataContext;
                 if ((graphData.XData == null) || (graphData.YData == null))
@@ -1579,8 +1581,6 @@
                 }
                 graphData.EndIndex = endIndex;
                 // graphData.StartIndex/EndIndex はグラフカーソル表示のために使用しています
-
-                index++;
             }   // end of foreach (var graphData in this.GraphDataCollection)
         }
 
