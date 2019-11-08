@@ -1,6 +1,7 @@
 ﻿namespace YKToolkit.Helpers
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Windows;
 
@@ -17,7 +18,7 @@
         /// </summary>
         /// <param name="source">フーリエ変換をおこなうデータ配列 (要素数は 2 の累乗であること)</param>
         /// <returns>フーリエ変換後のデータ配列</returns>
-        public static Complex[] FFT(this double[] source)
+        public static Complex[] FFT(this IEnumerable<double> source)
         {
             return FFT(source.Select(i => new Complex(i)).ToArray(), WindowFunctions.Rectangle);
         }
@@ -28,7 +29,7 @@
         /// <param name="source">フーリエ変換をおこなうデータ配列 (要素数は 2 の累乗であること)</param>
         /// <param name="windowFunction">窓関数を選択する</param>
         /// <returns>フーリエ変換後のデータ配列</returns>
-        public static Complex[] FFT(this double[] source, WindowFunctions windowFunction)
+        public static Complex[] FFT(this IEnumerable<double> source, WindowFunctions windowFunction)
         {
             return FFT(source.Select(i => new Complex(i)).ToArray(), windowFunction);
         }
@@ -38,7 +39,7 @@
         /// </summary>
         /// <param name="source">フーリエ変換をおこなうデータ配列 (要素数は 2 の累乗であること)</param>
         /// <returns>フーリエ変換後のデータ配列</returns>
-        public static Complex[] FFT(this Complex[] source)
+        public static Complex[] FFT(this IEnumerable<Complex> source)
         {
             return FFT(source, WindowFunctions.Rectangle);
         }
@@ -49,9 +50,10 @@
         /// <param name="source">フーリエ変換をおこなうデータ配列 (要素数は 2 の累乗であること)</param>
         /// <param name="windowFunction">窓関数を指定する (デフォルトは矩形窓)</param>
         /// <returns>フーリエ変換後のデータ配列</returns>
-        public static Complex[] FFT(this Complex[] source, WindowFunctions windowFunction)
+        public static Complex[] FFT(this IEnumerable<Complex> source, WindowFunctions windowFunction)
         {
-            int length = source != null ? source.Length : 0;
+            var array = source != null ? source.ToArray() : null;
+            int length = array != null ? array.Length : 0;
             if (length <= 0)
                 return null;
 
@@ -59,7 +61,7 @@
             if ((length & (length - 1)) != 0)
                 return null;
 
-            var data = source.Clone() as Complex[];
+            var data = array.Clone() as Complex[];
             var win = GetWindowFunction(windowFunction, length);
             for (int i = 0; i < length; i++)
             {
@@ -74,9 +76,10 @@
         /// </summary>
         /// <param name="source">フーリエ逆変換をおこなうデータ配列 (要素数は 2 の累乗であること)</param>
         /// <returns>フーリエ逆変換後のデータ配列</returns>
-        public static Complex[] IFFT(this Complex[] source)
+        public static Complex[] IFFT(this IEnumerable<Complex> source)
         {
-            int length = source != null ? source.Length : 0;
+            var array = source != null ? source.ToArray() : null;
+            int length = array != null ? array.Length : 0;
             if (length <= 0)
                 return null;
 
@@ -84,7 +87,7 @@
             if ((length & (length - 1)) != 0)
                 return null;
 
-            return FFTCalculation(source, true);
+            return FFTCalculation(array, true);
         }
         #endregion  公開メソッド
 
