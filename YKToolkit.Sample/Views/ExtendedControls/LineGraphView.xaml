@@ -22,10 +22,11 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Margin="0,10,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="Add Data" Width="80" Command="{Binding AddDataCommand}" />
-                <Button Content="Clear Data" Width="80" Margin="10,0,0,0" Command="{Binding ClearDataCommand}" />
-            </StackPanel>
+            <DockPanel Grid.Row="0" Grid.ColumnSpan="2" Margin="0,10,0,0" HorizontalAlignment="Center">
+                <Button DockPanel.Dock="Right" Content="Clear Data" Width="80" Command="{Binding ClearDataCommand}" />
+                <Button DockPanel.Dock="Top" Content="Add Data" Width="120" Margin="0,0,10,0" Command="{Binding AddDataCommand}" />
+                <Button Content="Add Moving Data" Width="120" Margin="0,10,10,0" Command="{Binding AddAnimationDataCommand}" />
+            </DockPanel>
 
             <DataGrid Grid.Row="1" Margin="10"
                       ItemsSource="{Binding LineGraphItemCollection}"

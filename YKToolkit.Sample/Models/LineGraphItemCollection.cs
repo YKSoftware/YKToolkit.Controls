@@ -12,9 +12,10 @@
         /// <param name="name">凡例に表示する文字列を指定します。</param>
         /// <param name="x">横軸データを指定します。</param>
         /// <param name="y">縦軸データを指定します。</param>
-        public void AddData(string name, double[] x, double[] y)
+        public void AddData(string name, double[] x, double[] y, bool isAnimation = false)
         {
             var item = new LineGraphData();
+            item.Tag = isAnimation;
             item.Legend = name;
             item.XData = x;
             item.YData = y;
