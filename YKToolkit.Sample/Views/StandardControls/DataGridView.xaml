@@ -31,7 +31,11 @@
                   CanUserAddRows="False"
                   CanUserDeleteRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="No." Binding="{Binding ID}" />
+                <DataGridTextColumn Binding="{Binding ID}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="No." TextAlignment="Center" />
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
                 <DataGridTextColumn Header="氏名" Binding="{Binding Name}" />
                 <DataGridCheckBoxColumn Header="適正" Binding="{Binding IsValid}" />
             </DataGrid.Columns>
