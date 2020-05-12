@@ -29,7 +29,7 @@
         /// イベントハンドラのデリゲートを表します。
         /// </summary>
         /// <param name="key">イベント引数</param>
-        public delegate void KeyboardHookCallback(User32.VKs key);
+        public delegate bool KeyboardHookCallback(User32.VKs key);
 
         #region イベント
 
@@ -117,7 +117,10 @@
                 }
 
                 if (h != null)
-                    h((User32.VKs)Marshal.ReadInt32(lParam));
+                {
+                    if (h((User32.VKs)Marshal.ReadInt32(lParam)))
+                        return new IntPtr(1);
+                }
             }
 
             return CallNextHookEx(this._hookID, nCode, wParam, lParam);

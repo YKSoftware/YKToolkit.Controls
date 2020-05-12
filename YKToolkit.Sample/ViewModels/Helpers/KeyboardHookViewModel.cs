@@ -41,14 +41,16 @@
             this._keyboardHook.UnHook();
         }
 
-        private void OnKeyDown(User32.VKs key)
+        private bool OnKeyDown(User32.VKs key)
         {
             this.Message = key.ToString() + " Down";
+            return false;
         }
 
-        private void OnKeyUp(User32.VKs key)
+        private bool OnKeyUp(User32.VKs key)
         {
             this.Message = key.ToString() + " Up";
+            return false;
         }
     }
 }
