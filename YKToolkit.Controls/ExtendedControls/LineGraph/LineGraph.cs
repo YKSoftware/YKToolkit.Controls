@@ -357,6 +357,35 @@
 
         #endregion IsLegendEnabled プロパティ
 
+        #region IsContextMenuEnabled プロパティ
+
+        /// <summary>
+        /// グラフのコンテキストメニューの表示を bool 型の依存関係プロパティとして定義します。
+        /// </summary>
+        public static readonly DependencyProperty IsContextMenuEnabledProperty = DependencyProperty.Register("IsContextMenuEnabled", typeof(bool), typeof(LineGraph), new UIPropertyMetadata(true, OnIsContextMenuEnabledPropertyChanged));
+
+        /// <summary>
+        /// グラフのコンテキストメニューの表示を取得または設定します。
+        /// </summary>
+        public bool IsContextMenuEnabled
+        {
+            get { return (bool)GetValue(IsContextMenuEnabledProperty); }
+            set { SetValue(IsContextMenuEnabledProperty, value); }
+        }
+
+        /// <summary>
+        /// IsContextMenuEnabled プロパティ値変更イベントハンドラ
+        /// </summary>
+        /// <param name="d">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private static void OnIsContextMenuEnabledPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var graph = d as LineGraph;
+            graph._container.ContextMenu = graph.IsContextMenuEnabled ? graph._contextMenu : null;
+        }
+
+        #endregion IsContextMenuEnabled プロパティ
+
         #region LegendPosition プロパティ
 
         /// <summary>
@@ -778,18 +807,21 @@
 
             this.Y2AxisSettings.GridLabelVisibility = Visibility.Collapsed;
 
+            // デザインモードのときは実行しない
+            if (DesignerProperties.GetIsInDesignMode(this) == false)
+            {
+                // 再描画コマンド受付
+                LineGraphTrigger.Instance.DrawCommandReceived += OnDrawCommandReceived;
 
-            // 再描画コマンド受付
-            LineGraphTrigger.Instance.DrawCommandReceived += OnDrawCommandReceived;
+                this.Loaded += OnLoaded;
+                this.SizeChanged += OnSizeChanged;
+                this._container.MouseLeftButtonDown += OnMouseLeftButtonDown;
+                this._container.MouseLeftButtonUp += OnMouseLeftButtonUp;
+                this._container.MouseMove += OnMouseMove;
+                this._container.KeyDown += OnContainerKeyDown;
 
-            this.Loaded += OnLoaded;
-            this.SizeChanged += OnSizeChanged;
-            this._container.MouseLeftButtonDown += OnMouseLeftButtonDown;
-            this._container.MouseLeftButtonUp += OnMouseLeftButtonUp;
-            this._container.MouseMove += OnMouseMove;
-            this._container.KeyDown += OnContainerKeyDown;
-
-            YKToolkit.Controls.ThemeManager.Instance.ThemeChanged += OnThemeChanged;
+                YKToolkit.Controls.ThemeManager.Instance.ThemeChanged += OnThemeChanged;
+            }
         }
 
         /// <summary>
