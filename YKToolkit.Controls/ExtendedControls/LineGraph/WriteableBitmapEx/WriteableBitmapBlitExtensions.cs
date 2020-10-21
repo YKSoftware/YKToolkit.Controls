@@ -131,14 +131,12 @@ namespace System.Windows.Media.Imaging
             {
                 return;
             }
-
-            var isPrgba = source.Format == PixelFormats.Pbgra32 || source.Format == PixelFormats.Prgba64 || source.Format == PixelFormats.Prgba128Float;
-
             var dw = (int)destRect.Width;
             var dh = (int)destRect.Height;
 
             using (var srcContext = source.GetBitmapContext(ReadWriteMode.ReadOnly))
             {
+                var isPrgba = srcContext.Format == PixelFormats.Pbgra32 || srcContext.Format == PixelFormats.Prgba64 || srcContext.Format == PixelFormats.Prgba128Float;
                 using (var destContext = bmp.GetBitmapContext())
                 {
                     var sourceWidth = srcContext.Width;

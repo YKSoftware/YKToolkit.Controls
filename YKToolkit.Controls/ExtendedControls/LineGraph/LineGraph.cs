@@ -966,6 +966,14 @@
             }
         }
 
+        /// <summary>
+        /// リソースを破棄します。
+        /// </summary>
+        public void Dispose()
+        {
+            this._lineGraphMenu.Close();
+        }
+
         #region 座標変換ヘルパ
 
         /// <summary>

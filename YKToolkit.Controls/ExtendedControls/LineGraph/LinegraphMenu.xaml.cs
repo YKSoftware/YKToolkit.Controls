@@ -13,6 +13,14 @@
         public LinegraphMenu()
         {
             InitializeComponent();
+
+            this.Closing += (_, e) => e.Cancel = this.HasClosed;
+            this.Closed += (_, __) => this.HasClosed = true;
         }
+
+        /// <summary>
+        /// 既に閉じているかどうかを取得します。
+        /// </summary>
+        public bool HasClosed { get; private set; }
     }
 }
