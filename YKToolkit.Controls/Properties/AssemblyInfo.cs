@@ -18,4 +18,4 @@ using System.Windows;
 [assembly: ComVisible(false)]
 [assembly:ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
 
-[assembly: AssemblyVersion("2.3.5.3")]
+[assembly: AssemblyVersion("2.3.6.0")]

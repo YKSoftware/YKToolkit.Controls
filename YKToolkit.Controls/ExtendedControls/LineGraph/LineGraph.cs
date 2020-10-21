@@ -2816,9 +2816,9 @@
             if (this._operationAxisMode >= OperationAxisModes.ZoomX)
                 return;
 
-            var offsetX = ScreenDistanceToXAxisDistance(screenX);
-            var offsetY = ScreenDistanceToYAxisDistance(screenY);
-            var offsetY2 = ScreenDistanceToY2AxisDistance(screenY);
+            var offsetX = Math.Round(ScreenDistanceToXAxisDistance(screenX) / this.XAxisSettings.MinorStep, MidpointRounding.AwayFromZero) * this.XAxisSettings.MinorStep;
+            var offsetY = Math.Round(ScreenDistanceToYAxisDistance(screenY) / this.YAxisSettings.MinorStep, MidpointRounding.AwayFromZero) * this.YAxisSettings.MinorStep;
+            var offsetY2 = Math.Round(ScreenDistanceToY2AxisDistance(screenY) / this.Y2AxisSettings.MinorStep, MidpointRounding.AwayFromZero) * this.Y2AxisSettings.MinorStep;
 
             if ((this._operationAxisMode == OperationAxisModes.MoveX) ||
                 (this._operationAxisMode == OperationAxisModes.MoveXY) ||
