@@ -90,6 +90,7 @@
             if (callback == null)
                 return;
 
+            var files = e.Data.GetData(DataFormats.FileDrop);
             // ドラッグ＆ドロップの処理は OLE に渡される。
             // OLE はターゲットとソースの両方を扱うので別スレッドで動作する。
             // このため、ドロップ処理で発生する例外は OLE の管轄になるが、
@@ -98,11 +99,14 @@
             // これを防ぐため、例外が発生した場合は UI スレッドに非同期で渡すようにする。
             // ちなみに Invoke() メソッドだと例外情報は渡せない模様。謎。
             // とにかく Drop イベントハンドラから抜けないとダメらしい。
-            Dispatcher.CurrentDispatcher.BeginInvoke((Action)(() =>
+            if (files != null)
             {
-                callback(e.Data.GetData(DataFormats.FileDrop) as string[]);
-            }));
-            e.Handled = true;
+                Dispatcher.CurrentDispatcher.BeginInvoke((Action<string[]>)(p =>
+                {
+                    callback(p);
+                }), files);
+                e.Handled = true;
+            }
         }
     }
 }

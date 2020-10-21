@@ -831,9 +831,14 @@
         /// <param name="e">イベント引数</param>
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
+            this.Loaded -= OnLoaded;
+
+            // デザインモードのときは実行しない
+            if (DesignerProperties.GetIsInDesignMode(this))
+                return;
+
             var w = Window.GetWindow(this);
             w.Closed += (_, __) => this._lineGraphMenu.Close();
-            this.Loaded -= OnLoaded;
         }
 
         /// <summary>
