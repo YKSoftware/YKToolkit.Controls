@@ -544,6 +544,39 @@
 
         #endregion DrawKey プロパティ
 
+        #region HorizontalSelectionArea プロパティ
+
+        /// <summary>
+        /// グラフの横軸に対する選択領域を Point 型の依存関係プロパティとして定義します。
+        /// </summary>
+        private static readonly DependencyProperty HorizontalSelectionAreaProperty = DependencyProperty.Register("HorizontalSelectionArea", typeof(Point), typeof(LineGraph), new UIPropertyMetadata(new Point(double.NaN, double.NaN), OnHorizontalSelectionAreaPropertyChanged));
+
+        /// <summary>
+        /// グラフの横軸に対する選択領域を取得または設定します。
+        /// </summary>
+        public Point HorizontalSelectionArea
+        {
+            get { return (Point)GetValue(HorizontalSelectionAreaProperty); }
+            set { SetValue(HorizontalSelectionAreaProperty, value); }
+        }
+
+        /// <summary>
+        /// HorizontalSelectionArea プロパティ値変更イベントハンドラ
+        /// </summary>
+        /// <param name="d">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private static void OnHorizontalSelectionAreaPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var graph = d as LineGraph;
+            if (graph.IsLoaded)
+            {
+                graph._shouldUpdate_GridBitmap = true;
+                graph.UpdateRendering();
+            }
+        }
+
+        #endregion HorizontalSelectionArea プロパティ
+
         #region 初期化
 
         /// <summary>
@@ -781,6 +814,17 @@
 
             #endregion グラフカーソル関連
 
+            #region グラフに対する選択領域関連
+
+            this._horizontalSelectionRectangle = new Rectangle() { Fill = new SolidColorBrush(), Width = 2, HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top, Focusable = true };
+            this._horizontalSelectionRectangleLeft = new Rectangle() { Fill = new SolidColorBrush(), Width = 2, HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top, Focusable = true, Cursor = Cursors.SizeWE };
+            this._horizontalSelectionRectangleRight = new Rectangle() { Fill = new SolidColorBrush(), Width = 2, HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top, Focusable = true, Cursor = Cursors.SizeWE };
+            this._container.Children.Add(this._horizontalSelectionRectangle);
+            this._container.Children.Add(this._horizontalSelectionRectangleLeft);
+            this._container.Children.Add(this._horizontalSelectionRectangleRight);
+
+            #endregion グラフに対する選択領域関連
+
             #region 凡例関連
 
             this._legendCanvas = new Canvas();
@@ -932,6 +976,7 @@
             if (this._shouldUpdate_GridBitmap)
             {
                 UpdateRendering_GridBitmap();
+                UpdateRendering_HorizontalSelectionArea();
                 this._shouldUpdate_GridBitmap = false;
             }
 
@@ -1370,6 +1415,64 @@
         }
 
         #endregion グラフ描画エリアの枠線と目盛線
+
+        #region グラフに対する選択領域
+
+        private Rectangle _horizontalSelectionRectangle;
+        private Rectangle _horizontalSelectionRectangleLeft;
+        private Rectangle _horizontalSelectionRectangleRight;
+
+        /// <summary>
+        /// グラフの横軸に対する選択領域の描画をおこないます。
+        /// </summary>
+        private void UpdateRendering_HorizontalSelectionArea()
+        {
+            this._horizontalSelectionRectangle.Visibility = Visibility.Collapsed;
+            this._horizontalSelectionRectangleLeft.Visibility = Visibility.Collapsed;
+            this._horizontalSelectionRectangleRight.Visibility = Visibility.Collapsed;
+
+            var pt = this.HorizontalSelectionArea;
+            if (double.IsNaN(pt.X) || double.IsNaN(pt.Y))
+                return;
+
+            var color = (Color)this.FindResource("WindowBorderColor");
+            color.A = 0x80;
+            (this._horizontalSelectionRectangle.Fill as SolidColorBrush).Color = color;
+            color.A = 0xff;
+            (this._horizontalSelectionRectangleLeft.Fill as SolidColorBrush).Color = color;
+            (this._horizontalSelectionRectangleRight.Fill as SolidColorBrush).Color = color;
+
+            var isLeftEnabled = (this.XAxisSettings.Minimum <= pt.X) && (pt.X <= this.XAxisSettings.Maximum);
+            var isRightEnabled = (this.XAxisSettings.Minimum <= pt.Y) && (pt.Y <= this.XAxisSettings.Maximum);
+            var topLeft = new Point(this._graphArea.Left + (isLeftEnabled ? XAxisToScreen(pt.X) : 0), this._graphArea.Top + this.GraphAreaBorderThickness.Top);
+            var bottomRight = new Point(isRightEnabled ? this._graphArea.Left + XAxisToScreen(pt.Y) : this._graphArea.Right, this._graphArea.Bottom - this.GraphAreaBorderThickness.Bottom);
+            var height = this._graphArea.Height - this.GraphAreaBorderThickness.Top - this.GraphAreaBorderThickness.Bottom;
+            if (height < 0) height = 0;
+
+            if (isLeftEnabled || isRightEnabled)
+            {
+                this._horizontalSelectionRectangle.Width = bottomRight.X - topLeft.X;
+                this._horizontalSelectionRectangle.Height = height;
+                this._horizontalSelectionRectangle.Margin = new Thickness(topLeft.X, topLeft.Y, 0, 0);
+                this._horizontalSelectionRectangle.Visibility = Visibility.Visible;
+            }
+
+            if (isLeftEnabled)
+            {
+                this._horizontalSelectionRectangleLeft.Height = height;
+                this._horizontalSelectionRectangleLeft.Margin = new Thickness(topLeft.X, topLeft.Y, 0, 0);
+                this._horizontalSelectionRectangleLeft.Visibility = Visibility.Visible;
+            }
+
+            if (isRightEnabled)
+            {
+                this._horizontalSelectionRectangleRight.Height = height;
+                this._horizontalSelectionRectangleRight.Margin = new Thickness(bottomRight.X, topLeft.Y, 0, 0);
+                this._horizontalSelectionRectangleRight.Visibility = Visibility.Visible;
+            }
+        }
+
+        #endregion グラフに対する選択領域
 
         #region グラフデータ
 
