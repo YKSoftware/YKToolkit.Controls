@@ -1509,6 +1509,9 @@
             // グラフ描画エリアをクリアする
             this._graphBitmap.Clear(Colors.Transparent);
 
+            if (this.GraphDataCollection == null)
+                return;
+
             var index = -1;
             Color color;
             foreach (var graphData in this.GraphDataCollection)
