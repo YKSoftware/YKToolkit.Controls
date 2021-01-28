@@ -30,6 +30,10 @@
           </Setter>
         </Style>
     </YK:Window.Resources>
+    <YK:Window.InputBindings>
+        <KeyBinding Key="Enter" Command="{Binding ConfigApplyCommand}" />
+        <KeyBinding Key="Escape" Command="{Binding ConfigOkCommand}" />
+    </YK:Window.InputBindings>
 
     <DockPanel>
         <StackPanel Margin="20,10" HorizontalAlignment="Right" DockPanel.Dock="Bottom" Orientation="Horizontal">
