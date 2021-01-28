@@ -241,6 +241,24 @@
 
         #endregion GraphTitle プロパティ
 
+        #region GraphTitleFontSize プロパティ
+
+        /// <summary>
+        /// グラフタイトルのフォントサイズを double 型の依存関係プロパティとして定義します。
+        /// </summary>
+        public static readonly DependencyProperty GraphTitleFontSizeProperty = DependencyProperty.Register("GraphTitleFontSize", typeof(double), typeof(LineGraph), new UIPropertyMetadata(16.0));
+
+        /// <summary>
+        /// グラフタイトルのフォントサイズを取得または設定します。
+        /// </summary>
+        public double GraphTitleFontSize
+        {
+            get { return (double)GetValue(GraphTitleFontSizeProperty); }
+            set { SetValue(GraphTitleFontSizeProperty, value); }
+        }
+
+        #endregion GraphTitleFontSize プロパティ
+
         #region XAxisSettings プロパティ
 
         /// <summary>
@@ -1186,6 +1204,11 @@
             this._yAxisTitle.Text = this.YAxisSettings.Title;
             this._y2AxisTitle.Text = this.Y2AxisSettings.Title;
 
+            this._graphTitle.FontSize = this.GraphTitleFontSize;
+            this._xAxisTitle.FontSize = this.XAxisSettings.TitleFontSize;
+            this._yAxisTitle.FontSize = this.YAxisSettings.TitleFontSize;
+            this._y2AxisTitle.FontSize = this.Y2AxisSettings.TitleFontSize;
+
             var ptGrid = new Point(this.XAxisSettings.Minimum, this.YAxisSettings.Minimum);
             var pt2Grid = new Point(this.XAxisSettings.Minimum, this.Y2AxisSettings.Minimum);
             var xAxisLavelMaxHeight = 0.0;
@@ -1197,6 +1220,9 @@
                 ptGrid.X = this.XAxisSettings.Minimum + i * this.XAxisSettings.MajorStep;
                 ptGrid.Y = this.YAxisSettings.Minimum + i * this.YAxisSettings.MajorStep;
                 pt2Grid.Y = this.Y2AxisSettings.Minimum + i * this.Y2AxisSettings.MajorStep;
+                this._xAxisLabels[i].FontSize = this.XAxisSettings.FontSize;
+                this._yAxisLabels[i].FontSize = this.YAxisSettings.FontSize;
+                this._y2AxisLabels[i].FontSize = this.Y2AxisSettings.FontSize;
                 this._xAxisLabels[i].Text = ptGrid.X.ToString(this.XAxisSettings.StringFormat);
                 this._yAxisLabels[i].Text = ptGrid.Y.ToString(this.YAxisSettings.StringFormat);
                 this._y2AxisLabels[i].Text = pt2Grid.Y.ToString(this.Y2AxisSettings.StringFormat);

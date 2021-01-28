@@ -21,6 +21,14 @@
            WindowStartupLocation="CenterOwner">
     <YK:Window.Resources>
         <c:BooleanInverseConverter x:Key="BooleanInverseConverter" />
+
+        <Style TargetType="{x:Type TextBlock}">
+          <Setter Property="Foreground">
+            <Setter.Value>
+              <SolidColorBrush Color="{DynamicResource ForegroundColor}" />
+            </Setter.Value>
+          </Setter>
+        </Style>
     </YK:Window.Resources>
 
     <DockPanel>
@@ -32,19 +40,28 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto" CanContentScroll="False">
             <StackPanel>
                 <Grid Margin="6,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Column="0" Text="グラフタイトル：" VerticalAlignment="Center" />
-                    <TextBox Grid.Column="1" Text="{Binding GraphTitle}" />
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="グラフタイトル：" VerticalAlignment="Center" />
+                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding GraphTitle}" />
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="フォントサイズ：" TextAlignment="Right" />
+                    <YK:SpinInput Grid.Row="1" Grid.Column="1" Margin="0,2" Minimum="4" Value="{Binding GraphTitleFontSize}" />
                 </Grid>
 
                 <Separator Margin="2,8,2,4" />
                 <TextBlock Text="横軸" Margin="6,0" />
                 <Grid Margin="10,0">
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -85,12 +102,20 @@
 
                     <TextBlock Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" Text="表示形式：" TextAlignment="Right" />
                     <TextBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,2" Text="{Binding XAxisSettings.StringFormat}" />
+
+                    <TextBlock Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" Text="タイトルフォントサイズ：" TextAlignment="Right" />
+                    <YK:SpinInput Grid.Row="8" Grid.Column="2" Margin="0,2" Minimum="4" Value="{Binding XAxisSettings.TitleFontSize}" />
+
+                    <TextBlock Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" Text="軸ラベルフォントサイズ：" TextAlignment="Right" />
+                    <YK:SpinInput Grid.Row="9" Grid.Column="2" Margin="0,2" Minimum="4" Value="{Binding XAxisSettings.FontSize}" />
                 </Grid>
 
                 <Separator Margin="2,8,2,4" />
                 <TextBlock Text="縦軸" Margin="6,0" />
                 <Grid Margin="10,0">
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -131,12 +156,20 @@
 
                     <TextBlock Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" Text="表示形式：" TextAlignment="Right" />
                     <TextBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,2" Text="{Binding YAxisSettings.StringFormat}" />
+
+                    <TextBlock Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" Text="タイトルフォントサイズ：" TextAlignment="Right" />
+                    <YK:SpinInput Grid.Row="8" Grid.Column="2" Margin="0,2" Minimum="4" Value="{Binding YAxisSettings.TitleFontSize}" />
+
+                    <TextBlock Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" Text="軸ラベルフォントサイズ：" TextAlignment="Right" />
+                    <YK:SpinInput Grid.Row="9" Grid.Column="2" Margin="0,2" Minimum="4" Value="{Binding YAxisSettings.FontSize}" />
                 </Grid>
 
                 <Separator Margin="2,8,2,4" />
                 <TextBlock Text="第 2 主軸" Margin="6,0" />
                 <Grid Margin="10,0">
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -177,6 +210,12 @@
 
                     <TextBlock Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" Text="表示形式：" TextAlignment="Right" />
                     <TextBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,2" Text="{Binding Y2AxisSettings.StringFormat}" />
+
+                    <TextBlock Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" Text="タイトルフォントサイズ：" TextAlignment="Right" />
+                    <YK:SpinInput Grid.Row="8" Grid.Column="2" Margin="0,2" Minimum="4" Value="{Binding Y2AxisSettings.TitleFontSize}" />
+
+                    <TextBlock Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" Text="軸ラベルフォントサイズ：" TextAlignment="Right" />
+                    <YK:SpinInput Grid.Row="9" Grid.Column="2" Margin="0,2" Minimum="4" Value="{Binding Y2AxisSettings.FontSize}" />
                 </Grid>
 
                 <Separator Margin="2,8,2,4" />
