@@ -87,6 +87,12 @@
         <Setter Property="AlternatingRowBackground" Value="Transparent" />
         <Setter Property="AlternationCount" Value="1" />
         <Setter Property="RowDetailsVisibilityMode" Value="VisibleWhenSelected" />
+        <Setter Property="AutoGenerateColumns" Value="False" />
+        <Setter Property="CanUserAddRows" Value="False" />
+        <Setter Property="CanUserDeleteRows" Value="False" />
+        <Setter Property="CanUserReorderColumns" Value="False" />
+        <Setter Property="CanUserResizeRows" Value="False" />
+        <Setter Property="CanUserSortColumns" Value="False" />
         <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
         <Setter Property="ScrollViewer.PanningMode" Value="Both" />
         <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
@@ -320,6 +326,11 @@
 
     <!-- 行ヘッダの Style -->
     <Style TargetType="DataGridRowHeader">
+        <Setter Property="Foreground">
+          <Setter.Value>
+            <SolidColorBrush Color="{DynamicResource ForegroundColor}" />
+          </Setter.Value>
+        </Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="DataGridRowHeader">
@@ -457,6 +468,11 @@
 
     <!-- 列ヘッダの Style-->
     <Style TargetType="DataGridColumnHeader">
+        <Setter Property="Foreground">
+          <Setter.Value>
+            <SolidColorBrush Color="{DynamicResource ForegroundColor}" />
+          </Setter.Value>
+        </Setter>
         <Setter Property="Background">
             <Setter.Value>
                 <SolidColorBrush Color="{DynamicResource DataGridHeaderColor}" />
@@ -563,6 +579,11 @@
     <!-- セルの Style -->
     <Style TargetType="DataGridCell">
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Foreground">
+          <Setter.Value>
+            <SolidColorBrush Color="{DynamicResource ForegroundColor}" />
+          </Setter.Value>
+        </Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="DataGridCell">

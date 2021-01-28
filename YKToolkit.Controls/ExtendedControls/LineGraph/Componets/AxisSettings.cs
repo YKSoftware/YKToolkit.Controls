@@ -130,6 +130,26 @@
             set { SetProperty(ref this._stringFormat, value); }
         }
 
+        private double _titleFontSize = 16.0;
+        /// <summary>
+        /// タイトルのフォントサイズを取得または設定します。
+        /// </summary>
+        public double TitleFontSize
+        {
+            get { return this._titleFontSize; }
+            set { SetProperty(ref this._titleFontSize, value); }
+        }
+
+        private double _fontSize = 16.0;
+        /// <summary>
+        /// フォントサイズを取得または設定します。
+        /// </summary>
+        public double FontSize
+        {
+            get { return this._fontSize; }
+            set { SetProperty(ref this._fontSize, value); }
+        }
+
         /// <summary>
         /// 軸の設定範囲を取得します。
         /// </summary>
@@ -168,6 +188,8 @@
                 IsMinorGridEnabled = this.IsMinorGridEnabled,
                 GridLabelVisibility = this.GridLabelVisibility,
                 StringFormat = this.StringFormat,
+                TitleFontSize = this.TitleFontSize,
+                FontSize = this.FontSize,
             };
         }
     }

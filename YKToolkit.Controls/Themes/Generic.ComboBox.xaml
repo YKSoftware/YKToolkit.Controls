@@ -129,6 +129,11 @@
     <Style TargetType="{x:Type ComboBoxItem}">
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
+    <Setter Property="Foreground">
+      <Setter.Value>
+        <SolidColorBrush Color="{DynamicResource ForegroundColor}" />
+      </Setter.Value>
+    </Setter>
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Template">
             <Setter.Value>
