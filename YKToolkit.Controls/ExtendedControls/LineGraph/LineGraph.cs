@@ -742,7 +742,8 @@
 
             this._allAutoScalingMenu = new MenuItem() { Header = "全自動", Command = AutoScalingCommand };
             this._onlyYAxisScalingMenu = new MenuItem() { Header = "縦軸のみ", Command = OnlyYAxisScalingCommand };
-            this._yStepFixedAutoScalingMenu = new MenuItem() { Header = "縦軸目盛間隔固定", Command = YStepFixedAutoScalingCommand };
+            this._yStepFixedAutoScalingMenu = new MenuItem() { Header = "縦軸目盛間隔固定", Command = YStepFixedAutoScalingCommand, CommandParameter = false };
+            this._onlyYStepFixedAutoScalingMenu = new MenuItem() { Header = "目盛間隔固定（縦軸のみ）", Command = YStepFixedAutoScalingCommand, CommandParameter = true };
             this._autoScalingMenu = new MenuItem()
             {
                 Header = "表示範囲自動設定",
@@ -751,6 +752,7 @@
                     this._allAutoScalingMenu,
                     this._onlyYAxisScalingMenu,
                     this._yStepFixedAutoScalingMenu,
+                    this._onlyYStepFixedAutoScalingMenu,
                 },
             };
 
@@ -2490,6 +2492,7 @@
         private MenuItem _allAutoScalingMenu;
         private MenuItem _onlyYAxisScalingMenu;
         private MenuItem _yStepFixedAutoScalingMenu;
+        private MenuItem _onlyYStepFixedAutoScalingMenu;
 
         /// <summary>
         /// 画像保存メニュー
@@ -3314,50 +3317,73 @@
         {
             get
             {
-                return this._yStepFixedAutoScalingCommand ?? (this._yStepFixedAutoScalingCommand = new DelegateCommand(_ =>
+                return this._yStepFixedAutoScalingCommand ?? (this._yStepFixedAutoScalingCommand = new DelegateCommand(p =>
                 {
                     var count = this.GraphDataCollection.Count();
                     if (count < 1) return;
 
-                    // 横軸設定
-                    if (this.GraphDataCollection.Any(x => x.Visibility == Visibility.Visible))
-                    {
-                        var xData = this.GraphDataCollection.Select(x => x.XData);
-                        if (!xData.Any(x => (x != null) && (x.Length > 0))) return;
-                        xData = xData.Where(x => x.Length > 0);
-                        this.XAxisSettings.Minimum = xData.Min(x => x.Min());
-                        this.XAxisSettings.Maximum = xData.Max(x => x.Max());
-                        this.XAxisSettings.MajorStep = (this.XAxisSettings.Maximum - this.XAxisSettings.Minimum) / (AxisSettings.DefaultGridLines + 1);
-                        this.XAxisSettings.MinorStep = this.XAxisSettings.MajorStep / 2;
-                    }
+                    var isOnlyY = (bool)p;
 
-                    // 縦軸設定
-                    if (this.GraphDataCollection.Any(x => (x.Visibility == Visibility.Visible) && !x.IsY2))
+                    // 横軸設定
+                    if (isOnlyY == false)
                     {
-                        var yData = this.GraphDataCollection.Where(x => (x.Visibility == Visibility.Visible) && !x.IsY2).Select(x => x.YData);
-                        if (yData.Any(x => (x != null) && (x.Length > 0)))
+                        if (this.GraphDataCollection.Any(x => x.Visibility == Visibility.Visible))
                         {
-                            yData = yData.Where(x => x.Length > 0);
-                            var ymin = yData.Min(x => x.Min());
-                            var ymax = yData.Max(x => x.Max());
-                            var yMiddle = ((ymax + ymin) / 2).MRound(this.YAxisSettings.MajorStep);
-                            this.YAxisSettings.Minimum = yMiddle - 5 * this.YAxisSettings.MajorStep;
-                            this.YAxisSettings.Maximum = yMiddle + 5 * this.YAxisSettings.MajorStep;
+                            var xData = this.GraphDataCollection.Where(x => x.XData != null).Select(x => x.XData);
+                            if (!xData.Any(x => (x != null) && (x.Length > 0))) return;
+                            xData = xData.Where(x => x.Length > 0);
+                            this.XAxisSettings.Minimum = xData.Min(x => x.Min());
+                            this.XAxisSettings.Maximum = xData.Max(x => x.Max());
+                            this.XAxisSettings.MajorStep = (this.XAxisSettings.Maximum - this.XAxisSettings.Minimum) / (AxisSettings.DefaultGridLines + 1);
+                            this.XAxisSettings.MinorStep = this.XAxisSettings.MajorStep / 2;
                         }
                     }
 
-                    // 第2主軸設定
-                    if (this.GraphDataCollection.Any(x => (x.Visibility == Visibility.Visible) && x.IsY2))
+                    // 縦軸設定
+                    if (this.GraphDataCollection.Any(x => (x.Visibility == Visibility.Visible) && (x.YData != null) && !x.IsY2))
                     {
-                        var yData = this.GraphDataCollection.Where(x => (x.Visibility == Visibility.Visible) && x.IsY2).Select(x => x.YData);
+                        var yData = this.GraphDataCollection.Where(x => (x.Visibility == Visibility.Visible) && (x.YData != null) && !x.IsY2).Select(x => x.YData);
                         if (yData.Any(x => (x != null) && (x.Length > 0)))
                         {
-                            yData = yData.Where(x => x.Length > 0);
+                            yData = yData.Where(x => x.Length > 0).Select(x => x.Skip((this.XAxisSettings.Minimum < 0) ? 0 : (int)this.XAxisSettings.Minimum).Take((int)(this.XAxisSettings.Maximum - this.XAxisSettings.Minimum + 1)).ToArray());
+                            var ymin = yData.Min(x => x.Min());
+                            var ymax = yData.Max(x => x.Max());
+                            var yMiddle = ((ymax + ymin) / 2).MRound(this.YAxisSettings.MajorStep);
+                            var min = yMiddle - 5 * this.YAxisSettings.MajorStep;
+                            var max = min + 10 * this.YAxisSettings.MajorStep;
+                            if ((ymin < min) || (max < ymax))
+                            {
+                                var value = yData.Last().Last();
+                                yMiddle = value.MRound(this.YAxisSettings.MajorStep);
+                                min = yMiddle - 5 * this.YAxisSettings.MajorStep;
+                                max = min + 10 * this.YAxisSettings.MajorStep;
+                            }
+                            this.YAxisSettings.Minimum = min;
+                            this.YAxisSettings.Maximum = max;
+                        }
+                    }
+
+                    // 第 2 主軸設定
+                    if (this.GraphDataCollection.Any(x => (x.Visibility == Visibility.Visible) && (x.YData != null) && x.IsY2))
+                    {
+                        var yData = this.GraphDataCollection.Where(x => (x.Visibility == Visibility.Visible) && (x.YData != null) && x.IsY2).Select(x => x.YData);
+                        if (yData.Any(x => (x != null) && (x.Length > 0)))
+                        {
+                            yData = yData.Where(x => x.Length > 0).Select(x => x.Skip((this.XAxisSettings.Minimum < 0) ? 0 : (int)this.XAxisSettings.Minimum).Take((int)(this.XAxisSettings.Maximum - this.XAxisSettings.Minimum + 1)).ToArray());
                             var ymin = yData.Min(x => x.Min());
                             var ymax = yData.Max(x => x.Max());
                             var yMiddle = ((ymax + ymin) / 2).MRound(this.Y2AxisSettings.MajorStep);
-                            this.Y2AxisSettings.Minimum = yMiddle - 5 * this.Y2AxisSettings.MajorStep;
-                            this.Y2AxisSettings.Maximum = yMiddle + 5 * this.Y2AxisSettings.MajorStep;
+                            var min = yMiddle - 5 * this.Y2AxisSettings.MajorStep;
+                            var max = min + 10 * this.Y2AxisSettings.MajorStep;
+                            if ((ymin < min) || (max < ymax))
+                            {
+                                var value = yData.Last().Last();
+                                yMiddle = value.MRound(this.Y2AxisSettings.MajorStep);
+                                min = yMiddle - 5 * this.Y2AxisSettings.MajorStep;
+                                max = min + 10 * this.Y2AxisSettings.MajorStep;
+                            }
+                            this.Y2AxisSettings.Minimum = min;
+                            this.Y2AxisSettings.Maximum = max;
                         }
                     }
 
