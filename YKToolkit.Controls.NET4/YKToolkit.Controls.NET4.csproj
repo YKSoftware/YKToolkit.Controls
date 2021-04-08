@@ -184,6 +184,9 @@
       <Link>ExtendedControls\BusyIndicator\Generic.BusyIndicator.xaml.cs</Link>
       <DependentUpon>Generic.BusyIndicator.xaml</DependentUpon>
     </Compile>
+    <Compile Include="..\YKToolkit.Controls\ExtendedControls\ColorMap\ColorMap.cs">
+      <Link>ExtendedControls\ColorMap\ColorMap.cs</Link>
+    </Compile>
     <Compile Include="..\YKToolkit.Controls\ExtendedControls\ColorPicker\ColorPickerItem.cs">
       <Link>ExtendedControls\ColorPicker\ColorPickerItem.cs</Link>
     </Compile>

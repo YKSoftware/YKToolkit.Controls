@@ -162,6 +162,7 @@
                             {
                                 new ViewModelInfo() { Name = "BinaryEditor", Instance = this._binaryEditorViewModel, },
                                 new ViewModelInfo() { Name = "BusyIndicator", Instance = this._busyIndicatorViewModel, },
+                                new ViewModelInfo() { Name = "ColorMap", Instance = this._colorMapViewModel, },
                                 new ViewModelInfo() { Name = "ColorPicker", Instance = this._colorPickerViewModel, },
                                 new ViewModelInfo() { Name = "DropDownButton", Instance = this._dropDownButtonViewModel, },
                                 new ViewModelInfo() { Name = "FileTreeView", Instance = this._fileTreeViewViewModel, },
@@ -220,6 +221,7 @@
 
         private BinaryEditorViewModel _binaryEditorViewModel = new BinaryEditorViewModel();
         private BusyIndicatorViewModel _busyIndicatorViewModel = new BusyIndicatorViewModel();
+        private ColorMapViewModel _colorMapViewModel = new ColorMapViewModel();
         private ColorPickerViewModel _colorPickerViewModel = new ColorPickerViewModel();
         private DropDownButtonViewModel _dropDownButtonViewModel = new DropDownButtonViewModel();
         private FileTreeViewViewModel _fileTreeViewViewModel = new FileTreeViewViewModel();

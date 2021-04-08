@@ -296,6 +296,7 @@
       <DependentUpon>Generic.BinaryEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExtendedControls\BinaryEditor\NumStyles.cs" />
+    <Compile Include="ExtendedControls\ColorMap\ColorMap.cs" />
     <Compile Include="ExtendedControls\FileTreeView\FileTreeViewItemMouseEventArgs.cs" />
     <Compile Include="ExtendedControls\FolderSelectDialog\FolderSelectDialog.cs" />
     <Compile Include="ExtendedControls\LineGraph\Componets\AxisSettings.cs" />

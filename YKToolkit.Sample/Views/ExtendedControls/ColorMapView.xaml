@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="YKToolkit.Sample.Views.ColorMapView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:YK="clr-namespace:YKToolkit.Controls;assembly=YKToolkit.Controls"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+  <Grid>
+    <YK:ColorMap GraphTitle="グラフタイトル">
+      <YK:ColorMap.XData>
+        <x:Array Type="{x:Type sys:Double}">
+          <sys:Double>0</sys:Double>
+          <sys:Double>1</sys:Double>
+          <sys:Double>2</sys:Double>
+          <sys:Double>3</sys:Double>
+          <sys:Double>4</sys:Double>
+        </x:Array>
+      </YK:ColorMap.XData>
+      <YK:ColorMap.YData>
+        <x:Array Type="{x:Type sys:Double}">
+          <sys:Double>0</sys:Double>
+          <sys:Double>1</sys:Double>
+          <sys:Double>2</sys:Double>
+          <sys:Double>3</sys:Double>
+          <sys:Double>4</sys:Double>
+        </x:Array>
+      </YK:ColorMap.YData>
+      <YK:ColorMap.ZData>
+        <x:Array Type="{x:Type sys:Double}">
+          <sys:Double>0</sys:Double>
+          <sys:Double>1</sys:Double>
+          <sys:Double>2</sys:Double>
+          <sys:Double>3</sys:Double>
+          <sys:Double>4</sys:Double>
+        </x:Array>
+      </YK:ColorMap.ZData>
+    </YK:ColorMap>
+  </Grid>
+</UserControl>
