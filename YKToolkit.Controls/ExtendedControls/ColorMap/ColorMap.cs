@@ -353,23 +353,28 @@
         {
             var colorMap = d as ColorMap;
 
-#if NET4
-#else
             if (e.OldValue != null)
             {
                 if (e.OldValue is INotifyCollectionChanged)
                 {
+#if NET4
+                    (e.OldValue as INotifyCollectionChanged).CollectionChanged -= colorMap.OnCollectionChanged;
+#else
                     CollectionChangedEventManager.RemoveHandler(e.OldValue as INotifyCollectionChanged, colorMap.OnCollectionChanged);
+#endif
                 }
             }
             if (e.NewValue != null)
             {
                 if (e.NewValue is INotifyCollectionChanged)
                 {
+#if NET4
+                    (e.OldValue as INotifyCollectionChanged).CollectionChanged += colorMap.OnCollectionChanged;
+#else
                     CollectionChangedEventManager.AddHandler(e.NewValue as INotifyCollectionChanged, colorMap.OnCollectionChanged);
+#endif
                 }
             }
-#endif
 
             colorMap.UpdateRendering_GraphBitmap();
         }
