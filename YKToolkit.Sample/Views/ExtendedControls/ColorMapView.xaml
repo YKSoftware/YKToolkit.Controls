@@ -8,67 +8,6 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
   <Grid>
-    <YK:ColorMap GraphTitle="グラフタイトル" Minimum="0" Maximum="500">
-      <YK:ColorMap.XData>
-        <x:Array Type="{x:Type sys:Double}">
-          <sys:Double>0</sys:Double>
-          <sys:Double>0</sys:Double>
-          <sys:Double>0</sys:Double>
-          <sys:Double>0</sys:Double>
-          <sys:Double>100</sys:Double>
-          <sys:Double>100</sys:Double>
-          <sys:Double>100</sys:Double>
-          <sys:Double>100</sys:Double>
-          <sys:Double>200</sys:Double>
-          <sys:Double>200</sys:Double>
-          <sys:Double>200</sys:Double>
-          <sys:Double>200</sys:Double>
-          <sys:Double>400</sys:Double>
-          <sys:Double>400</sys:Double>
-          <sys:Double>400</sys:Double>
-          <sys:Double>400</sys:Double>
-        </x:Array>
-      </YK:ColorMap.XData>
-      <YK:ColorMap.YData>
-        <x:Array Type="{x:Type sys:Double}">
-          <sys:Double>0</sys:Double>
-          <sys:Double>100</sys:Double>
-          <sys:Double>200</sys:Double>
-          <sys:Double>300</sys:Double>
-          <sys:Double>0</sys:Double>
-          <sys:Double>100</sys:Double>
-          <sys:Double>200</sys:Double>
-          <sys:Double>300</sys:Double>
-          <sys:Double>0</sys:Double>
-          <sys:Double>100</sys:Double>
-          <sys:Double>200</sys:Double>
-          <sys:Double>300</sys:Double>
-          <sys:Double>0</sys:Double>
-          <sys:Double>100</sys:Double>
-          <sys:Double>200</sys:Double>
-          <sys:Double>300</sys:Double>
-        </x:Array>
-      </YK:ColorMap.YData>
-      <YK:ColorMap.ZData>
-        <x:Array Type="{x:Type sys:Double}">
-          <sys:Double>100</sys:Double>
-          <sys:Double>200</sys:Double>
-          <sys:Double>300</sys:Double>
-          <sys:Double>400</sys:Double>
-          <sys:Double>100</sys:Double>
-          <sys:Double>200</sys:Double>
-          <sys:Double>300</sys:Double>
-          <sys:Double>400</sys:Double>
-          <sys:Double>100</sys:Double>
-          <sys:Double>200</sys:Double>
-          <sys:Double>300</sys:Double>
-          <sys:Double>400</sys:Double>
-          <sys:Double>100</sys:Double>
-          <sys:Double>200</sys:Double>
-          <sys:Double>300</sys:Double>
-          <sys:Double>400</sys:Double>
-        </x:Array>
-      </YK:ColorMap.ZData>
-    </YK:ColorMap>
+    <YK:ColorMap GraphTitle="グラフタイトル" XData="{Binding XData}" YData="{Binding YData}" ZData="{Binding ZData}" Minimum="0" Maximum="500" />
   </Grid>
 </UserControl>
