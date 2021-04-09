@@ -434,6 +434,7 @@
             // インスタンス化
             this._container = new Grid()
             {
+                Background = new SolidColorBrush((Color)this.FindResource("WindowColor")),
                 Children =
                 {
                     this._gridImage,
@@ -475,6 +476,7 @@
             #endregion デザインモードのときは実行しない
 
 
+            YKToolkit.Controls.ThemeManager.Instance.ThemeChanged += OnThemeChanged;
         }
 
         /// <summary>
@@ -509,6 +511,25 @@
         /// <param name="e">イベント引数</param>
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
+            InitWriteableBitmap();
+        }
+
+        /// <summary>
+        /// テーマ変更イベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private void OnThemeChanged(object sender, EventArgs e)
+        {
+            if (this._gridBitmap == null)
+                return;
+
+            var brush = new SolidColorBrush((Color)this.FindResource("ForegroundColor"));
+            if (brush.CanFreeze) brush.Freeze();
+            TextBlock.SetForeground(this, brush);
+            (this._container.Background as SolidColorBrush).Color = (Color)this.FindResource("WindowColor");
+
+            // ここは時間かかってもいいから初期化してしまえ
             InitWriteableBitmap();
         }
 
