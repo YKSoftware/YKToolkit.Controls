@@ -8,7 +8,7 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
   <Grid>
-    <YK:ColorMap GraphTitle="グラフタイトル">
+    <YK:ColorMap GraphTitle="グラフタイトル" Minimum="0" Maximum="500">
       <YK:ColorMap.XData>
         <x:Array Type="{x:Type sys:Double}">
           <sys:Double>0</sys:Double>
