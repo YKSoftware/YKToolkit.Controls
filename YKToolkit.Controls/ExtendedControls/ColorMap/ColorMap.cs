@@ -70,6 +70,42 @@
 
         #endregion ZData プロパティ
 
+        #region Maximum プロパティ
+
+        /// <summary>
+        /// 最大値を double 型の依存関係プロパティとして定義します。
+        /// </summary>
+        public static readonly DependencyProperty MaximumProperty = DependencyProperty.Register("Maximum", typeof(double), typeof(ColorMap), new UIPropertyMetadata(1.0, OnGraphDataPropertyChanged));
+
+        /// <summary>
+        /// 最大値を取得または設定します。
+        /// </summary>
+        public double Maximum
+        {
+            get { return (double)GetValue(MaximumProperty); }
+            set { SetValue(MaximumProperty, value); }
+        }
+
+        #endregion Maximum プロパティ
+
+        #region Minimum プロパティ
+
+        /// <summary>
+        /// 最小値を double 型の依存関係プロパティとして定義します。
+        /// </summary>
+        public static readonly DependencyProperty MinimumProperty = DependencyProperty.Register("Minimum", typeof(double), typeof(ColorMap), new UIPropertyMetadata(0.0, OnGraphDataPropertyChanged));
+
+        /// <summary>
+        /// 最小値を取得または設定します。
+        /// </summary>
+        public double Minimum
+        {
+            get { return (double)GetValue(MinimumProperty); }
+            set { SetValue(MinimumProperty, value); }
+        }
+
+        #endregion Minimum プロパティ
+
         #region GraphTitle プロパティ
 
         /// <summary>
@@ -715,10 +751,7 @@
                     var x2 = XAxisToScreen(right);
                     var y1 = YAxisToScreen(top);
                     var y2 = YAxisToScreen(bottom);
-                    byte r = (byte)(((int)data.Z & 0x00ff0000) >> 16);
-                    byte g = (byte)(((int)data.Z & 0x0000ff00) >>  8);
-                    byte b = (byte)(((int)data.Z & 0x000000ff) >>  0);
-                    this._graphBitmap.FillRectangle(x1, y1, x2, y2, Color.FromRgb(50, g, b));
+                    this._graphBitmap.FillRectangle(x1, y1, x2, y2, ZValueToColor(data.Z));
                     k++;
                 }
                 j++;
@@ -790,6 +823,21 @@
         private int YAxisToScreen(double value)
         {
             return (int)(this._graphArea.Height - (value - this.YAxisSettings.Minimum) * this._graphArea.Height / this.YAxisSettings.Range);
+        }
+
+        /// <summary>
+        /// 3 次元データを色情報に変換します。
+        /// </summary>
+        /// <param name="value">変換する 3 次元データを指定します。</param>
+        /// <returns>色情報を返します。</returns>
+        private Color ZValueToColor(double value)
+        {
+            byte percent;
+            if (value <= this.Minimum) percent = 0;
+            else if (value >= this.Maximum) percent = 255;
+            else percent = (byte)Math.Round(value * 255 / (this.Maximum - this.Minimum), MidpointRounding.AwayFromZero);
+
+            return Color.FromRgb(255, (byte)(255 - percent), 0);
         }
 
         private Grid _container;
