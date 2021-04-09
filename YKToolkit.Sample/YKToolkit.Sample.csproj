@@ -76,6 +76,7 @@
     <Compile Include="Models\ProductInfo.cs" />
     <Compile Include="Models\ViewModelInfo.cs" />
     <Compile Include="ViewModels\ExtendedControls\BinaryEditorViewModel.cs" />
+    <Compile Include="ViewModels\ExtendedControls\ColorMapViewModel.cs" />
     <Compile Include="ViewModels\ExtendedControls\RadarChartViewModel.cs" />
     <Compile Include="ViewModels\Helpers\AdornerViewModel.cs" />
     <Compile Include="ViewModels\Helpers\KeyboardHookViewModel.cs" />
@@ -117,6 +118,9 @@
     <Compile Include="Views\Debug\ItemDragBehavior.cs" />
     <Compile Include="Views\ExtendedControls\BinaryEditorView.xaml.cs">
       <DependentUpon>BinaryEditorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExtendedControls\ColorMapView.xaml.cs">
+      <DependentUpon>ColorMapView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ExtendedControls\RadarChartView.xaml.cs">
       <DependentUpon>RadarChartView.xaml</DependentUpon>
@@ -237,6 +241,10 @@
     <Page Include="Views\ExtendedControls\BinaryEditorView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ExtendedControls\ColorMapView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ExtendedControls\RadarChartView.xaml">
       <Generator>MSBuild:Compile</Generator>

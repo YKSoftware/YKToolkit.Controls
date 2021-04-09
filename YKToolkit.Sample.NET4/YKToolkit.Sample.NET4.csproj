@@ -101,6 +101,9 @@
     <Compile Include="..\YKToolkit.Sample\ViewModels\ExtendedControls\BusyIndicatorViewModel.cs">
       <Link>ViewModels\ExtendedControls\BusyIndicatorViewModel.cs</Link>
     </Compile>
+    <Compile Include="..\YKToolkit.Sample\ViewModels\ExtendedControls\ColorMapViewModel.cs">
+      <Link>ViewModels\ExtendedControls\ColorMapViewModel.cs</Link>
+    </Compile>
     <Compile Include="..\YKToolkit.Sample\ViewModels\ExtendedControls\ColorPickerViewModel.cs">
       <Link>ViewModels\ExtendedControls\ColorPickerViewModel.cs</Link>
     </Compile>
@@ -223,6 +226,10 @@
     <Compile Include="..\YKToolkit.Sample\Views\ExtendedControls\BusyIndicatorView.xaml.cs">
       <Link>Views\ExtendedControls\BusyIndicatorView.xaml.cs</Link>
       <DependentUpon>BusyIndicatorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\YKToolkit.Sample\Views\ExtendedControls\ColorMapView.xaml.cs">
+      <Link>Views\ExtendedControls\ColorMapView.xaml.cs</Link>
+      <DependentUpon>ColorMapView.xaml</DependentUpon>
     </Compile>
     <Compile Include="..\YKToolkit.Sample\Views\ExtendedControls\ColorPickerView.xaml.cs">
       <Link>Views\ExtendedControls\ColorPickerView.xaml.cs</Link>
@@ -407,6 +414,11 @@
     </Page>
     <Page Include="..\YKToolkit.Sample\Views\ExtendedControls\BusyIndicatorView.xaml">
       <Link>Views\ExtendedControls\BusyIndicatorView.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\YKToolkit.Sample\Views\ExtendedControls\ColorMapView.xaml">
+      <Link>Views\ExtendedControls\ColorMapView.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
