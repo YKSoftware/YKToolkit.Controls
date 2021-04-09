@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.ComponentModel;
+    using System.Linq;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Media;
@@ -379,12 +380,33 @@
             colorMap.UpdateRendering_GraphBitmap();
         }
 
+        /// <summary>
+        /// グラフデータ関連の依存関係プロパティ変更イベントハンドラです。
+        /// </summary>
+        /// <param name="d">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private static void OnGraphDataPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var colorMap = d as ColorMap;
+            colorMap.UpdateRendering_GraphBitmap();
+        }
+
         public ColorMap()
         {
             #region メインコンテナの初期化
 
             // インスタンス化
-            this._container = new Grid();
+            this._container = new Grid()
+            {
+                Children =
+                {
+                    this._gridImage,
+                    this._graphImage,
+                    this._graphTitle,
+                    this._xAxisTitle,
+                    this._yAxisTitle,
+                },
+            };
 
             // 子要素の事前準備
             var width = this.RenderSize.Width - this.GraphAreaMargin.Left - this.GraphAreaMargin.Right;
@@ -526,23 +548,6 @@
             if (this._gridBitmap == null) return;
             this._gridBitmap.Clear();
 
-            if (this.IsLoaded == false) return;
-
-
-        }
-
-        /// <summary>
-        /// グラフを描画します。
-        /// </summary>
-        private void UpdateRendering_GraphBitmap()
-        {
-            if (this._graphBitmap == null) return;
-            this._graphBitmap.Clear();
-
-            //if (this.IsLoaded == false) return;
-            if (this.XData == null) return;
-            if (this.YData == null) return;
-
             // グラフタイトル、軸タイトル、軸ラベルのテキストすべてをここで確定する
 
             this._graphTitle.Text = this.GraphTitle;
@@ -665,6 +670,60 @@
             this._gridBitmap.DrawLineAa(0, (int)(this.GraphAreaBorderThickness.Top / 2), (int)this._graphArea.Width, (int)(this.GraphAreaBorderThickness.Top / 2), this.GraphAreaBorderColor, (int)this.GraphAreaBorderThickness.Top);
             this._gridBitmap.DrawLineAa((int)(this._graphArea.Width - this.GraphAreaBorderThickness.Right / 2), 0, (int)(this._graphArea.Width - this.GraphAreaBorderThickness.Right / 2), (int)this._graphArea.Height, this.GraphAreaBorderColor, (int)this.GraphAreaBorderThickness.Right);
             this._gridBitmap.DrawLineAa(0, (int)(this._graphArea.Height - this.GraphAreaBorderThickness.Bottom / 2), (int)this._graphArea.Width, (int)(this._graphArea.Height - this.GraphAreaBorderThickness.Bottom / 2), this.GraphAreaBorderColor, (int)this.GraphAreaBorderThickness.Bottom);
+        }
+
+        /// <summary>
+        /// グラフを描画します。
+        /// </summary>
+        private void UpdateRendering_GraphBitmap()
+        {
+            if (this._graphBitmap == null) return;
+            this._graphBitmap.Clear();
+
+            if (this.XData == null) return;
+            if (this.YData == null) return;
+            if (this.ZData == null) return;
+            if (this.XData.Any() == false) return;
+            if (this.YData.Any() == false) return;
+            if (this.ZData.Any() == false) return;
+            // Zip() 拡張メソッドを使用することで長さが一番短いシーケンスに自動調整される
+            var graphData = this.XData.Zip(this.YData, (x, y) => new { X = x, Y = y }).Zip(this.ZData, (d, z) => new { X = d.X, Y = d.Y, Z = z }).OrderBy(d => d.X).ThenBy(d => d.Y).ToArray();
+            // シーケンスの長さが変わっているかもしれないので
+            // 以降は this.XData, YData, ZData は使わないほうが良い
+            var dXs_temp1 = graphData.Select(d => d.X).Distinct().OrderBy(x => x);
+            var dXs_temp2 = dXs_temp1.Skip(1);
+            var dXs = dXs_temp2.Zip(dXs_temp1, (a, b) => (a - b) / 2.0).ToArray();
+            var dYs_temp1 = graphData.Select(d => d.Y).Distinct().OrderBy(x => x);
+            var dYs_temp2 = dYs_temp1.Skip(1);
+            var dYs = dYs_temp2.Zip(dYs_temp1, (a, b) => (a - b) / 2.0).ToArray();
+
+            // X, Y の順で照準に並べ替えたものに対して、
+            // X でグルーピングしてから順に data として取り出すことで
+            // (x0, y0), (x0, y1), …, (x1, y0), (x1, y1), … という順序で処理できる。
+            // 差分ベクトル dXs, dYs の順序と整合性を取りながら処理できる。
+            int j = 0;
+            int k = 0;
+            foreach (var groupX in graphData.GroupBy(d => d.X))
+            {
+                foreach (var data in groupX)
+                {
+                    var left   =         (j == 0) ? data.X          : data.X - dXs[j - 1];
+                    var right  = (j < dXs.Length) ? data.X + dXs[j] : data.X;
+                    var top    = (k < dYs.Length) ? data.Y + dYs[k] : data.Y;
+                    var bottom =         (k == 0) ? data.Y          : data.Y - dYs[k - 1];
+                    var x1 = XAxisToScreen(left);
+                    var x2 = XAxisToScreen(right);
+                    var y1 = YAxisToScreen(top);
+                    var y2 = YAxisToScreen(bottom);
+                    byte r = (byte)(((int)data.Z & 0x00ff0000) >> 16);
+                    byte g = (byte)(((int)data.Z & 0x0000ff00) >>  8);
+                    byte b = (byte)(((int)data.Z & 0x000000ff) >>  0);
+                    this._graphBitmap.FillRectangle(x1, y1, x2, y2, Color.FromRgb(50, g, b));
+                    k++;
+                }
+                j++;
+                k = 0;
+            }
         }
 
         private double SetXAxisLabelVisibility(TextBlock textBlock, double value)
