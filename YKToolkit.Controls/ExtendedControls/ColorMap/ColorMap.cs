@@ -427,6 +427,9 @@
             colorMap.UpdateRendering_GraphBitmap();
         }
 
+        /// <summary>
+        /// 新しいインスタンスを生成します。
+        /// </summary>
         public ColorMap()
         {
             #region メインコンテナの初期化
@@ -474,7 +477,6 @@
             }
 
             #endregion デザインモードのときは実行しない
-
 
             YKToolkit.Controls.ThemeManager.Instance.ThemeChanged += OnThemeChanged;
         }
