@@ -402,7 +402,7 @@
                             <Setter Property="ResizeMode" Value="NoResize" />
                         </Trigger>
                         <Trigger Property="WindowState" Value="Maximized">
-                            <Setter TargetName="PART_MainBorder" Property="Padding" Value="4" />
+                            <Setter TargetName="PART_MainBorder" Property="Padding" Value="8" />
                         </Trigger>
                         <Trigger Property="WindowState" Value="Maximized">
                             <Setter TargetName="PART_MaximizeButton" Property="Visibility" Value="Collapsed" />
