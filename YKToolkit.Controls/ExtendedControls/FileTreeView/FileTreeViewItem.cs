@@ -5,7 +5,6 @@
     using System.Collections.ObjectModel;
     using System.IO;
     using System.Linq;
-    using System.Threading.Tasks;
     using System.Windows.Threading;
     using YKToolkit.Bindings;
 
@@ -110,65 +109,46 @@
                     {
                         // 展開されて初めて下層の実体を取得しにいく
                         this.Children = new ObservableCollection<FileTreeViewItem>();
-                        //var children = new Collection<FileTreeViewItem>();
+
                         var currentDir = new DirectoryInfo(this.FullPath);
                         try
                         {
-                            var dirsInfo = currentDir.GetDirectories();
-                            foreach (var dirInfo in dirsInfo)
+                            currentDir.GetDirectories().ToList().ForEach(dirInfo =>
                             {
                                 try
                                 {
                                     dirInfo.GetAccessControl();
-                                    Task.Factory.StartNew(() =>
-                                    {
-                                        return new FileTreeViewItem(dirInfo.FullName, _searchPattern, _isFileEnabled);
-                                    }).ContinueWith(t =>
-                                    {
-                                        AddChild(t.Result);
-                                    }, TaskScheduler.FromCurrentSynchronizationContext());
+                                    AddChild(new FileTreeViewItem(dirInfo.FullName, _searchPattern, _isFileEnabled));
                                 }
                                 catch (Exception err)
                                 {
                                     System.Diagnostics.Debug.WriteLine(err);
                                 }
-                            }
+                            });
+
                             if (_isFileEnabled)
                             {
-                                // ここはもっと効率良くして速度を向上させるべき
-                                string[] patterns = null;
-                                if (string.IsNullOrWhiteSpace(_searchPattern))
-                                {
-                                    patterns = new string[] { "*.*" };
-                                }
-                                else
-                                {
-                                    patterns = _searchPattern.Split(';').Select(x => x.Trim().ToLower()).ToArray();
-                                }
-                                foreach (var pattern in patterns)
-                                {
-                                    var filesInfo = currentDir.GetFiles(pattern);
-                                    foreach (var fileInfo in filesInfo)
-                                    {
-                                        try
-                                        {
-                                            //fileInfo.GetAccessControl();
-                                            Task.Factory.StartNew(() =>
-                                            {
-                                                return new FileTreeViewItem(fileInfo.FullName, _searchPattern, _isFileEnabled);
-                                            }).ContinueWith(t =>
-                                            {
-                                                AddChild(t.Result);
-                                            }, TaskScheduler.FromCurrentSynchronizationContext());
-                                        }
-                                        catch (Exception err)
-                                        {
-                                            System.Diagnostics.Debug.WriteLine(err);
-                                        }
-                                    }
-                                }
+                                string[] patterns = string.IsNullOrWhiteSpace(_searchPattern) ?
+                                                    new string[] { "*.*" } :
+                                                    _searchPattern.Split(';').Select(x => x.Trim().ToLower()).ToArray();
+
+                                patterns.SelectMany(pattern => currentDir.GetFiles(pattern))
+                                        .Select(fileInfo =>
+                                         {
+                                             try
+                                             {
+                                                 return new FileTreeViewItem(fileInfo.FullName, _searchPattern, _isFileEnabled);
+                                             }
+                                             catch (Exception err)
+                                             {
+                                                 System.Diagnostics.Debug.WriteLine(err);
+                                                 return null;
+                                             }
+                                         })
+                                        .Where(x => x != null)
+                                        .ToList()
+                                        .ForEach(x => AddChild(x));
                             }
-                            //this.Children = new ObservableCollection<FileTreeViewItem>(children.OrderBy(x => x.Name).ToArray());
                         }
                         catch
                         {
@@ -245,7 +225,7 @@
 
         private void AddChild(FileTreeViewItem item)
         {
-            if (this._tempChildren == null) this._tempChildren = new ObservableCollection<FileTreeViewItem>();
+            if (this._tempChildren == null) this._tempChildren = new Collection<FileTreeViewItem>();
             this._tempChildren.Add(item);
 
             // 非同期で何度もコールされるので
@@ -258,6 +238,7 @@
                 };
                 this._timer.Tick += OnTimerTick;
             }
+            this._timer.Stop();
             this._timer.Start();
         }
 
@@ -273,7 +254,7 @@
 
         private DispatcherTimer _timer;
 
-        private ObservableCollection<FileTreeViewItem> _tempChildren;
+        private Collection<FileTreeViewItem> _tempChildren;
 
         /// <summary>
         /// ファイル検索のための検索パターン

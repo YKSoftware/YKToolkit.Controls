@@ -72,6 +72,8 @@
         public FileTreeView()
         {
             this._dispatcher = Dispatcher.CurrentDispatcher;
+
+            this.Loaded += OnLoaded;
         }
         #endregion コンストラクタ
 
@@ -101,7 +103,7 @@
         /// <summary>
         /// SearchPattern 依存関係プロパティ
         /// </summary>
-        public static readonly DependencyProperty SearchPatternProperty = DependencyProperty.Register("SearchPattern", typeof(string), typeof(FileTreeView), new PropertyMetadata(null, OnSearchPatternPropertyChanged));
+        public static readonly DependencyProperty SearchPatternProperty = DependencyProperty.Register("SearchPattern", typeof(string), typeof(FileTreeView), new PropertyMetadata("", OnSearchPatternPropertyChanged));
 
         /// <summary>
         /// ファイル検索のための検索パターンを取得または設定します。
@@ -161,7 +163,7 @@
         /// <summary>
         /// RootPath 依存関係プロパティの定義
         /// </summary>
-        public static readonly DependencyProperty RootPathProperty = DependencyProperty.Register("RootPath", typeof(string), typeof(FileTreeView), new PropertyMetadata(null, OnRootPathPropertyChanged));
+        public static readonly DependencyProperty RootPathProperty = DependencyProperty.Register("RootPath", typeof(string), typeof(FileTreeView), new PropertyMetadata("", OnRootPathPropertyChanged));
 
         /// <summary>
         /// ルートノードのパスを取得または設定します。
@@ -229,6 +231,16 @@
 
         #region イベントハンドラ
         /// <summary>
+        /// Loaded イベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            Initilization();
+        }
+
+        /// <summary>
         /// MainTree SelectedItemChanged イベントハンドラ
         /// </summary>
         /// <param name="sender">イベント発行元</param>
@@ -295,11 +307,15 @@
             if (this.MainTree == null)
                 return;
 
+            if (this.IsLoaded == false)
+                return;
+
             var w = Window.GetWindow(this);
             if (w == null)
                 return;
 
             // とりあえず全クリア
+            this.MainTree.ItemsSource = null;
             this._rootCollection.Clear();
 
             // ノード確定
